@@ -6,6 +6,6 @@
   </head>
   
   <body>
-    ${lis.name}
+    ${list.name}
   </body>
 </html>
