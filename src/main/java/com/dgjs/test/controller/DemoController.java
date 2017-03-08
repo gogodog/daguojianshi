@@ -22,7 +22,7 @@ public class DemoController {
 	@RequestMapping("/go")
 	public String go(HttpServletRequest request,Model model){
 		List<Map<String,Object>> list = sysRightDao.selectqxByUUID("");
-		model.addAttribute("list", list.get(0));
+		model.addAttribute("list", list.get(0).toString());
 		return "test";
 	}
 }
