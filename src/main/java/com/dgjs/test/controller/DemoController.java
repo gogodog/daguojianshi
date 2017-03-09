@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.dgjs.test.dao.SysRightDao;
@@ -50,4 +51,12 @@ public class DemoController {
 		jso.put("页面带过来的参数", msg);
 		return jso;
 	}
+	
+	@RequestMapping(value="/freemaker")   
+    public ModelAndView getFirstPage() {  
+        ModelAndView mv = new ModelAndView(); 
+        mv.setViewName("test"); 
+        mv.addObject("name", "this is freemaker test!!!");  
+        return mv;  
+    }
 }
