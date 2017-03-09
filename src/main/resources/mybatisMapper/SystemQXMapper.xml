@@ -29,7 +29,7 @@
         	and b.name like #{name,jdbcType=VARCHAR}
       	</if>
   		<if test="uuid != null">
-        	and b.uuid != #{uuid,jdbcType=VARCHAR}
+        	and b.uuid = #{uuid,jdbcType=VARCHAR}
       	</if>
 	limit 0,15
   </select>

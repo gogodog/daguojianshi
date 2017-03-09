@@ -24,7 +24,6 @@ public class SysRightDaoImpl implements SysRightDao{
 	private SystemQXMapper systemQXMapper;
 
 	public List<Map<String,Object>> selectqxByUUID(String uuid) {
-		System.out.println("cott:" + systemQXMapper.toString());
 		SystemQX mapper = new SystemQX();
 		mapper.setUuid(uuid);
 		mapper.setStatus(1);
