@@ -3,9 +3,6 @@ package com.dgjs.test.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.dgjs.test.model.SystemQX;
-
-
 /**
  * 系统权限配置
  * @ClassName: SysRightDao 

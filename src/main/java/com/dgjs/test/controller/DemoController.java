@@ -53,9 +53,9 @@ public class DemoController {
 	}
 	
 	@RequestMapping(value="/freemaker")   
-    public ModelAndView getFirstPage() {  
+    public ModelAndView getFirstPage(String page) {  
         ModelAndView mv = new ModelAndView(); 
-        mv.setViewName("test"); 
+        mv.setViewName(page); 
         mv.addObject("name", "this is freemaker test!!!");  
         return mv;  
     }
