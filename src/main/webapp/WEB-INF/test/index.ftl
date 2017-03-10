@@ -13,7 +13,7 @@
       <#include "common/recommend_index.ftl">
       <#include "common/list_title_ad.ftl">
       <article class="excerpt excerpt-1" style="">
-      <a class="focus" href="http://www.dgjs.com/show/269.html" title="日耳曼当年的狂野" target="_blank" ><img class="thumb" data-original="http://www.dgjs.com/upload/201610/18/201610181739277776.jpg" src="http://www.dgjs.com/upload/201610/18/201610181739277776.jpg" alt="日耳曼当年的狂野"  style="display: inline;"></a>
+      <a class="focus" href="http://www.dgjs.com/show/269.html" title="日耳曼当年的狂野" target="_blank" ><img class="thumb" data-original="/images/list/timg3.jpeg" src="/images/list/timg3.jpeg" alt="日耳曼当年的狂野"  style="display: inline;"></a>
             <header><a class="cat" href="http://www.dgjs.com/list/mznetblog/" title="军事" >军事<i></i></a>
                 <h2><a href="http://www.dgjs.com/show/269.html" title="日耳曼当年的狂野" target="_blank" >日耳曼当年的狂野</a>
                 </h2>

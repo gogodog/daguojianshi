@@ -14,7 +14,7 @@
       </div>
       <article class="excerpt excerpt-5">
       	<a class="focus" href="http://www.dgjs.com/show/269.html" title="大国简史标题图" target="_blank" >
-      		<img class="thumb" data-original="http://www.dgjs.com/upload/201610/18/201610181739277776.jpg" src="http://www.dgjs.com/upload/201610/18/201610181739277776.jpg" alt="大国简史标题图"  style="display: inline;">
+      		<img class="thumb" data-original="/images/list/timg.jpeg" src="/images/list/timg.jpeg" alt="大国简史标题图"  style="display: inline;">
       	</a>
         <header>
         	<a class="cat" href="http://www.dgjs.com/list/mznetblog/" title="MZ-NetBlog主题" >军事<i></i></a>
@@ -46,8 +46,6 @@
   </aside>
 </section>
 	<#include "common/footer_title.ftl">
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/jquery.ias.js"></script>
-    <script src="/js/scripts.js"></script>
+	<#include "common/footer_static.ftl">
 </body>
 </html>
