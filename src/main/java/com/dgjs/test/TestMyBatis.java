@@ -12,9 +12,6 @@ import com.dgjs.test.dao.SysRightDao;
   
 public class TestMyBatis { 
     private static Logger logger = Logger.getLogger(TestMyBatis.class);  
-    
-    
-    
     @SuppressWarnings("resource")
 	public static void main(String art[]){
         GenericXmlApplicationContext context = new GenericXmlApplicationContext();
