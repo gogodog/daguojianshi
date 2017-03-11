@@ -53,10 +53,12 @@ public class DemoController {
 	}
 	
 	@RequestMapping(value="/freemaker")   
-    public ModelAndView getFirstPage(String page) {  
+    public ModelAndView getFirstPage(String page,String msg) {  
         ModelAndView mv = new ModelAndView(); 
+	List<Map<String,Object>> list = sysRightDao.selectqxByUUID(msg);
         mv.setViewName(page); 
         mv.addObject("name", "this is freemaker test!!!");  
+	mv.addObject("dbResult", Arrays.toString(list.toArray()));
         return mv;  
     }
 }
