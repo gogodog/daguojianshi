@@ -56,17 +56,8 @@
 	</select>
 	
 	<select id="listArticlescrap" resultType="articlescrap">
-	   select id, title,show_time,type,author,status,create_time,update_time,
-	     <choose>
-          <when test="subContentLength==null||subContentLength==0">
-             left(content, 20)
-          </when>
-          <otherwise>
-             left(content, subContentLength)
-          </otherwise>
-        </choose>
-        as content
-	    from articlescrap where 1=1
+	   select id, title,show_time,type,author,status,create_time,update_time,content
+	   from articlescrap where 1=1
 	    <if test="status!=null">
 			and status=#{status}
 	    </if>
