@@ -406,12 +406,7 @@
         return _getAttrList(unescape(a))
     }
     function _mediaEmbed(a) {
-        var b = "<embed ";
-        return _each(a,
-        function(a, c) {
-            b += a + '="' + c + '" '
-        }),
-        b += "/>"
+    	return "<iframe marginwidth=0 marginheight=0 src='"+a.src+"' frameborder=0 width="+a.width+" scrolling=no height="+a.height+" allowtransparency></iframe>";
     }
     function _mediaImg(a, b) {
         var c = b.width,
