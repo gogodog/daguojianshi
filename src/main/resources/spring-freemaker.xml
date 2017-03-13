@@ -15,7 +15,7 @@
 
 	<!-- freemaker配置 -->
 	<bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
-		<property name="templateLoaderPath" value="/WEB-INF/test/" />
+		<property name="templateLoaderPath" value="/WEB-INF/" />
 		<property name="freemarkerSettings">
 			<props>
 				<prop key="template_update_delay">0</prop>

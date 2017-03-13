@@ -10,7 +10,7 @@
                         http://www.springframework.org/schema/mvc  
                         http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 	<!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
-	<context:component-scan base-package="com.dgjs.test.controller" />
+	<context:component-scan base-package="com.dgjs.controller" />
 	<!--避免IE执行AJAX时，返回JSON出现下载文件 -->
 	<bean id="mappingJacksonHttpMessageConverter"
 		class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
@@ -31,10 +31,21 @@
 	</bean>
 	<!-- 默认的注解映射的支持 -->  
     <mvc:annotation-driven />
-    <mvc:resources mapping="/images/**" location="/images/"/>  
-	<mvc:resources mapping="/js/**" location="/js/"/>  
-	<mvc:resources mapping="/css/**" location="/css/"/>
-	<mvc:resources mapping="/fonts/**" location="/fonts/"/>
+    
+    <mvc:resources mapping="/images/**" location="/images/"/> 
+    <!-- 前台 -->
+    <mvc:resources mapping="/front/images/**" location="/front/images/"/>  
+	<mvc:resources mapping="/front/js/**" location="/front/js/"/>  
+	<mvc:resources mapping="/front/css/**" location="/front/css/"/>
+	<mvc:resources mapping="/front/fonts/**" location="/front/fonts/"/>
+	<!-- 后台 -->
+	<mvc:resources mapping="/admin/images/**" location="/admin/images/"/>  
+	<mvc:resources mapping="/admin/js/**" location="/admin/js/"/>  
+	<mvc:resources mapping="/admin/css/**" location="/admin/css/"/>
+	<mvc:resources mapping="/admin/fonts/**" location="/admin/fonts/"/>
+	<mvc:resources mapping="/admin/plugins/**" location="/admin/plugins/"/>
+	
+	
 	<!-- jsp视图模式配置
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/test/" />
@@ -42,7 +53,7 @@
 	</bean>-->
 	<!-- freemarker视图模式配置 -->
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">  
-        <property name="cache" value="true" />  
+        <property name="cache" value="false" />  
         <property name="prefix" value="" />  
         <property name="suffix" value=".ftl" />  
         <property name="contentType" value="text/html;charset=UTF-8"></property>  
@@ -61,4 +72,9 @@
         <!-- 内存中的最大值 -->
         <property name="maxInMemorySize" value="40960" />  
     </bean> 
+    
+    <mvc:interceptors>  
+      <bean class="com.dgjs.interceptors.BaseInterceptor"/>  
+     <!--  <bean class="com.dgjs.interceptors.LoginInterceptor"/>   -->
+    </mvc:interceptors>  
 </beans>

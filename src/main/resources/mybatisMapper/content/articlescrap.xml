@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgjs.mapper.content.ArticlescrapMapper">
+  
+  	<insert id="saveArticlescrap" parameterType="articlescrap" keyProperty="id" useGeneratedKeys="true">
+	       insert into articlescrap
+	       (
+               title,
+               content,
+               show_time,
+               type,
+               author,
+               status,
+               create_time,
+               update_time
+
+	       )
+	       values
+	       (
+               #{title},
+               #{content},
+               #{show_time},
+               #{type},
+               #{author},
+               #{status},
+               now(),
+               now()
+	       )
+	</insert>
+	
+	<update id="updateArticlescrap">
+	      update articlescrap set
+	       <if test="title!=null">
+				title=#{title},
+		   </if>
+		   <if test="content!=null">
+				content=#{content},
+		   </if>
+		   <if test="show_time!=null">
+				show_time=#{show_time},
+		   </if>
+		   <if test="type!=null">
+				type=#{type},
+		   </if>
+		   <if test="author!=null">
+				author=#{author},
+		   </if>
+		   <if test="status!=null">
+				status=#{status},
+		   </if>
+           update_time=now() where id=#{id}
+	</update>
+	
+	<select id="selectById" resultType="articlescrap">
+	   select id, title,content,show_time,type,author,status,create_time,update_time from articlescrap where id=#{id}
+	</select>
+	
+	<select id="listArticlescrap" resultType="articlescrap">
+	   select id, title,show_time,type,author,status,create_time,update_time,
+	     <choose>
+          <when test="subContentLength==null||subContentLength==0">
+             left(content, 20)
+          </when>
+          <otherwise>
+             left(content, subContentLength)
+          </otherwise>
+        </choose>
+        as content
+	    from articlescrap where 1=1
+	    <if test="status!=null">
+			and status=#{status}
+	    </if>
+	    <if test="type!=null">
+			and	type=#{type}
+		</if>
+	    <if test="author!=null">
+			and author=#{author}
+	    </if>
+	    <if test="title!=null">
+			and title like CONCAT('%',#{name},'%') 
+	    </if>
+	    <if test="createTimeFrom != null"> <![CDATA[and create_time >= #{createTimeFrom} ]]></if>
+	    <if test="createTimeTo != null"> <![CDATA[ and create_time < #{createTimeTo} ]]></if>
+	    <if test="showTimeFrom != null"> <![CDATA[and show_time >= #{showTimeFrom} ]]></if>
+	    <if test="showTimeTo != null"> <![CDATA[ and show_time < #{showTimeTo} ]]></if>
+	    <if test="updateTimeFrom != null"> <![CDATA[and update_time >= #{updateTimeFrom} ]]></if>
+	    <if test="updateTimeTo != null"> <![CDATA[ and update_time < #{updateTimeTo} ]]></if>
+	    <if test="sort!=null">
+			#{sort}
+	    </if>
+	    limit 
+	    <choose>
+          <when test="beginNum==null">
+            0
+          </when>
+          <otherwise>
+             #{beginNum}
+          </otherwise>
+        </choose>
+        <choose>
+          <when test="onePageSize==null||onePageSize==0">
+            ,10
+          </when>
+          <otherwise>
+            ,#{onePageSize}
+          </otherwise>
+        </choose>
+	</select>
+	
+	<delete id="deleteArticlescrap">
+	    delete from articlescrap where id=#{id}
+	</delete>
+	
+</mapper>
