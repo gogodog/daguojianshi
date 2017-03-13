@@ -21,12 +21,12 @@ public class IndexController {
 	CarouselService carouselService;
 	
 	@RequestMapping("/index")
-    public ModelAndView helloWord(HttpServletRequest request, HttpServletResponse response) throws Exception {  
+    public ModelAndView index(HttpServletRequest request, HttpServletResponse response) throws Exception {  
 		ModelAndView mv = new ModelAndView("front/index");  
 		Carousel c=new Carousel();
-		c.setStatus(Carouse_Status.UP);
+		c.setStatus(Carouse_Status.DOWN);
 		List<Carousel> carouselList=carouselService.listCarousel(c);
 		mv.addObject("carouselList", carouselList);
-        return mv;  
-    }  
+        return mv;
+    }
 }
