@@ -30,6 +30,7 @@ public class TempFileUtils {
         String[] pathArray={realPath,StringUtils.combineStr(pathName, blank),blank,imageName,suffix};
         String savePath=StringUtils.combineStr(pathArray,null);
         File outputfile=new File(savePath);
+        outputfile.createNewFile();
         FileOutputStream outputStream =new FileOutputStream(outputfile,true);
         while((flag=inputStream.read(buff))!=-1){
         	outputStream.write(buff);
