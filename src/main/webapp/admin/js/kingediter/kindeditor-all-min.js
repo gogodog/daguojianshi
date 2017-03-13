@@ -406,7 +406,7 @@
         return _getAttrList(unescape(a))
     }
     function _mediaEmbed(a) {
-    	return "<iframe marginwidth=0 marginheight=0 src='"+a.src+"' frameborder=0 width="+a.width+" scrolling=no height="+a.height+" allowtransparency></iframe>";
+    	return "<iframe marginwidth=0 marginheight=0 src='"+a.src+"' frameborder=0 style='width: inherit;height: inherit;' allowtransparency></iframe>";
     }
     function _mediaImg(a, b) {
         var c = b.width,
