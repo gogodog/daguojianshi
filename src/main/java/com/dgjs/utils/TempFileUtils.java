@@ -22,7 +22,8 @@ public class TempFileUtils {
         MultipartHttpServletRequest multipartRequest  =  (MultipartHttpServletRequest) request; 
         MultipartFile file  =  multipartRequest.getFile(name);
         InputStream inputStream= file.getInputStream();
-        int flag;
+        @SuppressWarnings("unused")
+		int flag;
         byte[] buff=new byte[1024*1024];
         String realPath = request.getSession().getServletContext().getRealPath("/");   
         String suffix=".jpg";

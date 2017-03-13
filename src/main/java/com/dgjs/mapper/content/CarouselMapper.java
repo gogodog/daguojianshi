@@ -1,9 +1,6 @@
 package com.dgjs.mapper.content;
 
 import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
-
 import com.dgjs.model.persistence.Carousel;
 
 public interface CarouselMapper {
