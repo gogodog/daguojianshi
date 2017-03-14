@@ -9,7 +9,7 @@ import com.dgjs.mapper.content.ArticlescrapMapper;
 import com.dgjs.model.persistence.Articlescrap;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 import com.dgjs.service.content.ArticlescrapService;
-import com.dgjs.utils.StringUtils;
+import com.dgjs.utils.HtmlUtil;
 
 @Service
 public class ArticlescrapServiceImpl implements ArticlescrapService{
@@ -36,9 +36,9 @@ public class ArticlescrapServiceImpl implements ArticlescrapService{
 	public List<Articlescrap> listArticlescrap(ArticlescrapCondtion articlescrapCondtion) {
 		List<Articlescrap> list=articlescrapMapper.listArticlescrap(articlescrapCondtion);
 		for(Articlescrap articlescrap:list){
-			String content=StringUtils.Html2Text(articlescrap.getContent());
+			String content=HtmlUtil.getTextFromHtml(articlescrap.getContent());
 			articlescrap.setContent(content);
-			if(content!=null&&content.length()>21){
+			if(content!=null&&content.length()>20){
 				articlescrap.setContent(content.substring(0, 20));
 			}
 		}
