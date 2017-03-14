@@ -18,7 +18,7 @@ public class ArticlescrapCondtion {
 	private Date showTimeTo;
 	private Date updateTimeFrom;
 	private Date updateTimeTo;
-	private Integer subContentLength=Constants.DEFAULT_SUBSTRING_CONTENT_LENGTH;//查询截取的内容长度，默认20
+	private int subContentLength=Constants.DEFAULT_SUBSTRING_CONTENT_LENGTH;//查询截取的内容长度，默认20
 	private String sort;//排序
 	private int beginNum;//从哪条开始查
 	private int onePageSize;//每页显示
@@ -100,11 +100,10 @@ public class ArticlescrapCondtion {
 	public void setOnePageSize(int onePageSize) {
 		this.onePageSize = onePageSize;
 	}
-	public Integer getSubContentLength() {
+	public int getSubContentLength() {
 		return subContentLength;
 	}
-	public void setSubContentLength(Integer subContentLength) {
+	public void setSubContentLength(int subContentLength) {
 		this.subContentLength = subContentLength;
 	}
-	
 }
