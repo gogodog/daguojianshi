@@ -2,8 +2,8 @@ package com.dgjs.model.persistence;
 
 import java.util.Date;
 
-import com.dgjs.model.enums.Articlescrap_Status;
 import com.dgjs.model.enums.Articlescrap_Type;
+import com.dgjs.model.enums.UpDown_Status;
 
 public class Articlescrap {
 
@@ -12,7 +12,7 @@ public class Articlescrap {
 	private String content;//文章内容
 	private Date show_time;//展示时间
 	private Articlescrap_Type type;//文章类型
-	private Articlescrap_Status status;//文章状态
+	private UpDown_Status status;//文章状态
 	private String author;//作者
 	private Date create_time;//创建时间
 	private Date update_time;//修改时间
@@ -65,10 +65,11 @@ public class Articlescrap {
 	public void setUpdate_time(Date update_time) {
 		this.update_time = update_time;
 	}
-	public Articlescrap_Status getStatus() {
+	public UpDown_Status getStatus() {
 		return status;
 	}
-	public void setStatus(Articlescrap_Status status) {
+	public void setStatus(UpDown_Status status) {
 		this.status = status;
 	}
+	
 }

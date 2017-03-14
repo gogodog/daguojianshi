@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.dgjs.model.enums.Carouse_Status;
+import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.persistence.Articlescrap;
 import com.dgjs.model.persistence.Carousel;
 import com.dgjs.service.content.ArticlescrapService;
@@ -31,7 +31,7 @@ public class IndexController {
 		
 		//加载轮播
 		Carousel c=new Carousel();
-		c.setStatus(Carouse_Status.DOWN);
+		c.setStatus(UpDown_Status.DOWN);
 		List<Carousel> carouselList=carouselService.listCarousel(c);
 		mv.addObject("carouselList", carouselList);
 		

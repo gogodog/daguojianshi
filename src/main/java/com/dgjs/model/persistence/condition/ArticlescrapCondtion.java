@@ -3,12 +3,12 @@ package com.dgjs.model.persistence.condition;
 import java.util.Date;
 
 import com.dgjs.constants.Constants;
-import com.dgjs.model.enums.Articlescrap_Status;
 import com.dgjs.model.enums.Articlescrap_Type;
+import com.dgjs.model.enums.UpDown_Status;
 
 public class ArticlescrapCondtion {
 
-	private Articlescrap_Status status;//状态
+	private UpDown_Status status;//状态
 	private Articlescrap_Type type;//类型
 	private String author;//作者
 	private String title;//标题
@@ -22,10 +22,11 @@ public class ArticlescrapCondtion {
 	private String sort;//排序
 	private int beginNum;//从哪条开始查
 	private int onePageSize;//每页显示
-	public Articlescrap_Status getStatus() {
+    
+	public UpDown_Status getStatus() {
 		return status;
 	}
-	public void setStatus(Articlescrap_Status status) {
+	public void setStatus(UpDown_Status status) {
 		this.status = status;
 	}
 	public Articlescrap_Type getType() {

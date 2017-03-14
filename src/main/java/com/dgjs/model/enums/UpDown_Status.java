@@ -1,8 +1,8 @@
 package com.dgjs.model.enums;
 
-public enum Carouse_Status {
-
-	UP(1,"上架"),
+public enum UpDown_Status {
+	
+    UP(1,"上架"),
 	
 	DOWN(0,"下架");
 	
@@ -10,7 +10,7 @@ public enum Carouse_Status {
 	
 	private String value;
 	
-	private Carouse_Status(int key,String value){
+	private UpDown_Status(int key,String value){
 		this.key=key;
 		this.value=value;
 	}
@@ -31,7 +31,7 @@ public enum Carouse_Status {
 		this.value = value;
 	}
 	
-	public static Carouse_Status valueOf(int key){
+	public static UpDown_Status valueOf(int key){
 		 switch (key) {
          case 0:
              return DOWN;
