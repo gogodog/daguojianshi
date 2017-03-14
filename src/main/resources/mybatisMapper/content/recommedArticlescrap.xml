@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgjs.mapper.content.RecommedArticlescrapMapper">
+  
+  	<insert id="save" parameterType="recommedArticlescrap" keyProperty="id" useGeneratedKeys="true">
+	       insert into recommed_articlescrap
+	       (
+	           articlescrap_id,
+	           sort,
+	           status
+	       )
+	       values
+	       (
+	          #{articlescrap_id},
+	          #{sort},
+	          #{status}
+	       )
+	</insert>
+	
+	<select id="list" resultType="recommedArticlescrapEnhance">
+	    select 
+	       ra.id,
+	       ra.articlescrap_id,
+	       ra.sort,
+	       ra.status,
+	       a.title,
+	       a.content
+	       from recommed_articlescrap ra
+	       inner join articlescrap a
+	       on ra.articlescrap_id=a.id
+	       where 1=1
+	       <if test="status!=null">
+	         and ra.status=#{status}
+	       </if> 
+	       <if test="title!=null">
+	         and a.title=#{title}
+	       </if> 
+	       order by ra.sort
+	</select>
+	
+	<delete id="deleteById">
+	     delete from recommed_articlescrap where id=#{id}
+	</delete>
+	
+</mapper>

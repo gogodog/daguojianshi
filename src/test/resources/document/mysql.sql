@@ -34,7 +34,7 @@ create table carousel
 /*==============================================================*/
 create table recommed_articlescrap
 (
-   id                   bigint(19) not null,
+   id                   int(5) not null auto_increment,
    articlescrap_id      bigint(19) not null,
    sort                 int(5) not null,
    status               tinyint(3) not null,
