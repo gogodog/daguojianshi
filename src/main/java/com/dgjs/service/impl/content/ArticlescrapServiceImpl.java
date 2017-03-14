@@ -38,8 +38,8 @@ public class ArticlescrapServiceImpl implements ArticlescrapService{
 		for(Articlescrap articlescrap:list){
 			String content=HtmlUtil.getTextFromHtml(articlescrap.getContent());
 			articlescrap.setContent(content);
-			if(content!=null&&content.length()>20){
-				articlescrap.setContent(content.substring(0, 20));
+			if(content!=null&&content.length()>articlescrapCondtion.getSubContentLength()){
+				articlescrap.setContent(content.substring(0, articlescrapCondtion.getSubContentLength()));
 			}
 		}
 		return list;

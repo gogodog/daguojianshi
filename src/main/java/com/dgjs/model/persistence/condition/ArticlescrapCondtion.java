@@ -2,6 +2,7 @@ package com.dgjs.model.persistence.condition;
 
 import java.util.Date;
 
+import com.dgjs.constants.Constants;
 import com.dgjs.model.enums.Articlescrap_Status;
 import com.dgjs.model.enums.Articlescrap_Type;
 
@@ -17,7 +18,7 @@ public class ArticlescrapCondtion {
 	private Date showTimeTo;
 	private Date updateTimeFrom;
 	private Date updateTimeTo;
-	private Integer subContentLength;//查询截取的内容长度，默认20
+	private Integer subContentLength=Constants.DEFAULT_SUBSTRING_CONTENT_LENGTH;//查询截取的内容长度，默认20
 	private String sort;//排序
 	private int beginNum;//从哪条开始查
 	private int onePageSize;//每页显示
