@@ -13,4 +13,6 @@ public interface RecommedArticlescrapMapper {
 	 public List<RecommedArticlescrapEnhance> list(RecommedArticlescrapCondition condition);
 
      public int deleteById(Long id);
+     
+     public RecommedArticlescrap selectByArticlescrapId(Long articlescrap_id);
 }

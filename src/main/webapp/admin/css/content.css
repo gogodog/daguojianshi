@@ -173,6 +173,15 @@ body{background: #fff;}
 	border: 1px solid #ddd;
 	border-radius: 5px;
 }
+.public-content .public-content-cont .table-fun-1 a{
+	display: inline-block;
+	width: 60px;
+	height: 24px;
+	line-height: 24px;
+	padding: 3px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+}
 .public-content .public-content-cont .thumb{
 	width: 150px;
 	height: 50px;

@@ -42,4 +42,12 @@
 	     delete from recommed_articlescrap where id=#{id}
 	</delete>
 	
+	<select id="selectByArticlescrapId" resultType="recommedArticlescrap">
+	    select 
+	       ra.id,
+	       ra.articlescrap_id,
+	       ra.sort,
+	       ra.status
+	    from recommed_articlescrap ra where ra.articlescrap_id=#{articlescrap_id}
+	</select>
 </mapper>

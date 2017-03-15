@@ -19,26 +19,27 @@
 					<tr>
 						<th style="width:5%">ID</th>
 						<th style="width:20%">文章标题</th>
-						<th style="width:45%">文章内容</th>
+						<th style="width:40%">文章内容</th>
 						<th style="width:5%">排序</th>
 						<th style="width:5%">状态</th>
-						<th style="width:20%">操作</th>
+						<th style="width:25%">操作</th>
 					</tr>
 					<#list recommedArticlescrapList as recommedArticlescrap>
 					  <tr>
 					     <td>${recommedArticlescrap.id}</td>
-					     <td>${recommedArticlescrap.title}</td>						
+					     <td>${recommedArticlescrap.title}</td>		
+					     <td>${recommedArticlescrap.content}</td>		
 					     <td>${recommedArticlescrap.sort}</td>	
 					     <td>${recommedArticlescrap.status.value}</td>
 					     <td>
-					     	<div class="table-fun">
+					     	<div class="table-fun-1">
 					     	    <a href="${contextPath}/admin/articlescrap?articlescrapId=${recommedArticlescrap.articlescrap_id}">查看文章</a>
 					     		<a href="${contextPath}/admin/deleteRecommedArticlescrap?recommedArticlescrapId=${recommedArticlescrap.id}">删除</a>
 					     		<a href="${contextPath}/admin/updateStatus?recommedArticlescrapId=${recommedArticlescrap.id}">
-                                   <#if recommedArticlescrap.status.value == 1>
+                                   <#if recommedArticlescrap.status.key == 1>
                                       下架
                                    </#if>
-                                   <#if recommedArticlescrap.status.value == 0>
+                                   <#if recommedArticlescrap.status.key == 0>
                                       上架
                                    </#if>
 					     		</a>
