@@ -5,21 +5,26 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dgjs.model.persistence.Carousel;
+import com.dgjs.service.common.PictureService;
 import com.dgjs.service.content.CarouselService;
-import com.dgjs.utils.TempFileUtils;
 
 @Controller
 @RequestMapping("/admin")
 public class CarouselController {
-
+	
 	@Autowired
 	CarouselService carouselService;
+	
+	@Autowired
+	PictureService pictureService;
 	
 	
 	@RequestMapping("/carouselList")
@@ -32,7 +37,8 @@ public class CarouselController {
 	
 	@RequestMapping("/carousel")
 	public ModelAndView carousel(HttpServletRequest request, HttpServletResponse response,Long carouselId){
-		ModelAndView mv = new ModelAndView("admin/content/carousel");  
+		ModelAndView mv = new ModelAndView("admin/content/carousel"); 
+		mv.addObject("imageContextPath", pictureService.getImageContextPath());
 		if(carouselId!=null){
 			Carousel carousel=carouselService.selectById(carouselId);
 			mv.addObject("carousel", carousel);
@@ -44,7 +50,6 @@ public class CarouselController {
 	public ModelAndView saveCarousel(HttpServletRequest request, HttpServletResponse response,Carousel carousel){
 		ModelAndView mv = new ModelAndView("redirect:/admin/carouselList");  
 		try {
-			carousel.setImage_url(getSavePathName(request));
 			carouselService.saveOrUpdateCarousel(carousel);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -58,12 +63,6 @@ public class CarouselController {
 		ModelAndView mv = new ModelAndView("redirect:/admin/carouselList");  
 		carouselService.deleteById(carouselId);
         return mv;  
-	}
-	
-	private String getSavePathName(HttpServletRequest request) throws Exception{
-		String[] pathName={"images","carousel"};
-		String savePathName=TempFileUtils.uploadPicture(request,"uploadImage",pathName,TempFileUtils.generateImageName());
-		return savePathName;
 	}
 	
 }

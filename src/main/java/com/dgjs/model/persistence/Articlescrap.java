@@ -16,6 +16,8 @@ public class Articlescrap {
 	private String author;//作者
 	private Date create_time;//创建时间
 	private Date update_time;//修改时间
+	private String sub_content;//精简内容
+	private String show_picture;//展示图片
 	
 	public Long getId() {
 		return id;
@@ -70,6 +72,18 @@ public class Articlescrap {
 	}
 	public void setStatus(UpDown_Status status) {
 		this.status = status;
+	}
+	public String getSub_content() {
+		return sub_content;
+	}
+	public void setSub_content(String sub_content) {
+		this.sub_content = sub_content;
+	}
+	public String getShow_picture() {
+		return show_picture;
+	}
+	public void setShow_picture(String show_picture) {
+		this.show_picture = show_picture;
 	}
 	
 }

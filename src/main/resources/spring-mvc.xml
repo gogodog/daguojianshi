@@ -20,6 +20,19 @@
 			</list>
 		</property>
 	</bean>
+	<mvc:annotation-driven>  
+      <mvc:message-converters>  
+          <bean class="org.springframework.http.converter.StringHttpMessageConverter">  
+              <property name="supportedMediaTypes">  
+                  <list>  
+                      <value>text/html;charset=UTF-8</value>  
+                      <value>application/json;charset=UTF-8</value>  
+                      <value>*/*;charset=UTF-8</value>  
+                  </list>  
+              </property>  
+          </bean>  
+      </mvc:message-converters>  
+  </mvc:annotation-driven>  
 	<!-- 启动SpringMVC的注解功能，完成请求和注解POJO的映射 -->
 	<bean
 		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">

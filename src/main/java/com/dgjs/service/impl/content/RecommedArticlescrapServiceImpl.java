@@ -10,7 +10,6 @@ import com.dgjs.model.persistence.RecommedArticlescrap;
 import com.dgjs.model.persistence.condition.RecommedArticlescrapCondition;
 import com.dgjs.model.persistence.enhance.RecommedArticlescrapEnhance;
 import com.dgjs.service.content.RecommedArticlescrapService;
-import com.dgjs.utils.HtmlUtil;
 
 @Service
 public class RecommedArticlescrapServiceImpl implements RecommedArticlescrapService{
@@ -27,13 +26,6 @@ public class RecommedArticlescrapServiceImpl implements RecommedArticlescrapServ
 	public List<RecommedArticlescrapEnhance> list(
 			RecommedArticlescrapCondition condition) {
 		List<RecommedArticlescrapEnhance> list=mapper.list(condition);
-		for(RecommedArticlescrapEnhance ra:list){
-			String content=HtmlUtil.getTextFromHtml(ra.getContent());
-			ra.setContent(content);
-			if(content!=null&&content.length()>100){
-				ra.setContent(content.substring(0, 100));
-			}
-		}
 		return list;
 	}
 

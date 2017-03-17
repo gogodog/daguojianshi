@@ -16,4 +16,11 @@ public class StringUtils {
 		return sb.toString();
 	}
 	
+	public static String jointString(String ... values){
+		StringBuilder str=new StringBuilder();
+		for(String value:values){
+			str.append(value);
+		}
+		return str.toString();
+	}
 }

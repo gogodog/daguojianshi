@@ -24,7 +24,7 @@
 	       ra.sort,
 	       ra.status,
 	       a.title,
-	       a.content
+	       a.sub_content
 	       from recommed_articlescrap ra
 	       inner join articlescrap a
 	       on ra.articlescrap_id=a.id

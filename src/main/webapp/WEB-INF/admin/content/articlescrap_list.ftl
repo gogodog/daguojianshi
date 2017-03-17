@@ -18,6 +18,7 @@
 			<div class="public-content-cont">
 				<table class="public-cont-table">
 					<tr>
+					    <th style="width:5%">文章id</th>
 						<th style="width:12%">文章标题</th>
 						<th style="width:20%">文章内容</th>
 						<th style="width:10%">文章展示时间</th>
@@ -30,8 +31,9 @@
 					</tr>
 					<#list articlescrapList as articlescrap>
 					  <tr>
+					     <td>${articlescrap.id}</td>			
 					     <td>${articlescrap.title}</td>						
-					     <td>${articlescrap.content}</td>
+					     <td>${articlescrap.sub_content}</td>
 					     <td>${articlescrap.show_time?date}</td>
 					     <td>${articlescrap.type.value}</td>	
 					     <td>${articlescrap.status.value}</td>

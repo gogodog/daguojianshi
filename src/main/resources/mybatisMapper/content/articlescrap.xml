@@ -11,9 +11,10 @@
                type,
                author,
                status,
+               sub_content,
+               show_picture,
                create_time,
                update_time
-
 	       )
 	       values
 	       (
@@ -23,6 +24,8 @@
                #{type},
                #{author},
                #{status},
+               #{sub_content},
+               #{show_picture},
                now(),
                now()
 	       )
@@ -48,15 +51,21 @@
 		   <if test="status!=null">
 				status=#{status},
 		   </if>
+		   <if test="sub_content!=null">
+				sub_content=#{sub_content},
+		   </if>
+		   <if test="show_picture!=null">
+				show_picture=#{show_picture},
+		   </if>
            update_time=now() where id=#{id}
 	</update>
 	
 	<select id="selectById" resultType="articlescrap">
-	   select id, title,content,show_time,type,author,status,create_time,update_time from articlescrap where id=#{id}
+	   select id, title,content,show_time,type,author,status,create_time,update_time,sub_content,show_picture from articlescrap where id=#{id}
 	</select>
 	
 	<select id="listArticlescrap" resultType="articlescrap">
-	   select id, title,show_time,type,author,status,create_time,update_time,content
+	   select id, title,show_time,type,author,status,create_time,update_time,sub_content,show_picture
 	   from articlescrap where 1=1
 	    <if test="status!=null">
 			and status=#{status}

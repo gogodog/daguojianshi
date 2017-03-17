@@ -37,13 +37,13 @@ public class ArticlescrapServiceImpl implements ArticlescrapService{
 	public List<Articlescrap> listArticlescrap(ArticlescrapCondtion articlescrapCondtion) {
 		List<Articlescrap> list=articlescrapMapper.listArticlescrap(articlescrapCondtion);
 		int subStringLength=articlescrapCondtion==null?Constants.DEFAULT_SUBSTRING_CONTENT_LENGTH:articlescrapCondtion.getSubContentLength();
-		for(Articlescrap articlescrap:list){
-			String content=HtmlUtil.getTextFromHtml(articlescrap.getContent());
-			articlescrap.setContent(content);
-			if(content!=null&&content.length()>subStringLength){
-				articlescrap.setContent(content.substring(0, subStringLength));
-			}
-		}
+//		for(Articlescrap articlescrap:list){
+//			String content=HtmlUtil.getTextFromHtml(articlescrap.getSub_content());
+//			articlescrap.setSub_content(content);
+//			if(content!=null&&content.length()>subStringLength){
+//				articlescrap.setSub_content(content.substring(0, subStringLength));
+//			}
+//		}
 		return list;
 	}
 

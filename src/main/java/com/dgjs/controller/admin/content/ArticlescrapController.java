@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.persistence.Articlescrap;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
+import com.dgjs.service.common.PictureService;
 import com.dgjs.service.content.ArticlescrapService;
 import com.dgjs.utils.DateUtils;
 
@@ -22,6 +23,9 @@ public class ArticlescrapController {
 
 	@Autowired
 	ArticlescrapService articlescrapSerivce;
+	
+	@Autowired
+	PictureService pictureService;
 	
 	@RequestMapping("/articlescrapList")
     public ModelAndView articlescrapList(HttpServletRequest request, HttpServletResponse response,ArticlescrapCondtion condtion) throws Exception {  
@@ -34,6 +38,7 @@ public class ArticlescrapController {
 	@RequestMapping("/articlescrap")
 	public ModelAndView articlescrap(HttpServletRequest request, HttpServletResponse response,Long articlescrapId){
 		ModelAndView mv = new ModelAndView("admin/content/articlescrap");  
+		mv.addObject("imageContextPath", pictureService.getImageContextPath());
 		if(articlescrapId!=null){
 			Articlescrap articlescrap=articlescrapSerivce.selectById(articlescrapId);
 			mv.addObject("articlescrap", articlescrap);
@@ -60,4 +65,5 @@ public class ArticlescrapController {
 		articlescrapSerivce.deleteArticlescrap(articlescrapId);
 		return mv;
 	}
+	
 }

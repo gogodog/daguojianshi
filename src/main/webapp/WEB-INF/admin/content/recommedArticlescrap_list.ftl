@@ -28,7 +28,7 @@
 					  <tr>
 					     <td>${recommedArticlescrap.id}</td>
 					     <td>${recommedArticlescrap.title}</td>		
-					     <td>${recommedArticlescrap.content}</td>		
+					     <td>${recommedArticlescrap.sub_content}</td>		
 					     <td>${recommedArticlescrap.sort}</td>	
 					     <td>${recommedArticlescrap.status.value}</td>
 					     <td>

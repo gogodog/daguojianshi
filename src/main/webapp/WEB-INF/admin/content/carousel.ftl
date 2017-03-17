@@ -3,6 +3,8 @@
 <head>
 <#include "/admin/common/head_title.ftl">
 <script src="${contextPath}/admin/js/jquery-1.11.1.min.js"></script>
+<script src="${contextPath}/admin/js/support-fileupload.js"></script>
+<script src="${contextPath}/admin/js/ajaxfileupload.js"></script>
 </head>
 <body marginwidth="0" marginheight="0">
 	<div class="container">
@@ -15,6 +17,7 @@
 			<form action="${contextPath}/admin/saveCarousel" method="post" enctype="multipart/form-data">
 			    <input type="hidden" name="id" value="${(carousel.id)!''}">
 			    <input type="hidden" name="status" value="${(carousel.status)!'DOWN'}">
+			    <input type="hidden" name="image_url" value="${(carousel.image_url)!''}">
 				<div class="form-group">
 					<label for="">排序</label>
 					<input class="form-input-txt" type="text" name="sort" value="${(carousel.sort)!''}" onkeyup="this.value=this.value.replace(/\D/g,'')"/>
@@ -29,11 +32,9 @@
 				</div>
 				<div class="form-group">
 					<label for="">图片</label>
-					<!--<input class="form-input-txt" type="text" name="image_url" value="UploadFiles/20167111477414.jpg" />-->
-					<#if carousel.image_url??>
-					    <img src="${carousel.image_url}" style="width:200px;height:200px">
-					</#if>
+					<img src="<#if carousel.image_url??>${imageContextPath}${carousel.image_url}</#if>" id="showImage" style="width:200px;height:200px;<#if carousel.image_url??>display:block;<#else>display:none;</#if>">
 					<div class="file"><input type="file" class="form-input-file" id="uploadImage" name="uploadImage"/>选择文件</div>
+					<div class="file"><input type="button" class="form-input-file" id="buttonUpload" onClick="return ajaxFileUpload();">上传</div>
 				</div>
 				<div class="form-group">
 				    <label for="">是否上架：</label>
@@ -56,5 +57,42 @@ $("#status").click(function(){
 		$("input[name='status']").val("DOWN");
 	}
 });
+
+function ajaxFileUpload()
+{
+    var contextPath="${contextPath}";
+    var imageContextPath="${imageContextPath}";
+    var uploadFileName="carousel";
+    $.ajaxFileUpload
+    (
+        {
+        	async:false,
+            url:contextPath+'/admin/ajaxUpload?imagePath='+uploadFileName,//这个是要提交到上传的php程序文件
+            secureuri:false,
+            fileElementId:'uploadImage',//这里是你文件上传input框的id
+            dataType: 'json',
+            success: function (result)
+            {
+                if(typeof(result.error) != 'undefined')
+                {
+                    if(result.error != '')
+                    {
+                        alert(result.errorMessage);//如有错误则弹出错误
+                    }else
+                    {
+                    	var accessPath=imageContextPath+result.imageUrl;
+                        $("#showImage").attr("src",accessPath);
+                        $("input[name='image_url']").val(result.imageUrl);
+                        $("#showImage").show();
+                    }
+                }
+            },
+            error: function (result, status, e)
+            {
+                alert(e);
+            }
+        }
+    )
+}
 </script>
 </html>
