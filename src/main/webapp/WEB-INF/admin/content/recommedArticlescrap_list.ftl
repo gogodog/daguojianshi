@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
 <#include "/admin/common/head_title.ftl">
+<link rel="stylesheet" type="text/css" href="${contextPath}/admin/css/xcConfirm.css"/>
+<script src="${contextPath}/admin/js/jquery-1.11.1.min.js"></script>
+<script src="${contextPath}/admin/js/confirm/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body marginwidth="0" marginheight="0">
 	<div class="container">
@@ -34,8 +37,8 @@
 					     <td>
 					     	<div class="table-fun-1">
 					     	    <a href="${contextPath}/admin/articlescrap?articlescrapId=${recommedArticlescrap.articlescrap_id}">查看文章</a>
-					     		<a href="${contextPath}/admin/deleteRecommedArticlescrap?recommedArticlescrapId=${recommedArticlescrap.id}">删除</a>
-					     		<a href="${contextPath}/admin/updateStatus?recommedArticlescrapId=${recommedArticlescrap.id}">
+					     		<a href="javascript:void(0)" onclick="deleteRA(${recommedArticlescrap.id});">删除</a>
+					     		<a href="javascript:void(0)" onclick="updateStatus(${recommedArticlescrap.id});">
                                    <#if recommedArticlescrap.status.key == 1>
                                       下架
                                    </#if>
@@ -51,5 +54,37 @@
 			</div>
 		</div>
 	</div>
+	
+<script>
+var contextPath="${contextPath}";
+function updateStatus(recommedArticlescrapId){
+	$.ajax({
+	    url:contextPath+"/admin/ajaxUpdateRAStatus",    
+	    dataType:"json",   
+	    async:false,
+	    data:{"recommedArticlescrapId":recommedArticlescrapId}, 
+	    type:"GET",   
+	    success:function(req){
+	    	if(!req.error){
+	    		window.location.href=contextPath+"/admin/recommedArticlescrapList";
+	    	}else if(req.errorCode!='PARAM_ERROR'){
+	    		alert(req.errorMessage);
+	    	}
+	    }, 
+	    error:function(){
+	        alert("系统繁忙，请稍后");
+	       
+	    }
+	});
+}
+
+function deleteRA(recommedArticlescrapId){
+	var txt=  "您确定要删除这条数据吗？";
+	window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.confirm,{onOk:function(){
+		window.location.href=contextPath+"/admin/deleteRecommedArticlescrap?recommedArticlescrapId="+recommedArticlescrapId;
+	}})
+}
+
+</script>
 </body>
 </html>

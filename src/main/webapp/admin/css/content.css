@@ -246,3 +246,7 @@ body{background: #fff;}
 .state-img{
 	width: 30px;
 }
+.form-group font{
+	color:red;
+	margin-left:10px;
+}

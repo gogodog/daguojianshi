@@ -50,4 +50,13 @@
 	       ra.status
 	    from recommed_articlescrap ra where ra.articlescrap_id=#{articlescrap_id}
 	</select>
+	
+	<update id="updateStatus">
+	    update recommed_articlescrap set
+	    status=
+	     case status
+	       when  1 then 0 
+	       else 1 end 
+        where id=#{id}
+	</update>
 </mapper>

@@ -83,8 +83,23 @@ public class RecommedArticlescrapController {
 		return mv;
 	}
 	
-	@RequestMapping("/updateStatus")
-	public String updateStatus(Long recommedArticlescrapId){
-		return null;
+	@ResponseBody
+	@RequestMapping("/ajaxUpdateRAStatus")
+	public BaseView ajaxUpdateStatus(Long recommedArticlescrapId){
+		BaseView view=new BaseView();
+		if(recommedArticlescrapId==null){
+			view.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
+			return view;
+		}
+		try{
+			int number=recommedArticlescrapService.updateStatus(recommedArticlescrapId);
+			if(number!=1){
+				view.setBaseViewValue(RETURN_STATUS.PARAM_ERROR.getValue(),"无效的推荐id");
+			}
+		}catch(Exception e){
+			log.error("SERVICE_ERROR", e);
+			view.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
+		}
+		return view;
 	}
 }

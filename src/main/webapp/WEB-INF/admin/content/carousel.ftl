@@ -5,6 +5,7 @@
 <script src="${contextPath}/admin/js/jquery-1.11.1.min.js"></script>
 <script src="${contextPath}/admin/js/support-fileupload.js"></script>
 <script src="${contextPath}/admin/js/ajaxfileupload.js"></script>
+<script src="${contextPath}/admin/js/validation/jquery.validate.js"></script>
 </head>
 <body marginwidth="0" marginheight="0">
 	<div class="container">
@@ -14,7 +15,8 @@
 				<h3>添加轮播</h3>
 			</div>
 			<div class="public-content-cont">
-			<form action="${contextPath}/admin/saveCarousel" method="post" enctype="multipart/form-data">
+			<form action="${contextPath}/admin/saveCarousel" method="post" enctype="multipart/form-data" id="carouselForm">
+			    <fieldset>    
 			    <input type="hidden" name="id" value="${(carousel.id)!''}">
 			    <input type="hidden" name="status" value="${(carousel.status)!'DOWN'}">
 			    <input type="hidden" name="image_url" value="${(carousel.image_url)!''}">
@@ -32,7 +34,7 @@
 				</div>
 				<div class="form-group">
 					<label for="">图片</label>
-					<img src="<#if carousel.image_url??>${imageContextPath}${carousel.image_url}</#if>" id="showImage" style="width:200px;height:200px;<#if carousel.image_url??>display:block;<#else>display:none;</#if>">
+					<img src="<#if carousel.image_url??>${imageContextPath}${carousel.image_url}</#if>" id="showImage" name="showImage" style="width:200px;height:200px;<#if carousel.image_url??>display:block;<#else>display:none;</#if>">
 					<div class="file"><input type="file" class="form-input-file" id="uploadImage" name="uploadImage"/>选择文件</div>
 					<div class="file"><input type="button" class="form-input-file" id="buttonUpload" onClick="return ajaxFileUpload();">上传</div>
 				</div>
@@ -44,6 +46,7 @@
 					<input type="submit" class="sub-btn" value="提  交" />
 					<input type="reset" class="sub-btn" value="重  置" />
 				</div>
+				</fieldset>
 				</form>
 			</div>
 		</div>
@@ -94,5 +97,36 @@ function ajaxFileUpload()
         }
     )
 }
+
+$().ready(function() {
+	// 在键盘按下并释放及提交后验证提交表单
+	  $("#carouselForm").validate({
+	    rules: {
+	      sort: {
+	        required: true,
+	        digits:true
+	      },
+	      link_url: {
+	        required: true,
+	      }
+	    },
+	    messages: {
+	      sort: {
+	        required: "请输入排序",
+	        digits: "请输入整数"
+	      },
+	      link_url: {
+	    	required: "请输入跳转链接"
+	      }
+	    },
+	    submitHandler:function(form){
+            if($("input[name='image_url']").val()==''){
+            	alert('请选择图片');
+            }else{
+            	form.submit();
+            }
+        }    
+	});
+});
 </script>
 </html>

@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
 <#include "/admin/common/head_title.ftl">
+<link rel="stylesheet" type="text/css" href="${contextPath}/admin/css/xcConfirm.css"/>
+<script src="${contextPath}/admin/js/jquery-1.11.1.min.js"></script>
+<script src="${contextPath}/admin/js/confirm/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body marginwidth="0" marginheight="0">
 	<div class="container">
@@ -43,7 +46,7 @@
 					     <td>
 					     	<div class="table-fun">
 					     		<a href="${contextPath}/admin/articlescrap?articlescrapId=${articlescrap.id}">修改</a>
-					     		<a href="${contextPath}/admin/deleteArticlescrap?articlescrapId=${articlescrap.id}">删除</a>
+					     		<a href="javascript:void(0)" onclick="deleteArticlescrap(${articlescrap.id});">删除</a>
 					     	</div>
 					     </td>
 				     </tr>
@@ -53,4 +56,13 @@
 		</div>
 	</div>
 </body>
+<script>
+var contextPath="${contextPath}";
+function deleteArticlescrap(articlescrapId){
+	var txt = "您确定要删除这条数据吗？";
+	window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.confirm,{onOk:function(){
+		window.location.href=contextPath+"/admin/deleteArticlescrap?articlescrapId="+articlescrapId;
+	}})
+}
+</script>
 </html>

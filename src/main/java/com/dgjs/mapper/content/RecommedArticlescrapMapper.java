@@ -15,4 +15,6 @@ public interface RecommedArticlescrapMapper {
      public int deleteById(Long id);
      
      public RecommedArticlescrap selectByArticlescrapId(Long articlescrap_id);
+     
+     public int updateStatus(Long id);
 }

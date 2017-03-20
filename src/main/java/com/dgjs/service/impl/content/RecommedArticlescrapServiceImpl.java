@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dgjs.mapper.content.RecommedArticlescrapMapper;
+import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.persistence.RecommedArticlescrap;
 import com.dgjs.model.persistence.condition.RecommedArticlescrapCondition;
 import com.dgjs.model.persistence.enhance.RecommedArticlescrapEnhance;
@@ -36,8 +37,12 @@ public class RecommedArticlescrapServiceImpl implements RecommedArticlescrapServ
 
 	@Override
 	public RecommedArticlescrap selectByArticlescrapId(Long articlescrap_id) {
-		// TODO Auto-generated method stub
 		return mapper.selectByArticlescrapId(articlescrap_id);
+	}
+
+	@Override
+	public int updateStatus(Long id) {
+		return mapper.updateStatus(id);
 	}
 
 }

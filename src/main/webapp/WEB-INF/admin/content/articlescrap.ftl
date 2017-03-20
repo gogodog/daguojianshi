@@ -6,6 +6,7 @@
 <script language="javascript" src="${contextPath}/admin/js/My97DatePicker/wdatePicker.js"></script>
 <script src="${contextPath}/admin/js/support-fileupload.js"></script>
 <script src="${contextPath}/admin/js/ajaxfileupload.js"></script>
+<script src="${contextPath}/admin/js/validation/jquery.validate.js"></script>
 </head>
 <body marginwidth="0" marginheight="0">
 	<div class="container">
@@ -15,11 +16,12 @@
 				<h3>添加文章</h3>
 			</div>
 			<div class="public-content-cont">
-			<form action="${contextPath}/admin/saveArticlescrap" method="post" enctype="multipart/form-data">
+			<form action="${contextPath}/admin/saveArticlescrap" method="post" enctype="multipart/form-data" id="articlescrapForm">
 			    <input type="hidden" name="id" value="${(articlescrap.id)!''}">
 			    <input type="hidden" name="status" value="${(articlescrap.status)!'DOWN'}">
-			    <input type="hidden" name="show_picture" value="{(articlescrap.show_picture)!''}">
-				<div class="form-group">
+			    <input type="hidden" name="show_picture" value="${(articlescrap.show_picture)!''}">
+			    <fieldset>    
+			    <div class="form-group">
 					<label for="">文章标题</label>
 					<input class="form-input-txt" type="text" name="title" value="${(articlescrap.title)!''}" maxlengt="100"/>
 				</div>
@@ -69,6 +71,7 @@
 					<input type="submit" class="sub-btn" value="提  交" />
 					<input type="reset" class="sub-btn" value="重  置" />
 				</div>
+				</fieldset>
 				</form>
 			</div>
 		</div>
@@ -124,6 +127,62 @@
 	        }
 	    )
 	}
+	
+	$().ready(function() {
+		// 在键盘按下并释放及提交后验证提交表单
+		  $("#articlescrapForm").validate({
+		    rules: {
+			  title: {
+		        required: true,
+		        rangelength:[1,100]
+		      },
+		      sub_content: {
+		        required: true,
+		        rangelength:[1,500]
+		      },
+		      showTime: {
+			    required: true
+			  },
+			  author:{
+				required: true,
+				rangelength:[1,20]
+			  },
+			  content:{
+			    required: true
+			  }
+		    },
+		    messages: {
+		      title: {
+		        required: "请输入文章标题",
+		        rangelength:"请输入字符在1-100之间"
+		      },
+		      sub_content: {
+		    	required: "请输入文章精简内容",
+		    	rangelength:"请输入字符在1-500之间"
+		      },
+		      showTime: {
+			    required: "请输入文章展示时间"
+			  },
+			  author:{
+			    required: "请输入作者",
+			    rangelength:"作者名字长度在1-20之间"
+			  },
+			  content:{
+				required: "请输入文章内容"
+			  }
+		    },
+		    submitHandler:function(form){
+	           var content=$("#editor_id").val();
+	           if(content.val()==''){
+	        	   alert("请输入文章内容")
+	           }else if($("input[name='show_picture']").val()==''){
+	        	   alert("请选择展示图片")
+	           }else{
+	               form.submit();
+	           }
+	        }    
+		});
+	});
 	</script>
 </body>
 </html>
