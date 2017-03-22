@@ -250,3 +250,11 @@ body{background: #fff;}
 	color:red;
 	margin-left:10px;
 }
+.select-btn{
+	background: #6CB98F;
+    color: #FFFFFF;
+    padding: 0 15px;
+    height: 25px;
+    border: none;
+    border-radius: 5px;
+}

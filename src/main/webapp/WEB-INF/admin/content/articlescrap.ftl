@@ -37,7 +37,7 @@
 			    </div>
 				<div class="form-group">
 					<label for="">文章展示时间</label>
-					<input type="text" name="showTime" value="<#if articlescrap.show_time??>${articlescrap.show_time?date}</#if>" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});" class="Wdate" style="width:150px"/>
+					<input type="text" name="showTime" value="<#if articlescrap.show_time??>${articlescrap.show_time?datetime}</#if>" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});" class="Wdate" style="width:150px"/>
 				</div>
 				<div class="form-group">
 					<label for="">分类</label>

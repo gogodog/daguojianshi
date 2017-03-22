@@ -1,5 +1,6 @@
 package com.dgjs.mapper.content;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.junit.Test;
@@ -22,5 +23,8 @@ public class ArticlescrapMapperTest {
 	public void testListArticlescrap(){
 		List<Articlescrap> list=mapper.listArticlescrap(null);
 		System.out.println(JSON.toJSONString(list, true));
+	}
+	
+	public static void main(String[] args) {
 	}
 }

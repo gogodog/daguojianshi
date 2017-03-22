@@ -15,5 +15,8 @@ public interface ArticlescrapMapper {
 	
 	public List<Articlescrap> listArticlescrap(ArticlescrapCondtion articlescrapCondtion);
 	
+	public int sizeListArticlescrap(ArticlescrapCondtion articlescrapCondtion);
+	
 	public int deleteArticlescrap(Long id);
+	
 }

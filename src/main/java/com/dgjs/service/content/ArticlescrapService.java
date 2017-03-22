@@ -1,7 +1,6 @@
 package com.dgjs.service.content;
 
-import java.util.List;
-
+import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.persistence.Articlescrap;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 
@@ -13,7 +12,7 @@ public interface ArticlescrapService {
 	
 	public Articlescrap selectById(Long id);
 	
-	public List<Articlescrap> listArticlescrap(ArticlescrapCondtion articlescrapCondtion);
+	public PageInfoDto<Articlescrap> listArticlescrap(ArticlescrapCondtion articlescrapCondtion);
 	
 	public int deleteArticlescrap(Long id);
 }

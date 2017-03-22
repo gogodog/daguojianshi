@@ -5,12 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dgjs.constants.Constants;
 import com.dgjs.mapper.content.ArticlescrapMapper;
+import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.persistence.Articlescrap;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 import com.dgjs.service.content.ArticlescrapService;
-import com.dgjs.utils.HtmlUtil;
 
 @Service
 public class ArticlescrapServiceImpl implements ArticlescrapService{
@@ -34,22 +33,18 @@ public class ArticlescrapServiceImpl implements ArticlescrapService{
 	}
 
 	@Override
-	public List<Articlescrap> listArticlescrap(ArticlescrapCondtion articlescrapCondtion) {
+	public PageInfoDto<Articlescrap> listArticlescrap(ArticlescrapCondtion articlescrapCondtion) {
+		articlescrapCondtion.setBeginNum((articlescrapCondtion.getCurrentPage()-1)*articlescrapCondtion.getOnePageSize());
 		List<Articlescrap> list=articlescrapMapper.listArticlescrap(articlescrapCondtion);
-		int subStringLength=articlescrapCondtion==null?Constants.DEFAULT_SUBSTRING_CONTENT_LENGTH:articlescrapCondtion.getSubContentLength();
-//		for(Articlescrap articlescrap:list){
-//			String content=HtmlUtil.getTextFromHtml(articlescrap.getSub_content());
-//			articlescrap.setSub_content(content);
-//			if(content!=null&&content.length()>subStringLength){
-//				articlescrap.setSub_content(content.substring(0, subStringLength));
-//			}
-//		}
-		return list;
+		int totalResults=0;
+		if(articlescrapCondtion.isNeedTotalResults()){
+			totalResults=articlescrapMapper.sizeListArticlescrap(articlescrapCondtion);
+		}
+		return PageInfoDto.getPageInfo(articlescrapCondtion.getCurrentPage(), articlescrapCondtion.getOnePageSize(), totalResults, list);
 	}
 
 	@Override
 	public int deleteArticlescrap(Long id) {
-		// TODO Auto-generated method stub
 		return articlescrapMapper.deleteArticlescrap(id);
 	}
 

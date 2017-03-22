@@ -2,9 +2,12 @@ package com.dgjs.model.persistence.condition;
 
 import java.util.Date;
 
+import org.springframework.util.StringUtils;
+
 import com.dgjs.constants.Constants;
 import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.UpDown_Status;
+import com.dgjs.utils.DateUtils;
 
 public class ArticlescrapCondtion {
 
@@ -18,10 +21,13 @@ public class ArticlescrapCondtion {
 	private Date showTimeTo;
 	private Date updateTimeFrom;
 	private Date updateTimeTo;
-	private int subContentLength=Constants.DEFAULT_SUBSTRING_CONTENT_LENGTH;//查询截取的内容长度，默认20
+	private int subContentLength;//查询截取的内容长度，默认20
 	private String sort;//排序
 	private int beginNum;//从哪条开始查
-	private int onePageSize;//每页显示
+//	private int onePageSize=Constants.DEFAULT_ONEPAGESIZE;//每页显示
+	private int onePageSize=2;
+	private int currentPage=1;//当前页
+	private boolean needTotalResults;//是否需要查询总数
     
 	public UpDown_Status getStatus() {
 		return status;
@@ -62,14 +68,18 @@ public class ArticlescrapCondtion {
 	public Date getShowTimeFrom() {
 		return showTimeFrom;
 	}
-	public void setShowTimeFrom(Date showTimeFrom) {
-		this.showTimeFrom = showTimeFrom;
+	public void setShowTimeFrom(String showTimeFrom) {
+		if(!StringUtils.isEmpty(showTimeFrom)){
+			this.showTimeFrom = DateUtils.parseDateFromString(showTimeFrom, DateUtils.DAY);
+		}
 	}
 	public Date getShowTimeTo() {
 		return showTimeTo;
 	}
-	public void setShowTimeTo(Date showTimeTo) {
-		this.showTimeTo = showTimeTo;
+	public void setShowTimeTo(String showTimeTo) {
+		if(!StringUtils.isEmpty(showTimeFrom)){
+			this.showTimeTo = DateUtils.parseDateFromString(showTimeTo, DateUtils.DAY);
+		}
 	}
 	public Date getUpdateTimeFrom() {
 		return updateTimeFrom;
@@ -106,5 +116,17 @@ public class ArticlescrapCondtion {
 	}
 	public void setSubContentLength(int subContentLength) {
 		this.subContentLength = subContentLength;
+	}
+	public int getCurrentPage() {
+		return currentPage;
+	}
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
+	}
+	public boolean isNeedTotalResults() {
+		return needTotalResults;
+	}
+	public void setNeedTotalResults(boolean needTotalResults) {
+		this.needTotalResults = needTotalResults;
 	}
 }
