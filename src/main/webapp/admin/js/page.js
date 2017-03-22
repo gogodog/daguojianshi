@@ -1,5 +1,6 @@
 $(".page").find("a[link='first']").click(function(){
-	   	alert("点击了首页");
+	$("input[name='currentPage']").val(1);
+	$("#selectForm").submit();
 });
 $(".page").find("a[link='prev']").click(function(){
    	var currentPage=parseInt($("#current").html());
