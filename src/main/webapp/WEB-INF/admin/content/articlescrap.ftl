@@ -48,6 +48,14 @@
 				    </select>
 				</div>
 				<div class="form-group">
+				    <label for="">访问量</label>
+				    <input class="form-input-txt" type="text" name="visits" value="${(articlescrap.visits)!''}" onkeyup="this.value=this.value.replace(/\D/g,'')" />
+			    </div>
+			    <div class="form-group">
+			        <label for="">文章内容起始时间</label>
+			        <input class="form-input-txt" type="text" name="start_time" value="${(articlescrap.start_time)!''}" maxlength="255" />
+		        </div>
+				<div class="form-group">
 					<label for="">作者</label>
 					<input class="form-input-txt" type="text" name="author" value="${(articlescrap.author)!''}" maxlength="255" />
 				</div>

@@ -18,6 +18,8 @@ public class Articlescrap {
 	private Date update_time;//修改时间
 	private String sub_content;//精简内容
 	private String show_picture;//展示图片
+	private Long visits;//访问量
+	private String start_time;//内容的起始时间
 	
 	public Long getId() {
 		return id;
@@ -85,5 +87,16 @@ public class Articlescrap {
 	public void setShow_picture(String show_picture) {
 		this.show_picture = show_picture;
 	}
-	
+	public Long getVisits() {
+		return visits;
+	}
+	public void setVisits(Long visits) {
+		this.visits = visits;
+	}
+	public String getStart_time() {
+		return start_time;
+	}
+	public void setStart_time(String start_time) {
+		this.start_time = start_time;
+	}
 }

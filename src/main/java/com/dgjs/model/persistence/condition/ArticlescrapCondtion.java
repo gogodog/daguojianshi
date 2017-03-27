@@ -25,7 +25,7 @@ public class ArticlescrapCondtion {
 	private String sort;//排序
 	private int beginNum;//从哪条开始查
 //	private int onePageSize=Constants.DEFAULT_ONEPAGESIZE;//每页显示
-	private int onePageSize=2;
+	private int onePageSize=Constants.DEFAULT_ONEPAGESIZE;
 	private int currentPage=1;//当前页
 	private boolean needTotalResults;//是否需要查询总数
     
