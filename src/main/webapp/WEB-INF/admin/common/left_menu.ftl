@@ -15,6 +15,14 @@
 						</ul>
 					</div>
 				</li>
+				<li class="public-ifame-item">
+				    <a href="javascript:;">广告管理</a>
+				    <div class="ifame-item-sub">
+					    <ul>
+					        <li class="active"><a href="${contextPath}/admin/adList" target="content">广告内容管理</a></li>
+					    </ul>
+				    </div>
+			    </li>
 				<!-- 
 				<li class="public-ifame-item">
 					<a href="javascript:;">信息管理</a>

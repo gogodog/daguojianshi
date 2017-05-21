@@ -1,6 +1,5 @@
-package com.dgjs.mapper.content;
+package com.dgjs.mapper.ad;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import org.junit.Test;
@@ -10,19 +9,18 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.alibaba.fastjson.JSON;
-import com.dgjs.model.persistence.Articlescrap;
+import com.dgjs.model.persistence.Advertisement;
 
 @RunWith(SpringJUnit4ClassRunner.class)  
 @ContextConfiguration(locations = "classpath:spring-mybatis.xml") 
-public class ArticlescrapMapperTest {
+public class AdvertisementMapperTest {
 
 	@Autowired
-	ArticlescrapMapper mapper;
+	AdvertisementMapper mapper;
 	
 	@Test
-	public void testListArticlescrap(){
-		List<Articlescrap> list=mapper.listArticlescrap(null);
+	public void testListAdvertisement(){
+		List<Advertisement> list = mapper.listAdvertisement(null);
 		System.out.println(JSON.toJSONString(list, true));
 	}
-	
 }

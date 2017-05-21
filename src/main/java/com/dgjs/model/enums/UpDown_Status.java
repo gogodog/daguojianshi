@@ -1,5 +1,8 @@
 package com.dgjs.model.enums;
 
+/**
+ * 上下架状态
+ */
 public enum UpDown_Status {
 	
     UP(1,"上架"),

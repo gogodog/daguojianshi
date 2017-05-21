@@ -1,5 +1,8 @@
 package com.dgjs.model.enums;
 
+/**
+ * 文章分类
+ */
 public enum Articlescrap_Type {
 
 	HISTORY(1,"大国正史"),
