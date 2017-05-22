@@ -59,7 +59,7 @@
 	    select id, ad_desc,ad_pic_url,ad_link_url,ad_position,start_show_time,end_show_time,status,create_time,update_time from advertisement where id=#{id}
 	</select>
 	
-	<select id="listAdvertisement" resultType="advertisement">
+	<select id="listAdvertisement" resultType="advertisement" parameterType="advertisementCondtion">
 	    select id,ad_desc,ad_pic_url,ad_link_url,ad_position,start_show_time,end_show_time,status,create_time,update_time
 	    from advertisement where 1=1
 	    <include refid="listCondition"/>

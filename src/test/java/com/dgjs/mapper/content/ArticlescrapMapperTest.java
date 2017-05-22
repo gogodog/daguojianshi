@@ -1,6 +1,5 @@
 package com.dgjs.mapper.content;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import org.junit.Test;
@@ -11,6 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.alibaba.fastjson.JSON;
 import com.dgjs.model.persistence.Articlescrap;
+import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 
 @RunWith(SpringJUnit4ClassRunner.class)  
 @ContextConfiguration(locations = "classpath:spring-mybatis.xml") 
@@ -21,7 +21,7 @@ public class ArticlescrapMapperTest {
 	
 	@Test
 	public void testListArticlescrap(){
-		List<Articlescrap> list=mapper.listArticlescrap(null);
+		List<Articlescrap> list=mapper.listArticlescrap(new ArticlescrapCondtion());
 		System.out.println(JSON.toJSONString(list, true));
 	}
 	
