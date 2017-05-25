@@ -4,7 +4,7 @@ public class UploadPictureView extends BaseView{
 
 	
 	private String imageUrl;
-
+	
 
 	public String getImageUrl() {
 		return imageUrl;
@@ -13,5 +13,6 @@ public class UploadPictureView extends BaseView{
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
+
 	
 }

@@ -6997,7 +6997,7 @@ KindEditor.plugin('flash', function(K) {
 		formatUploadUrl = K.undef(self.formatUploadUrl, true),
 		extraParams = K.undef(self.extraFileUploadParams, {}),
 		filePostName = K.undef(self.filePostName, 'imgFile'),
-		uploadJson = K.undef(self.uploadJson, '/admin/ajaxUpload');
+		uploadJson = K.undef(self.uploadJson, editorImagePath);
 	self.plugin.flash = {
 		edit : function() {
 			var html = [
@@ -7071,7 +7071,7 @@ KindEditor.plugin('flash', function(K) {
 					url : K.addParam(uploadJson, 'dir=flash'),
 					afterUpload : function(data) {
 						dialog.hideLoading();
-						if (data.error === 0) {
+						if (data.error === 0 || data.error === '0') {
 							var url = data.url;
 							if (formatUploadUrl) {
 								url = K.formatUrl(url, 'absolute');
@@ -7150,7 +7150,7 @@ KindEditor.plugin('image', function(K) {
 		allowImageRemote = K.undef(self.allowImageRemote, true),
 		formatUploadUrl = K.undef(self.formatUploadUrl, true),
 		allowFileManager = K.undef(self.allowFileManager, false),
-		uploadJson = K.undef(self.uploadJson, '/admin/ajaxUpload'),
+		uploadJson = K.undef(self.uploadJson, editorImagePath),
 		imageTabIndex = K.undef(self.imageTabIndex, 0),
 		imgPath = self.pluginsPath + 'image/images/',
 		extraParams = K.undef(self.extraFileUploadParams, {}),
@@ -7310,7 +7310,7 @@ KindEditor.plugin('image', function(K) {
 			width: 60,
 			afterUpload : function(data) {
 				dialog.hideLoading();
-				if (data.error === 0) {
+				if (data.error === 0 || data.error === '0') {
 					var url = data.url;
 					if (formatUploadUrl) {
 						url = K.formatUrl(url, 'absolute');
@@ -7458,7 +7458,7 @@ KindEditor.plugin('insertfile', function(K) {
 		allowFileUpload = K.undef(self.allowFileUpload, true),
 		allowFileManager = K.undef(self.allowFileManager, false),
 		formatUploadUrl = K.undef(self.formatUploadUrl, true),
-		uploadJson = K.undef(self.uploadJson, '/admin/ajaxUpload'),
+		uploadJson = K.undef(self.uploadJson, editorImagePath),
 		extraParams = K.undef(self.extraFileUploadParams, {}),
 		filePostName = K.undef(self.filePostName, 'imgFile'),
 		lang = self.lang(name + '.');
@@ -7517,7 +7517,7 @@ KindEditor.plugin('insertfile', function(K) {
 				extraParams : extraParams,
 				afterUpload : function(data) {
 					dialog.hideLoading();
-					if (data.error === 0) {
+					if (data.error === 0 || data.error === '0') {
 						var url = data.url;
 						if (formatUploadUrl) {
 							url = K.formatUrl(url, 'absolute');
@@ -7696,7 +7696,7 @@ KindEditor.plugin('media', function(K) {
 		formatUploadUrl = K.undef(self.formatUploadUrl, true),
 		extraParams = K.undef(self.extraFileUploadParams, {}),
 		filePostName = K.undef(self.filePostName, 'imgFile'),
-		uploadJson = K.undef(self.uploadJson, '/admin/ajaxUpload');
+		uploadJson = K.undef(self.uploadJson, editorImagePath);
 	self.plugin.media = {
 		edit : function() {
 			var html = [
@@ -7777,7 +7777,7 @@ KindEditor.plugin('media', function(K) {
 					url : K.addParam(uploadJson, 'dir=media'),
 					afterUpload : function(data) {
 						dialog.hideLoading();
-						if (data.error === 0) {
+						if (data.error === 0 || data.error === '0') {
 							var url = data.url;
 							if (formatUploadUrl) {
 								url = K.formatUrl(url, 'absolute');
@@ -7948,7 +7948,7 @@ K.extend(KSWFUpload, {
 				} catch (e) {
 					self.options.afterError.call(this, '<!doctype html><html>' + serverData + '</html>');
 				}
-				if (data.error !== 0) {
+				if (data.error !== 0 || data.error !== '0') {
 					showError(itemDiv, K.DEBUG ? data.message : self.options.errorMessage);
 					return;
 				}
@@ -8028,7 +8028,7 @@ K.swfupload = function(element, options) {
 KindEditor.plugin('multiimage', function(K) {
 	var self = this, name = 'multiimage',
 		formatUploadUrl = K.undef(self.formatUploadUrl, true),
-		uploadJson = K.undef(self.uploadJson, '/admin/ajaxUpload'),
+		uploadJson = K.undef(self.uploadJson, editorImagePath),
 		imgPath = self.pluginsPath + 'multiimage/images/',
 		imageSizeLimit = K.undef(self.imageSizeLimit, '1MB'),
 		imageFileTypes = K.undef(self.imageFileTypes, '*.jpg;*.gif;*.png'),

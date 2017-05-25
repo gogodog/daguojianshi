@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.model.dto.PictureDto;
+import com.dgjs.model.view.EditorUploadPictureView;
 import com.dgjs.model.view.UploadPictureView;
 import com.dgjs.service.common.PictureService;
 
@@ -39,6 +40,25 @@ public class PictureController {
 	    } catch (Exception e) {
 	        view.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
 	        log.error("ajaxUpload error", e);
+	    }
+	    return JSON.toJSONString(view);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/ajaxUploadEditorImage")
+	public String ajaxUploadEditorImage(HttpServletRequest request, HttpServletResponse response,String imagePath){
+		EditorUploadPictureView view=new EditorUploadPictureView();
+	     try {
+	        PictureDto dto=pictureService.uploadPic(request, imagePath,"imgFile");
+	        if(dto==null||!dto.getIsSuccess()){
+	        	view.setError(RETURN_STATUS.SYSTEM_ERROR.toString());
+	        	return JSON.toJSONString(view);
+	        }
+	        view.setUrl(pictureService.getImageContextPath()+dto.getImageUrl());
+	        view.setError("0");
+	    } catch (Exception e) {
+	        log.error("ajaxUpload error", e);
+	        view.setError(RETURN_STATUS.SYSTEM_ERROR.toString());
 	    }
 	    return JSON.toJSONString(view);
 	}
