@@ -1,5 +1,8 @@
-		<article class="excerpt-minic excerpt-minic-index">
-            <h2><span class="red">【推荐】</span><a target="_blank" href="http://www.dgjs.com/show/269.html" title="头条" >我与总书记议国是 “三严三实”三周年 治国理政</a>
-            </h2>
-            <p class="note">三年前的今天，习近平总书记提出了“三严三实”，在全党全社会引起强烈反响，三年来，广大党员干部认真学习贯彻“三严三实”要求，用好管好人民赋予的权力，提振干事创业的精气神，在思想上、行动上立起了“严”和“实”的标杆。三年前，习近平总书记参加安徽代表团审议时，第一次提出了“三严三实”。全国人大代表胡大明：印象还是非常深刻的，因为当时总书记提出了“三严三实”后，我觉得就是对于我们以后做人做事，提出了一个更高的一个要求。把自己摆进去，做到见人见事见思想，从2014年起，各地以多种形式在党员干部中集中开展了“三严三实”专题教育。中央党校党建教研部副主任戴焰军：“三严三实”实际上是我们党在历史上重视思想建党这么一个经验的必然传承。</p>
-        </article>
+<#list rAEList as rea>
+	   <article class="excerpt-minic excerpt-minic-index">
+          <h2><span class="red">【推荐】</span><a target="_blank" href="${contextPath}/show/${rea.articlescrap_id}" title="头条" >${rea.title}</a>
+          </h2>
+          <p class="note">${rea.sub_content}</p>
+       </article>
+</#list>
+        

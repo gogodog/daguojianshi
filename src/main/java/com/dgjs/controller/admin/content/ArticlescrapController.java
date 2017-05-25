@@ -40,7 +40,7 @@ public class ArticlescrapController {
     }  
 	
 	@RequestMapping("/articlescrap")
-	public ModelAndView articlescrap(HttpServletRequest request, HttpServletResponse response,Long articlescrapId){
+	public ModelAndView articlescrap(Long articlescrapId){
 		ModelAndView mv = new ModelAndView("admin/content/articlescrap");  
 		mv.addObject("imageContextPath", pictureService.getImageContextPath());
 		if(articlescrapId!=null){
@@ -70,4 +70,10 @@ public class ArticlescrapController {
 		return mv;
 	}
 	
+	@RequestMapping("/previewArticlescrap")
+	public ModelAndView previewArticlescrap(Long articlescrapId){
+		ModelAndView mv = articlescrap(articlescrapId);
+		mv.setViewName("front/show");
+		return mv;
+	}
 }

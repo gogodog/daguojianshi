@@ -78,6 +78,7 @@
 				<div class="form-group" style="margin-left:150px;">
 					<input type="submit" class="sub-btn" value="提  交" />
 					<input type="reset" class="sub-btn" value="重  置" />
+					<input type="button" class="sub-btn" value="预  览" onclick="preview(${articlescrap.id});"/>
 				</div>
 				</fieldset>
 				</form>
@@ -92,6 +93,8 @@
 	        });
 	</script>
 	<script type="text/javascript">
+	var contextPath="${contextPath}";
+	
 	$("#status").click(function(){
 		if($('#status').is(':checked')) {
 			   $("input[name='status']").val("UP");
@@ -101,7 +104,6 @@
 	});
 	function ajaxFileUpload()
 	{
-	    var contextPath="${contextPath}";
 	    var imageContextPath="${imageContextPath}";
 	    var uploadFileName="articlescrap";
 	    $.ajaxFileUpload
@@ -191,6 +193,10 @@
 	        }    
 		});
 	});
+	
+	function preview(id){
+		window.location.href=contextPath+"/admin/previewArticlescrap?articlescrapId="+id
+	}
 	</script>
 </body>
 </html>

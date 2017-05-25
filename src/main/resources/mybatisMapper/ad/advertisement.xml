@@ -78,11 +78,14 @@
 	    <if test="status!=null">
 			and status=#{status}
 	    </if>
-	    <if test="adPosition!=null">
-			and ad_position=#{adPosition}
-	    </if>
 	    <if test="adDesc!=null">
 			and ad_desc LIKE concat(concat('%',#{adDesc}),'%')
+	    </if>
+	    <if test="adPositions!=null">
+	        and ad_position in
+	        <foreach collection="adPositions" index="index" item="item" open="(" separator="," close=")">  
+			    #{item}
+		    </foreach>
 	    </if>
 	</sql>
 	

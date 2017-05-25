@@ -1,5 +1,7 @@
 package com.dgjs.model.persistence.condition;
 
+import java.util.List;
+
 import com.dgjs.constants.Constants;
 import com.dgjs.model.enums.Ad_Position;
 import com.dgjs.model.enums.UpDown_Status;
@@ -7,7 +9,7 @@ import com.dgjs.model.enums.UpDown_Status;
 public class AdvertisementCondtion {
 
 	private UpDown_Status status;//状态
-	private Ad_Position adPosition;//广告位置
+	private List<Ad_Position> adPositions;//广告位置
 	private String adDesc;//广告描述
 	private String sort;//排序
 	private int currentPage = 1;//当前页
@@ -20,12 +22,6 @@ public class AdvertisementCondtion {
 	}
 	public void setStatus(UpDown_Status status) {
 		this.status = status;
-	}
-	public Ad_Position getAdPosition() {
-		return adPosition;
-	}
-	public void setAdPosition(Ad_Position adPosition) {
-		this.adPosition = adPosition;
 	}
 	public String getAdDesc() {
 		return adDesc;
@@ -62,6 +58,12 @@ public class AdvertisementCondtion {
 	}
 	public void setNeedTotalResults(boolean needTotalResults) {
 		this.needTotalResults = needTotalResults;
+	}
+	public List<Ad_Position> getAdPositions() {
+		return adPositions;
+	}
+	public void setAdPositions(List<Ad_Position> adPositions) {
+		this.adPositions = adPositions;
 	}
 	
 }

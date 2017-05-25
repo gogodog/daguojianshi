@@ -79,7 +79,7 @@
 	    from articlescrap where 1=1
 	    <include refid="listCondition" />
 	    <if test="sort!=null">
-			#{sort}
+			${sort}
 	    </if>
 	    limit #{beginNum},#{onePageSize}
 	</select>
