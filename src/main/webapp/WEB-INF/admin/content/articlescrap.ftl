@@ -86,7 +86,7 @@
 		</div>
 	</div>
 	
-	<script src="${contextPath}/admin/js/kingediter/kindeditor-all-min.js"></script>
+	<script src="${contextPath}/admin/js/kingediter/kindeditor-all.js"></script>
 	<script>
 		 KindEditor.ready(function(K) {
 	                window.editor = K.create('#editor_id');

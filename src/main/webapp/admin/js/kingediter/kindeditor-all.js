@@ -6997,7 +6997,7 @@ KindEditor.plugin('flash', function(K) {
 		formatUploadUrl = K.undef(self.formatUploadUrl, true),
 		extraParams = K.undef(self.extraFileUploadParams, {}),
 		filePostName = K.undef(self.filePostName, 'imgFile'),
-		uploadJson = K.undef(self.uploadJson, self.basePath + 'php/upload_json.php');
+		uploadJson = K.undef(self.uploadJson, '/admin/ajaxUpload');
 	self.plugin.flash = {
 		edit : function() {
 			var html = [
@@ -7150,7 +7150,7 @@ KindEditor.plugin('image', function(K) {
 		allowImageRemote = K.undef(self.allowImageRemote, true),
 		formatUploadUrl = K.undef(self.formatUploadUrl, true),
 		allowFileManager = K.undef(self.allowFileManager, false),
-		uploadJson = K.undef(self.uploadJson, self.basePath + 'php/upload_json.php'),
+		uploadJson = K.undef(self.uploadJson, '/admin/ajaxUpload'),
 		imageTabIndex = K.undef(self.imageTabIndex, 0),
 		imgPath = self.pluginsPath + 'image/images/',
 		extraParams = K.undef(self.extraFileUploadParams, {}),
@@ -7458,7 +7458,7 @@ KindEditor.plugin('insertfile', function(K) {
 		allowFileUpload = K.undef(self.allowFileUpload, true),
 		allowFileManager = K.undef(self.allowFileManager, false),
 		formatUploadUrl = K.undef(self.formatUploadUrl, true),
-		uploadJson = K.undef(self.uploadJson, self.basePath + 'php/upload_json.php'),
+		uploadJson = K.undef(self.uploadJson, '/admin/ajaxUpload'),
 		extraParams = K.undef(self.extraFileUploadParams, {}),
 		filePostName = K.undef(self.filePostName, 'imgFile'),
 		lang = self.lang(name + '.');
@@ -7696,7 +7696,7 @@ KindEditor.plugin('media', function(K) {
 		formatUploadUrl = K.undef(self.formatUploadUrl, true),
 		extraParams = K.undef(self.extraFileUploadParams, {}),
 		filePostName = K.undef(self.filePostName, 'imgFile'),
-		uploadJson = K.undef(self.uploadJson, self.basePath + 'php/upload_json.php');
+		uploadJson = K.undef(self.uploadJson, '/admin/ajaxUpload');
 	self.plugin.media = {
 		edit : function() {
 			var html = [
@@ -8028,7 +8028,7 @@ K.swfupload = function(element, options) {
 KindEditor.plugin('multiimage', function(K) {
 	var self = this, name = 'multiimage',
 		formatUploadUrl = K.undef(self.formatUploadUrl, true),
-		uploadJson = K.undef(self.uploadJson, self.basePath + 'php/upload_json.php'),
+		uploadJson = K.undef(self.uploadJson, '/admin/ajaxUpload'),
 		imgPath = self.pluginsPath + 'multiimage/images/',
 		imageSizeLimit = K.undef(self.imageSizeLimit, '1MB'),
 		imageFileTypes = K.undef(self.imageFileTypes, '*.jpg;*.gif;*.png'),
