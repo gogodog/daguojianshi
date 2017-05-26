@@ -57,6 +57,8 @@
 	<mvc:resources mapping="/admin/css/**" location="/admin/css/"/>
 	<mvc:resources mapping="/admin/fonts/**" location="/admin/fonts/"/>
 	<mvc:resources mapping="/admin/plugins/**" location="/admin/plugins/"/>
+	<!-- 公共 -->
+	<mvc:resources mapping="/common/**" location="/common/"/>
 	
 	
 	<!-- jsp视图模式配置
@@ -85,7 +87,7 @@
         <!-- 内存中的最大值 -->
         <property name="maxInMemorySize" value="40960" />  
     </bean> 
-    
+    <bean class="com.dgjs.job.DadianThread"></bean>
     <mvc:interceptors>  
       <bean class="com.dgjs.interceptors.BaseInterceptor"/>  
      <!--  <bean class="com.dgjs.interceptors.LoginInterceptor"/>   -->

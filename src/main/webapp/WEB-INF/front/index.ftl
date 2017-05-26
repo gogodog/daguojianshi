@@ -1,8 +1,14 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-    <title>大国简史首页</title>
+    <title>大国简史</title>
     <#include "/front/common/header_static.ftl">
+    <script>
+		//页面统计
+		var pageinfo_ = {};
+		pageinfo_['page'] = 'font_index';
+		window['pageinfo'] = pageinfo_;
+	</script>
 </head>
 <body class="user-select">
     <#include "/front/common/header.ftl">
