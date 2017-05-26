@@ -31,7 +31,7 @@
 			    </div>
 			    <div class="form-group">
 			        <label for="">广告位置：</label>
-			        <select name="ad_position" id="ad_position">
+			        <select name="adPosition" id="ad_position">
 			            <option value="">请选择</option>
 			            <#list adPositions as adPosition>
 			               <option value="${adPosition}"<#if advertisement.ad_position?? && advertisement.ad_position == adPosition>selected</#if> >${adPosition.value}</option>

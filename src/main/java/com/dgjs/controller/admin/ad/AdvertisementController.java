@@ -1,5 +1,7 @@
 package com.dgjs.controller.admin.ad;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +28,7 @@ public class AdvertisementController {
 	@RequestMapping("/adList")
 	public ModelAndView adList(AdvertisementCondtion condition){
 		ModelAndView mv = new ModelAndView("admin/ad/advertisement_list");
+		condition.setAdPositions(condition.getAdPosition()==null?null:Arrays.asList(condition.getAdPosition()));
 		condition.setNeedTotalResults(true);
 		PageInfoDto<Advertisement> pageInfo=advertisementService.listAdvertisement(condition);
 		mv.addObject("pageInfo", pageInfo);
