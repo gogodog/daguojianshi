@@ -15,7 +15,9 @@ public class AdvertisementCondtion {
 	private int currentPage = 1;//当前页
 	private boolean needTotalResults;//是否需要查询总数
 	private int beginNum;
-	private int onePageSize = Constants.DEFAULT_ONEPAGESIZE;;
+	private int onePageSize = Constants.DEFAULT_ONEPAGESIZE;
+	
+	private Ad_Position adPosition;//广告位置 后台查询用到
 	
 	public UpDown_Status getStatus() {
 		return status;
@@ -64,6 +66,12 @@ public class AdvertisementCondtion {
 	}
 	public void setAdPositions(List<Ad_Position> adPositions) {
 		this.adPositions = adPositions;
+	}
+	public Ad_Position getAdPosition() {
+		return adPosition;
+	}
+	public void setAdPosition(Ad_Position adPosition) {
+		this.adPosition = adPosition;
 	}
 	
 }

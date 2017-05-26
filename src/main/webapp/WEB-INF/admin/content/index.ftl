@@ -25,7 +25,6 @@
 <script>
 $().ready(function(){
 	var item = $(".public-ifame-item");
-
 	for(var i=0; i < item.length; i++){
 		$(item[i]).on('click',function(){
 			$(".ifame-item-sub").hide();
