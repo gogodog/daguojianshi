@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONObject;
 import com.dgjs.service.common.DataService;
 
 @Controller
@@ -20,7 +21,13 @@ public class DataController {
 	
 	@RequestMapping(value="/dadian",method=RequestMethod.POST)
 	@ResponseBody
-    public boolean dadian(HttpServletRequest request, @RequestBody String dadian) throws Exception {
+    public boolean dadian(HttpServletRequest request, @RequestBody String dadian){
 		return dataSerivce.dadian(request, dadian);  
+    }
+	
+	@RequestMapping(value="/getdocshow",method=RequestMethod.GET)
+	@ResponseBody
+    public JSONObject getDocShowCounts(String docids){
+		return dataSerivce.getDocShowCounts(docids);
     }
 }

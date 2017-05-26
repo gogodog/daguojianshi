@@ -1,6 +1,6 @@
 package com.dgjs.utils;
 
-public class StringUtils {
+public class StringUtils extends com.mysql.jdbc.StringUtils{
 
 	public static String combineStr(String[] strs,String blank){
 		if(strs==null||strs.length==0){

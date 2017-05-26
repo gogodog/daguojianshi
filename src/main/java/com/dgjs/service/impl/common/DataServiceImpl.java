@@ -7,10 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.dgjs.model.view.DadianView;
 import com.dgjs.service.common.DataService;
 import com.dgjs.utils.IPUtils;
 import com.dgjs.utils.MacUtils;
+import com.dgjs.utils.StringUtils;
 
 @Service
 public class DataServiceImpl implements DataService{
@@ -29,5 +31,19 @@ public class DataServiceImpl implements DataService{
 
 	public static Queue<DadianView> getQueue() {
 		return QUEUE;
+	}
+
+	@Override
+	public JSONObject getDocShowCounts(String docids) {
+		JSONObject json = new JSONObject();
+		if(StringUtils.isNullOrEmpty(docids)){
+			return json;
+		}
+		// TODO 访问数据库 如下为测试数据
+		String[] ids = docids.split(DataService.IDSSEPORTE);
+		for(int i = 0 ; i<ids.length ; i++){
+			json.put(ids[i], 100*i);
+		}
+		return json;
 	}
 }
