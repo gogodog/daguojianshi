@@ -55,7 +55,9 @@ public class PictureServiceImpl implements PictureService{
 	 	        inputStream.close();
 	 	        outputStream.close();
 	 	        String imageUrl=PictureUtils.getImageAccessPath(webBasePath,imagePath,request, imageName);
+	 	        String minImageUrl = PictureUtils.thumbnailatorImage("", "", 1f);
 	 	        dto.setImageUrl(imageUrl);
+	 	        dto.setMinImageUrl(minImageUrl);
 	        }
 	    } catch (IOException e) {
 	        e.printStackTrace();
@@ -70,6 +72,4 @@ public class PictureServiceImpl implements PictureService{
 		// TODO Auto-generated method stub
 		return imageContextPath;
 	}
-	
-	
 }
