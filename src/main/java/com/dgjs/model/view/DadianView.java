@@ -9,6 +9,10 @@ public class DadianView {
 	private String ip = "";
 	private String MAC = "";
 	private String page = "";
+	private String pageid = "";
+	private String pagetype = "";
+	private String pagedocids = "";
+	private String pageadids = "";
 	private String channel = "";
 	private String browseVersion = "";
 	private String os = "";
@@ -78,5 +82,29 @@ public class DadianView {
 	}
 	public void setOs(String os) {
 		this.os = os;
+	}
+	public String getPageid() {
+		return pageid;
+	}
+	public void setPageid(String pageid) {
+		this.pageid = pageid;
+	}
+	public String getPagetype() {
+		return pagetype;
+	}
+	public void setPagetype(String pagetype) {
+		this.pagetype = pagetype;
+	}
+	public String getPagedocids() {
+		return pagedocids;
+	}
+	public void setPagedocids(String pagedocids) {
+		this.pagedocids = pagedocids;
+	}
+	public String getPageadids() {
+		return pageadids;
+	}
+	public void setPageadids(String pageadids) {
+		this.pageadids = pageadids;
 	}
 }

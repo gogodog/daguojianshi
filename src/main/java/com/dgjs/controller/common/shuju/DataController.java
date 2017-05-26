@@ -22,5 +22,5 @@ public class DataController {
 	@ResponseBody
     public boolean dadian(HttpServletRequest request, @RequestBody String dadian) throws Exception {
 		return dataSerivce.dadian(request, dadian);  
-    }  
+    }
 }

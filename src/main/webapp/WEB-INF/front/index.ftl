@@ -7,6 +7,10 @@
 		//页面统计
 		var pageinfo_ = {};
 		pageinfo_['page'] = 'font_index';
+		pageinfo_['pagetype'] = 'list';//list or detail or other
+		pageinfo_['pagedocids'] = '10336266#10336267#10336268';//文章id
+		pageinfo_['pageadids'] = 'X0336266#X0336267#X0336268';//广告id
+		pageinfo_['pageid'] = '10336266';
 		window['pageinfo'] = pageinfo_;
 	</script>
 </head>

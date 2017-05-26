@@ -21,6 +21,10 @@
     var ip="";
     var MAC="";
     var page=pageinfo.page;
+    var pageid = pageinfo.pageid;
+    var pagetype = pageinfo.pagetype;
+    var pagedocids = pageinfo.pagedocids;
+    var pageadids = pageinfo.pageadids;
     var channel="todo";
     var browseVersion = function (){
     	    var userAgent = ua;
@@ -84,6 +88,11 @@
     	result['ip'] = ip;
     	result['MAC'] = MAC;
     	result['page'] = page;
+    	result['pageid'] = pageid;
+    	result['pagetype'] = pagetype;
+    	result['pagedocids'] = pagedocids;
+    	result['pageadids'] = pageadids;
+    	
     	result['channel'] = channel;
     	result['browseVersion'] = browseVersion();
     	result['os'] = os();
