@@ -77,19 +77,8 @@ public class IndexController {
     }
 	
 	@RequestMapping("/error")
-    public ModelAndView error(int e) throws Exception{  
-		ModelAndView mv = new ModelAndView("front/index");
-		switch(e){
-			case 1 :
-				throw new NullPointerException();
-			case 2 :
-				throw new Exception();
-			case 3 :
-				throw new AccessControlException("--");
-			default:
-				System.out.println("null error;");
-				break;
-		}
+    public ModelAndView error(int e){  
+		ModelAndView mv = new ModelAndView("front/error");
         return mv;
     }
 	

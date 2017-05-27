@@ -52,17 +52,14 @@
     </style>
 </head>
 <body class="user-select">
-    <#include "/common/header.ftl"/>
     <section class="container">
-  <div class="panel">
-    <div class="text-center">
-      <h2><stong>${info.errorCode}:${info.tips}</stong></h2>
-        <div class="padding-big"> <a href="${info.callback}" class="btn btn-primary" >${info.callbakcbtn}</a>
-        </div>
-    </div>
-  </div>
-</section>
-    <#include "/common/footer_title.ftl"/>
-	<#include "/common/footer_static.ftl"/>
+	  <div class="panel">
+	    <div class="text-center">
+	      <h2><stong>${info.errorCode}:${info.tips}</stong></h2>
+	        <div class="padding-big"> <a href="${info.callback}" class="btn btn-primary" >${info.callbakcbtn}</a>
+	        </div>
+	    </div>
+	  </div>
+	</section>
 </body>
 </html>
