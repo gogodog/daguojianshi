@@ -12,16 +12,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONObject;
 import com.dgjs.service.common.DataService;
 
+import freemarker.log.Logger;
+
 @Controller
 @RequestMapping("/data")
 public class DataController {
 	
 	@Autowired
 	DataService dataSerivce;
+	private Logger log = Logger.getLogger(this.getClass().getName()); 
 	
 	@RequestMapping(value="/dadian",method=RequestMethod.POST)
 	@ResponseBody
     public boolean dadian(HttpServletRequest request, @RequestBody String dadian){
+		log.info("进入首页");
 		return dataSerivce.dadian(request, dadian);  
     }
 	

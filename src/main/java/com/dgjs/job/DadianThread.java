@@ -32,16 +32,13 @@ public class DadianThread implements Runnable,ApplicationListener<ContextRefresh
 		while(true){
 			try {
 				Thread.sleep(2000);
-				System.out.println("注入参数2：" + this.innerdataservice == null ? null : this.innerdataservice.toString());
 			} catch (InterruptedException e) {
 				
 			}
 			if(DadianThread.QUEUE.isEmpty()){
-				System.out.println("队列为空");
 				continue;
 			}
 			DadianView view = DadianThread.QUEUE.poll();
-			System.out.println("队列数据：" + JSON.toJSONString(view));
 			int count = this.innerdataservice.insertDaDian(view);
 			if(count != 1){
 				System.out.println("异常插入：" + JSON.toJSONString(view));
