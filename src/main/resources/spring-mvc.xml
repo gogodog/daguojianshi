@@ -91,4 +91,5 @@
       <bean class="com.dgjs.interceptors.BaseInterceptor"/>  
      <!--  <bean class="com.dgjs.interceptors.LoginInterceptor"/>   -->
     </mvc:interceptors>  
+    <bean id="exceptionHandler" class="com.dgjs.job.ExceptionOperation"/>
 </beans>

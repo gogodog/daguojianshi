@@ -1,5 +1,6 @@
 package com.dgjs.controller.front;
 
+import java.security.AccessControlException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -72,6 +73,23 @@ public class IndexController {
 		List<Advertisement> advertisementList=advertisementPageInfo.getObjects();
 		mv.addObject("advertisementList", advertisementList);
 		//加载最新评论文章
+        return mv;
+    }
+	
+	@RequestMapping("/error")
+    public ModelAndView error(int e) throws Exception{  
+		ModelAndView mv = new ModelAndView("front/index");
+		switch(e){
+			case 1 :
+				throw new NullPointerException();
+			case 2 :
+				throw new Exception();
+			case 3 :
+				throw new AccessControlException("--");
+			default:
+				System.out.println("null error;");
+				break;
+		}
         return mv;
     }
 	
