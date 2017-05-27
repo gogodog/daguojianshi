@@ -25,10 +25,7 @@ public class DataController {
 	@RequestMapping(value="/dadian",method=RequestMethod.POST)
 	@ResponseBody
     public boolean dadian(HttpServletRequest request, @RequestBody String dadian){
-		log.setCategoryPrefix("china-大国简史");
-		log.info("info::");
-		log.error("error::");
-		log.debug("debug::");
+		log.info("进入首页");
 		return dataSerivce.dadian(request, dadian);  
     }
 	
