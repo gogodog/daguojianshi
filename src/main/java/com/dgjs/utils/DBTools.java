@@ -20,19 +20,19 @@ public class DBTools {
     String jdbcUrl = "jdbc:mysql://121.42.143.166:3306/test-dgjs?useUnicode=true&characterEncoding=UTF-8&connectTimeout=60000&socketTimeout=60000";  
     
     //persistence信息
-    String tableName = "advertisement";
+    String tableName = "comments";
     
     //mapper.xml信息
     String tableIdName = "id";
-    String fullMapperName = "com.dgjs.mapper.ad.AdvertisementMapper";
+    String fullMapperName = "com.dgjs.mapper.content.CommentsMapper";
     
     //dao信息
-    String daoName = "AdvertisementMapper";
+    String daoName = "CommentsMapper";
     
     //输出路径
-    String persistencePath="/Users/user/Documents/workspaces/elong_workspace_b170327/daguojianshi/src/test/java/Advertisement.java";
-    String mapperXmlPath="/Users/user/Documents/workspaces/elong_workspace_b170327/daguojianshi/src/test/java/advertisement.xml";
-    String daoJavaPath="/Users/user/Documents/workspaces/elong_workspace_b170327/daguojianshi/src/test/java/AdvertisementMapper.java";
+    String persistencePath="/Users/user/Documents/workspaces/elong_workspace_b170327/daguojianshi/src/main/java/com/dgjs/model/persistence/Comments.java";
+    String mapperXmlPath="/Users/user/Documents/workspaces/elong_workspace_b170327/daguojianshi/src/main/resources/mybatisMapper/content/comments.xml";
+    String daoJavaPath="/Users/user/Documents/workspaces/elong_workspace_b170327/daguojianshi/src/main/java/com/dgjs/mapper/content/CommentsMapper.java";
     //=============================  常量定义区 end   ============================
     Connection conn = null; 
     

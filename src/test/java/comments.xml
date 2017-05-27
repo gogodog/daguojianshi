@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgjs.mapper.ad.AdvertisementMapper">
+
+    <insert id="save" parameterType="advertisement" keyProperty="id" useGeneratedKeys="true">
+	  insert into advertisement 
+	  (
+               ad_desc,
+               ad_pic_url,
+               ad_link_url,
+               ad_position,
+               start_show_time,
+               end_show_time,
+               status,
+               create_time,
+               update_time
+	  )
+	  values
+	  (
+               #{ad_desc},
+               #{ad_pic_url},
+               #{ad_link_url},
+               #{ad_position},
+               #{start_show_time},
+               #{end_show_time},
+               #{status},
+               now(),
+               now()
+	  )
+   </insert>
+
+    <update id="update">
+	 update advertisement set
+	 <if test="ad_desc!=null and ad_desc!=''">
+	       ad_desc=#{ad_desc},
+	 </if>
+	 <if test="ad_pic_url!=null and ad_pic_url!=''">
+	       ad_pic_url=#{ad_pic_url},
+	 </if>
+	 <if test="ad_link_url!=null and ad_link_url!=''">
+	       ad_link_url=#{ad_link_url},
+	 </if>
+	 <if test="ad_position!=null">
+	       ad_position=#{ad_position},
+	 </if>
+	 <if test="start_show_time!=null">
+	       start_show_time=#{start_show_time},
+	 </if>
+	 <if test="end_show_time!=null">
+	       end_show_time=#{end_show_time},
+	 </if>
+	 <if test="status!=null">
+	       status=#{status},
+	 </if>
+	 <if test="create_time!=null">
+	       create_time=#{create_time},
+	 </if>
+	 <if test="update_time!=null">
+	       update_time=#{update_time},
+	 </if>
+         update_time=now() where id=#{id}
+   </update>
+
+   <delete id="deleteById">
+         delete from advertisement where id = #{id}
+   </delete>
+
+   <select id="selectById" resultType="advertisement">
+         select
+              id,
+              ad_desc,
+              ad_pic_url,
+              ad_link_url,
+              ad_position,
+              start_show_time,
+              end_show_time,
+              status,
+              create_time,
+              update_time
+         from advertisement
+   </select>
+
+   <select id="list" resultType="advertisement">
+         select
+              id,
+              ad_desc,
+              ad_pic_url,
+              ad_link_url,
+              ad_position,
+              start_show_time,
+              end_show_time,
+              status,
+              create_time,
+              update_time
+         from advertisement
+   </select>
+
+</mapper>

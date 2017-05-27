@@ -36,7 +36,7 @@ public class PictureController {
 	        	view.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
 	        	return JSON.toJSONString(view);
 	        }
-	        view.setImageUrl(dto.getImageUrl());
+	        view.setImageUrl(dto.getMinImageUrl());
 	    } catch (Exception e) {
 	        view.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
 	        log.error("ajaxUpload error", e);
@@ -54,7 +54,7 @@ public class PictureController {
 	        	view.setError(RETURN_STATUS.SYSTEM_ERROR.toString());
 	        	return JSON.toJSONString(view);
 	        }
-	        view.setUrl(pictureService.getImageContextPath()+dto.getImageUrl());
+	        view.setUrl(pictureService.getImageContextPath()+dto.getMinImageUrl());
 	        view.setError("0");
 	    } catch (Exception e) {
 	        log.error("ajaxUpload error", e);
