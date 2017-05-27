@@ -23,4 +23,16 @@ public class StringUtils extends com.mysql.jdbc.StringUtils{
 		}
 		return str.toString();
 	}
+	
+	public static Integer parseInt(String str,Integer defaultValue){
+		try{
+			return Integer.parseInt(str);
+		}catch(Exception e){
+		}
+		return defaultValue;
+	}
+	
+	public static Integer parseInt(String str){
+		return parseInt(str,null);
+	}
 }

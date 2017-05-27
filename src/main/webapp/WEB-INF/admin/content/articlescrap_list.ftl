@@ -35,11 +35,11 @@
 						<th style="width:20%">文章内容</th>
 						<th style="width:10%">文章展示时间</th>
 						<th style="width:8%">分类</th>
-						<th style="width:8%">状态</th>
-						<th style="width:8%">作者</th>
+						<th style="width:5%">状态</th>
+						<th style="width:7%">作者</th>
 						<th style="width:8%">创建时间</th>
 						<th style="width:8%">修改时间</th>
-						<th style="width:14%">操作</th>
+						<th style="width:18%">操作</th>
 					</tr>
 					<#list pageInfo.objects as articlescrap>
 					  <tr>
@@ -56,6 +56,7 @@
 					     	<div class="table-fun">
 					     		<a href="${contextPath}/admin/articlescrap?articlescrapId=${articlescrap.id}">修改</a>
 					     		<a href="javascript:void(0)" onclick="deleteArticlescrap(${articlescrap.id});">删除</a>
+					     		<a href="${contextPath}/admin/comments?articlescrapId=${articlescrap.id}">评论</a>
 					     	</div>
 					     </td>
 				     </tr>

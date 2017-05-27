@@ -15,6 +15,8 @@
         expression="org.springframework.stereotype.Controller" />
       <context:exclude-filter type="annotation"
         expression="org.springframework.stereotype.Service" />
+      <context:exclude-filter type="regex" 
+        expression="com.dgjs.job.*"/>
     </context:component-scan>  
     <!-- 引入配置文件 -->  
     <bean id="propertyConfigurer"  

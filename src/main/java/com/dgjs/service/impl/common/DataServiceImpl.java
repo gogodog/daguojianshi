@@ -1,7 +1,6 @@
 package com.dgjs.service.impl.common;
 
 import java.util.Date;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,6 +14,7 @@ import com.dgjs.mapper.common.DadianMapper;
 import com.dgjs.model.view.DadianView;
 import com.dgjs.service.common.DataService;
 import com.dgjs.utils.IPUtils;
+import com.dgjs.utils.IdsUtils;
 import com.dgjs.utils.MacUtils;
 import com.dgjs.utils.StringUtils;
 
@@ -57,7 +57,7 @@ public class DataServiceImpl implements DataService{
 			view.setNote("dgjs-system");
 		}
 		if(StringUtils.isNullOrEmpty(view.getUuid())){
-			view.setUuid(UUID.randomUUID().toString());
+			view.setUuid(IdsUtils.getUuId());
 		}
 		return this.dadianMapper.insert(view);
 	}

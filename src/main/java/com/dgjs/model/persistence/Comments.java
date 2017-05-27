@@ -12,7 +12,8 @@ public class Comments{
        private String comment; //评论内容
        private Date comment_time; //评论时间
        private String parent_id; //父级评论id
-       private Integer is_show; //是否展示
+       private Boolean is_show = true; //是否展示
+       private String c_desc;//描述
 	public String getId() {
 		return id;
 	}
@@ -61,11 +62,17 @@ public class Comments{
 	public void setParent_id(String parent_id) {
 		this.parent_id = parent_id;
 	}
-	public Integer getIs_show() {
+	public Boolean getIs_show() {
 		return is_show;
 	}
-	public void setIs_show(Integer is_show) {
+	public void setIs_show(Boolean is_show) {
 		this.is_show = is_show;
+	}
+	public String getC_desc() {
+		return c_desc;
+	}
+	public void setC_desc(String c_desc) {
+		this.c_desc = c_desc;
 	}
        
 }
