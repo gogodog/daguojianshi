@@ -8,7 +8,7 @@
     var needDivideRatio = screen.width / document.body.clientWidth !== 1 && screen.height / document.body.clientHeight !== 1;
     var width = needDivideRatio ? screen.width / ratio : screen.width;
     var height = needDivideRatio ? screen.height / ratio : screen.height;
-    var pad_pc_mobile = function selectMachine(){
+    var padpcmobile = function selectMachine(){
     	if(width >= 800){
     		return "pc";
     	}else if(width < 800 && width >= 500){
@@ -17,16 +17,16 @@
     		return "mobile";
     	}
     }
-    var sendWindowsEvent = "onload";
+    var sendwindowsevent = "onload";
     var ip="";
-    var MAC="";
+    var mac="";
     var page=pageinfo.page;
     var pageid = pageinfo.pageid;
     var pagetype = pageinfo.pagetype;
     var pagedocids = pageinfo.pagedocids;
     var pageadids = pageinfo.pageadids;
     var channel="todo";
-    var browseVersion = function (){
+    var browseversion = function (){
     	    var userAgent = ua;
     	    var isOpera = userAgent.indexOf("opera") > -1;
     	    if (isOpera) {
@@ -83,10 +83,10 @@
     	result['ua'] = ua;
     	result['width'] = width;
     	result['height'] = height;
-    	result['pad_pc_mobile'] = pad_pc_mobile();
-    	result['sendWindowsEvent'] = sendWindowsEvent;
+    	result['padpcmobile'] = padpcmobile();
+    	result['sendwindowsevent'] = sendwindowsevent;
     	result['ip'] = ip;
-    	result['MAC'] = MAC;
+    	result['mac'] = mac;
     	result['page'] = page;
     	result['pageid'] = pageid;
     	result['pagetype'] = pagetype;
@@ -94,7 +94,7 @@
     	result['pageadids'] = pageadids;
     	
     	result['channel'] = channel;
-    	result['browseVersion'] = browseVersion();
+    	result['browseversion'] = browseversion();
     	result['os'] = os();
     	send(result);
     }

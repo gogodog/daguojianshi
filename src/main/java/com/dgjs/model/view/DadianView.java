@@ -1,20 +1,26 @@
 package com.dgjs.model.view;
 
+import java.util.Date;
+
 public class DadianView {
+	private String id;
+	private String uuid;
+	private String note;
+	private Date ctime;
 	private String ua = "";
 	private String width = "";
 	private String height = "";
-	private String pad_pc_mobile = "";
-	private String sendWindowsEvent = "";
+	private String padpcmobile = "";
+	private String sendwindowsevent = "";
 	private String ip = "";
-	private String MAC = "";
+	private String mac = "";
 	private String page = "";
 	private String pageid = "";
 	private String pagetype = "";
 	private String pagedocids = "";
 	private String pageadids = "";
 	private String channel = "";
-	private String browseVersion = "";
+	private String browseversion = "";
 	private String os = "";
 	
 	public String getUa() {
@@ -35,29 +41,11 @@ public class DadianView {
 	public void setHeight(String height) {
 		this.height = height;
 	}
-	public String getPad_pc_mobile() {
-		return pad_pc_mobile;
-	}
-	public void setPad_pc_mobile(String pad_pc_mobile) {
-		this.pad_pc_mobile = pad_pc_mobile;
-	}
-	public String getSendWindowsEvent() {
-		return sendWindowsEvent;
-	}
-	public void setSendWindowsEvent(String sendWindowsEvent) {
-		this.sendWindowsEvent = sendWindowsEvent;
-	}
 	public String getIp() {
 		return ip;
 	}
 	public void setIp(String ip) {
 		this.ip = ip;
-	}
-	public String getMAC() {
-		return MAC;
-	}
-	public void setMAC(String mAC) {
-		MAC = mAC;
 	}
 	public String getPage() {
 		return page;
@@ -70,12 +58,6 @@ public class DadianView {
 	}
 	public void setChannel(String channel) {
 		this.channel = channel;
-	}
-	public String getBrowseVersion() {
-		return browseVersion;
-	}
-	public void setBrowseVersion(String browseVersion) {
-		this.browseVersion = browseVersion;
 	}
 	public String getOs() {
 		return os;
@@ -106,5 +88,53 @@ public class DadianView {
 	}
 	public void setPageadids(String pageadids) {
 		this.pageadids = pageadids;
+	}
+	public String getPadpcmobile() {
+		return padpcmobile;
+	}
+	public void setPadpcmobile(String padpcmobile) {
+		this.padpcmobile = padpcmobile;
+	}
+	public String getSendwindowsevent() {
+		return sendwindowsevent;
+	}
+	public void setSendwindowsevent(String sendwindowsevent) {
+		this.sendwindowsevent = sendwindowsevent;
+	}
+	public String getMac() {
+		return mac;
+	}
+	public void setMac(String mac) {
+		this.mac = mac;
+	}
+	public String getBrowseversion() {
+		return browseversion;
+	}
+	public void setBrowseversion(String browseversion) {
+		this.browseversion = browseversion;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getUuid() {
+		return uuid;
+	}
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+	public String getNote() {
+		return note;
+	}
+	public void setNote(String note) {
+		this.note = note;
+	}
+	public Date getCtime() {
+		return ctime;
+	}
+	public void setCtime(Date ctime) {
+		this.ctime = ctime;
 	}
 }
