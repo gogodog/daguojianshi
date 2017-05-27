@@ -1,13 +1,11 @@
 package com.dgjs.service.impl.common;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.dgjs.job.DadianThread;
 import com.dgjs.model.view.DadianView;
 import com.dgjs.service.common.DataService;
 import com.dgjs.utils.IPUtils;
@@ -17,8 +15,6 @@ import com.dgjs.utils.StringUtils;
 @Service
 public class DataServiceImpl implements DataService{
 	
-	private static final Queue<DadianView> QUEUE = new LinkedList<DadianView>();
-
 	@Override
 	public boolean dadian(HttpServletRequest request, String dadian) {
 		DadianView dadianView = JSON.parseObject(dadian, DadianView.class);
@@ -26,11 +22,7 @@ public class DataServiceImpl implements DataService{
 		MacUtils mac = new MacUtils(ip);
 		dadianView.setMAC(mac.getMac());
 		dadianView.setIp(ip);
-		return DataServiceImpl.QUEUE.offer(dadianView);
-	}
-
-	public static Queue<DadianView> getQueue() {
-		return QUEUE;
+		return DadianThread.QUEUE.offer(dadianView);
 	}
 
 	@Override
