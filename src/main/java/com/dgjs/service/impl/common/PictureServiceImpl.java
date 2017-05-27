@@ -30,6 +30,7 @@ public class PictureServiceImpl implements PictureService{
 	@Value("${imageContextPath}")
 	private String imageContextPath;
 	
+	private static String oneToOneZipPath="/p1";//1:1压缩图存放位置
 
 	@Override
 	public PictureDto uploadPic(HttpServletRequest request,String imagePath,String fileName) {
@@ -43,6 +44,7 @@ public class PictureServiceImpl implements PictureService{
 	        }else{
 	 	        String imageName=PictureUtils.generateImageName();
 	 	        String saveImagePath=PictureUtils.getImageSavePath(saveRealBasePath,imagePath,request,imageName);
+	 	        String p1ImagePath=PictureUtils.getImageSavePath(saveRealBasePath,imagePath+oneToOneZipPath,request,imageName);//1:1压缩图存放位置
 	 	        @SuppressWarnings("unused")
 				int flag;
 	 	        byte[] buff=new byte[1024*1024];
@@ -55,9 +57,10 @@ public class PictureServiceImpl implements PictureService{
 	 	        inputStream.close();
 	 	        outputStream.close();
 	 	        String imageUrl=PictureUtils.getImageAccessPath(webBasePath,imagePath,request, imageName);
-	 	        String minImageUrl = PictureUtils.thumbnailatorImage("", "", 1f);
-	 	        dto.setImageUrl(imageUrl);
+	 	        String minImageUrl = PictureUtils.thumbnailatorImage(saveImagePath, p1ImagePath, 1f);
+	 	        minImageUrl= webBasePath+minImageUrl.replaceAll(saveRealBasePath, "");
 	 	        dto.setMinImageUrl(minImageUrl);
+	 	        dto.setImageUrl(imageUrl);
 	        }
 	    } catch (IOException e) {
 	        e.printStackTrace();
@@ -65,7 +68,6 @@ public class PictureServiceImpl implements PictureService{
 	    }
 		return dto;
 	}
-
 
 	@Override
 	public String getImageContextPath() {

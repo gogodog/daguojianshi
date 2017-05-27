@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgjs.mapper.content.CommentsMapper">
+
+    <insert id="save" parameterType="comments" keyProperty="id">
+	  insert into comments 
+	  (
+	           id,
+               articlescrap_id,
+               comment_name,
+               comment_id,
+               ip_address,
+               comment,
+               comment_time,
+               parent_id,
+               is_show
+	  )
+	  values
+	  (
+	           #{id},
+               #{articlescrap_id},
+               #{comment_name},
+               #{comment_id},
+               #{ip_address},
+               #{comment},
+               #{comment_time},
+               #{parent_id},
+               #{is_show}
+	  )
+   </insert>
+
+    <update id="update">
+	 update comments 
+	 <set>
+	   <if test="articlescrap_id!=null">
+	         articlescrap_id=#{articlescrap_id},
+	   </if>
+	   <if test="comment_name!=null and comment_name!=''">
+	         comment_name=#{comment_name},
+	   </if>
+	   <if test="comment_id!=null">
+	         comment_id=#{comment_id},
+	   </if>
+	   <if test="ip_address!=null and ip_address!=''">
+	         ip_address=#{ip_address},
+	   </if>
+	   <if test="comment!=null and comment!=''">
+	         comment=#{comment},
+	   </if>
+	   <if test="comment_time!=null">
+	         comment_time=#{comment_time},
+	   </if>
+	   <if test="parent_id!=null and parent_id!=''">
+	         parent_id=#{parent_id},
+	   </if>
+	   <if test="is_show!=null">
+	         is_show=#{is_show},
+	   </if>
+	 </set>
+        where id=#{id}
+   </update>
+
+   <delete id="deleteById">
+         delete from comments where id = #{id}
+   </delete>
+
+   <select id="selectById" resultType="comments">
+         select
+              id,
+              articlescrap_id,
+              comment_name,
+              comment_id,
+              ip_address,
+              comment,
+              comment_time,
+              parent_id,
+              is_show
+         from comments
+   </select>
+
+   <select id="list" resultType="comments">
+         select
+              id,
+              articlescrap_id,
+              comment_name,
+              comment_id,
+              ip_address,
+              comment,
+              comment_time,
+              parent_id,
+              is_show
+         from comments
+   </select>
+
+</mapper>
