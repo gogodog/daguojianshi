@@ -13,7 +13,8 @@
                comment,
                comment_time,
                parent_id,
-               is_show
+               is_show,
+               email
 	  )
 	  values
 	  (
@@ -25,7 +26,8 @@
                #{comment},
                #{comment_time},
                #{parent_id},
-               #{is_show}
+               #{is_show},
+               #{email}
 	  )
    </insert>
 
@@ -44,9 +46,10 @@
               comment_time,
               parent_id,
               is_show,
-              c_desc
+              c_desc,
+              email
          from comments where articlescrap_id=#{articlescrap_id} order by
-         comment_time desc limit #{beginNum},#{onePageSize}
+         comment_time limit #{beginNum},#{onePageSize}
    </select>
 
    <select id="sizeCommentsByArticlescrapId" resultType="int">
@@ -56,5 +59,12 @@
    <update id="update">
         update comments set is_show = #{is_show},c_desc=#{c_desc} where id = #{id}
    </update>
-
+     
+   <select id="getComments" resultType="Long">
+         select c.articlescrap_id from 
+         (
+           select articlescrap_id,comment_time from comments order by comment_time desc
+         ) c
+         group by c.articlescrap_id order by c.comment_time desc limit 0,#{number}
+   </select>
 </mapper>

@@ -3,6 +3,17 @@
 <head>
     <title>大国简史展示页</title>
     <#include "/front/common/header_static.ftl">
+    <script src="${contextPath}/admin/js/jquery-1.11.1.min.js"></script>
+    <script>
+	    //页面统计
+	    var pageinfo_ = {};
+	    pageinfo_['page'] = 'show';
+	    pageinfo_['pagetype'] = 'detail';//list or detail or other
+	    pageinfo_['pagedocids'] = '${pagedocids}';//文章id
+	    pageinfo_['pageadids'] = '${pageadids}';//广告id
+	    pageinfo_['pageid'] = '10336267';
+	    window['pageinfo'] = pageinfo_;
+    </script>
 </head>
 <body class="user-select single">
     <#include "/front/common/header.ftl">

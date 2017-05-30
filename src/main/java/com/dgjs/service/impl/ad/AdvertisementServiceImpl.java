@@ -47,6 +47,23 @@ public class AdvertisementServiceImpl implements AdvertisementService{
 	public Advertisement selectById(Long id) {
 		return advertisementMapper.selectById(id);
 	}
+
+	@Override
+	public String getDadianAdvertisementIds(List<Advertisement> list) {
+		StringBuilder str = null;
+		if(list!=null){
+			int index = 0;
+			str = new StringBuilder();
+			for(Advertisement advertisement:list){
+				if(index++ !=list.size() - 1){
+					str.append(advertisement.getId()+"#");
+				}else{
+					str.append(advertisement.getId());
+				}
+			}
+		}
+		return str==null?null:str.toString();
+	}
 	
 	
 }

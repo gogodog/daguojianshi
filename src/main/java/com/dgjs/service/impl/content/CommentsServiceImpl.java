@@ -1,5 +1,6 @@
 package com.dgjs.service.impl.content;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ public class CommentsServiceImpl implements CommentsService{
 	@Override
 	public int save(Comments comments) {
 		comments.setId(IdsUtils.getUuId());
+		comments.setComment_time(new Date());
 		return commentsMapper.save(comments);
 	}
 

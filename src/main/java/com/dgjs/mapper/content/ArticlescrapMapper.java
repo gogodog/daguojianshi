@@ -13,6 +13,8 @@ public interface ArticlescrapMapper {
 	
 	public Articlescrap selectById(Long id);
 	
+	public List<Articlescrap> selectByIds(List<Long> ids);
+	
 	public List<Articlescrap> listArticlescrap(ArticlescrapCondtion articlescrapCondtion);
 	
 	public int sizeListArticlescrap(ArticlescrapCondtion articlescrapCondtion);

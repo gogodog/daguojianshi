@@ -1,24 +1,17 @@
 <div class="widget widget_hot">
           <h3>最新评论文章</h3>
           	<ul>
+          	 <#list commentsArticlescrapList as articlescrap>
 				<li>
-					<a title="美国的兴邦之史-富兰克林" href="http://www.dgjs.com/show/269.html" >
+					<a title="${articlescrap.title}" href="${contextPath}/show/${articlescrap.id}" >
 						<span class="thumbnail">
-							<img class="thumb" data-original="${contextPath}/front/images/list/timg2.jpeg" src="${contextPath}/front/images/list/timg2.jpeg" alt="美国的兴邦之史-富兰克林"  style="display: block;">
+							<img class="thumb" data-original="${contextPath}/front/images/list/timg2.jpeg" src="${imageContextPath}${articlescrap.show_picture}" alt="美国的兴邦之史-富兰克林"  style="display: block;">
 						</span>
-						<span class="text">美国的兴邦之史-富兰克林</span>
-						<span class="muted"><i class="glyphicon glyphicon-time"></i>2016-10-10</span>
+						<span class="text">${articlescrap.title}</span>
+						<span class="muted"><i class="glyphicon glyphicon-time"></i><#if articlescrap.show_time??>${articlescrap.show_time?date}</#if></span>
 						<span class="muted"><i class="glyphicon glyphicon-eye-open"></i>88</span>
 					</a>
-				</li><li>
-					<a title="日耳曼-希特勒" href="http://www.dgjs.com/show/269.html" >
-						<span class="thumbnail">
-							<img class="thumb" data-original="${contextPath}/front/images/list/timg1.jpeg" src="${contextPath}/front/images/list/timg1.jpeg" alt="日耳曼-希特勒"  style="display: block;">
-						</span>
-						<span class="text">日耳曼-希特勒</span>
-						<span class="muted"><i class="glyphicon glyphicon-time"></i>2015-10-10</span>
-						<span class="muted"><i class="glyphicon glyphicon-eye-open"></i>272</span>
-					</a>
 				</li>
+			 </#list>
 			</ul>
 </div>

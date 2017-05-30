@@ -15,10 +15,11 @@
           </div>
         </form>
         <ul class="nav navbar-nav navbar-right">
-          <li><a data-cont="大国简史" title="大国简史-古军事" href="/test/freemaker?page=index">大国简史之古军事</a></li>
-          <li><a data-cont="大国简史" title="大国简史-古运动" href="/test/freemaker?page=list">大国简史之古运动</a></li>
-          <li><a data-cont="大国简史" title="大国简史-古文化" href="/test/freemaker?page=show">大国简史之古文化</a></li>
-          <li><a data-cont="大国简史" title="大国简史-古传统" href="/test/freemaker?page=404">大国简史之古传统</a></li>
+          <li><a data-cont="大国简史" title="大国简史-中国正史" href="${contextPath}/index?type=HISTORY">大国简史之中国正史</a></li>
+          <li><a data-cont="大国简史" title="大国简史-国外历史" href="${contextPath}/index?type=FOREIGN_HISTORY">大国简史之国外历史</a></li>
+          <li><a data-cont="大国简史" title="大国简史-人文" href="${contextPath}/index?type=HUMANITY_HISTORY">大国简史之人文</a></li>
+          <li><a data-cont="大国简史" title="大国简史-地理" href="${contextPath}/index?type=GEOGRAPHY_HISTORY">大国简史之地理</a></li>
+          <li><a data-cont="大国简史" title="大国简史-野史" href="${contextPath}/index?type=UNOFFICIAL_HISTORY">大国简史之野史</a></li>
         </ul>
       </div>
     </div>

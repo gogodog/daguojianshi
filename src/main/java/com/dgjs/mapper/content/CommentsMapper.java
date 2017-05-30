@@ -18,4 +18,6 @@ public interface CommentsMapper {
     public List<Comments> getCommentsByArticlescrapId(@Param("articlescrap_id")Long articlescrapId,@Param("beginNum")int beginNum,@Param("onePageSize")int onePageSize);
     
     public int sizeCommentsByArticlescrapId(Long articlescrapId);
+    
+    public List<Long> getComments(int number);
 }

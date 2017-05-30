@@ -14,6 +14,7 @@ public class Comments{
        private String parent_id; //父级评论id
        private Boolean is_show = true; //是否展示
        private String c_desc;//描述
+       private String email;//邮箱
 	public String getId() {
 		return id;
 	}
@@ -74,5 +75,10 @@ public class Comments{
 	public void setC_desc(String c_desc) {
 		this.c_desc = c_desc;
 	}
-       
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 }
