@@ -1,5 +1,6 @@
 package com.dgjs.controller.admin.ajax;
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -62,4 +63,18 @@ public class PictureController {
 	    }
 	    return JSON.toJSONString(view);
 	}
+	
+//	@ResponseBody
+//	@RequestMapping(value = "/ajaxUploadEditorImage")
+//	public String ajaxUploadEditorImage(HttpServletRequest request, HttpServletResponse response,String imagePath){
+//		EditorUploadPictureView view=new EditorUploadPictureView();
+//	     try {
+//	    	ReturnData<List<com.dgjs.model.outside.PictureDto>> returnData=pictureService.uploadPic(request, imagePath);
+//            System.out.println(JSON.toJSONString(returnData, true));
+//	     } catch (Exception e) {
+//	        log.error("ajaxUpload error", e);
+//	        view.setError(RETURN_STATUS.SYSTEM_ERROR.toString());
+//	    }
+//	    return JSON.toJSONString(view);
+//	}
 }

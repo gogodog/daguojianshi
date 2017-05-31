@@ -74,4 +74,5 @@ public class PictureServiceImpl implements PictureService{
 		// TODO Auto-generated method stub
 		return imageContextPath;
 	}
+
 }
