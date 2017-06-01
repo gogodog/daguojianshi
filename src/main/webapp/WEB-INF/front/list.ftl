@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-    <title>大国简史列表页</title>
+    <title>大国简史</title>
     <#include "/common/header_static.ftl"/>
 </head>
 <body class="user-select">

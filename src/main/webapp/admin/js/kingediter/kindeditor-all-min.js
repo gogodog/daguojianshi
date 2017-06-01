@@ -865,7 +865,7 @@
                     var i = e[g];
                     if ("*" === i) {
                         f = !0;
-                        break
+                        break;
                     }
                     var j = /^(\.?)([^=]+)(?:=([^=]*))?$/.exec(i);
                     i = j[2],
@@ -1121,7 +1121,7 @@
         d.src = a,
         d.charset = "utf-8",
         d.onload = d.onreadystatechange = function() {
-            this.readyState && "loaded" !== this.readyState || (b && b(), d.onload = d.onreadystatechange = null, c.removeChild(d))
+            this.readyState && "loaded" !== this.readyState || (b && b(), d.onload = d.onreadystatechange = null, c.removeChild(d));
         }
     }
     function _chopQuery(a) {
@@ -1898,7 +1898,7 @@
         _each("blur,focus,focusin,focusout,load,resize,scroll,unload,click,dblclick,mousedown,mouseup,mousemove,mouseover,mouseout,mouseenter,mouseleave,change,select,submit,keydown,keypress,keyup,error,contextmenu".split(","),
         function(a, b) {
             KNode.prototype[b] = function(a) {
-                return a ? this.bind(b, a) : this.fire(b)
+                return a ? this.bind(b, a) : this.fire(b);
             }
         });
         var _K = K;
@@ -2259,7 +2259,7 @@
                 f = d.cloneRange().collapse(a), g = f.startContainer, h = f.startOffset, i = 3 == g.nodeType ? g.parentNode: g, j = !1; i && i.parentNode;) {
                     if (c = K(i), b) {
                         if (!c.isStyle()) break;
-                        if (!_hasAttrOrCss(c, b)) break
+                        if (!_hasAttrOrCss(c, b)) break;
                     } else if (_NOSPLIT_TAG_MAP[c.name]) break;
                     j = !0,
                     i = i.parentNode
@@ -2586,7 +2586,7 @@
                 _nativeCommand(c.doc, b, a),
                 _IERANGE && _inArray(b, "justifyleft,justifycenter,justifyright,justifyfull".split(",")) >= 0 && c.selection(),
                 (!_IERANGE || _inArray(b, "formatblock,selectall,insertorderedlist,insertunorderedlist".split(",")) >= 0) && c.selection(),
-                c
+                c;
             }
         }),
         _each("cut,copy,paste".split(","),
@@ -2596,7 +2596,7 @@
                 if (!a.doc.queryCommandSupported(b)) throw "not supported";
                 return a.select(),
                 _nativeCommand(a.doc, b, null),
-                a
+                a;
             }
         }),
         K.CmdClass = KCmd,
@@ -3648,7 +3648,7 @@
                 if ("form" == b.syncType) {
                     for (var c = a(b.srcElement), d = !1; c = c.parent();) if ("form" == c.name) {
                         d = !0;
-                        break
+                        break;
                     }
                     if (d) {
                         c.bind("submit",
@@ -4713,7 +4713,7 @@ function(a) {
         z = [];
         return x.val(q),
         i("", y.val(), "VIEW" == q ? m: l),
-        t
+        t;
     }
 }),
 KindEditor.plugin("flash",
@@ -5405,7 +5405,7 @@ function(a) {
         }
     }),
     a.swfupload = function(a, c) {
-        return new b(a, c)
+        return new b(a, c);
     }
 } (KindEditor),
 KindEditor.plugin("multiimage",
@@ -5976,7 +5976,7 @@ function() {
         var b, c = this.queueSettings.user_upload_complete_handler;
         if (a.filestatus === SWFUpload.FILE_STATUS.COMPLETE && this.queueSettings.queue_upload_count++, b = "function" == typeof c ? c.call(this, a) === !1 ? !1 : !0 : a.filestatus === SWFUpload.FILE_STATUS.QUEUED ? !1 : !0) {
             var d = this.getStats();
-            d.files_queued > 0 && this.queueSettings.queue_cancelled_flag === !1 ? this.startUpload() : this.queueSettings.queue_cancelled_flag === !1 ? (this.queueEvent("queue_complete_handler", [this.queueSettings.queue_upload_count]), this.queueSettings.queue_upload_count = 0) : (this.queueSettings.queue_cancelled_flag = !1, this.queueSettings.queue_upload_count = 0)
+            d.files_queued > 0 && this.queueSettings.queue_cancelled_flag === !1 ? this.startUpload() : this.queueSettings.queue_cancelled_flag === !1 ? (this.queueEvent("queue_complete_handler", [this.queueSettings.queue_upload_count]), this.queueSettings.queue_upload_count = 0) : (this.queueSettings.queue_cancelled_flag = !1, this.queueSettings.queue_upload_count = 0);
         }
     })
 } (),

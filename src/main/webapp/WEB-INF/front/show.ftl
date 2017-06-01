@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-    <title>大国简史展示页</title>
+    <title>大国简史</title>
     <#include "/front/common/header_static.ftl">
     <script src="${contextPath}/admin/js/jquery-1.11.1.min.js"></script>
     <script>

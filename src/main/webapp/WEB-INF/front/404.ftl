@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-    <title>大国简史异常页</title>
+    <title>大国简史</title>
     <#include "common/header_static.ftl">
     <style type="text/css">
         .panel
