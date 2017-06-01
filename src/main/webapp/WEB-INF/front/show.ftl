@@ -27,7 +27,6 @@
           </span> <span class="item article-meta-source" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="来源：大国简史"><i class="glyphicon glyphicon-globe"></i> 大国简史</span> <span class="item article-meta-category" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="大国简史古军事主题"><i class="glyphicon glyphicon-list"></i> <a href="http://www.dgjs.com/list/mznetblog/" title="主题" > ${articlescrap.type.value}</a></span> <span class="item article-meta-views" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="浏览量：${articlescrap.visits}"><i class="glyphicon glyphicon-eye-open"></i> ${articlescrap.visits}</span></div>
       </header>
       <article class="article-content">
-        <p><img data-original="${contextPath}/front/images/list/timg1.jpeg" src="${imageContextPath}${articlescrap.show_picture}" alt="" /></p>
         <p>${articlescrap.content}</p>
       <div class="bdsharebuttonbox">
 		<a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>

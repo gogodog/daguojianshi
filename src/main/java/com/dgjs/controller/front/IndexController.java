@@ -104,6 +104,8 @@ public class IndexController {
 		mv.addObject("imageContextPath", pictureService.getImageContextPath());
 		PageInfoDto<Comments> pageinfo=commentsService.getCommentsByArticlescrapId(id, 1, Constants.DEFAULT_ONEPAGESIZE, false);
 		mv.addObject("commentsPageinfo", pageinfo);
+		//打点数据
+		mv.addObject("pagedocids",id);
 		return mv;
     }
 	
