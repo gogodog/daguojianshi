@@ -24,7 +24,7 @@
         <#list articlescrapPageInfo.objects as articlescrap>
         <article class="excerpt excerpt-1" style="">
             <a class="focus" href="${contextPath}/show/${articlescrap.id}" title="${articlescrap.title}" target="_blank" >
-               <img class="thumb" data-original="${contextPath}/front/images/list/timg3.jpeg" src="${imageContextPath}${articlescrap.show_picture}" alt="日耳曼当年的狂野"  style="display: inline;">
+               <img class="thumb" data-original="${contextPath}/front/images/list/timg3.jpeg" src="${imageContextPath}${articlescrap.show_picture}" style="display: inline;">
             </a>
             <header>
               <a class="cat" href="http://www.dgjs.com/list/mznetblog/" title="${articlescrap.type.value}" >${articlescrap.type.value}<i></i></a>
