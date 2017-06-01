@@ -3,7 +3,7 @@
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-navbar" aria-expanded="false"> <span class="sr-only"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-        <h1 class="logo hvr-bounce-in"><a href="JavaScript:void(0);">大国简史</a></h1>
+        <h1 class="logo hvr-bounce-in"><a href="http://www.cwillow.com">大国简史</a></h1>
       </div>
       <div class="collapse navbar-collapse" id="header-navbar">
         <form class="navbar-form visible-xs" action="/Search" method="post">
