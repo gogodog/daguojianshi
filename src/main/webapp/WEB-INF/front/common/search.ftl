@@ -1,3 +1,5 @@
+<!-- 关键词搜索begin -->
+<!--
 <div class="widget widget_search">
         <form class="navbar-form" action="/Search" method="post">
           <div class="input-group">
@@ -7,3 +9,5 @@
             </span> </div>
         </form>
       </div>
+-->
+<!-- 关键词搜索end -->
