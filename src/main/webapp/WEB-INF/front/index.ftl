@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-    <title>大国简史</title>
     <#include "/front/common/header_static.ftl">
     <script>
 		//页面统计

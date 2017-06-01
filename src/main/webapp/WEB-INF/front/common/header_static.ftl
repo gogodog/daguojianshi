@@ -4,12 +4,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords" content="">
     <meta name="description" content="">
+    <title>大国简史</title>
     <link rel="stylesheet" type="text/css" href="${contextPath}/front/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="${contextPath}/front/css/nprogress.css">
     <link rel="stylesheet" type="text/css" href="${contextPath}/front/css/style.css">
     <link rel="stylesheet" type="text/css" href="${contextPath}/front/css/font-awesome.min.css">
-    <link rel="apple-touch-icon-precomposed" href="http://ci.elong.cn/static/8f027db1/favicon.ico">
-    <link rel="shortcut icon" href="http://ci.elong.cn/static/8f027db1/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" href="${contextPath}/front/images/ico1.ico">
+    <link rel="shortcut icon" href="${contextPath}/front/images/ico1.ico">
     <script src="${contextPath}/front/js/jquery-2.1.4.min.js"></script>
     <!--
      <script src="${contextPath}/front/js/nprogress.js"></script>
