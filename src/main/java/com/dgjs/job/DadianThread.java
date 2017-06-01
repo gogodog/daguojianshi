@@ -12,6 +12,8 @@ import com.alibaba.fastjson.JSON;
 import com.dgjs.model.view.DadianView;
 import com.dgjs.service.common.DataService;
 
+import freemarker.log.Logger;
+
 @Component("DadianThread") 
 public class DadianThread implements Runnable,ApplicationListener<ContextRefreshedEvent>{
 
@@ -19,6 +21,7 @@ public class DadianThread implements Runnable,ApplicationListener<ContextRefresh
 	@Autowired
 	DataService dataservice;
 	DataService innerdataservice;
+	private Logger log = Logger.getLogger(this.getClass().getName()); 
 	
 	public DadianThread() {
 	}
@@ -30,10 +33,11 @@ public class DadianThread implements Runnable,ApplicationListener<ContextRefresh
 	@Override
 	public void run() {
 		while(true){
+			log.info("线程循环开始...");
 			try {
 				Thread.sleep(2000);
 			} catch (InterruptedException e) {
-				
+				log.info("1:" + e.getMessage());
 			}
 			if(DadianThread.QUEUE.isEmpty()){
 				continue;
@@ -41,7 +45,7 @@ public class DadianThread implements Runnable,ApplicationListener<ContextRefresh
 			DadianView view = DadianThread.QUEUE.poll();
 			int count = this.innerdataservice.insertDaDian(view);
 			if(count != 1){
-				System.out.println("异常插入：" + JSON.toJSONString(view));
+				log.info("异常插入：" + JSON.toJSONString(view));
 			}
 		}
 	}

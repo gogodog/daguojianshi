@@ -18,19 +18,23 @@ import com.dgjs.utils.IdsUtils;
 import com.dgjs.utils.MacUtils;
 import com.dgjs.utils.StringUtils;
 
+import freemarker.log.Logger;
+
 @Service
 public class DataServiceImpl implements DataService{
 	
 	@Autowired
 	DadianMapper dadianMapper;
+	private Logger log = Logger.getLogger(this.getClass().getName()); 
 	
 	@Override
 	public boolean dadian(HttpServletRequest request, String dadian) {
 		DadianView dadianView = JSON.parseObject(dadian, DadianView.class);
-		String ip = IPUtils.getIpAddr(request);
+		String ip = IPUtils.getIpAddr3(request);
 		MacUtils mac = new MacUtils(ip);
 		dadianView.setMac(mac.getMac());
 		dadianView.setIp(ip);
+		log.info("插入打点数据：" + JSON.toJSONString(dadianView));
 		return DadianThread.QUEUE.offer(dadianView);
 	}
 
