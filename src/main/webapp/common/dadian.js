@@ -81,8 +81,8 @@
     function ajaxgo(){
     	var result = {};
     	result['ua'] = ua;
-    	result['width'] = width;
-    	result['height'] = height;
+    	result['width'] = Math.round(width);
+    	result['height'] = Math.round(height);
     	result['padpcmobile'] = padpcmobile();
     	result['sendwindowsevent'] = sendwindowsevent;
     	result['ip'] = ip;
