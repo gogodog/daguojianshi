@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.UpDown_Status;
+import com.dgjs.utils.StringUtils;
 
 public class Articlescrap {
 
@@ -20,6 +21,10 @@ public class Articlescrap {
 	private String show_picture;//展示图片
 	private Long visits;//访问量
 	private String start_time;//内容的起始时间
+	private String start_time_c;//内容的起始时间
+	private String start_time_y;//内容的起始时间
+	private String start_time_m;//内容的起始时间
+	private String start_time_d;//内容的起始时间
 	
 	public Long getId() {
 		return id;
@@ -98,5 +103,68 @@ public class Articlescrap {
 	}
 	public void setStart_time(String start_time) {
 		this.start_time = start_time;
+		if(!StringUtils.isNullOrEmpty(start_time)){
+			if(start_time.contains("公元前")){
+				this.setcymd("公元前");
+			}else if(start_time.contains("公元")){
+				this.setcymd("公元");
+			}
+		}
+	}
+	private void setcymd(String key){
+		this.start_time_c = key;
+		if(!StringUtils.isNullOrEmpty(start_time) && start_time.contains("年")){
+			this.start_time_y = start_time.split("年")[0].replace(key, "");
+			if(start_time.contains("月")){
+				this.start_time_m = start_time.split("年")[1].split("月")[0];
+				if(start_time.contains("日")){
+					this.start_time_d = start_time.split("月")[1].split("日")[0];
+				}
+			}
+		}
+	}
+	public String getStart_time_c() {
+		return start_time_c;
+	}
+	public void setStart_time_c(String start_time_c) {
+		this.start_time_c = start_time_c;
+		this.setStartTime();
+	}
+	private void setStartTime(){
+		String st = "";
+		if(!StringUtils.isNullOrEmpty(this.start_time_c)){
+			st += this.start_time_c;
+			if(!StringUtils.isNullOrEmpty(this.start_time_y)){
+				st += (this.start_time_y + "年");
+				if(!StringUtils.isNullOrEmpty(this.start_time_m)){
+					st += (this.start_time_m + "月");
+					if(!StringUtils.isNullOrEmpty(this.start_time_d)){
+						st += (this.start_time_d + "日");
+					}
+				}
+			}
+		}
+		this.start_time = st;
+	}
+	public String getStart_time_y() {
+		return start_time_y;
+	}
+	public void setStart_time_y(String start_time_y) {
+		this.start_time_y = start_time_y;
+		this.setStartTime();
+	}
+	public String getStart_time_m() {
+		return start_time_m;
+	}
+	public void setStart_time_m(String start_time_m) {
+		this.start_time_m = start_time_m;
+		this.setStartTime();
+	}
+	public String getStart_time_d() {
+		return start_time_d;
+	}
+	public void setStart_time_d(String start_time_d) {
+		this.start_time_d = start_time_d;
+		this.setStartTime();
 	}
 }

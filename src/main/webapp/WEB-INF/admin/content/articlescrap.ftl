@@ -53,7 +53,13 @@
 			    </div>
 			    <div class="form-group">
 			        <label for="">文章内容起始时间</label>
-			        <input class="form-input-txt" type="text" name="start_time" value="${(articlescrap.start_time)!''}" maxlength="255" />
+			        <select name="start_time_c" class="form-select" style="width: 5%;">
+					     <option value="公元" <#if articlescrap.start_time_c == "公元">selected</#if>>公元</option>
+					     <option value="公元前" <#if articlescrap.start_time_c == "公元前">selected</#if>>公元前</option>
+				    </select>
+				    <input class="form-input-txt" style="width:5%;" type="text" name="start_time_y" value="${(articlescrap.start_time_y)!''}" maxlength="5" />年
+				    <input class="form-input-txt" style="width:5%;" type="text" name="start_time_m" value="${(articlescrap.start_time_m)!''}" maxlength="2" />月
+				    <input class="form-input-txt" style="width:5%;" type="text" name="start_time_d" value="${(articlescrap.start_time_d)!''}" maxlength="2" />日
 		        </div>
 				<div class="form-group">
 					<label for="">作者</label>
