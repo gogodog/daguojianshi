@@ -31,7 +31,7 @@
 			    </div>
 			    <div class="form-group">
 			        <label for="">广告位置：</label>
-			        <select name="adPosition" id="ad_position">
+			        <select name="ad_position" id="ad_position">
 			            <option value="">请选择</option>
 			            <#list adPositions as adPosition>
 			               <option value="${adPosition}"<#if advertisement.ad_position?? && advertisement.ad_position == adPosition>selected</#if> >${adPosition.value}</option>
@@ -147,10 +147,10 @@
 		    submitHandler:function(form){
 	           var ad_pic_url=$("input[name='ad_pic_url']").val();
 	           var ad_position=$("#ad_position").val();
-	           if(ad_pic_url==''){
-	        	   alert("请选择广告图片");
-	           }else if(ad_position==''){
+	           if(ad_position==''){
 	        	   alert("请选择广告位置");
+	           }else if(ad_pic_url==''&&(ad_position=='INDEX_FIRST'||ad_position=='INDEX_SECOND')){
+	        	   alert("请选择广告图片");
 	           }else{
 	               form.submit();
 	           }

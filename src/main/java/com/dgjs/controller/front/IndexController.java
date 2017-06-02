@@ -76,16 +76,26 @@ public class IndexController {
 		AdvertisementCondtion advertisementCondtion = new AdvertisementCondtion();
 		advertisementCondtion.setAdPositions(Arrays.asList(Ad_Position.INDEX_FIRST,Ad_Position.INDEX_SECOND));
 		advertisementCondtion.setStatus(UpDown_Status.UP);
-		PageInfoDto<Advertisement> advertisementPageInfo=advertisementService.listAdvertisement(advertisementCondtion);
-		List<Advertisement> advertisementList=advertisementPageInfo.getObjects();
-		mv.addObject("advertisementList", advertisementList);
+		PageInfoDto<Advertisement> adPicPageInfo=advertisementService.listAdvertisement(advertisementCondtion);
+		List<Advertisement> adPicList=adPicPageInfo.getObjects();
+		mv.addObject("adPicList", adPicList);
+		//中间广告位
+		advertisementCondtion.setAdPositions(Ad_Position.getValues(131, 135));
+		PageInfoDto<Advertisement> adMiddlePageInfo=advertisementService.listAdvertisement(advertisementCondtion);
+		List<Advertisement> adMiddleList=adMiddlePageInfo.getObjects();
+		mv.addObject("adMiddleList", adMiddleList);
+		//底部广告位
+		advertisementCondtion.setAdPositions(Ad_Position.getValues(161, 163));
+		PageInfoDto<Advertisement> adBelowPageInfo=advertisementService.listAdvertisement(advertisementCondtion);
+		List<Advertisement> adBelowList=adBelowPageInfo.getObjects();
+		mv.addObject("adBelowList", adBelowList);
 		//加载最新评论文章
 		List<Articlescrap> commentsArticlescrapList=articlescrapService.getArticlescrapByComments(2);
 		mv.addObject("commentsArticlescrapList", commentsArticlescrapList);
 		//打点数据
 		String pagedocids = articlescrapService.getDadianArticlescrapIds(rAEList, pageInfo.getObjects(), commentsArticlescrapList);
 		mv.addObject("pagedocids", pagedocids);
-		String pageadids=advertisementService.getDadianAdvertisementIds(advertisementList);
+		String pageadids=advertisementService.getDadianAdvertisementIds(adPicList);
 		mv.addObject("pageadids", pageadids);
 		return mv;
     }
@@ -104,6 +114,10 @@ public class IndexController {
 		mv.addObject("imageContextPath", pictureService.getImageContextPath());
 		PageInfoDto<Comments> pageinfo=commentsService.getCommentsByArticlescrapId(id, 1, Constants.DEFAULT_ONEPAGESIZE, false);
 		mv.addObject("commentsPageinfo", pageinfo);
+		//加载推荐文章
+		RecommedArticlescrapCondition r=new RecommedArticlescrapCondition();
+		List<RecommedArticlescrapEnhance> rAEList=recommedArticlescrapService.list(r);
+		mv.addObject("rAEList", rAEList);
 		//打点数据
 		mv.addObject("pagedocids",id);
 		return mv;
