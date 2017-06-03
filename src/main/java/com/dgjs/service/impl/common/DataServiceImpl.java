@@ -1,6 +1,8 @@
 package com.dgjs.service.impl.common;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -8,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.dgjs.job.DadianThread;
 import com.dgjs.mapper.common.DadianMapper;
 import com.dgjs.model.view.DadianView;
@@ -28,8 +29,7 @@ public class DataServiceImpl implements DataService{
 	private Logger log = Logger.getLogger(this.getClass().getName()); 
 	
 	@Override
-	public boolean dadian(HttpServletRequest request, String dadian) {
-		DadianView dadianView = JSON.parseObject(dadian, DadianView.class);
+	public boolean dadian(HttpServletRequest request, DadianView dadianView) {
 		String ip = IPUtils.getIpAddr3(request);
 		MacUtils mac = new MacUtils(ip);
 		dadianView.setMac(mac.getMac());
@@ -39,17 +39,8 @@ public class DataServiceImpl implements DataService{
 	}
 
 	@Override
-	public JSONObject getDocShowCounts(String docids) {
-		JSONObject json = new JSONObject();
-		if(StringUtils.isNullOrEmpty(docids)){
-			return json;
-		}
-		// TODO 访问数据库 如下为测试数据
-		String[] ids = docids.split(DataService.IDSSEPORTE);
-		for(int i = 0 ; i<ids.length ; i++){
-			json.put(ids[i], 100*i);
-		}
-		return json;
+	public int getDocShowCount(String docids) {
+		return dadianMapper.countByCondtion(docids,null);
 	}
 
 	@Override
@@ -64,5 +55,21 @@ public class DataServiceImpl implements DataService{
 			view.setUuid(IdsUtils.getUuId());
 		}
 		return this.dadianMapper.insert(view);
+	}
+
+	@Override
+	public Map<String, Integer> getDocShowCounts(String docids) {
+		String[] docIdArray=docids.split("#");
+		Map<String,Integer> map = new HashMap<String,Integer>();
+		for(String docId:docIdArray){
+			int count = getDocShowCount(docId);
+			map.put(docId, count);
+		}
+		return map;
+	}
+
+	@Override
+	public int getPageTotalVisits(String pageId) {
+		return dadianMapper.countByCondtion(null, pageId);
 	}
 }

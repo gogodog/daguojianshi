@@ -114,10 +114,9 @@ public class IndexController {
 		mv.addObject("imageContextPath", pictureService.getImageContextPath());
 		PageInfoDto<Comments> pageinfo=commentsService.getCommentsByArticlescrapId(id, 1, Constants.DEFAULT_ONEPAGESIZE, false);
 		mv.addObject("commentsPageinfo", pageinfo);
-		//加载推荐文章
-		RecommedArticlescrapCondition r=new RecommedArticlescrapCondition();
-		List<RecommedArticlescrapEnhance> rAEList=recommedArticlescrapService.list(r);
-		mv.addObject("rAEList", rAEList);
+		//加载最新评论文章
+		List<Articlescrap> commentsArticlescrapList=articlescrapService.getArticlescrapByComments(2);
+		mv.addObject("commentsArticlescrapList", commentsArticlescrapList);
 		//打点数据
 		mv.addObject("pagedocids",id);
 		return mv;

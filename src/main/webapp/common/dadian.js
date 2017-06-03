@@ -101,12 +101,38 @@
     var send = function(r){
     	ajax({ 
     		  type:"POST", 
-    		  url:"/data/dadian", 
+    		  url:"/daguojianshi/data/dadian", 
     		  dataType:"json", 
     		  data:JSON.stringify(r),
     		  contentType:"application/json",
-    		  success:function(msg){ 
-    		    console.log(JSON.stringify(msg)) 
+    		  success:function(result){ 
+//    		      console.log(JSON.stringify(msg));
+    			  var docShowCountsEntity = result.docShowCounts;
+    			  for(var id in docShowCountsEntity){
+    				  //最新发布访问量
+    				  var textnode=document.createTextNode(" "+docShowCountsEntity[id]);
+    	    		  var new_visit = document.getElementById("new_visit_"+id);
+    	    		  if(typeof(new_visit) != "undefined" && new_visit!=null){
+    	    			  new_visit.appendChild(textnode);
+    	    		  }
+    	    		  //最新评论文章访问量
+    	    		  textnode=document.createTextNode(" "+docShowCountsEntity[id]);
+    	    		  var pl_visit= document.getElementById("pl_visit_"+id);
+    	    		  if(typeof(pl_visit) != "undefined" && pl_visit!=null){
+    	    			  pl_visit.appendChild(textnode);
+    	    		  }
+    	    		  textnode=document.createTextNode(" "+docShowCountsEntity[id]);
+    	    		  //文章详情页面访问量
+    	    		  var show_visit = document.getElementById("show_visits");
+    	    		  if(typeof(show_visit) != "undefined" && show_visit!=null){
+    	    			  show_visit.appendChild(textnode);
+    	    		  }
+    			  }
+    			  //首页访问量
+    			  var indexVisitCount = result.indexVisitCount;
+    			  if(typeof(indexVisitCount) != "undefined" && indexVisitCount!=null){
+    				  document.getElementById("sitetime").innerHTML=indexVisitCount;
+	    		  }
     		  }
     		})
     }

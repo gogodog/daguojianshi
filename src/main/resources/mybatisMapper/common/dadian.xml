@@ -46,4 +46,17 @@
                #{width}
 			)
 	</insert>
+	
+	<select id="countByCondtion" resultType="int">
+	     select count(0) from dadian 
+	     <where>
+	         <if test="pagedocids!=null and pagedocids!=''">
+	            pagedocids = #{pagedocids}
+	         </if>
+	         <if test="pageid!=null and pageid!=''">
+	            pageid = #{pageid}
+	         </if>
+	     </where>
+	</select>
+	
 </mapper>

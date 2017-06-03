@@ -5,11 +5,8 @@
         </ul>
         <div class="tab-content">
           <div role="tabpanel" class="tab-pane contact active" id="notice">
-              <h2>日志总数:
-                  395篇
-              </h2>
-              <h2>网站运行:
-              <span id="sitetime">57天</span></h2>
+              <h2>首页访问量:</h2>
+              <h2><span id="sitetime"></span></h2>
           </div>
             <div role="tabpanel" class="tab-pane contact" id="contact">
               <h2>QQ:

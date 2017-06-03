@@ -33,7 +33,7 @@
             </header>
             <p class="meta">
                 <time class="time"><i class="glyphicon glyphicon-time"></i> ${(articlescrap.start_time)!''}</time>
-                <span class="views"><i class="glyphicon glyphicon-eye-open"></i> ${articlescrap.visits}</span>
+                <span class="views" id="new_visit_${articlescrap.id}"><i class="glyphicon glyphicon-eye-open"></i> </span>
             </p>
             <p class="note">${articlescrap.sub_content}</p>
         </article>
