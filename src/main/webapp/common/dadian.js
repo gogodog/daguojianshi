@@ -101,7 +101,7 @@
     var send = function(r){
     	ajax({ 
     		  type:"POST", 
-    		  url:"/daguojianshi/data/dadian", 
+    		  url:"/data/dadian", 
     		  dataType:"json", 
     		  data:JSON.stringify(r),
     		  contentType:"application/json",
