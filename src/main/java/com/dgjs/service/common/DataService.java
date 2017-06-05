@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.dgjs.model.view.DadianView;
+import com.dgjs.model.view.IpHttpResponse;
 
 public interface DataService {
 	
@@ -19,4 +20,6 @@ public interface DataService {
 	int insertDaDian(DadianView view);
 	
 	int getPageTotalVisits(String pageId);
+	
+	IpHttpResponse.IpData getLocalAdressByIp(String ip);
 }

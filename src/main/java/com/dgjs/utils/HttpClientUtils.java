@@ -6,7 +6,10 @@ import java.util.List;
 import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
@@ -14,7 +17,11 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 
 public class HttpClientUtils {
 
@@ -58,5 +65,37 @@ public class HttpClientUtils {
             }
         }
         return result;
+    }
+    
+    public static <T> T sendGet(String urlp, Class<T> clazz){
+    	try {
+            HttpGet request = new HttpGet(urlp);
+            HttpClient httpClient = HttpClients.createDefault();
+            HttpResponse response = httpClient.execute(request);
+            String result = "";
+            if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+                result= EntityUtils.toString(response.getEntity(),"utf-8");
+            }
+			return JSON.parseObject(result, clazz);
+		} catch (Exception e) {
+			throw new HttpMessageConversionException(e.getMessage());
+		}
+    }
+    
+    public static JSONObject sendGet(String urlp){
+    	try {
+            HttpGet request = new HttpGet(urlp);
+            HttpClient httpClient = HttpClients.createDefault();
+            HttpResponse response = httpClient.execute(request);
+            String result = "远程连接返回值不为200";
+            if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+                result = EntityUtils.toString(response.getEntity(),"utf-8");
+            }else {
+            	result = "远程连接状态" + response.getStatusLine().getStatusCode();
+            }
+			return JSON.parseObject(result);
+		} catch (Exception e) {
+			throw new HttpMessageConversionException(e.getMessage());
+		}
     }
 }

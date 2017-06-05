@@ -20,6 +20,9 @@
 				pageid,
 				sendwindowsevent,
 				ua,
+				ipcity,
+				ipprovince,
+				ipcountry,
 				uuid,
 				width
 			)
@@ -42,6 +45,9 @@
                #{pageid},
                #{sendwindowsevent},
                #{ua},
+               #{ipcity},
+			   #{ipprovince},
+			   #{ipcountry},
                #{uuid},
                #{width}
 			)

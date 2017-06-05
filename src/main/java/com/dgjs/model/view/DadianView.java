@@ -22,6 +22,9 @@ public class DadianView {
 	private String channel = "";
 	private String browseversion = "";
 	private String os = "";
+	private String ipcountry = "";
+	private String ipprovince = "";
+	private String ipcity = "";
 	
 	public String getUa() {
 		return ua;
@@ -136,5 +139,23 @@ public class DadianView {
 	}
 	public void setCtime(Date ctime) {
 		this.ctime = ctime;
+	}
+	public String getIpcountry() {
+		return ipcountry;
+	}
+	public void setIpcountry(String ipcountry) {
+		this.ipcountry = ipcountry;
+	}
+	public String getIpprovince() {
+		return ipprovince;
+	}
+	public void setIpprovince(String ipprovince) {
+		this.ipprovince = ipprovince;
+	}
+	public String getIpcity() {
+		return ipcity;
+	}
+	public void setIpcity(String ipcity) {
+		this.ipcity = ipcity;
 	}
 }
