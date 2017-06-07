@@ -35,16 +35,16 @@ public class DadianThread implements Runnable,ApplicationListener<ContextRefresh
 		while(true){
 			try {
 				Thread.sleep(2000);
-			} catch (InterruptedException e) {
-				log.info("1:" + e.getMessage());
-			}
-			if(DadianThread.QUEUE.isEmpty()){
-				continue;
-			}
-			DadianView view = DadianThread.QUEUE.poll();
-			int count = this.innerdataservice.insertDaDian(view);
-			if(count != 1){
-				log.info("异常插入：" + JSON.toJSONString(view));
+			    if(DadianThread.QUEUE.isEmpty()){
+				   continue;
+			    }
+			    DadianView view = DadianThread.QUEUE.poll();
+			    int count = this.innerdataservice.insertDaDian(view);
+			    if(count != 1){
+				    log.info("异常插入：" + JSON.toJSONString(view));
+			    }
+			 } catch (Exception e) {
+				log.error("DadianThread 挂了", e);
 			}
 		}
 	}
