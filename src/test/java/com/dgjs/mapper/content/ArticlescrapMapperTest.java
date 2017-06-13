@@ -13,7 +13,7 @@ import com.dgjs.model.persistence.Articlescrap;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 
 @RunWith(SpringJUnit4ClassRunner.class)  
-@ContextConfiguration(locations = "classpath:spring-mybatis.xml") 
+@ContextConfiguration(locations = "classpath:spring-*.xml") 
 public class ArticlescrapMapperTest {
 
 	@Autowired

@@ -21,7 +21,12 @@
     <!-- 引入配置文件 -->  
     <bean id="propertyConfigurer"  
         class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
-        <property name="location" value="classpath:mysql.properties" />  
+        <property name="locations">  
+            <list>  
+               <value>classpath:mysql.properties</value>  
+               <value>classpath:config.properties</value>  
+            </list>   
+        </property>      
     </bean>  
   
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"  

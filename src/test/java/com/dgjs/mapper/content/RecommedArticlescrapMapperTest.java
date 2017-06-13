@@ -15,7 +15,7 @@ import com.dgjs.model.persistence.condition.RecommedArticlescrapCondition;
 import com.dgjs.model.persistence.enhance.RecommedArticlescrapEnhance;
 
 @RunWith(SpringJUnit4ClassRunner.class)  
-@ContextConfiguration(locations = "classpath:spring-mybatis.xml") 
+@ContextConfiguration(locations = "classpath:spring-*.xml") 
 public class RecommedArticlescrapMapperTest {
 
 	@Autowired

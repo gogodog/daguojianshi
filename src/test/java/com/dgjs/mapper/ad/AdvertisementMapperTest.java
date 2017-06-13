@@ -21,7 +21,7 @@ import com.dgjs.model.persistence.condition.AdvertisementCondtion;
 import com.dgjs.utils.PictureUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)  
-@ContextConfiguration(locations = "classpath:spring-mybatis.xml") 
+@ContextConfiguration(locations = "classpath:spring-*.xml") 
 public class AdvertisementMapperTest {
 
 	@Autowired

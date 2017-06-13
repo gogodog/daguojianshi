@@ -2,6 +2,7 @@ package com.dgjs.model.persistence;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.JSON;
 import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.utils.StringUtils;
@@ -9,6 +10,7 @@ import com.dgjs.utils.StringUtils;
 public class Articlescrap {
 
 	private Long id;//id
+	private String esId;//esId
 	private String title;//标题
 	private String content;//文章内容
 	private Date show_time;//展示时间
@@ -166,5 +168,16 @@ public class Articlescrap {
 	public void setStart_time_d(String start_time_d) {
 		this.start_time_d = start_time_d;
 		this.setStartTime();
+	}
+	
+	public String getEsId() {
+		return esId;
+	}
+	public void setEsId(String esId) {
+		this.esId = esId;
+	}
+	@Override
+	public String toString() {
+		return JSON.toJSONString(this);
 	}
 }
