@@ -11,8 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.dgjs.constants.Constants;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.enums.Ad_Position;
@@ -62,16 +64,8 @@ public class IndexController {
 		RecommedArticlescrapCondition r=new RecommedArticlescrapCondition();
 		List<RecommedArticlescrapEnhance> rAEList=recommedArticlescrapService.list(r);
 		mv.addObject("rAEList", rAEList);
-		//加载最新文章
-		ArticlescrapCondtion articlescrapCondtion = new ArticlescrapCondtion();
-		articlescrapCondtion.setOnePageSize(5);
-		articlescrapCondtion.setNeedTotalResults(false);
-		articlescrapCondtion.setStatus(UpDown_Status.UP);
-		articlescrapCondtion.setType(type);
-		articlescrapCondtion.setSort(" order by show_time desc ");
-		PageInfoDto<Articlescrap> pageInfo=articlescrapService.listArticlescrap(articlescrapCondtion);
-		mv.addObject("articlescrapPageInfo", pageInfo);
-		mv.addObject("imageContextPath", pictureService.getImageContextPath());
+		//加载页面类型
+		mv.addObject("doctype",type);
 		//加载广告位
 		AdvertisementCondtion advertisementCondtion = new AdvertisementCondtion();
 		advertisementCondtion.setAdPositions(Arrays.asList(Ad_Position.INDEX_FIRST,Ad_Position.INDEX_SECOND));
@@ -92,12 +86,25 @@ public class IndexController {
 		//加载最新评论文章
 		List<Articlescrap> commentsArticlescrapList=articlescrapService.getArticlescrapByComments(2);
 		mv.addObject("commentsArticlescrapList", commentsArticlescrapList);
-		//打点数据
-		String pagedocids = articlescrapService.getDadianArticlescrapIds(rAEList, pageInfo.getObjects(), commentsArticlescrapList);
-		mv.addObject("pagedocids", pagedocids);
-		String pageadids=advertisementService.getDadianAdvertisementIds(adPicList);
-		mv.addObject("pageadids", pageadids);
 		return mv;
+    }
+	
+	@RequestMapping("/list")
+	@ResponseBody
+    public Object list(HttpServletRequest request, HttpServletResponse response,Articlescrap_Type type,int currentpage) throws Exception {  
+		JSONObject list = new JSONObject();
+		//加载最新文章
+		ArticlescrapCondtion articlescrapCondtion = new ArticlescrapCondtion();
+		articlescrapCondtion.setOnePageSize(10);
+		articlescrapCondtion.setCurrentPage(currentpage);
+		articlescrapCondtion.setNeedTotalResults(false);
+		articlescrapCondtion.setStatus(UpDown_Status.UP);
+		articlescrapCondtion.setType(type);
+		articlescrapCondtion.setSort(" order by show_time desc ");
+		PageInfoDto<Articlescrap> pageInfo=articlescrapService.listArticlescrap(articlescrapCondtion);
+		list.put("pageInfo", pageInfo);
+		list.put("imageContextPath", pictureService.getImageContextPath());
+		return list;
     }
 	
 	@RequestMapping("/error")

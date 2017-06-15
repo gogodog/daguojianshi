@@ -13,6 +13,7 @@ public class Articlescrap {
 	private String content;//文章内容
 	private Date show_time;//展示时间
 	private Articlescrap_Type type;//文章类型
+	private String typeValue;
 	private UpDown_Status status;//文章状态
 	private String author;//作者
 	private Date create_time;//创建时间
@@ -166,5 +167,11 @@ public class Articlescrap {
 	public void setStart_time_d(String start_time_d) {
 		this.start_time_d = start_time_d;
 		this.setStartTime();
+	}
+	public String getTypeValue() {
+		return this.type.getValue();
+	}
+	public void setTypeValue(String typeValue) {
+		this.typeValue = typeValue;
 	}
 }
