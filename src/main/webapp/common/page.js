@@ -5,7 +5,7 @@ function loadData(){
     if ($(document).height() <= totalheight) {
         jQuery.ajax({
             type:"POST",
-            url: "/list?currentpage="+currentPage+"&type="+$("#doctype").val(),
+            url: $("#contextPath").val()+"/list?currentpage="+currentPage+"&type="+$("#doctype").val(),
             dataType: "json",
             success:function(data) {
                 var ctntary = eval(data.pageInfo.objects);
