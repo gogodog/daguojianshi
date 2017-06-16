@@ -26,10 +26,10 @@ function appendCtntTmp(ctntary,imageContextPath){
 	var list = "";
 	for(var i=0;i<ctntary.length;i++){
 		var val = ctntary[i];
-		var ctntTmp = "<article class='excerpt excerpt-1'><a class='focus' href='contextPath/show/articlescrap_id' title='articlescrap_title' target='_blank'>"+
+		var ctntTmp = "<article class='excerpt excerpt-1'><a class='focus' href='contextPath/show/articlescrap_id' title='articlescrap_title'>"+
 					  "<img class='thumb' data-original='contextPath/front/images/list/timg3.jpeg' src='imageContextPatharticlescrap_show_picture' style='display:inline;'>"+
 					  "</a><header><a class='cat' href='http://www.dgjs.com/list/mznetblog/' title='articlescrap_type_value'>articlescrap_type_value<i></i></a><h2>"+
-					  "<a href='contextPath/show/articlescrap_id' title='articlescrap_title' target='_blank' >articlescrap_title</a></h2></header><p class='meta'>"+
+					  "<a href='contextPath/show/articlescrap_id' title='articlescrap_title'>articlescrap_title</a></h2></header><p class='meta'>"+
 					  "<time class='time'><i class='glyphicon glyphicon-time'></i> articlescrap_start_time</time><span class='views' id='new_visit_articlescrap_id'>"+
 					  "<i class='glyphicon glyphicon-eye-open'></i></span></p><p class='note'>articlescrap_sub_content</p></article>";
 		list += ctntTmp.replace(cre("articlescrap_id"),val.id)
