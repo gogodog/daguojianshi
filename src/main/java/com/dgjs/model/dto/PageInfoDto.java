@@ -57,7 +57,13 @@ public class PageInfoDto<T> {
 	public static int getTotalPage(int totalResults,int onePageSize){
 		double totalPage=(double)totalResults/onePageSize;
     	return (int) Math.ceil(totalPage);
-     }
+    }
+	
+	//数据库第一条数据
+	public int getBeginNum(){
+		return (currentPage - 1) * onePageSize;
+	}
+	
 	
 	public static <T> PageInfoDto<T> getPageInfo(int currentPage,int onePageSize,int totalResults,List<T> objects){
    	    PageInfoDto<T> pageInfo=new PageInfoDto<T>();
@@ -68,4 +74,5 @@ public class PageInfoDto<T> {
    	    pageInfo.setObjects(objects);
    	    return pageInfo;
     }
+	
 }

@@ -11,6 +11,7 @@
 		pageinfo_['pageadids'] = "${(pageadids)!''}";//广告id
 		pageinfo_['pageid'] = '10336266';
 		window['pageinfo'] = pageinfo_;
+		var contextPath='${contextPath}';
 	</script>
 </head>
 <body class="user-select">

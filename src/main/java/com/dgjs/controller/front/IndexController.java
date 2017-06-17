@@ -2,6 +2,7 @@ package com.dgjs.controller.front;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,6 +30,7 @@ import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 import com.dgjs.model.persistence.condition.RecommedArticlescrapCondition;
 import com.dgjs.model.persistence.enhance.RecommedArticlescrapEnhance;
 import com.dgjs.service.ad.AdvertisementService;
+import com.dgjs.service.common.DataService;
 import com.dgjs.service.common.PictureService;
 import com.dgjs.service.content.ArticlescrapService;
 import com.dgjs.service.content.CarouselService;
@@ -51,6 +53,8 @@ public class IndexController {
 	CommentsService commentsService;
 	@Autowired
 	PictureService pictureService;
+	@Autowired
+	DataService dataSerivce;
 	
 	@RequestMapping("/index")
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response,Articlescrap_Type type) throws Exception {  
@@ -104,6 +108,18 @@ public class IndexController {
 		PageInfoDto<Articlescrap> pageInfo=articlescrapService.listArticlescrap(articlescrapCondtion);
 		list.put("pageInfo", pageInfo);
 		list.put("imageContextPath", pictureService.getImageContextPath());
+		//加载访问量
+		StringBuilder str = new StringBuilder();
+		List<Articlescrap> aticlescrapList = pageInfo.getObjects();
+		for(int i=0;i<aticlescrapList.size();i++){
+			if(i==aticlescrapList.size()-1){
+				str.append(aticlescrapList.get(i).getId());
+			}else{
+				str.append(aticlescrapList.get(i).getId()+"#");
+			}
+		}
+		Map<String,Integer> map=dataSerivce.getDocShowCounts(str.toString());
+		list.put("visits", map);
 		return list;
     }
 	
@@ -126,6 +142,8 @@ public class IndexController {
 		mv.addObject("commentsArticlescrapList", commentsArticlescrapList);
 		//打点数据
 		mv.addObject("pagedocids",id);
+		Map<String,Integer> map=dataSerivce.getDocShowCounts(String.valueOf(id));
+		mv.addObject("visits", map.get(String.valueOf(id)));
 		return mv;
     }
 	
