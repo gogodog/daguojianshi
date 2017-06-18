@@ -13,11 +13,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
 import com.dgjs.es.mapper.content.ArticlescrapMapper;
+import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.es.ArticlescrapEs;
 import com.dgjs.model.persistence.Articlescrap;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
+import com.dgjs.service.content.ArticlescrapService;
 import com.dgjs.utils.DateUtils;
 
 @Controller
@@ -27,23 +29,35 @@ public class ContentController {
 	@Autowired
 	ArticlescrapMapper articlescrapMapper;
 	
+	@Autowired
+	ArticlescrapService articlescrapSerivce;
+	
 	@RequestMapping("/contentList")
     public ModelAndView helloWord(HttpServletRequest request, HttpServletResponse response) throws Exception {  
 		ModelAndView mv = new ModelAndView("admin/content/index");  
         mv.addObject("title", "Spring MVC And Freemarker");  
         mv.addObject("content", " Hello world ， test my first spring mvc ! ");  
         
+//        ArticlescrapCondtion condtion = new ArticlescrapCondtion();
+//        condtion.setOnePageSize(20);
+//        PageInfoDto<Articlescrap> pageinfo=articlescrapSerivce.listArticlescrap(condtion);
+//        List<Articlescrap> list=pageinfo.getObjects();
+//        for(Articlescrap articlescrap:list){
+//        	articlescrap=articlescrapSerivce.selectById(articlescrap.getId());
+//        	articlescrapMapper.saveOrUpdateArticlescrap(articlescrap);
+//        }
+        
 //        Date now=new Date();
 //        Articlescrap articlescrap = new Articlescrap();
 //        articlescrap.setAuthor("镜花水月");
-//        articlescrap.setContent("test test test test content");
+//        articlescrap.setContent("test test test test content 2");
 //        articlescrap.setCreate_time(now);
-//        articlescrap.setShow_picture("http://www.cwillow.com//images/advertisement/p1/20170531052148045817.jpg");
+//        articlescrap.setShow_picture("http://www.cwillow.com/images/advertisement/p1/20170531052148045817.jpg");
 //        articlescrap.setShow_time(now);
 //        articlescrap.setStart_time("公元前200年");
 //        articlescrap.setStatus(UpDown_Status.DOWN);
 //        articlescrap.setSub_content("test sub_content");
-//        articlescrap.setTitle("test title");
+//        articlescrap.setTitle("test title 2");
 //        articlescrap.setType(Articlescrap_Type.FOREIGN_HISTORY);
 //        articlescrap.setUpdate_time(now);
 //        articlescrapMapper.saveOrUpdateArticlescrap(articlescrap);
@@ -52,11 +66,12 @@ public class ContentController {
 //        System.out.println(JSON.toJSON(articlescrap));
         
 //        ArticlescrapCondtion condition = new ArticlescrapCondtion();
-//        condition.setShowTimeFrom("2017-06-11 14:59:02");
 //        List<Articlescrap> list=articlescrapMapper.listArticlescrap(condition);
 //        System.out.println(JSON.toJSONString(list));
         
-//        articlescrapMapper.updateArticlescrapRecommend("AVyaUFdogmDrd-ExdK6S", 1, UpDown_Status.DOWN);
+//          articlescrapMapper.deleteById("AVylZSUuGrpiw6YwpZgQ");
+        
+//        articlescrapMapper.updateArticlescrapRecommend("AVyp6MqoUnl0U38aB3kw", 1, UpDown_Status.UP);
 //         List<Articlescrap> recommends=articlescrapMapper.listRecommend(null);
 //         System.out.println(JSON.toJSONString(recommends));
         return mv;  

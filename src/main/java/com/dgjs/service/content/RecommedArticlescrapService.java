@@ -2,20 +2,16 @@ package com.dgjs.service.content;
 
 import java.util.List;
 
-
-import com.dgjs.model.persistence.RecommedArticlescrap;
-import com.dgjs.model.persistence.condition.RecommedArticlescrapCondition;
-import com.dgjs.model.persistence.enhance.RecommedArticlescrapEnhance;
+import com.dgjs.model.enums.UpDown_Status;
+import com.dgjs.model.persistence.Articlescrap;
 
 public interface RecommedArticlescrapService {
 
-     public int save(RecommedArticlescrap recommedArticlescrap);
+     public int save(String articlescrapId,UpDown_Status status,int sort) throws Exception;
 	 
-	 public List<RecommedArticlescrapEnhance> list(RecommedArticlescrapCondition condition);
+	 public List<Articlescrap> list(UpDown_Status status);
 
-     public int deleteById(Long id);
+     public int deleteById(String articlescrapId) throws Exception;
     
-     public RecommedArticlescrap selectByArticlescrapId(Long articlescrap_id);
-     
-     public int updateStatus(Long id);
+     public int updateStatus(String id,UpDown_Status status);
 }

@@ -15,9 +15,9 @@ public interface CommentsMapper {
 	
     public int update(Comments comments);
     
-    public List<Comments> getCommentsByArticlescrapId(@Param("articlescrap_id")Long articlescrapId,@Param("beginNum")int beginNum,@Param("onePageSize")int onePageSize);
+    public List<Comments> getCommentsByArticlescrapId(@Param("articlescrap_id")String articlescrapId,@Param("beginNum")int beginNum,@Param("onePageSize")int onePageSize);
     
-    public int sizeCommentsByArticlescrapId(Long articlescrapId);
+    public int sizeCommentsByArticlescrapId(String articlescrapId);
     
-    public List<Long> getComments(int number);
+    public List<String> getComments(int number);
 }

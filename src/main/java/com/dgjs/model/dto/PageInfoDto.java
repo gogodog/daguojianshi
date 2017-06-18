@@ -8,7 +8,7 @@ public class PageInfoDto<T> {
 	 
 	 private int onePageSize;
 	        
-	 private int totalResults;
+	 private long totalResults;
 	        
 	 private int totalPage;
 	        
@@ -30,11 +30,11 @@ public class PageInfoDto<T> {
 		this.onePageSize = onePageSize;
 	}
 
-	public int getTotalResults() {
+	public long getTotalResults() {
 		return totalResults;
 	}
 
-	public void setTotalResults(int totalResults) {
+	public void setTotalResults(long totalResults) {
 		this.totalResults = totalResults;
 	}
 
@@ -54,12 +54,12 @@ public class PageInfoDto<T> {
 		this.objects = objects;
 	}
 	
-	public static int getTotalPage(int totalResults,int onePageSize){
+	public static int getTotalPage(long totalResults,int onePageSize){
 		double totalPage=(double)totalResults/onePageSize;
     	return (int) Math.ceil(totalPage);
      }
 	
-	public static <T> PageInfoDto<T> getPageInfo(int currentPage,int onePageSize,int totalResults,List<T> objects){
+	public static <T> PageInfoDto<T> getPageInfo(int currentPage,int onePageSize,long totalResults,List<T> objects){
    	    PageInfoDto<T> pageInfo=new PageInfoDto<T>();
    	    pageInfo.setCurrentPage(currentPage);
    	    pageInfo.setOnePageSize(onePageSize);

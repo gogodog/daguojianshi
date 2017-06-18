@@ -5,44 +5,43 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dgjs.mapper.content.RecommedArticlescrapMapper;
+import com.dgjs.es.mapper.content.ArticlescrapMapper;
 import com.dgjs.model.enums.UpDown_Status;
-import com.dgjs.model.persistence.RecommedArticlescrap;
-import com.dgjs.model.persistence.condition.RecommedArticlescrapCondition;
-import com.dgjs.model.persistence.enhance.RecommedArticlescrapEnhance;
+import com.dgjs.model.persistence.Articlescrap;
+import com.dgjs.model.persistence.Recommend;
 import com.dgjs.service.content.RecommedArticlescrapService;
 
 @Service
 public class RecommedArticlescrapServiceImpl implements RecommedArticlescrapService{
-
-	@Autowired
-	private RecommedArticlescrapMapper mapper;
 	
+	@Autowired
+	ArticlescrapMapper articlescrapMapper;
+
 	@Override
-	public int save(RecommedArticlescrap recommedArticlescrap) {
-		return mapper.save(recommedArticlescrap);
+	public int save(String articlescrapId, UpDown_Status status, int sort) throws Exception{
+		return articlescrapMapper.updateArticlescrapRecommend(articlescrapId, sort, status);
 	}
 
 	@Override
-	public List<RecommedArticlescrapEnhance> list(
-			RecommedArticlescrapCondition condition) {
-		List<RecommedArticlescrapEnhance> list=mapper.list(condition);
-		return list;
+	public List<Articlescrap> list(UpDown_Status status) {
+		return articlescrapMapper.listRecommend(status);
 	}
 
 	@Override
-	public int deleteById(Long id) {
-		return mapper.deleteById(id);
+	public int deleteById(String articlescrapId) throws Exception {
+		Articlescrap articlescrap = new Articlescrap();
+		articlescrap.setId(articlescrapId);
+		Recommend recommend = new Recommend();
+		recommend.setSort(-1);
+		recommend.setStatus(-1);
+		articlescrap.setRecommend(recommend);
+		return articlescrapMapper.updateArticlescrap(articlescrap);
 	}
 
 	@Override
-	public RecommedArticlescrap selectByArticlescrapId(Long articlescrap_id) {
-		return mapper.selectByArticlescrapId(articlescrap_id);
+	public int updateStatus(String id,UpDown_Status status) {
+		return articlescrapMapper.updateArticlescrapRecommend(id, null, status);
 	}
 
-	@Override
-	public int updateStatus(Long id) {
-		return mapper.updateStatus(id);
-	}
 
 }

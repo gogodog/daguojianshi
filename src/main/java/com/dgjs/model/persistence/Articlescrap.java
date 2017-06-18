@@ -9,8 +9,7 @@ import com.dgjs.utils.StringUtils;
 
 public class Articlescrap {
 
-	private Long id;//id
-	private String esId;//esId
+	private String id;//esId
 	private String title;//标题
 	private String content;//文章内容
 	private Date show_time;//展示时间
@@ -27,11 +26,12 @@ public class Articlescrap {
 	private String start_time_y;//内容的起始时间
 	private String start_time_m;//内容的起始时间
 	private String start_time_d;//内容的起始时间
+	private Recommend recommend;//推荐信息
 	
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getTitle() {
@@ -169,12 +169,11 @@ public class Articlescrap {
 		this.start_time_d = start_time_d;
 		this.setStartTime();
 	}
-	
-	public String getEsId() {
-		return esId;
+	public Recommend getRecommend() {
+		return recommend;
 	}
-	public void setEsId(String esId) {
-		this.esId = esId;
+	public void setRecommend(Recommend recommend) {
+		this.recommend = recommend;
 	}
 	@Override
 	public String toString() {

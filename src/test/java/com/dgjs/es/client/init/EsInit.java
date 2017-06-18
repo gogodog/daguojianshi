@@ -21,9 +21,9 @@ import com.dgjs.es.client.ESTransportClient;
 @ContextConfiguration(locations = "classpath:spring-*.xml") 
 public class EsInit {
 
-    final static String index = "dgjs2";
+    final static String index = "dgjs";
 	
-	final static String type = "articlescrap1";
+	final static String type = "articlescrap";
 	
 	@Autowired
 	ESTransportClient transportClient;
@@ -39,7 +39,7 @@ public class EsInit {
 				.startObject()
 				.startObject(type)
 				.startObject("properties")
-				.startObject("title").field("type", "keyword").field("store", "yes").field("index", "not_analyzed").endObject()
+				.startObject("title").field("type", "text").field("store", "yes").field("index", "analyzed").field("analyzer", "ik_smart").endObject()
 				.startObject("show_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "yes").field("index", "not_analyzed").endObject()
 				.startObject("type").field("type", "integer").field("store", "yes").field("index", "not_analyzed").endObject()
 				.startObject("status").field("type", "integer").field("store", "yes").field("index", "not_analyzed").endObject()

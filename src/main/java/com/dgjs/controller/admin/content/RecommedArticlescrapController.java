@@ -6,15 +6,14 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dgjs.constants.RETURN_STATUS;
+import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.persistence.Articlescrap;
-import com.dgjs.model.persistence.RecommedArticlescrap;
-import com.dgjs.model.persistence.condition.RecommedArticlescrapCondition;
-import com.dgjs.model.persistence.enhance.RecommedArticlescrapEnhance;
 import com.dgjs.model.view.BaseView;
 import com.dgjs.service.content.ArticlescrapService;
 import com.dgjs.service.content.RecommedArticlescrapService;
@@ -33,9 +32,9 @@ public class RecommedArticlescrapController {
 	
 	
 	@RequestMapping("/recommedArticlescrapList")
-	public ModelAndView recommedArticlescrapList(RecommedArticlescrapCondition condition){
+	public ModelAndView recommedArticlescrapList(){
 		ModelAndView mv = new ModelAndView("admin/content/recommedArticlescrap_list");  
-		List<RecommedArticlescrapEnhance> list=recommedArticlescrapService.list(condition);
+		List<Articlescrap> list=recommedArticlescrapService.list(null);
 		mv.addObject("recommedArticlescrapList", list);
 		return mv;
 	}
@@ -48,24 +47,22 @@ public class RecommedArticlescrapController {
 	
 	@ResponseBody
 	@RequestMapping("/ajaxSaveRecommedArticlescrap")
-	public BaseView ajaxSaveRecommedArticlescrap(RecommedArticlescrap recommedArticlescrap){
+	public BaseView ajaxSaveRecommedArticlescrap(String id,Integer sort,UpDown_Status status){
 		BaseView view=new BaseView();
-		if(recommedArticlescrap==null||recommedArticlescrap.getSort()==null
-				||recommedArticlescrap.getStatus()==null||recommedArticlescrap.getArticlescrap_id()==null){
+		if(StringUtils.isEmpty(id)||sort==null||status ==null||sort<0){
 			view.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
 			return view;
 		}
 		try{
-			Articlescrap articlescrap=articlescrapSerivce.selectById(recommedArticlescrap.getArticlescrap_id());
+			Articlescrap articlescrap=articlescrapSerivce.selectById(id);
 			if(articlescrap==null){
 				view.setBaseViewValue("NO_ARTICLESCRAP", "没有对应的文章");
 				return view;
 			}
-			RecommedArticlescrap ra=recommedArticlescrapService.selectByArticlescrapId(recommedArticlescrap.getArticlescrap_id());
-			if(ra!=null){
+			if(articlescrap.getRecommend().getSort() > -1){
 				 view.setBaseViewValue("DUPLICATE_ARTICLESCRAP", "此文章已经是推荐文章");
 			}else{
-				int flag=recommedArticlescrapService.save(recommedArticlescrap);
+				int flag=recommedArticlescrapService.save(id, status, sort);
 				if(flag!=1)
 				  view.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
 			}
@@ -77,7 +74,7 @@ public class RecommedArticlescrapController {
 	}
 	
 	@RequestMapping("/deleteRecommedArticlescrap")
-	public ModelAndView deleteRecommedArticlescrap(Long recommedArticlescrapId){
+	public ModelAndView deleteRecommedArticlescrap(String recommedArticlescrapId) throws Exception{
 		ModelAndView mv = new ModelAndView("redirect:/admin/recommedArticlescrapList"); 
 		recommedArticlescrapService.deleteById(recommedArticlescrapId);
 		return mv;
@@ -85,14 +82,14 @@ public class RecommedArticlescrapController {
 	
 	@ResponseBody
 	@RequestMapping("/ajaxUpdateRAStatus")
-	public BaseView ajaxUpdateStatus(Long recommedArticlescrapId){
+	public BaseView ajaxUpdateStatus(String recommedArticlescrapId,UpDown_Status status){
 		BaseView view=new BaseView();
-		if(recommedArticlescrapId==null){
+		if(recommedArticlescrapId==null||status==null){
 			view.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
 			return view;
 		}
 		try{
-			int number=recommedArticlescrapService.updateStatus(recommedArticlescrapId);
+			int number=recommedArticlescrapService.updateStatus(recommedArticlescrapId,status);
 			if(number!=1){
 				view.setBaseViewValue(RETURN_STATUS.PARAM_ERROR.getValue(),"无效的推荐id");
 			}

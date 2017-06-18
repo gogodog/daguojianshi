@@ -5,7 +5,7 @@ import java.util.Date;
 public class Comments{ 
 
        private String id; //id
-       private Long articlescrap_id; //文章id
+       private String articlescrap_id; //文章id
        private String comment_name; //评论人名称
        private Long comment_id; //评论人id
        private String ip_address; //ip地址
@@ -15,16 +15,17 @@ public class Comments{
        private Boolean is_show = true; //是否展示
        private String c_desc;//描述
        private String email;//邮箱
+       
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
 	}
-	public Long getArticlescrap_id() {
+	public String getArticlescrap_id() {
 		return articlescrap_id;
 	}
-	public void setArticlescrap_id(Long articlescrap_id) {
+	public void setArticlescrap_id(String articlescrap_id) {
 		this.articlescrap_id = articlescrap_id;
 	}
 	public String getComment_name() {

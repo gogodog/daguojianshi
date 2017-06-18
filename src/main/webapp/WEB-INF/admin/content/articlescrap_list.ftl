@@ -55,7 +55,7 @@
 					     <td>
 					     	<div class="table-fun">
 					     		<a href="${contextPath}/admin/articlescrap?articlescrapId=${articlescrap.id}">修改</a>
-					     		<a href="javascript:void(0)" onclick="deleteArticlescrap(${articlescrap.id});">删除</a>
+					     		<a href="javascript:void(0)" onclick="deleteArticlescrap('${articlescrap.id}');">删除</a>
 					     		<a href="${contextPath}/admin/comments?articlescrapId=${articlescrap.id}">评论</a>
 					     	</div>
 					     </td>

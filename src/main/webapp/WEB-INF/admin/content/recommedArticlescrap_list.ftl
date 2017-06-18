@@ -32,17 +32,24 @@
 					     <td>${recommedArticlescrap.id}</td>
 					     <td>${recommedArticlescrap.title}</td>		
 					     <td>${recommedArticlescrap.sub_content}</td>		
-					     <td>${recommedArticlescrap.sort}</td>	
-					     <td>${recommedArticlescrap.status.value}</td>
+					     <td>${recommedArticlescrap.recommend.sort}</td>	
+					     <td> 
+					          <#if recommedArticlescrap.recommend.status == 1>
+					            上架
+                              </#if> 
+					          <#if recommedArticlescrap.recommend.status == 0>
+					            下架
+                              </#if> 
+                         </td>
 					     <td>
 					     	<div class="table-fun-1">
-					     	    <a href="${contextPath}/admin/articlescrap?articlescrapId=${recommedArticlescrap.articlescrap_id}">查看文章</a>
-					     		<a href="javascript:void(0)" onclick="deleteRA(${recommedArticlescrap.id});">删除</a>
-					     		<a href="javascript:void(0)" onclick="updateStatus(${recommedArticlescrap.id});">
-                                   <#if recommedArticlescrap.status.key == 1>
+					     	    <a href="${contextPath}/admin/articlescrap?articlescrapId=${recommedArticlescrap.id}">查看文章</a>
+					     		<a href="javascript:void(0)" onclick="deleteRA('${recommedArticlescrap.id}');">删除</a>
+					     		<a href="javascript:void(0)" onclick="updateStatus('${recommedArticlescrap.id}','${recommedArticlescrap.recommend.status}');">
+                                   <#if recommedArticlescrap.recommend.status == 1>
                                       下架
                                    </#if>
-                                   <#if recommedArticlescrap.status.key == 0>
+                                   <#if recommedArticlescrap.recommend.status == 0>
                                       上架
                                    </#if>
 					     		</a>
@@ -57,12 +64,17 @@
 	
 <script>
 var contextPath="${contextPath}";
-function updateStatus(recommedArticlescrapId){
+function updateStatus(recommedArticlescrapId,status){
+	if(status == '1'){
+		status = 'DOWN';
+	}else{
+		status = 'UP';
+	}
 	$.ajax({
 	    url:contextPath+"/admin/ajaxUpdateRAStatus",    
 	    dataType:"json",   
 	    async:false,
-	    data:{"recommedArticlescrapId":recommedArticlescrapId}, 
+	    data:{"recommedArticlescrapId":recommedArticlescrapId,"status":status}, 
 	    type:"GET",   
 	    success:function(req){
 	    	if(!req.error){

@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,8 +25,6 @@ public class ArticlescrapController {
 	@Autowired
 	ArticlescrapService articlescrapSerivce;
 	
-	
-	
 	@Autowired
 	PictureService pictureService;
 	
@@ -42,7 +41,7 @@ public class ArticlescrapController {
     }  
 	
 	@RequestMapping("/articlescrap")
-	public ModelAndView articlescrap(Long articlescrapId){
+	public ModelAndView articlescrap(String articlescrapId) throws Exception{
 		ModelAndView mv = new ModelAndView("admin/content/articlescrap");  
 		mv.addObject("imageContextPath", pictureService.getImageContextPath());
 		if(articlescrapId!=null){
@@ -54,26 +53,25 @@ public class ArticlescrapController {
 	}
 	
 	@RequestMapping("/saveArticlescrap")
-	public ModelAndView saveArticlescrap(Articlescrap articlescrap,String showTime){
+	public ModelAndView saveArticlescrap(Articlescrap articlescrap,String showTime) throws Exception{
 		ModelAndView mv = new ModelAndView("redirect:/admin/articlescrapList");  
 		articlescrap.setShow_time(DateUtils.parseDateFromString(showTime));
-		if(articlescrap.getId()==null){
+		if(StringUtils.isEmpty(articlescrap.getId()))
 			articlescrapSerivce.saveArticlescrap(articlescrap);
-		}else{
+		else
 			articlescrapSerivce.updateArticlescrap(articlescrap);
-		}
 		return mv;
 	}
 	
 	@RequestMapping("/deleteArticlescrap")
-	public ModelAndView deleteArticlescrap(Long articlescrapId){
+	public ModelAndView deleteArticlescrap(String articlescrapId)  throws Exception{
 		ModelAndView mv = new ModelAndView("redirect:/admin/articlescrapList");  
 		articlescrapSerivce.deleteArticlescrap(articlescrapId);
 		return mv;
 	}
 	
 	@RequestMapping("/previewArticlescrap")
-	public ModelAndView previewArticlescrap(Long articlescrapId){
+	public ModelAndView previewArticlescrap(String articlescrapId)  throws Exception{
 		ModelAndView mv = articlescrap(articlescrapId);
 		mv.setViewName("front/show");
 		return mv;

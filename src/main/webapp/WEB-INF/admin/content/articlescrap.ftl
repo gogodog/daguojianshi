@@ -84,7 +84,7 @@
 				<div class="form-group" style="margin-left:150px;">
 					<input type="submit" class="sub-btn" value="提  交" />
 					<input type="reset" class="sub-btn" value="重  置" />
-					<input type="button" class="sub-btn" value="预  览" onclick="preview(${articlescrap.id});"/>
+					<input type="button" class="sub-btn" value="预  览" onclick="preview('${articlescrap.id}');"/>
 				</div>
 				</fieldset>
 				</form>

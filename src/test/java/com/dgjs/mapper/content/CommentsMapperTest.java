@@ -22,7 +22,7 @@ public class CommentsMapperTest {
 	@Test
 	public void testSave(){
 		Comments comments = new Comments();
-		comments.setArticlescrap_id(6l);
+//		comments.setArticlescrap_id(6l);
 		comments.setComment("测试评论");
 		comments.setComment_id(null);
 		comments.setComment_name("joy");

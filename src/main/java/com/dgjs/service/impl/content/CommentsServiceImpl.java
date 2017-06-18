@@ -38,7 +38,7 @@ public class CommentsServiceImpl implements CommentsService{
 
 	@Override
 	public PageInfoDto<Comments> getCommentsByArticlescrapId(
-			Long articlescrapId, int currentPage, int onePageSize,
+			String articlescrapId, int currentPage, int onePageSize,
 			boolean isNeedTotalResults) {
 		int beginNum = (currentPage - 1) * onePageSize;
 		List<Comments> list=commentsMapper.getCommentsByArticlescrapId(articlescrapId, beginNum, onePageSize);

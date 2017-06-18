@@ -1,11 +1,14 @@
 package com.dgjs.controller.front;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSON;
 import com.dgjs.constants.Constants;
+import com.dgjs.es.mapper.content.ArticlescrapMapper;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.enums.Ad_Position;
 import com.dgjs.model.enums.Articlescrap_Type;
@@ -24,8 +29,6 @@ import com.dgjs.model.persistence.Carousel;
 import com.dgjs.model.persistence.Comments;
 import com.dgjs.model.persistence.condition.AdvertisementCondtion;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
-import com.dgjs.model.persistence.condition.RecommedArticlescrapCondition;
-import com.dgjs.model.persistence.enhance.RecommedArticlescrapEnhance;
 import com.dgjs.service.ad.AdvertisementService;
 import com.dgjs.service.common.PictureService;
 import com.dgjs.service.content.ArticlescrapService;
@@ -49,6 +52,8 @@ public class IndexController {
 	CommentsService commentsService;
 	@Autowired
 	PictureService pictureService;
+	@Autowired
+	ArticlescrapMapper articlescrapMapper;
 	
 	@RequestMapping("/index")
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response,Articlescrap_Type type) throws Exception {  
@@ -59,8 +64,10 @@ public class IndexController {
 		List<Carousel> carouselList=carouselService.listCarousel(c);
 		mv.addObject("carouselList", carouselList);
 		//加载推荐文章
-		RecommedArticlescrapCondition r=new RecommedArticlescrapCondition();
-		List<RecommedArticlescrapEnhance> rAEList=recommedArticlescrapService.list(r);
+//		RecommedArticlescrapCondition r=new RecommedArticlescrapCondition();
+//		List<RecommedArticlescrapEnhance> rAEList=recommedArticlescrapService.list(r);
+//		mv.addObject("rAEList", rAEList);
+		List<Articlescrap> rAEList=articlescrapMapper.listRecommend(UpDown_Status.UP);
 		mv.addObject("rAEList", rAEList);
 		//加载最新文章
 		ArticlescrapCondtion articlescrapCondtion = new ArticlescrapCondtion();
@@ -68,8 +75,10 @@ public class IndexController {
 		articlescrapCondtion.setNeedTotalResults(false);
 		articlescrapCondtion.setStatus(UpDown_Status.UP);
 		articlescrapCondtion.setType(type);
-		articlescrapCondtion.setSort(" order by show_time desc ");
-		PageInfoDto<Articlescrap> pageInfo=articlescrapService.listArticlescrap(articlescrapCondtion);
+		Map<String,SortOrder> sort = new HashMap<String,SortOrder>();
+		sort.put("show_time", SortOrder.DESC);
+		articlescrapCondtion.setSort(sort);
+		PageInfoDto<Articlescrap> pageInfo=articlescrapMapper.listArticlescrap(articlescrapCondtion);
 		mv.addObject("articlescrapPageInfo", pageInfo);
 		mv.addObject("imageContextPath", pictureService.getImageContextPath());
 		//加载广告位
@@ -107,9 +116,10 @@ public class IndexController {
     }
 	
 	@RequestMapping("/show/{id}")
-    public ModelAndView show(@PathVariable("id") Long id, HttpServletRequest request, HttpServletResponse response) throws Exception {  
+    public ModelAndView show(@PathVariable("id") String id, HttpServletRequest request, HttpServletResponse response) throws Exception {  
 		ModelAndView mv = new ModelAndView("front/show");
-		Articlescrap articlescrap= this.articlescrapService.selectById(id);
+//		Articlescrap articlescrap= this.articlescrapService.selectById(id);
+		Articlescrap articlescrap=articlescrapMapper.getArticlescrapIndex(id);
 		mv.addObject("articlescrap", articlescrap);
 		mv.addObject("imageContextPath", pictureService.getImageContextPath());
 		PageInfoDto<Comments> pageinfo=commentsService.getCommentsByArticlescrapId(id, 1, Constants.DEFAULT_ONEPAGESIZE, false);

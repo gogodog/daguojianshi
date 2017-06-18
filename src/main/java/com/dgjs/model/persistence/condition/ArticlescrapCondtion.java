@@ -1,7 +1,9 @@
 package com.dgjs.model.persistence.condition;
 
 import java.util.Date;
+import java.util.Map;
 
+import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.util.StringUtils;
 
 import com.dgjs.constants.Constants;
@@ -22,9 +24,8 @@ public class ArticlescrapCondtion {
 	private Date updateTimeFrom;
 	private Date updateTimeTo;
 	private int subContentLength;//查询截取的内容长度，默认20
-	private String sort;//排序
+	private Map<String,SortOrder> sort;//排序
 	private int beginNum;//从哪条开始查
-//	private int onePageSize=Constants.DEFAULT_ONEPAGESIZE;//每页显示
 	private int onePageSize=Constants.DEFAULT_ONEPAGESIZE;
 	private int currentPage=1;//当前页
 	private boolean needTotalResults;//是否需要查询总数
@@ -93,10 +94,11 @@ public class ArticlescrapCondtion {
 	public void setUpdateTimeTo(Date updateTimeTo) {
 		this.updateTimeTo = updateTimeTo;
 	}
-	public String getSort() {
+	
+	public Map<String, SortOrder> getSort() {
 		return sort;
 	}
-	public void setSort(String sort) {
+	public void setSort(Map<String, SortOrder> sort) {
 		this.sort = sort;
 	}
 	public int getBeginNum() {

@@ -2,7 +2,9 @@ package com.dgjs.es.client;
 
 import java.net.InetAddress;
 import java.util.Properties;
+import java.util.concurrent.ExecutionException;
 
+import org.elasticsearch.action.admin.indices.refresh.RefreshRequestBuilder;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
@@ -126,5 +128,27 @@ public class ESTransportClient implements FactoryBean<TransportClient>, Initiali
 
     public void setProperties(Properties properties) {
         this.properties = properties;
+    }
+    
+    public TransportClient getClient(){
+    	try {
+			return getObject();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	return null;
+    }
+    
+    public void refreshIndex(String index){
+    	RefreshRequestBuilder bu=client.admin().indices().prepareRefresh(index);
+    	try {
+			bu.execute().get();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 }

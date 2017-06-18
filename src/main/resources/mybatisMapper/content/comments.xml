@@ -60,7 +60,7 @@
         update comments set is_show = #{is_show},c_desc=#{c_desc} where id = #{id}
    </update>
      
-   <select id="getComments" resultType="Long">
+   <select id="getComments" resultType="String">
          select c.articlescrap_id from 
          (
            select articlescrap_id,comment_time from comments order by comment_time desc

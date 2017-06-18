@@ -9,12 +9,11 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dgjs.mapper.content.ArticlescrapMapper;
+import com.dgjs.es.mapper.content.ArticlescrapMapper;
 import com.dgjs.mapper.content.CommentsMapper;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.persistence.Articlescrap;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
-import com.dgjs.model.persistence.enhance.RecommedArticlescrapEnhance;
 import com.dgjs.service.content.ArticlescrapService;
 
 @Service
@@ -27,49 +26,52 @@ public class ArticlescrapServiceImpl implements ArticlescrapService{
 	CommentsMapper commentsMapper;
 	
 	@Override
-	public int saveArticlescrap(Articlescrap articlescrap) {
+	public int saveArticlescrap(Articlescrap articlescrap){
 		return articlescrapMapper.saveArticlescrap(articlescrap);
 	}
 
 	@Override
-	public int updateArticlescrap(Articlescrap articlescrap) {
+	public int updateArticlescrap(Articlescrap articlescrap) throws Exception{
 		return articlescrapMapper.updateArticlescrap(articlescrap);
 	}
 
 	@Override
-	public Articlescrap selectById(Long id) {
-		return articlescrapMapper.selectById(id);
+	public Articlescrap selectById(String id) {
+		return articlescrapMapper.getArticlescrapIndex(id);
 	}
 
 	@Override
 	public PageInfoDto<Articlescrap> listArticlescrap(ArticlescrapCondtion articlescrapCondtion) {
-		articlescrapCondtion.setBeginNum((articlescrapCondtion.getCurrentPage()-1)*articlescrapCondtion.getOnePageSize());
-		List<Articlescrap> list=articlescrapMapper.listArticlescrap(articlescrapCondtion);
-		int totalResults=0;
-		if(articlescrapCondtion.isNeedTotalResults()){
-			totalResults=articlescrapMapper.sizeListArticlescrap(articlescrapCondtion);
-		}
-		return PageInfoDto.getPageInfo(articlescrapCondtion.getCurrentPage(), articlescrapCondtion.getOnePageSize(), totalResults, list);
+		return articlescrapMapper.listArticlescrap(articlescrapCondtion);
 	}
 
 	@Override
-	public int deleteArticlescrap(Long id) {
-		return articlescrapMapper.deleteArticlescrap(id);
+	public int deleteArticlescrap(String id) {
+		return articlescrapMapper.deleteById(id);
 	}
 
 	@Override
 	public List<Articlescrap> getArticlescrapByComments(int number) {
-		List<Long> ids=commentsMapper.getComments(number);
+		List<String> ids=commentsMapper.getComments(number);
 		//如果有评论信息，则按最新评论时间排序获取文章信息
 		if(ids!=null && !ids.isEmpty()){
-			List<Articlescrap> list=articlescrapMapper.selectByIds(ids);
+			StringBuilder str = new StringBuilder();
+			for(int i=0;i<ids.size();i++){
+				if(i==ids.size()-1){
+					str.append(ids.get(i));
+				}else{
+					str.append(ids.get(i));
+					str.append(",");
+				}
+			}
+			List<Articlescrap> list=articlescrapMapper.getArticlescrapByIds(str.toString());
 			if(list!=null&&!list.isEmpty()){
-				Map<Long,Articlescrap> map = new HashMap<Long,Articlescrap>();
+				Map<String,Articlescrap> map = new HashMap<String,Articlescrap>();
 				for(Articlescrap articlescrap:list){
 					map.put(articlescrap.getId(), articlescrap);
 				}
 				list.clear();
-				for(Long id:ids){
+				for(String id:ids){
 					list.add(map.get(id));
 				}
 				return list;
@@ -78,21 +80,21 @@ public class ArticlescrapServiceImpl implements ArticlescrapService{
 			ArticlescrapCondtion articlescrapCondtion = new ArticlescrapCondtion();
 			articlescrapCondtion.setBeginNum(0);
 			articlescrapCondtion.setOnePageSize(number);
-			return articlescrapMapper.listArticlescrap(articlescrapCondtion);
+			return articlescrapMapper.listArticlescrap(articlescrapCondtion).getObjects();
 		}
 		return null;
 	}
 
 	@Override
 	public String getDadianArticlescrapIds(
-			List<RecommedArticlescrapEnhance> recommedArticlescraps,
+			List<Articlescrap> recommedArticlescraps,
 			List<Articlescrap> newArticlescraps,
 			List<Articlescrap> commentsArticlescrap) {
-		Set<Long> set = new HashSet<Long>();
+		Set<String> set = new HashSet<String>();
 		StringBuilder str = null;
 		if(recommedArticlescraps!=null){
-			for(RecommedArticlescrapEnhance recommedArticlescrapEnhance:recommedArticlescraps){
-				set.add(recommedArticlescrapEnhance.getArticlescrap_id());
+			for(Articlescrap articlescrap:recommedArticlescraps){
+				set.add(articlescrap.getId());
 			}
 		}
 		if(newArticlescraps!=null){
@@ -108,7 +110,7 @@ public class ArticlescrapServiceImpl implements ArticlescrapService{
 		if(set.size()>0){
 			int index = 0;
 		    str = new StringBuilder();
-			for(Long id:set){
+			for(String id:set){
 				if(index++ != set.size()-1){
 					str.append(id+"#");
 				}else{

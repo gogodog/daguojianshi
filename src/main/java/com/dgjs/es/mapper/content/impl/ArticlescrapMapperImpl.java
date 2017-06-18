@@ -1,7 +1,8 @@
-package com.dgjs.es.service.content.impl;
+package com.dgjs.es.mapper.content.impl;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.index.query.BoolQueryBuilder;
@@ -30,11 +32,12 @@ import org.springframework.util.StringUtils;
 import com.alibaba.fastjson.JSON;
 import com.dgjs.es.client.ESTransportClient;
 import com.dgjs.es.mapper.content.ArticlescrapMapper;
+import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.es.ArticlescrapEs;
-import com.dgjs.model.es.RecommendEs;
 import com.dgjs.model.persistence.Articlescrap;
+import com.dgjs.model.persistence.Recommend;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 import com.dgjs.utils.DateUtils;
 
@@ -48,38 +51,48 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 	
 	final static String type = "articlescrap";
 	
-	@SuppressWarnings("deprecation")
-	@Override
-	public int saveOrUpdateArticlescrap(Articlescrap articlescrap)  throws Exception{
-	    TransportClient client=transportClient.getObject();
-	    if(articlescrap == null)
-			return 0;
-	    try{
-	       IndexRequestBuilder indexRequestBuilder;
-	       if(StringUtils.isEmpty(articlescrap.getEsId())){
-	    	   indexRequestBuilder =client.prepareIndex(index, type);
-	       }else{
-	    	   indexRequestBuilder =client.prepareIndex(index, type,articlescrap.getEsId());
-	       }
-		   IndexResponse response = indexRequestBuilder.setSource(ArticlescrapEs.ConvertToEs(articlescrap).toString()).execute().actionGet(); 
-		   return StringUtils.isEmpty(response.getId())?0:1;
-	    }catch(Exception e){
-		  e.printStackTrace();
-	    }
-		return 0;
-	}
-	
 	 @Override
- 	public Articlescrap getArticlescrapIndex(String id) throws Exception {
-		TransportClient client=transportClient.getObject();
+ 	public Articlescrap getArticlescrapIndex(String id){
+		TransportClient client=transportClient.getClient();
  		GetResponse response = client.prepareGet(index, type , id).get();
  		ArticlescrapEs articlescrapEs=JSON.parseObject(response.getSourceAsString(), ArticlescrapEs.class);
- 		return ArticlescrapEs.ConvertToVo(articlescrapEs);
+ 		Articlescrap articlescrap =  ArticlescrapEs.ConvertToVo(articlescrapEs);
+ 		articlescrap.setId(id);
+ 		return articlescrap;
  	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<Articlescrap> listArticlescrap(ArticlescrapCondtion condition) throws Exception{
+	public PageInfoDto<Articlescrap> listArticlescrap(ArticlescrapCondtion condition){
+		BoolQueryBuilder boolBuilder = getListQueryBuilder(condition);
+		TransportClient client=transportClient.getClient();
+		SearchRequestBuilder responsebuilder = client.prepareSearch(index).setTypes(type);
+		String[] fields={"title","show_time","status","type","author","create_time","update_time","sub_content","show_picture","start_time"};
+		responsebuilder.setQuery(boolBuilder);
+		Map<String, SortOrder> sort = condition.getSort();
+		if(sort!=null&&!sort.isEmpty()){
+		   for(String key:sort.keySet()){
+				responsebuilder.addSort(key,sort.get(key));
+			}
+		}
+		responsebuilder.storedFields(fields);
+		condition.setBeginNum((condition.getCurrentPage()-1)*condition.getOnePageSize());
+		SearchResponse myresponse = responsebuilder.setFrom(condition.getBeginNum()).
+				setSize(condition.getOnePageSize()).setExplain(true).execute().actionGet();
+		SearchHits hits = myresponse.getHits();
+		if(hits.getTotalHits()>0){
+			List<Articlescrap> list = new ArrayList<Articlescrap>();
+			for (int i = 0; i < hits.getHits().length; i++) {
+				Map<String,SearchHitField> map=hits.getHits()[i].getFields();
+				Articlescrap articlescrap=getArticlescrap(map);
+				articlescrap.setId(hits.getHits()[i].getId());
+				list.add(articlescrap);
+			}
+		    return PageInfoDto.getPageInfo(condition.getCurrentPage(), condition.getOnePageSize(), hits.getTotalHits(), list);
+		}
+		return null;
+	}
+	
+	private BoolQueryBuilder getListQueryBuilder(ArticlescrapCondtion condition){
 		BoolQueryBuilder boolBuilder = new BoolQueryBuilder();
 		if(condition!=null){
 			if(!StringUtils.isEmpty(condition.getTitle())){
@@ -101,31 +114,7 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 				boolBuilder.must(QueryBuilders.rangeQuery("show_time").lte(DateUtils.parseStringFromDate(condition.getShowTimeTo())));
 			}
 		}
-		TransportClient client=transportClient.getObject();
-		SearchRequestBuilder responsebuilder = client.prepareSearch(index).setTypes(type);
-		String[] fields={"title","show_time","status","type","author","create_time","update_time","sub_content","show_picture","start_time"};
-		responsebuilder.setQuery(boolBuilder);
-		if(!StringUtils.isEmpty(condition.getSort())){
-			Map<String,SortOrder> m =JSON.parseObject(condition.getSort(), Map.class);
-			for(String key:m.keySet()){
-				responsebuilder.addSort(key,m.get(key));
-			}
-		}
-		responsebuilder.storedFields(fields);
-		SearchResponse myresponse = responsebuilder.setFrom((condition.getCurrentPage()-1)*condition.getOnePageSize()).
-				setSize(condition.getOnePageSize()).setExplain(true).execute().actionGet();
-		SearchHits hits = myresponse.getHits();
-		if(hits.getTotalHits()>0){
-			List<Articlescrap> list = new ArrayList<Articlescrap>();
-			for (int i = 0; i < hits.getHits().length; i++) {
-				Map<String,SearchHitField> map=hits.getHits()[i].getFields();
-				Articlescrap articlescrap=getArticlescrap(map);
-				articlescrap.setEsId(hits.getHits()[i].getId());
-				list.add(articlescrap);
-			}
-			return list;
-		}
-		return null;
+		return boolBuilder;
 	}
 	
 	private Articlescrap getArticlescrap(Map<String,SearchHitField> map){
@@ -138,23 +127,25 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 		articlescrap.setSub_content(map.get("sub_content").value());
 		articlescrap.setUpdate_time(DateUtils.parseDateFromString(map.get("update_time").value()));
 		articlescrap.setTitle(map.get("title").value());
-		articlescrap.setType(Articlescrap_Type.valueOf(Integer.parseInt(map.get("type").value())));
-		articlescrap.setStatus(UpDown_Status.valueOf(Integer.parseInt(map.get("status").value())));
+		articlescrap.setType(Articlescrap_Type.valueOf(map.get("type").value()));
+		articlescrap.setStatus(UpDown_Status.valueOf(map.get("status").value()));
 		return articlescrap;
 	}
 
 	@Override
-	public int deleteById(String id) throws Exception{
-		TransportClient client=transportClient.getObject();
+	public int deleteById(String id){
+		TransportClient client=transportClient.getClient();
 		DeleteResponse response=client.prepareDelete(index, type, id).execute().actionGet();
 		return StringUtils.isEmpty(response.getId())?0:1;
 	}
 
 	@Override
-	public int updateArticlescrapRecommend(String id, int sort, UpDown_Status status) throws Exception{
-		TransportClient client=transportClient.getObject();
-		RecommendEs recommend = new RecommendEs();
-		recommend.setSort(sort);
+	public int updateArticlescrapRecommend(String id, Integer sort, UpDown_Status status){
+		TransportClient client=transportClient.getClient();
+		Recommend recommend = new Recommend();
+		if(sort!=null){
+			recommend.setSort(sort);
+		}
 		recommend.setStatus(status.getKey());
 	    Map<String,Object> map = new HashMap<String,Object>();
 	    map.put("recommend", JSON.toJSON(recommend));
@@ -165,8 +156,9 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 	}
 
 	@Override
-	public List<Articlescrap> listRecommend(UpDown_Status status)  throws Exception{
-		TransportClient client=transportClient.getObject();
+	public List<Articlescrap> listRecommend(UpDown_Status status){
+		transportClient.refreshIndex(index);
+		TransportClient client=transportClient.getClient();
 	    SearchRequestBuilder responsebuilder = client.prepareSearch(index).setTypes(type);
 	    BoolQueryBuilder boolBuilder = new BoolQueryBuilder();
 	    BoolQueryBuilder innerBoolBuilder = null;
@@ -180,6 +172,7 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 	    NestedQueryBuilder nestedQuery = new NestedQueryBuilder("recommend",innerBoolBuilder ,ScoreMode.Min); 
 	    boolBuilder.filter(nestedQuery);
 	    responsebuilder.setQuery(boolBuilder); //设置查询条件
+	    responsebuilder.addSort("recommend.sort", SortOrder.ASC);
 	    SearchResponse myresponse = responsebuilder.execute().actionGet();
 	    SearchHits hits = myresponse.getHits();
 	    if(hits.getTotalHits()>0){
@@ -187,10 +180,63 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 	    	for (int i = 0; i < hits.getHits().length; i++) {
 	    		String value=hits.getHits()[i].getSourceAsString();
 	    		Articlescrap articlescrap=ArticlescrapEs.ConvertToVo(JSON.parseObject(value, ArticlescrapEs.class));
+	    		articlescrap.setId(hits.getHits()[i].getId());
 	    		list.add(articlescrap);
 	    	}
 	    	return list;
 	    }		
+		return null;
+	}
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public int saveArticlescrap(Articlescrap articlescrap){
+		TransportClient client=transportClient.getClient();
+	    if(articlescrap == null)
+			return 0;
+	    Date date = null;
+	    if(articlescrap.getUpdate_time()==null){
+	    	articlescrap.setUpdate_time(date==null?date=new Date():date);
+	    }
+	    if(articlescrap.getCreate_time()==null){
+	    	 articlescrap.setCreate_time(date==null?date=new Date():date);
+	    }
+	    IndexRequestBuilder indexRequestBuilder =client.prepareIndex(index, type);
+	    IndexResponse response = indexRequestBuilder.setSource(ArticlescrapEs.ConvertToEs(articlescrap).toString()).execute().actionGet();
+	    return StringUtils.isEmpty(response.getId())?0:1;
+	}
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public int updateArticlescrap(Articlescrap articlescrap) throws Exception {
+		 TransportClient client=transportClient.getClient();
+		 UpdateRequest updateRequest = new UpdateRequest(index, type,articlescrap.getId());
+		 if(articlescrap.getUpdate_time()==null){
+		     articlescrap.setUpdate_time(new Date());
+		 }
+		 updateRequest.doc(ArticlescrapEs.ConvertToEs(articlescrap).toString());
+		 client.update(updateRequest).get();
+		 return 1;
+	}
+
+	@Override
+	public List<Articlescrap> getArticlescrapByIds(String ids) {
+		TransportClient client=transportClient.getClient();
+		SearchRequestBuilder responsebuilder = client.prepareSearch(index).setTypes(type).setQuery(QueryBuilders.idsQuery().addIds(ids));
+		String[] fields={"title","show_time","status","type","author","create_time","update_time","sub_content","show_picture","start_time"};
+		responsebuilder.storedFields(fields);
+		SearchResponse myresponse = responsebuilder.execute().actionGet();		
+		SearchHits hits = myresponse.getHits();
+		if(hits.getTotalHits()>0){
+			List<Articlescrap> list = new ArrayList<Articlescrap>();
+			for (int i = 0; i < hits.getHits().length; i++) {
+				Map<String,SearchHitField> map=hits.getHits()[i].getFields();
+				Articlescrap articlescrap=getArticlescrap(map);
+				articlescrap.setId(hits.getHits()[i].getId());
+				list.add(articlescrap);
+			}
+			return list;
+		}
 		return null;
 	}
 	

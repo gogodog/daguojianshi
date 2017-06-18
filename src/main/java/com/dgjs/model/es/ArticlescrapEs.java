@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSON;
 import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.persistence.Articlescrap;
+import com.dgjs.model.persistence.Recommend;
 import com.dgjs.utils.DateUtils;
 
 public class ArticlescrapEs implements java.io.Serializable{
@@ -25,7 +26,7 @@ public class ArticlescrapEs implements java.io.Serializable{
 	private String show_picture;//展示图片
 	private Long visits;//访问量
 	private String start_time;//内容的起始时间
-	private RecommendEs recommend;//推荐
+	private Recommend recommend;//推荐
 	 
 	
 	public Long getId() {
@@ -103,10 +104,10 @@ public class ArticlescrapEs implements java.io.Serializable{
 	public String getStart_time() {
 		return start_time;
 	}
-	public RecommendEs getRecommend() {
+	public Recommend getRecommend() {
 		return recommend;
 	}
-	public void setRecommend(RecommendEs recommend) {
+	public void setRecommend(Recommend recommend) {
 		this.recommend = recommend;
 	}
 	public void setStart_time(String start_time) {
@@ -133,7 +134,8 @@ public class ArticlescrapEs implements java.io.Serializable{
 		articlescrapEs.setType(articlescrap.getType()==null?-1:articlescrap.getType().getKey());
 		articlescrapEs.setUpdate_time(DateUtils.parseStringFromDate(articlescrap.getUpdate_time()));
 		articlescrapEs.setVisits(articlescrap.getVisits());
-		RecommendEs recommend = new RecommendEs();
+		articlescrapEs.setStart_time(articlescrap.getStart_time());
+		Recommend recommend = new Recommend();
 		recommend.setSort(-1);
 		recommend.setStatus(-1);
 		articlescrapEs.setRecommend(recommend);
@@ -157,6 +159,7 @@ public class ArticlescrapEs implements java.io.Serializable{
 		articlescrap.setType(articlescrapEs.getType()==-1?null:Articlescrap_Type.valueOf(articlescrapEs.getType()));
 		articlescrap.setUpdate_time(DateUtils.parseDateFromString(articlescrapEs.getUpdate_time()));
 		articlescrap.setVisits(articlescrapEs.getVisits());
+		articlescrap.setRecommend(articlescrapEs.getRecommend());
 		return articlescrap;
 	}
 	

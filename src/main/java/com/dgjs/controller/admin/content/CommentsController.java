@@ -19,7 +19,7 @@ public class CommentsController {
 	CommentsService commentsService;
 	
 	@RequestMapping("/comments")
-	public ModelAndView comments(Long articlescrapId,String currentPage){
+	public ModelAndView comments(String articlescrapId,String currentPage){
 		ModelAndView mv = new ModelAndView("admin/content/comments");
 		PageInfoDto<Comments> pageInfoDto=commentsService.getCommentsByArticlescrapId(articlescrapId, StringUtils.parseInt(currentPage,1), Constants.DEFAULT_ONEPAGESIZE, true);
 		mv.addObject("pageInfo",pageInfoDto);
@@ -27,7 +27,7 @@ public class CommentsController {
 	}
 	
 	@RequestMapping("/updateComments")
-	public ModelAndView updateComments(String id,Boolean isShow,String desc,Long articlescrapId){
+	public ModelAndView updateComments(String id,Boolean isShow,String desc,String articlescrapId){
 	   ModelAndView mv = new ModelAndView("redirect:/admin/comments?articlescrapId="+articlescrapId);  
 	   commentsService.updateStatus(id, isShow, desc);
 	   return mv;

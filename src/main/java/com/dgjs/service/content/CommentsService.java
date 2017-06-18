@@ -7,7 +7,7 @@ public interface CommentsService {
 
 	public int save(Comments comments);
 	
-	public PageInfoDto<Comments> getCommentsByArticlescrapId(Long articlescrapId,int currentPage,int onePageSize,boolean isNeedTotalResults);
+	public PageInfoDto<Comments> getCommentsByArticlescrapId(String articlescrapId,int currentPage,int onePageSize,boolean isNeedTotalResults);
 	
 	public int updateStatus(String id,boolean is_show,String desc);
 	

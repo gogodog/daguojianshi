@@ -1,8 +1,8 @@
-package com.dgjs.model.es;
+package com.dgjs.model.persistence;
 
 import com.alibaba.fastjson.JSON;
 
-public class RecommendEs implements java.io.Serializable{
+public class Recommend implements java.io.Serializable{
 
 	/**
 	 * 
@@ -27,5 +27,4 @@ public class RecommendEs implements java.io.Serializable{
 	public String toString() {
 		return JSON.toJSONString(this);
 	}
-	
 }

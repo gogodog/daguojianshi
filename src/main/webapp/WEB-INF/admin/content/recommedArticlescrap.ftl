@@ -20,7 +20,7 @@
 				</div>
 				<div class="form-group">
 					<label for="">文章id</label>
-					<input class="form-input-txt" type="text" name="articlescrap_id" onkeyup="this.value=this.value.replace(/\D/g,'')"/>
+					<input class="form-input-txt" type="text" name="id"/>
 				</div>
 				<div class="form-group">
 				    <label for="">是否上架：</label>
@@ -51,12 +51,12 @@ $("#submit").click(function(){
 
 function saveRecommedArticlescrap(){
 	var sort=$("input[name='sort']").val();
-	var articlescrap_id=$("input[name='articlescrap_id']").val();
+	var articlescrap_id=$("input[name='id']").val();
 	var status=$("input[name='status']").val();
 	if(sort.length==0){
 		alert("排序不能为空");
 		return;
-	}else if(articlescrap_id.length==0||isNaN(articlescrap_id)){
+	}else if(articlescrap_id.length==0){
 		alert("文章id不正确");
 		return;
 	}
@@ -64,7 +64,7 @@ function saveRecommedArticlescrap(){
 	    url:contextPath+"/admin/ajaxSaveRecommedArticlescrap",    
 	    dataType:"json",   
 	    async:false,
-	    data:{"articlescrap_id":articlescrap_id,"sort":sort,"status":status}, 
+	    data:{"id":articlescrap_id,"sort":sort,"status":status}, 
 	    type:"GET",   
 	    success:function(req){
 	    	if(!req.error){

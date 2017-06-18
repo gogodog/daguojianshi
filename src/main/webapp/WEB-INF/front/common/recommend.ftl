@@ -4,7 +4,7 @@
         </div>
         <ul>
         <#list rAEList as rea>
-          <li><a href="${contextPath}/show/${rea.articlescrap_id}" title="${rea.title}" >${rea.title}</a></li>
+          <li><a href="${contextPath}/show/${rea.id}" title="${rea.title}" >${rea.title}</a></li>
         </#list>
         </ul>
       </div>
