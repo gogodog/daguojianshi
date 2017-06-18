@@ -100,7 +100,6 @@ public class IndexController {
 		JSONObject list = new JSONObject();
 		//加载最新文章
 		ArticlescrapCondtion articlescrapCondtion = new ArticlescrapCondtion();
-		articlescrapCondtion.setOnePageSize(2);
 		articlescrapCondtion.setNeedTotalResults(false);
 		articlescrapCondtion.setStatus(UpDown_Status.UP);
 		articlescrapCondtion.setType(type);
