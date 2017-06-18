@@ -53,16 +53,21 @@
 			)
 	</insert>
 	
-	<select id="countByCondtion" resultType="int">
+	<select id="pageIdCount" resultType="int">
 	     select count(0) from dadian 
 	     <where>
-	         <if test="pagedocids!=null and pagedocids!=''">
-	            pagedocids = #{pagedocids}
-	         </if>
 	         <if test="pageid!=null and pageid!=''">
 	            pageid = #{pageid}
 	         </if>
 	     </where>
+	</select>
+	
+	<select id="pagedocidsCount" resultType="PagedocidsCountResult">
+	   select pagedocids,count(0) as visits from dadian where pagedocids in
+	   <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+          #{item}
+       </foreach>
+       group by pagedocids
 	</select>
 	
 </mapper>

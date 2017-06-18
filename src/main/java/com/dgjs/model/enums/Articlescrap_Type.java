@@ -1,5 +1,7 @@
 package com.dgjs.model.enums;
 
+import com.alibaba.fastjson.JSON;
+
 /**
  * 文章分类
  */
@@ -57,4 +59,5 @@ public enum Articlescrap_Type {
             return null;
 	  }
     }
+
 }

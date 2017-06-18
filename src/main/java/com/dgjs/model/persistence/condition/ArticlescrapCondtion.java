@@ -25,7 +25,7 @@ public class ArticlescrapCondtion {
 	private Date updateTimeTo;
 	private int subContentLength;//查询截取的内容长度，默认20
 	private Map<String,SortOrder> sort;//排序
-	private int beginNum;//从哪条开始查
+	private int beginNum=0;//从哪条开始查
 	private int onePageSize=Constants.DEFAULT_ONEPAGESIZE;
 	private int currentPage=1;//当前页
 	private boolean needTotalResults;//是否需要查询总数

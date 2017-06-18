@@ -1,5 +1,6 @@
 package com.dgjs.controller.front;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -14,11 +15,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.dgjs.constants.Constants;
-import com.dgjs.es.mapper.content.ArticlescrapMapper;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.enums.Ad_Position;
 import com.dgjs.model.enums.Articlescrap_Type;
@@ -30,6 +31,7 @@ import com.dgjs.model.persistence.Comments;
 import com.dgjs.model.persistence.condition.AdvertisementCondtion;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 import com.dgjs.service.ad.AdvertisementService;
+import com.dgjs.service.common.DataService;
 import com.dgjs.service.common.PictureService;
 import com.dgjs.service.content.ArticlescrapService;
 import com.dgjs.service.content.CarouselService;
@@ -53,7 +55,7 @@ public class IndexController {
 	@Autowired
 	PictureService pictureService;
 	@Autowired
-	ArticlescrapMapper articlescrapMapper;
+	DataService dataSerivce;
 	
 	@RequestMapping("/index")
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response,Articlescrap_Type type) throws Exception {  
@@ -64,23 +66,11 @@ public class IndexController {
 		List<Carousel> carouselList=carouselService.listCarousel(c);
 		mv.addObject("carouselList", carouselList);
 		//加载推荐文章
-//		RecommedArticlescrapCondition r=new RecommedArticlescrapCondition();
-//		List<RecommedArticlescrapEnhance> rAEList=recommedArticlescrapService.list(r);
-//		mv.addObject("rAEList", rAEList);
-		List<Articlescrap> rAEList=articlescrapMapper.listRecommend(UpDown_Status.UP);
+		List<Articlescrap> rAEList=recommedArticlescrapService.list(UpDown_Status.UP);
 		mv.addObject("rAEList", rAEList);
-		//加载最新文章
-		ArticlescrapCondtion articlescrapCondtion = new ArticlescrapCondtion();
-		articlescrapCondtion.setOnePageSize(5);
-		articlescrapCondtion.setNeedTotalResults(false);
-		articlescrapCondtion.setStatus(UpDown_Status.UP);
-		articlescrapCondtion.setType(type);
-		Map<String,SortOrder> sort = new HashMap<String,SortOrder>();
-		sort.put("show_time", SortOrder.DESC);
-		articlescrapCondtion.setSort(sort);
-		PageInfoDto<Articlescrap> pageInfo=articlescrapMapper.listArticlescrap(articlescrapCondtion);
-		mv.addObject("articlescrapPageInfo", pageInfo);
 		mv.addObject("imageContextPath", pictureService.getImageContextPath());
+		//加载页面类型
+		mv.addObject("doctype",type);
 		//加载广告位
 		AdvertisementCondtion advertisementCondtion = new AdvertisementCondtion();
 		advertisementCondtion.setAdPositions(Arrays.asList(Ad_Position.INDEX_FIRST,Ad_Position.INDEX_SECOND));
@@ -101,12 +91,37 @@ public class IndexController {
 		//加载最新评论文章
 		List<Articlescrap> commentsArticlescrapList=articlescrapService.getArticlescrapByComments(2);
 		mv.addObject("commentsArticlescrapList", commentsArticlescrapList);
-		//打点数据
-		String pagedocids = articlescrapService.getDadianArticlescrapIds(rAEList, pageInfo.getObjects(), commentsArticlescrapList);
-		mv.addObject("pagedocids", pagedocids);
-		String pageadids=advertisementService.getDadianAdvertisementIds(adPicList);
-		mv.addObject("pageadids", pageadids);
 		return mv;
+    }
+	
+	@RequestMapping("/list")
+	@ResponseBody
+    public Object list(HttpServletRequest request, HttpServletResponse response,Articlescrap_Type type,int currentpage) throws Exception {  
+		JSONObject list = new JSONObject();
+		//加载最新文章
+		ArticlescrapCondtion articlescrapCondtion = new ArticlescrapCondtion();
+		articlescrapCondtion.setOnePageSize(2);
+		articlescrapCondtion.setNeedTotalResults(false);
+		articlescrapCondtion.setStatus(UpDown_Status.UP);
+		articlescrapCondtion.setType(type);
+		articlescrapCondtion.setCurrentPage(currentpage);
+		Map<String,SortOrder> sort = new HashMap<String,SortOrder>();
+		sort.put("show_time", SortOrder.DESC);
+		articlescrapCondtion.setSort(sort);
+		PageInfoDto<Articlescrap> pageInfo=articlescrapService.listArticlescrap(articlescrapCondtion);
+		list.put("pageInfo", pageInfo);
+		list.put("imageContextPath", pictureService.getImageContextPath());
+		//加载文章阅读量
+		List<Articlescrap> aticlescrapList = pageInfo.getObjects();
+		if(aticlescrapList!=null&&aticlescrapList.size()>0){
+			List<String> articlescrapIds = new ArrayList<String>();
+			for(Articlescrap articlescrap:aticlescrapList){
+				articlescrapIds.add(String.valueOf(articlescrap.getId()));
+			}
+			Map<String,Integer> map=dataSerivce.getDocShowCounts(articlescrapIds);
+			list.put("visits", map);
+		}
+		return list;
     }
 	
 	@RequestMapping("/error")
@@ -118,17 +133,18 @@ public class IndexController {
 	@RequestMapping("/show/{id}")
     public ModelAndView show(@PathVariable("id") String id, HttpServletRequest request, HttpServletResponse response) throws Exception {  
 		ModelAndView mv = new ModelAndView("front/show");
-//		Articlescrap articlescrap= this.articlescrapService.selectById(id);
-		Articlescrap articlescrap=articlescrapMapper.getArticlescrapIndex(id);
+		Articlescrap articlescrap=articlescrapService.selectById(id);
 		mv.addObject("articlescrap", articlescrap);
 		mv.addObject("imageContextPath", pictureService.getImageContextPath());
 		PageInfoDto<Comments> pageinfo=commentsService.getCommentsByArticlescrapId(id, 1, Constants.DEFAULT_ONEPAGESIZE, false);
-		mv.addObject("commentsPageinfo", pageinfo);
 		//加载最新评论文章
 		List<Articlescrap> commentsArticlescrapList=articlescrapService.getArticlescrapByComments(2);
 		mv.addObject("commentsArticlescrapList", commentsArticlescrapList);
-		//打点数据
+		mv.addObject("commentsPageinfo", pageinfo);
+		//文章阅读量
 		mv.addObject("pagedocids",id);
+		Map<String,Integer> map=dataSerivce.getDocShowCounts(String.valueOf(id));
+		mv.addObject("visits", map.get(String.valueOf(id)));
 		return mv;
     }
 	

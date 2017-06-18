@@ -11,33 +11,19 @@
 		pageinfo_['pageadids'] = "${(pageadids)!''}";//广告id
 		pageinfo_['pageid'] = '10336266';
 		window['pageinfo'] = pageinfo_;
+		var contextPath='${contextPath}';
 	</script>
 </head>
 <body class="user-select">
+	<input type="hidden" id="doctype" value="${doctype}">
+	<input type="hidden" id="contextPath" value="${contextPath}">
     <#include "/front/common/header.ftl">
     <section class="container">
   <div class="content-wrap">
-    <div class="content">
+    <div class="content" id="content_t">
       <#include "/front/common/banner_index.ftl">
       <#include "/front/common/recommend_index.ftl">
       <#include "/front/common/list_title_ad.ftl">
-        <#list articlescrapPageInfo.objects as articlescrap>
-        <article class="excerpt excerpt-1" style="">
-            <a class="focus" href="${contextPath}/show/${articlescrap.id}" title="${articlescrap.title}" target="_blank" >
-               <img class="thumb" data-original="${contextPath}/front/images/list/timg3.jpeg" src="${imageContextPath}${articlescrap.show_picture}" style="display: inline;">
-            </a>
-            <header>
-              <a class="cat" href="http://www.dgjs.com/list/mznetblog/" title="${articlescrap.type.value}" >${articlescrap.type.value}<i></i></a>
-              <h2><a href="${contextPath}/show/${articlescrap.id}" title="${articlescrap.title}" target="_blank" >${articlescrap.title}</a>
-              </h2>
-            </header>
-            <p class="meta">
-                <time class="time"><i class="glyphicon glyphicon-time"></i> ${(articlescrap.start_time)!''}</time>
-                <span class="views" id="new_visit_${articlescrap.id}"><i class="glyphicon glyphicon-eye-open"></i> </span>
-            </p>
-            <p class="note">${articlescrap.sub_content}</p>
-        </article>
-        </#list>
       <#include "/front/common/pageutils.ftl">
     </div>
   </div>
@@ -53,5 +39,6 @@
 </section>
     <#include "/front/common/footer_title.ftl">
     <#include "/front/common/footer_static.ftl">
+    <script src="${contextPath}/common/page.js"></script>
 </body>
 </html>

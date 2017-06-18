@@ -1,4 +1,4 @@
-<nav class="pagination" style="display: none;">
+<nav class="pagination" style="display:none">
         <ul>
           <li class="prev-page"></li>
           <li class="active"><span>1</span></li>

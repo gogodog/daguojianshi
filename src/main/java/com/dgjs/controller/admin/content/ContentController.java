@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
-import com.dgjs.es.mapper.content.ArticlescrapMapper;
+import com.dgjs.mapper.content.ArticlescrapMapper;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.UpDown_Status;
@@ -39,12 +39,11 @@ public class ContentController {
         mv.addObject("content", " Hello world ， test my first spring mvc ! ");  
         
 //        ArticlescrapCondtion condtion = new ArticlescrapCondtion();
-//        condtion.setOnePageSize(20);
-//        PageInfoDto<Articlescrap> pageinfo=articlescrapSerivce.listArticlescrap(condtion);
-//        List<Articlescrap> list=pageinfo.getObjects();
+//        condtion.setOnePageSize(30);
+//        List<Articlescrap> list=articlescrapMapper.listArticlescrap(condtion);
 //        for(Articlescrap articlescrap:list){
-//        	articlescrap=articlescrapSerivce.selectById(articlescrap.getId());
-//        	articlescrapMapper.saveOrUpdateArticlescrap(articlescrap);
+//        	articlescrap=articlescrapMapper.selectById(Long.parseLong(articlescrap.getId()));
+//        	articlescrapSerivce.saveArticlescrap(articlescrap);
 //        }
         
 //        Date now=new Date();

@@ -179,4 +179,7 @@ public class Articlescrap {
 	public String toString() {
 		return JSON.toJSONString(this);
 	}
+	public String getTypeValue(){
+		return type == null ? null: type.getValue();
+	}
 }

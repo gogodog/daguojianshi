@@ -1,7 +1,9 @@
 package com.dgjs.service.impl.common;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +15,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.dgjs.job.DadianThread;
 import com.dgjs.mapper.common.DadianMapper;
+import com.dgjs.model.persistence.result.PagedocidsCountResult;
 import com.dgjs.model.view.DadianView;
 import com.dgjs.model.view.IpHttpResponse;
 import com.dgjs.model.view.IpHttpResponse.IpData;
@@ -50,10 +53,6 @@ public class DataServiceImpl implements DataService{
 		return DadianThread.QUEUE.offer(dadianView);
 	}
 
-	@Override
-	public int getDocShowCount(String docids) {
-		return dadianMapper.countByCondtion(docids,null);
-	}
 
 	@Override
 	public int insertDaDian(DadianView view) {
@@ -72,17 +71,12 @@ public class DataServiceImpl implements DataService{
 	@Override
 	public Map<String, Integer> getDocShowCounts(String docids) {
 		String[] docIdArray=docids.split("#");
-		Map<String,Integer> map = new HashMap<String,Integer>();
-		for(String docId:docIdArray){
-			int count = getDocShowCount(docId);
-			map.put(docId, count);
-		}
-		return map;
+		return getDocShowCounts(Arrays.asList(docIdArray));
 	}
 
 	@Override
 	public int getPageTotalVisits(String pageId) {
-		return dadianMapper.countByCondtion(null, pageId);
+		return dadianMapper.pageIdCount(pageId);
 	}
 
 	@Override
@@ -98,5 +92,20 @@ public class DataServiceImpl implements DataService{
 				return null;
 			}
 		}
+	}
+
+	@Override
+	public Map<String, Integer> getDocShowCounts(List<String> docids) {
+		List<PagedocidsCountResult> list=dadianMapper.pagedocidsCount(docids);
+		Map<String,Integer> map = new HashMap<String,Integer>();
+		for(PagedocidsCountResult pagedocidsCount:list){
+	       	map.put(pagedocidsCount.getPagedocids(), pagedocidsCount.getVisits());
+	    }
+		for(String docid:docids){
+			if(!map.containsKey(docid)){
+				map.put(docid, 0);
+			}
+		}
+		return map;
 	}
 }

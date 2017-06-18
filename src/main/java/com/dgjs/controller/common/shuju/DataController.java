@@ -1,6 +1,5 @@
 package com.dgjs.controller.common.shuju;
 
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -33,12 +32,9 @@ public class DataController {
 		DadianView dadianView = JSON.parseObject(dadian, DadianView.class);
 	    dataSerivce.dadian(request, dadianView); 
 	    ModelAndView mv = new ModelAndView();
-	    Map<String,Integer> map=dataSerivce.getDocShowCounts(dadianView.getPagedocids());
 	    //首页访问量
 	    int indexVisitCount = dataSerivce.getPageTotalVisits("10336266");
 	    mv.addObject("indexVisitCount",indexVisitCount);
-	    mv.addObject("docShowCounts", map);
-	    System.out.println(JSON.toJSONString(mv.getModel()));
 	    return JSON.toJSONString(mv.getModel());
     }
 	

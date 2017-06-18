@@ -9,7 +9,6 @@
 						</span>
 						<span class="text">${articlescrap.title}</span>
 						<span class="muted"><i class="glyphicon glyphicon-time"></i>${(articlescrap.start_time)!''}</span>
-						<span class="muted" id="pl_visit_${articlescrap.id}"><i class="glyphicon glyphicon-eye-open"></i></span>
 					</a>
 				</li>
 			 </#list>
