@@ -1,5 +1,6 @@
 package com.dgjs.controller.front;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -108,18 +109,16 @@ public class IndexController {
 		PageInfoDto<Articlescrap> pageInfo=articlescrapService.listArticlescrap(articlescrapCondtion);
 		list.put("pageInfo", pageInfo);
 		list.put("imageContextPath", pictureService.getImageContextPath());
-		//加载访问量
-		StringBuilder str = new StringBuilder();
+		//加载文章阅读量
 		List<Articlescrap> aticlescrapList = pageInfo.getObjects();
-		for(int i=0;i<aticlescrapList.size();i++){
-			if(i==aticlescrapList.size()-1){
-				str.append(aticlescrapList.get(i).getId());
-			}else{
-				str.append(aticlescrapList.get(i).getId()+"#");
+		if(aticlescrapList!=null&&aticlescrapList.size()>0){
+			List<String> articlescrapIds = new ArrayList<String>();
+			for(Articlescrap articlescrap:aticlescrapList){
+				articlescrapIds.add(String.valueOf(articlescrap.getId()));
 			}
+			Map<String,Integer> map=dataSerivce.getDocShowCounts(articlescrapIds);
+			list.put("visits", map);
 		}
-		Map<String,Integer> map=dataSerivce.getDocShowCounts(str.toString());
-		list.put("visits", map);
 		return list;
     }
 	
@@ -140,7 +139,7 @@ public class IndexController {
 		//加载最新评论文章
 		List<Articlescrap> commentsArticlescrapList=articlescrapService.getArticlescrapByComments(2);
 		mv.addObject("commentsArticlescrapList", commentsArticlescrapList);
-		//打点数据
+		//文章阅读量
 		mv.addObject("pagedocids",id);
 		Map<String,Integer> map=dataSerivce.getDocShowCounts(String.valueOf(id));
 		mv.addObject("visits", map.get(String.valueOf(id)));

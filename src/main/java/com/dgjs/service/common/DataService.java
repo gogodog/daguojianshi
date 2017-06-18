@@ -1,5 +1,6 @@
 package com.dgjs.service.common;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,13 +14,13 @@ public interface DataService {
 	
 	boolean dadian(HttpServletRequest request, DadianView dadianView);
 
-	int getDocShowCount(String docids);
-	
-	Map<String,Integer> getDocShowCounts(String docids);
-	
 	int insertDaDian(DadianView view);
 	
 	int getPageTotalVisits(String pageId);
 	
 	IpHttpResponse.IpData getLocalAdressByIp(String ip);
+	
+	Map<String,Integer> getDocShowCounts(String docids);
+	
+	Map<String,Integer> getDocShowCounts(List<String> docids);
 }
