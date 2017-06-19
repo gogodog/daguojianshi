@@ -1,5 +1,6 @@
 var totalheight = 0;
 var currentPage = 1;
+var isonload = true;
 var keyword ='';
 function loadData(keyword){   
 	    var url = contextPath+"/list?currentpage="+currentPage+"&type="+$("#doctype").val();
@@ -8,7 +9,7 @@ function loadData(keyword){
 	    }
         jQuery.ajax({
             type:"POST",
-            url: url,
+            url: url,async: false,
             dataType: "json",
             success:function(data) {
                 var ctntary = eval(data.pageInfo.objects);
@@ -17,7 +18,7 @@ function loadData(keyword){
                 }
             }, 
             error:function(){
-                alert("加载失败");
+                console.log("加载失败");
             }
         });   
 }
@@ -47,23 +48,18 @@ function appendCtntTmp(ctntary,imageContextPath,visits){
 	$('#content_t').append(list);
 	currentPage++;
 }
-
-$(window).scroll( function() {   
-	totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop());   
+$(window).scroll(function(){
+	totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop());
     if ($(document).height() <= totalheight) {
        loadData(keyword);
-    } 
+    }
 });
-
 window.onload=function(){
 	loadData();
 };
-
 function searchByKeyword(){
 	currentPage=1;
 	keyword=$("input[name='keyword']").val();
 	$('#content_t').html('');
 	loadData(keyword);
 };
-
-$(document).ready(function(){window.scrollTo(0,document.body.scrollHeight);});
