@@ -11,12 +11,14 @@
 		pageinfo_['pageadids'] = "${(pageadids)!''}";//广告id
 		pageinfo_['pageid'] = '10336266';
 		window['pageinfo'] = pageinfo_;
+		//
 		var contextPath='${contextPath}';
 	</script>
 </head>
 <body class="user-select">
 	<input type="hidden" id="doctype" value="${doctype}">
 	<input type="hidden" id="contextPath" value="${contextPath}">
+	<#assign page_name='index'>
     <#include "/front/common/header.ftl">
     <section class="container">
   <div class="content-wrap">

@@ -29,6 +29,7 @@ public class ArticlescrapCondtion {
 	private int onePageSize=Constants.DEFAULT_ONEPAGESIZE;
 	private int currentPage=1;//当前页
 	private boolean needTotalResults;//是否需要查询总数
+	private String keyword;//关键词搜索
     
 	public UpDown_Status getStatus() {
 		return status;
@@ -130,5 +131,11 @@ public class ArticlescrapCondtion {
 	}
 	public void setNeedTotalResults(boolean needTotalResults) {
 		this.needTotalResults = needTotalResults;
+	}
+	public String getKeyword() {
+		return keyword;
+	}
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 }

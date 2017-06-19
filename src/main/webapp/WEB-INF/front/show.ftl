@@ -14,6 +14,7 @@
     </script>
 </head>
 <body class="user-select single">
+    <#assign page_name='show'>
     <#include "/front/common/header.ftl">
     <section class="container">
   <div class="content-wrap">
@@ -26,6 +27,28 @@
       </header>
       <article class="article-content">
         <p>${articlescrap.content}</p>
+        <div>
+           <br><br>
+           <p style="text-align:center;text-indent:0px;">
+    	     - 大国简史 -
+           </p>
+    	   <p style="text-align:center;text-indent:0px;">
+    	 	 Country Of History
+    	   </p>
+    	   <p style="text-align:center;text-indent:0px;"> 
+    		 <strong><img src="http://www.cwillow.com/images/editor/p1/20170531054816777978.jpg" alt=""><br>  </strong> 
+    	   </p>
+    	   <p style="text-align:center;text-indent:0px;">
+    		 <strong>来自中国的世界史</strong> 
+    	   </p>
+    	   <p style="text-align:center;text-indent:0px;">
+    		 人类简史的时间轴
+    	   </p>
+    	   <p style="text-align:center;text-indent:0px;">
+    		 价值 &nbsp; 历史 &nbsp; 年代轴
+    	   </p>
+    	   <br><br>
+        </div>
       <div class="bdsharebuttonbox">
 		<!-- <a href="#" class="bds_more" data-cmd="more"></a> -->
 		<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>

@@ -96,7 +96,7 @@ public class IndexController {
 	
 	@RequestMapping("/list")
 	@ResponseBody
-    public Object list(HttpServletRequest request, HttpServletResponse response,Articlescrap_Type type,int currentpage) throws Exception {  
+    public Object list(HttpServletRequest request, HttpServletResponse response,Articlescrap_Type type,int currentpage,String keyword) throws Exception {  
 		JSONObject list = new JSONObject();
 		//加载最新文章
 		ArticlescrapCondtion articlescrapCondtion = new ArticlescrapCondtion();
@@ -104,6 +104,8 @@ public class IndexController {
 		articlescrapCondtion.setStatus(UpDown_Status.UP);
 		articlescrapCondtion.setType(type);
 		articlescrapCondtion.setCurrentPage(currentpage);
+		articlescrapCondtion.setKeyword(keyword);
+//		articlescrapCondtion.setOnePageSize(2);//默认10条
 		Map<String,SortOrder> sort = new HashMap<String,SortOrder>();
 		sort.put("show_time", SortOrder.DESC);
 		articlescrapCondtion.setSort(sort);

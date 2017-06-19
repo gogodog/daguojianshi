@@ -38,6 +38,15 @@ public class ContentController {
         mv.addObject("title", "Spring MVC And Freemarker");  
         mv.addObject("content", " Hello world ， test my first spring mvc ! ");  
         
+//        ArticlescrapCondtion condition = new ArticlescrapCondtion();
+//        condition.setKeywords("英国");
+//        PageInfoDto<Articlescrap> page=articlescrapSerivce.listArticlescrap(condition);
+//        List<Articlescrap> list=page.getObjects();
+//        for(Articlescrap a:list){
+//        	System.out.println(a.getTitle());
+//        }
+        
+        
 //        ArticlescrapCondtion condtion = new ArticlescrapCondtion();
 //        condtion.setOnePageSize(30);
 //        List<Articlescrap> list=articlescrapMapper.listArticlescrap(condtion);

@@ -1,11 +1,14 @@
 var totalheight = 0;
 var currentPage = 1;
-function loadData(){   
-    totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop());   
-    if ($(document).height() <= totalheight) {
+var keyword ='';
+function loadData(keyword){   
+	    var url = contextPath+"/list?currentpage="+currentPage+"&type="+$("#doctype").val();
+	    if(keyword!=null&&keyword!=''){
+	    	url+="&keyword="+keyword;
+	    }
         jQuery.ajax({
             type:"POST",
-            url: contextPath+"/list?currentpage="+currentPage+"&type="+$("#doctype").val(),
+            url: url,
             dataType: "json",
             success:function(data) {
                 var ctntary = eval(data.pageInfo.objects);
@@ -17,7 +20,6 @@ function loadData(){
                 alert("加载失败");
             }
         });   
-    }   
 }
 function cre(str){
 	return new RegExp(str,"gm");
@@ -26,7 +28,7 @@ function appendCtntTmp(ctntary,imageContextPath,visits){
 	var list = "";
 	for(var i=0;i<ctntary.length;i++){
 		var val = ctntary[i];
-		var ctntTmp = "<article class='excerpt excerpt-1'><a class='focus' href='contextPath/show/articlescrap_id' title='articlescrap_title'>"+
+		var ctntTmp = "<article class='excerpt excerpt-1' onclick='location.href=\"contextPath/show/articlescrap_id\"'><a class='focus' href='contextPath/show/articlescrap_id' title='articlescrap_title'>"+
 					  "<img class='thumb' data-original='contextPath/front/images/list/timg3.jpeg' src='imageContextPatharticlescrap_show_picture' style='display:inline;'>"+
 					  "</a><header><a class='cat' href='http://www.dgjs.com/list/mznetblog/' title='articlescrap_type_value'>articlescrap_type_value<i></i></a><h2>"+
 					  "<a href='contextPath/show/articlescrap_id' title='articlescrap_title'>articlescrap_title</a></h2></header><p class='meta'>"+
@@ -45,7 +47,23 @@ function appendCtntTmp(ctntary,imageContextPath,visits){
 	$('#content_t').append(list);
 	currentPage++;
 }
+
 $(window).scroll( function() {   
-    loadData();
+	totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop());   
+    if ($(document).height() <= totalheight) {
+       loadData(keyword);
+    } 
 });
+
+window.onload=function(){
+	loadData();
+};
+
+function searchByKeyword(){
+	currentPage=1;
+	keyword=$("input[name='keyword']").val();
+	$('#content_t').html('');
+	loadData(keyword);
+};
+
 $(document).ready(function(){window.scrollTo(0,document.body.scrollHeight);});

@@ -6,14 +6,16 @@
         <h1 class="logo hvr-bounce-in"><a href="${contextPath}/index">大国简史</a></h1>
       </div>
       <div class="collapse navbar-collapse" id="header-navbar">
+        <#if page_name = 'index'>
         <form class="navbar-form visible-xs" action="/Search" method="post">
           <div class="input-group">
             <input type="text" name="keyword" class="form-control" placeholder="请输入关键字" maxlength="20" autocomplete="off">
             <span class="input-group-btn">
-            <button class="btn btn-default btn-search" name="search" type="submit">搜索</button>
+            <button class="btn btn-default btn-search" name="search" type="button" onclick="searchByKeyword();">搜索</button>
             </span>
           </div>
         </form>
+        </#if>
         <ul class="nav navbar-nav navbar-right">
           <li><a data-cont="大国简史" title="大国简史-中国正史" href="${contextPath}/index?type=HISTORY">大国简史之中国正史</a></li>
           <li><a data-cont="大国简史" title="大国简史-国外历史" href="${contextPath}/index?type=FOREIGN_HISTORY">大国简史之国外历史</a></li>

@@ -113,6 +113,10 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 			if(condition.getShowTimeTo()!=null){
 				boolBuilder.must(QueryBuilders.rangeQuery("show_time").lte(DateUtils.parseStringFromDate(condition.getShowTimeTo())));
 			}
+		    if(!StringUtils.isEmpty(condition.getKeyword())){
+		    	String[] matchFields={"title","sub_content","content"};
+		    	boolBuilder.must(QueryBuilders.multiMatchQuery(condition.getKeyword(),matchFields));
+		    }
 		}
 		return boolBuilder;
 	}
