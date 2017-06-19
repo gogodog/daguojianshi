@@ -19,8 +19,7 @@ public class ExceptionOperation implements HandlerExceptionResolver{
 		ModelAndView mv = new ModelAndView("front/error");
         mv.addObject("ex", ex);
         ErrorView ev = new ErrorView();
-        
-        log.error("异常 信息：" + ex.getMessage());
+        log.error("异常 信息：" ,ex);
         log.error("异常 上线文：" + r.getContextPath());
         log.error("异常 本地地址：" + r.getLocalAddr());
         if(ex instanceof NullPointerException) {

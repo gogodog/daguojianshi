@@ -131,8 +131,10 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 		articlescrap.setSub_content(map.get("sub_content").value());
 		articlescrap.setUpdate_time(DateUtils.parseDateFromString(map.get("update_time").value()));
 		articlescrap.setTitle(map.get("title").value());
-		articlescrap.setType(Articlescrap_Type.valueOf(map.get("type").value()));
-		articlescrap.setStatus(UpDown_Status.valueOf(map.get("status").value()));
+		Integer type = map.get("type").value();
+		Integer status =map.get("status").value();
+		articlescrap.setType(Articlescrap_Type.valueOf(type));
+		articlescrap.setStatus(UpDown_Status.valueOf(status));
 		return articlescrap;
 	}
 
