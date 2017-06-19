@@ -96,7 +96,7 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 		BoolQueryBuilder boolBuilder = new BoolQueryBuilder();
 		if(condition!=null){
 			if(!StringUtils.isEmpty(condition.getTitle())){
-				boolBuilder.must(QueryBuilders.termQuery("title", condition.getTitle()));
+				boolBuilder.must(QueryBuilders.matchQuery("title", condition.getTitle()));
 			}
 			if(!StringUtils.isEmpty(condition.getAuthor())){
 				boolBuilder.must(QueryBuilders.termQuery("author", condition.getAuthor()));
