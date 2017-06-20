@@ -226,7 +226,7 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 	}
 
 	@Override
-	public List<Articlescrap> getArticlescrapByIds(String ids) {
+	public List<Articlescrap> getArticlescrapByIds(String[] ids) {
 		TransportClient client=transportClient.getClient();
 		SearchRequestBuilder responsebuilder = client.prepareSearch(index).setTypes(type).setQuery(QueryBuilders.idsQuery().addIds(ids));
 		String[] fields={"title","show_time","status","type","author","create_time","update_time","sub_content","show_picture","start_time"};

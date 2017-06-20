@@ -55,16 +55,11 @@ public class ArticlescrapServiceImpl implements ArticlescrapService{
 		List<String> ids=commentsMapper.getComments(number);
 		//如果有评论信息，则按最新评论时间排序获取文章信息
 		if(ids!=null && !ids.isEmpty()){
-			StringBuilder str = new StringBuilder();
+			String[] idsArray =new String[ids.size()];
 			for(int i=0;i<ids.size();i++){
-				if(i==ids.size()-1){
-					str.append(ids.get(i));
-				}else{
-					str.append(ids.get(i));
-					str.append(",");
-				}
+				idsArray[i]=ids.get(i);
 			}
-			List<Articlescrap> list=articlescrapMapper.getArticlescrapByIds(str.toString());
+			List<Articlescrap> list=articlescrapMapper.getArticlescrapByIds(idsArray);
 			if(list!=null&&!list.isEmpty()){
 				Map<String,Articlescrap> map = new HashMap<String,Articlescrap>();
 				for(Articlescrap articlescrap:list){
@@ -76,12 +71,13 @@ public class ArticlescrapServiceImpl implements ArticlescrapService{
 				}
 				return list;
 			}
-		}else{
-			ArticlescrapCondtion articlescrapCondtion = new ArticlescrapCondtion();
-			articlescrapCondtion.setBeginNum(0);
-			articlescrapCondtion.setOnePageSize(number);
-			return articlescrapMapper.listArticlescrap(articlescrapCondtion).getObjects();
 		}
+//		else{
+//			ArticlescrapCondtion articlescrapCondtion = new ArticlescrapCondtion();
+//			articlescrapCondtion.setBeginNum(0);
+//			articlescrapCondtion.setOnePageSize(number);
+//			return articlescrapMapper.listArticlescrap(articlescrapCondtion).getObjects();
+//		}
 		return null;
 	}
 

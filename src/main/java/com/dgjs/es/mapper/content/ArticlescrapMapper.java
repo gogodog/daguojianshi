@@ -24,6 +24,6 @@ public interface ArticlescrapMapper {
 	
 	public int updateArticlescrap(Articlescrap articlescrap) throws Exception;
 	
-	public List<Articlescrap> getArticlescrapByIds(String ids);
+	public List<Articlescrap> getArticlescrapByIds(String[] ids);
 	
 }
