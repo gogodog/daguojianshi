@@ -29,15 +29,24 @@ public class PictureController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/ajaxUpload")
-	public String ajaxUpload(HttpServletRequest request, HttpServletResponse response,String imagePath){
+	public String ajaxUpload(HttpServletRequest request, HttpServletResponse response,String imagePath,Boolean isNeedTailor){
 		 UploadPictureView view=new UploadPictureView();
 	     try {
-	        PictureDto dto=pictureService.uploadPic(request, imagePath,"uploadImage");
-	        if(dto==null||!dto.getIsSuccess()){
-	        	view.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
-	        	return JSON.toJSONString(view);
-	        }
-	        view.setImageUrl(dto.getMinImageUrl());
+	    	if(isNeedTailor==null||!isNeedTailor){
+	    		PictureDto dto=pictureService.uploadPic(request, imagePath,"uploadImage");
+		        if(dto==null||!dto.getIsSuccess()){
+		        	view.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
+		        	return JSON.toJSONString(view);
+		        }
+		        view.setImageUrl(dto.getMinImageUrl());
+	    	}else{
+	    		PictureDto dto=pictureService.uploadPic(request, imagePath, "uploadImage", 200, 800);
+	    		if(dto==null||!dto.getIsSuccess()){
+		        	view.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
+		        	return JSON.toJSONString(view);
+		        }
+		        view.setImageUrl(dto.getTailorImageUrl());
+	    	}
 	    } catch (Exception e) {
 	        view.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
 	        log.error("ajaxUpload error", e);

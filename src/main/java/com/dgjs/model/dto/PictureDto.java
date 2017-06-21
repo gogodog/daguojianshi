@@ -4,6 +4,7 @@ public class PictureDto extends BaseDto{
 
 	private String imageUrl;
 	private String minImageUrl;
+	private String tailorImageUrl;
 
 	public String getImageUrl() {
 		return imageUrl;
@@ -19,6 +20,14 @@ public class PictureDto extends BaseDto{
 
 	public void setMinImageUrl(String minImageUrl) {
 		this.minImageUrl = minImageUrl;
+	}
+
+	public String getTailorImageUrl() {
+		return tailorImageUrl;
+	}
+
+	public void setTailorImageUrl(String tailorImageUrl) {
+		this.tailorImageUrl = tailorImageUrl;
 	}
 	
 }

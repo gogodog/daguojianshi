@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Random;
 
-import javax.servlet.http.HttpServletRequest;
-
 import net.coobird.thumbnailator.Thumbnails;
 
 public class PictureUtils {
@@ -16,6 +14,8 @@ public class PictureUtils {
 	public static final String SYSTEM_FILE_SEPERATOR = System.getProperty("file.separator");
 
 	public static final String SUFFIX = ".jpg";
+	
+	
 
 	/**
 	 * 日期+6位随机数
@@ -54,7 +54,7 @@ public class PictureUtils {
 		return basePath;
 	}
 
-	public static String getImageSavePath(String saveRealBasePath, String imagePath, HttpServletRequest request, String imageName) {
+	public static String getImageSavePath(String saveRealBasePath, String imagePath, String imageName) {
 		// saveRealBasePath=系统路径+存放图片文件夹名称
 		String path = getPath(imagePath, saveRealBasePath, SYSTEM_FILE_SEPERATOR, true);
 		String imageSavePath = StringUtils.jointString(path, SYSTEM_FILE_SEPERATOR, imageName, SUFFIX);
@@ -62,7 +62,7 @@ public class PictureUtils {
 		return imageSavePath;
 	}
 
-	public static String getImageAccessPath(String basePath, String imagePath, HttpServletRequest request, String imageName) {
+	public static String getImageAccessPath(String basePath, String imagePath, String imageName) {
 		// basePath=存放图片文件夹名称
 		String path = getPath(imagePath, basePath, URL_SEPERATOR, false);
 		String imageAccessPath = StringUtils.jointString(path, URL_SEPERATOR, imageName, SUFFIX);
@@ -74,5 +74,10 @@ public class PictureUtils {
 		Thumbnails.of(maxfilePath).scale(scale).toFile(minFilePath);
 		String minHttpPath = minFilePath;
 		return minHttpPath;
+	}
+	
+	public static String thumbnailatorImage(String maxfilePath, String tailorFilePath,int height,int width)throws IOException {
+		Thumbnails.of(maxfilePath).size(width, height).toFile(tailorFilePath);
+		return tailorFilePath;
 	}
 }

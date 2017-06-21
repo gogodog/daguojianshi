@@ -30,10 +30,26 @@ public class PictureServiceImpl implements PictureService{
 	@Value("${imageContextPath}")
 	private String imageContextPath;
 	
-	private static String oneToOneZipPath="/p1";//1:1压缩图存放位置
+	private static String zipPath="/p_";//压缩图存放位置
+	
+	private static String tailor="/t_h_";//裁剪高度为200的图片
 
 	@Override
+	public String getImageContextPath() {
+		return imageContextPath;
+	}
+	
+	@Override
 	public PictureDto uploadPic(HttpServletRequest request,String imagePath,String fileName) {
+		return uploadProcessedPic(request,imagePath,fileName,1f,null,null);
+	}
+	
+	public PictureDto uploadPic(HttpServletRequest request,String imagePath,String fileName,int height,int width){
+		return uploadProcessedPic(request,imagePath,fileName,1f,height,width);
+	}
+	
+	@SuppressWarnings("unused")
+	public PictureDto uploadProcessedPic(HttpServletRequest request,String imagePath,String fileName,Float scale,Integer height,Integer width){
 		PictureDto dto=new PictureDto();
 		try {
 	    	MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;  
@@ -43,9 +59,7 @@ public class PictureServiceImpl implements PictureService{
 	        	dto.setErrorInfo(RETURN_STATUS.PARAM_ERROR.getValue(), "请传入图片");
 	        }else{
 	 	        String imageName=PictureUtils.generateImageName();
-	 	        String saveImagePath=PictureUtils.getImageSavePath(saveRealBasePath,imagePath,request,imageName);
-	 	        String p1ImagePath=PictureUtils.getImageSavePath(saveRealBasePath,imagePath+oneToOneZipPath,request,imageName);//1:1压缩图存放位置
-	 	        @SuppressWarnings("unused")
+	 	        String saveImagePath=PictureUtils.getImageSavePath(saveRealBasePath,imagePath,imageName);
 				int flag;
 	 	        byte[] buff=new byte[1024*1024];
 	 	        File outputfile=new File(saveImagePath);
@@ -56,11 +70,17 @@ public class PictureServiceImpl implements PictureService{
 	 	        }
 	 	        inputStream.close();
 	 	        outputStream.close();
-	 	        String imageUrl=PictureUtils.getImageAccessPath(webBasePath,imagePath,request, imageName);
-	 	        String minImageUrl = PictureUtils.thumbnailatorImage(saveImagePath, p1ImagePath, 1f);
-	 	        minImageUrl= webBasePath+minImageUrl.replaceAll(saveRealBasePath, "");
-	 	        dto.setMinImageUrl(minImageUrl);
+	 	        String imageUrl=PictureUtils.getImageAccessPath(webBasePath,imagePath, imageName);
 	 	        dto.setImageUrl(imageUrl);
+	 	        if(height!=null && width!=null){
+	 	        	 String tailorImageUrl= getTailorImageUrl(imagePath,fileName,imageName,saveImagePath,scale,height,width);
+	 	        	 tailorImageUrl= webBasePath+tailorImageUrl.replaceAll(saveRealBasePath, "");
+	 	        	 dto.setTailorImageUrl(tailorImageUrl);
+	 	        }else if(scale!=null){
+	 	        	 String minImageUrl=getMinImageUrl(imagePath,fileName,imageName,saveImagePath,scale);//获取压缩图片路径
+	 	        	 minImageUrl= webBasePath+minImageUrl.replaceAll(saveRealBasePath, "");
+	 	        	 dto.setMinImageUrl(minImageUrl);
+	 	        }
 	        }
 	    } catch (IOException e) {
 	        e.printStackTrace();
@@ -68,11 +88,17 @@ public class PictureServiceImpl implements PictureService{
 	    }
 		return dto;
 	}
-
-	@Override
-	public String getImageContextPath() {
-		// TODO Auto-generated method stub
-		return imageContextPath;
+	
+	
+	private String getMinImageUrl(String imagePath,String fileName,String imageName,String saveImagePath,float scale) throws IOException{
+		String p1ImagePath=PictureUtils.getImageSavePath(saveRealBasePath,imagePath+zipPath+scale*100,imageName);//1:1压缩图存放位置
+		String minImageUrl = PictureUtils.thumbnailatorImage(saveImagePath, p1ImagePath, scale);
+		return minImageUrl;
 	}
-
+	
+	private String getTailorImageUrl(String imagePath,String fileName,String imageName,String saveImagePath,Float scale,int height,int width) throws IOException{
+	    String tailorImagePath=PictureUtils.getImageSavePath(saveRealBasePath,imagePath+tailor+height,imageName);//裁剪图片位置
+		String tailorImageUrl = PictureUtils.thumbnailatorImage(saveImagePath, tailorImagePath, height, width);//后裁剪
+		return tailorImageUrl;
+	}
 }
