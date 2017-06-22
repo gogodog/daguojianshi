@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dgjs.constants.RETURN_STATUS;
+import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.enums.UpDown_Status;
-import com.dgjs.model.persistence.Articlescrap;
 import com.dgjs.model.view.BaseView;
 import com.dgjs.service.content.ArticlescrapService;
 import com.dgjs.service.content.RecommedArticlescrapService;

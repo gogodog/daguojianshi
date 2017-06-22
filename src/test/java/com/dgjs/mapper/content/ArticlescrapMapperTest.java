@@ -9,7 +9,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.alibaba.fastjson.JSON;
-import com.dgjs.model.persistence.Articlescrap;
+import com.dgjs.es.mapper.content.ArticlescrapMapper;
+import com.dgjs.model.dto.PageInfoDto;
+import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 
 @RunWith(SpringJUnit4ClassRunner.class)  
@@ -21,8 +23,8 @@ public class ArticlescrapMapperTest {
 	
 	@Test
 	public void testListArticlescrap(){
-		List<Articlescrap> list=mapper.listArticlescrap(new ArticlescrapCondtion());
-		System.out.println(JSON.toJSONString(list, true));
+		PageInfoDto<Articlescrap> pageinfo=mapper.listArticlescrap(new ArticlescrapCondtion());
+		System.out.println(JSON.toJSONString(pageinfo, true));
 	}
 	
 }

@@ -2,8 +2,8 @@ package com.dgjs.service.content;
 
 import java.util.List;
 
+import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.enums.UpDown_Status;
-import com.dgjs.model.persistence.Articlescrap;
 
 public interface RecommedArticlescrapService {
 

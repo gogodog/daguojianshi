@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import com.dgjs.es.mapper.content.ArticlescrapMapper;
 import com.dgjs.mapper.content.CommentsMapper;
 import com.dgjs.model.dto.PageInfoDto;
-import com.dgjs.model.persistence.Articlescrap;
+import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 import com.dgjs.service.content.ArticlescrapService;
 

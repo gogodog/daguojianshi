@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dgjs.model.dto.PageInfoDto;
+import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.UpDown_Status;
-import com.dgjs.model.persistence.Articlescrap;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 import com.dgjs.service.common.PictureService;
 import com.dgjs.service.content.ArticlescrapService;

@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dgjs.es.mapper.content.ArticlescrapMapper;
+import com.dgjs.model.dto.business.Articlescrap;
+import com.dgjs.model.dto.business.entity.Recommend;
 import com.dgjs.model.enums.UpDown_Status;
-import com.dgjs.model.persistence.Articlescrap;
-import com.dgjs.model.persistence.Recommend;
 import com.dgjs.service.content.RecommedArticlescrapService;
 
 @Service

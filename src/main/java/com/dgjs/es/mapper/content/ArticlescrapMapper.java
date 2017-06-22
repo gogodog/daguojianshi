@@ -3,8 +3,8 @@ package com.dgjs.es.mapper.content;
 import java.util.List;
 
 import com.dgjs.model.dto.PageInfoDto;
+import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.enums.UpDown_Status;
-import com.dgjs.model.persistence.Articlescrap;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 
 

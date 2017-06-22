@@ -3,7 +3,7 @@ package com.dgjs.service.content;
 import java.util.List;
 
 import com.dgjs.model.dto.PageInfoDto;
-import com.dgjs.model.persistence.Articlescrap;
+import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 
 public interface ArticlescrapService {

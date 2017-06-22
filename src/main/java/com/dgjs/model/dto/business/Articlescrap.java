@@ -1,8 +1,9 @@
-package com.dgjs.model.persistence;
+package com.dgjs.model.dto.business;
 
 import java.util.Date;
 
 import com.alibaba.fastjson.JSON;
+import com.dgjs.model.dto.business.entity.Recommend;
 import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.utils.StringUtils;

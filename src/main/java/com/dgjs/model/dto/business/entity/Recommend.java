@@ -1,4 +1,4 @@
-package com.dgjs.model.persistence;
+package com.dgjs.model.dto.business.entity;
 
 import com.alibaba.fastjson.JSON;
 

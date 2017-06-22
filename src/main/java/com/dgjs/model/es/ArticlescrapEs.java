@@ -3,10 +3,10 @@ package com.dgjs.model.es;
 
 
 import com.alibaba.fastjson.JSON;
+import com.dgjs.model.dto.business.Articlescrap;
+import com.dgjs.model.dto.business.entity.Recommend;
 import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.UpDown_Status;
-import com.dgjs.model.persistence.Articlescrap;
-import com.dgjs.model.persistence.Recommend;
 import com.dgjs.utils.DateUtils;
 
 public class ArticlescrapEs implements java.io.Serializable{
