@@ -21,9 +21,9 @@ import com.dgjs.es.client.ESTransportClient;
 @ContextConfiguration(locations = "classpath:spring-*.xml") 
 public class EsInit {
 
-    final static String index = "dgjs";
+    final static String index = "dgjs_v1";
 	
-	final static String type = "articlescrap";
+	final static String type = "articlescrap_v1";
 	
 	@Autowired
 	ESTransportClient transportClient;
@@ -32,53 +32,6 @@ public class EsInit {
 	public void testInitTable() throws Exception{
 		initArticlescrap(transportClient.getObject());
 	}
-	
-	private void initArticlescrapTest(TransportClient client) throws IOException {
-		createIndex(client,index);
-		XContentBuilder builder=XContentFactory.jsonBuilder()
-				.startObject()
-				.startObject(type)
-				.startObject("properties")
-				.startObject("title").field("type", "text").field("store", "yes").field("index", "analyzed").field("analyzer", "ik_smart").endObject()
-				.startObject("show_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "yes").field("index", "not_analyzed").endObject()
-				.startObject("status").field("type", "integer").field("store", "yes").field("index", "not_analyzed").endObject()
-				.startObject("author").field("type", "keyword").field("store", "yes").field("index", "not_analyzed").endObject()
-				.startObject("create_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "yes").field("index", "not_analyzed").endObject()
-		        .startObject("update_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "yes").field("index", "not_analyzed").endObject()
-		        .startObject("start_time").field("type", "keyword").field("store", "yes").field("index", "not_analyzed").endObject()
-		        .startObject("show_picture").field("type", "keyword").field("store", "yes").field("index", "not_analyzed").endObject()
-				.startObject("sub_content").field("type", "text").field("store", "yes").field("index", "analyzed").field("analyzer", "ik_smart").endObject()
-				.startObject("content").field("type", "text").field("store", "yes").field("index", "analyzed").field("analyzer", "ik_smart").endObject()
-				.startObject("recommend").field("type", "nested")
-				.startObject("properties")
-				.startObject("sort").field("type", "integer").field("store", "yes").field("index", "not_analyzed").endObject()
-				.startObject("status").field("type", "integer").field("store", "yes").field("index", "not_analyzed").endObject()
-				.endObject()
-				.endObject()
-				
-				
-				.startObject("type").field("type", "nested")
-				.startObject("properties")
-				.startObject("group").field("type", "integer").field("store", "yes").field("index", "not_analyzed").endObject()
-				.startObject("country").field("type", "keyword").field("store", "yes").field("index", "not_analyzed").endObject()
-				.startObject("keywords").field("type", "keyword").field("store", "yes").field("index", "not_analyzed").endObject()
-				.endObject()
-				.endObject()
-//				.startObject("group").field("type", "array").field("store", "yes").field("index", "analyzed").field("analyzer", "ik_smart").endObject()
-//				.endObject()
-//				.startArray("country")
-//				.endObject()
-//				.startArray("keywords")
-//				.endObject()
-//				.endObject()
-//				.endObject()
-				.endObject()
-				.endObject()
-				.endObject();
-	   PutMappingRequest mapping = Requests.putMappingRequest(index).type(type).source(builder); 
-	   client.admin().indices().putMapping(mapping).actionGet();
-	}
-
 	
 	private void initArticlescrap(TransportClient client) throws IOException {
 		createIndex(client,index);
@@ -97,6 +50,8 @@ public class EsInit {
 		        .startObject("show_picture").field("type", "keyword").field("store", "yes").field("index", "not_analyzed").endObject()
 				.startObject("sub_content").field("type", "text").field("store", "yes").field("index", "analyzed").field("analyzer", "ik_smart").endObject()
 				.startObject("content").field("type", "text").field("store", "yes").field("index", "analyzed").field("analyzer", "ik_smart").endObject()
+				.startObject("visits").field("type", "long").field("store", "yes").field("index", "not_analyzed").endObject()
+				.startObject("keywords").field("type", "keyword").field("store", "yes").field("index", "not_analyzed").endObject()
 				.startObject("recommend").field("type", "nested")
 				.startObject("properties")
 				.startObject("sort").field("type", "integer").field("store", "yes").field("index", "not_analyzed").endObject()

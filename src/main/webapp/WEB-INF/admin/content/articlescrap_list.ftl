@@ -47,7 +47,12 @@
 					     <td>${articlescrap.title}</td>						
 					     <td>${articlescrap.sub_content}</td>
 					     <td>${articlescrap.show_time?datetime}</td>
-					     <td>${articlescrap.type.value}</td>	
+					     <td>
+					       <#list articlescrap.type as type>
+					           ${type.value}
+					           <#if type_index!=articlescrap.type?size - 1>|</#if>
+					       </#list>
+					     </td>	
 					     <td>${articlescrap.status.value}</td>
 					     <td>${articlescrap.author}</td>
 					     <td>${articlescrap.create_time?datetime}</td>

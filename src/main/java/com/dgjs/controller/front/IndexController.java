@@ -58,7 +58,7 @@ public class IndexController {
 	DataService dataSerivce;
 	
 	@RequestMapping("/index")
-    public ModelAndView index(HttpServletRequest request, HttpServletResponse response,Articlescrap_Type type) throws Exception {  
+    public ModelAndView index(HttpServletRequest request, HttpServletResponse response,Articlescrap_Type type,String keyword) throws Exception {  
 		ModelAndView mv = new ModelAndView("front/index");
 		//加载轮播
 		Carousel c=new Carousel();
@@ -69,8 +69,6 @@ public class IndexController {
 		List<Articlescrap> rAEList=recommedArticlescrapService.list(UpDown_Status.UP);
 		mv.addObject("rAEList", rAEList);
 		mv.addObject("imageContextPath", pictureService.getImageContextPath());
-		//加载页面类型
-		mv.addObject("doctype",type);
 		//加载广告位
 		AdvertisementCondtion advertisementCondtion = new AdvertisementCondtion();
 		advertisementCondtion.setAdPositions(Arrays.asList(Ad_Position.INDEX_FIRST,Ad_Position.INDEX_SECOND));
@@ -91,6 +89,19 @@ public class IndexController {
 		//加载最新评论文章
 		List<Articlescrap> commentsArticlescrapList=articlescrapService.getArticlescrapByComments(2);
 		mv.addObject("commentsArticlescrapList", commentsArticlescrapList);
+		//加载分类
+		mv.addObject("types", Articlescrap_Type.values());
+		//加载页面类型
+		mv.addObject("doctype",type);
+		//加载搜索条件
+		mv.addObject("keyword", keyword);
+		//加载打点初始化数据
+		List<Advertisement> totalAd=new ArrayList<Advertisement>();
+		totalAd.addAll(adPicList);
+		totalAd.addAll(adMiddleList);
+		totalAd.addAll(adBelowList);
+		String pageadids=advertisementService.getDadianAdvertisementIds(totalAd);
+		mv.addObject("pageadids", pageadids);
 		return mv;
     }
 	
@@ -113,7 +124,7 @@ public class IndexController {
 		list.put("pageInfo", pageInfo);
 		list.put("imageContextPath", pictureService.getImageContextPath());
 		//加载文章阅读量
-		List<Articlescrap> aticlescrapList = pageInfo.getObjects();
+		List<Articlescrap> aticlescrapList = pageInfo == null?null:pageInfo.getObjects();
 		if(aticlescrapList!=null&&aticlescrapList.size()>0){
 			List<String> articlescrapIds = new ArrayList<String>();
 			for(Articlescrap articlescrap:aticlescrapList){
@@ -146,6 +157,8 @@ public class IndexController {
 		mv.addObject("pagedocids",id);
 		Map<String,Integer> map=dataSerivce.getDocShowCounts(String.valueOf(id));
 		mv.addObject("visits", map.get(String.valueOf(id)));
+		//加载分类
+		mv.addObject("types", Articlescrap_Type.values());
 		return mv;
     }
 	

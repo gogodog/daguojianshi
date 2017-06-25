@@ -2,6 +2,8 @@ package com.dgjs.model.es;
 
 
 
+import java.util.List;
+
 import com.alibaba.fastjson.JSON;
 import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.dto.business.entity.Recommend;
@@ -17,7 +19,6 @@ public class ArticlescrapEs implements java.io.Serializable{
 	private String title;//标题
 	private String content;//文章内容
 	private String show_time;//展示时间
-	private int type;//文章类型
 	private int status;//文章状态
 	private String author;//作者
 	private String create_time;//创建时间
@@ -26,6 +27,8 @@ public class ArticlescrapEs implements java.io.Serializable{
 	private String show_picture;//展示图片
 	private Long visits;//访问量
 	private String start_time;//内容的起始时间
+	private String[] keywords;//关键词（分类）
+	private List<Integer> type;//文章类型
 	private Recommend recommend;//推荐
 	 
 	
@@ -53,10 +56,10 @@ public class ArticlescrapEs implements java.io.Serializable{
 	public void setShow_time(String show_time) {
 		this.show_time = show_time;
 	}
-	public int getType() {
+	public List<Integer> getType() {
 		return type;
 	}
-	public void setType(int type) {
+	public void setType(List<Integer> type) {
 		this.type = type;
 	}
 	public int getStatus() {
@@ -113,6 +116,12 @@ public class ArticlescrapEs implements java.io.Serializable{
 	public void setStart_time(String start_time) {
 		this.start_time = start_time;
 	}
+	public String[] getKeywords() {
+		return keywords;
+	}
+	public void setKeywords(String[] keywords) {
+		this.keywords = keywords;
+	}
 	@Override
 	public String toString() {
 		return JSON.toJSONString(this);
@@ -131,10 +140,11 @@ public class ArticlescrapEs implements java.io.Serializable{
 		articlescrapEs.setStatus(articlescrap.getStatus()==null?-1:articlescrap.getStatus().getKey());
 		articlescrapEs.setSub_content(articlescrap.getSub_content());
 		articlescrapEs.setTitle(articlescrap.getTitle());
-		articlescrapEs.setType(articlescrap.getType()==null?-1:articlescrap.getType().getKey());
+		articlescrapEs.setType(Articlescrap_Type.transTo(articlescrap.getType()));
 		articlescrapEs.setUpdate_time(DateUtils.parseStringFromDate(articlescrap.getUpdate_time()));
 		articlescrapEs.setVisits(articlescrap.getVisits());
 		articlescrapEs.setStart_time(articlescrap.getStart_time());
+		articlescrapEs.setKeywords(articlescrap.getKeywords());
 		Recommend recommend = new Recommend();
 		recommend.setSort(-1);
 		recommend.setStatus(-1);
@@ -156,10 +166,11 @@ public class ArticlescrapEs implements java.io.Serializable{
 		articlescrap.setStatus(articlescrapEs.getStatus()==-1?null:UpDown_Status.valueOf(articlescrapEs.getStatus()));
 		articlescrap.setSub_content(articlescrapEs.getSub_content());
 		articlescrap.setTitle(articlescrapEs.getTitle());
-		articlescrap.setType(articlescrapEs.getType()==-1?null:Articlescrap_Type.valueOf(articlescrapEs.getType()));
+		articlescrap.setType(Articlescrap_Type.transFrom(articlescrapEs.getType()));
 		articlescrap.setUpdate_time(DateUtils.parseDateFromString(articlescrapEs.getUpdate_time()));
 		articlescrap.setVisits(articlescrapEs.getVisits());
 		articlescrap.setRecommend(articlescrapEs.getRecommend());
+		articlescrap.setKeywords(articlescrapEs.getKeywords());
 		return articlescrap;
 	}
 	

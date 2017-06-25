@@ -1,5 +1,6 @@
 package com.dgjs.controller.admin.content;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
+import com.dgjs.es.mapper.content.ArticlescrapMapper;
 import com.dgjs.model.dto.PageInfoDto;
+import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.es.ArticlescrapEs;
@@ -26,6 +29,9 @@ public class ContentController {
 
 	@Autowired
 	ArticlescrapService articlescrapSerivce;
+	
+	@Autowired
+	ArticlescrapMapper articlescrapMapper;
 	
 	@RequestMapping("/contentList")
     public ModelAndView helloWord(HttpServletRequest request, HttpServletResponse response) throws Exception {  
@@ -61,8 +67,10 @@ public class ContentController {
 //        articlescrap.setStatus(UpDown_Status.DOWN);
 //        articlescrap.setSub_content("test sub_content");
 //        articlescrap.setTitle("test title 2");
-//        articlescrap.setType(Articlescrap_Type.FOREIGN_HISTORY);
+//        articlescrap.setType(Arrays.asList(Articlescrap_Type.UNOFFICIAL,Articlescrap_Type.PERSON));
 //        articlescrap.setUpdate_time(now);
+//        articlescrap.setVisits(100l);
+//        articlescrapSerivce.saveArticlescrap(articlescrap);
 //        articlescrapMapper.saveOrUpdateArticlescrap(articlescrap);
         
 //        Articlescrap articlescrap=articlescrapMapper.getArticlescrapIndex("AVyaUFdogmDrd-ExdK6S");
@@ -72,11 +80,23 @@ public class ContentController {
 //        List<Articlescrap> list=articlescrapMapper.listArticlescrap(condition);
 //        System.out.println(JSON.toJSONString(list));
         
-//          articlescrapMapper.deleteById("AVylZSUuGrpiw6YwpZgQ");
+//          articlescrapMapper.deleteById("AVzZd5Y-qMQTX7aOp80D");
         
 //        articlescrapMapper.updateArticlescrapRecommend("AVyp6MqoUnl0U38aB3kw", 1, UpDown_Status.UP);
 //         List<Articlescrap> recommends=articlescrapMapper.listRecommend(null);
 //         System.out.println(JSON.toJSONString(recommends));
+//        ArticlescrapCondtion condition = new ArticlescrapCondtion();
+//        condition.setOnePageSize(20);
+//        PageInfoDto<Articlescrap> page=articlescrapSerivce.listArticlescrap(condition);
+//        List<Articlescrap> readList=page.getObjects();
+//        for(Articlescrap articlescrap:readList){
+//        	ArticlescrapEsX a=articlescrapMapper.getArticlescrapIndex1(articlescrap.getId());
+//        	articlescrap.setType(Arrays.asList(Articlescrap_Type.valueOf(a.getType())));
+//        	articlescrap.setContent(a.getContent());
+//        	articlescrapMapper.saveArticlescrap(articlescrap);
+//        }
+//        System.out.println("success ===================");
+//        System.out.println(JSON.toJSONString(page.getObjects()));
         return mv;  
     } 
 	

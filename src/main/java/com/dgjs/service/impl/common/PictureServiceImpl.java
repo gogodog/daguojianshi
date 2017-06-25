@@ -91,7 +91,7 @@ public class PictureServiceImpl implements PictureService{
 	
 	
 	private String getMinImageUrl(String imagePath,String fileName,String imageName,String saveImagePath,float scale) throws IOException{
-		String p1ImagePath=PictureUtils.getImageSavePath(saveRealBasePath,imagePath+zipPath+scale*100,imageName);//1:1压缩图存放位置
+		String p1ImagePath=PictureUtils.getImageSavePath(saveRealBasePath,imagePath+zipPath+(int)scale*100,imageName);//1:1压缩图存放位置
 		String minImageUrl = PictureUtils.thumbnailatorImage(saveImagePath, p1ImagePath, scale);
 		return minImageUrl;
 	}

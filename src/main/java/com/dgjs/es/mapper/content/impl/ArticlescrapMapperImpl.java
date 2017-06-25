@@ -47,11 +47,12 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 	@Autowired
 	ESTransportClient transportClient;
 	
-	final static String index = "dgjs";
+	final static String index = "dgjs_v1";
 	
-	final static String type = "articlescrap";
+	final static String type = "articlescrap_v1";
 	
-	 @Override
+	
+	@Override
  	public Articlescrap getArticlescrapIndex(String id){
 		TransportClient client=transportClient.getClient();
  		GetResponse response = client.prepareGet(index, type , id).get();
@@ -114,7 +115,7 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 				boolBuilder.must(QueryBuilders.rangeQuery("show_time").lte(DateUtils.parseStringFromDate(condition.getShowTimeTo())));
 			}
 		    if(!StringUtils.isEmpty(condition.getKeyword())){
-		    	String[] matchFields={"title","sub_content","content"};
+		    	String[] matchFields={"title","sub_content","keywords"};
 		    	boolBuilder.must(QueryBuilders.multiMatchQuery(condition.getKeyword(),matchFields));
 		    }
 		}
@@ -131,10 +132,10 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 		articlescrap.setSub_content(map.get("sub_content").value());
 		articlescrap.setUpdate_time(DateUtils.parseDateFromString(map.get("update_time").value()));
 		articlescrap.setTitle(map.get("title").value());
-		Integer type = map.get("type").value();
 		Integer status =map.get("status").value();
-		articlescrap.setType(Articlescrap_Type.valueOf(type));
 		articlescrap.setStatus(UpDown_Status.valueOf(status));
+		List<Object> typeList = map.get("type").values();
+		articlescrap.setType(Articlescrap_Type.transFrom(typeList));
 		return articlescrap;
 	}
 

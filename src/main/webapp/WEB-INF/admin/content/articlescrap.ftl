@@ -41,11 +41,17 @@
 				</div>
 				<div class="form-group">
 					<label for="">分类</label>
-					<select name="type" class="form-select">
-					   <#list types as type>
-					     <option value="${type}">${type.value}</option>
-					   </#list>
-				    </select>
+					<#list types as type>
+					  <input style="margin-top:9px" type="checkbox" name="typeValue" value="${type}" 
+						  <#list articlescrap.type as t>
+			                 <#if t == type>checked<#break></#if>
+			              </#list>
+					  >${type.value}
+					</#list>
+				</div>
+				<div class="form-group">
+				    <label for="">关键词</label>
+				    <input type="text" class="form-input-txt" name="keywordsValue" value="${(articlescrap.keywordsValue)!''}"/>
 				</div>
 				<div class="form-group">
 				    <label for="">访问量</label>
@@ -140,7 +146,7 @@
 	}
 	
 	$().ready(function() {
-		// 在键盘按下并释放及提交后验证提交表单
+		  // 在键盘按下并释放及提交后验证提交表单
 		  $("#articlescrapForm").validate({
 		    rules: {
 			  title: {

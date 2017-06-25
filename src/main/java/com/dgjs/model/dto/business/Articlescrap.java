@@ -1,6 +1,8 @@
 package com.dgjs.model.dto.business;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import com.alibaba.fastjson.JSON;
 import com.dgjs.model.dto.business.entity.Recommend;
@@ -14,7 +16,6 @@ public class Articlescrap {
 	private String title;//标题
 	private String content;//文章内容
 	private Date show_time;//展示时间
-	private Articlescrap_Type type;//文章类型
 	private UpDown_Status status;//文章状态
 	private String author;//作者
 	private Date create_time;//创建时间
@@ -27,6 +28,8 @@ public class Articlescrap {
 	private String start_time_y;//内容的起始时间
 	private String start_time_m;//内容的起始时间
 	private String start_time_d;//内容的起始时间
+	private String[] keywords;//关键词（分类）
+	private List<Articlescrap_Type> type;//文章类型
 	private Recommend recommend;//推荐信息
 	
 	public String getId() {
@@ -52,12 +55,6 @@ public class Articlescrap {
 	}
 	public void setShow_time(Date show_time) {
 		this.show_time = show_time;
-	}
-	public Articlescrap_Type getType() {
-		return type;
-	}
-	public void setType(Articlescrap_Type type) {
-		this.type = type;
 	}
 	public String getAuthor() {
 		return author;
@@ -103,6 +100,23 @@ public class Articlescrap {
 	}
 	public String getStart_time() {
 		return start_time;
+	}
+	public List<Articlescrap_Type> getType() {
+		return type;
+	}
+	public void setType(List<Articlescrap_Type> type) {
+		this.type = type;
+	}
+	public void setTypeValue(Articlescrap_Type[] types) {
+		if(types!=null && types.length>0){
+			this.type = Arrays.asList(types);
+		}
+	}
+	public String getTypeValue(){
+		if(type!=null && type.size()>0){
+			return type.get(0).getValue();
+		}
+		return null;
 	}
 	public void setStart_time(String start_time) {
 		this.start_time = start_time;
@@ -176,11 +190,32 @@ public class Articlescrap {
 	public void setRecommend(Recommend recommend) {
 		this.recommend = recommend;
 	}
+	public String[] getKeywords() {
+		return keywords;
+	}
+	public void setKeywords(String[] keywords) {
+		this.keywords = keywords;
+	}
+	public void setKeywordsValue(String keywordsValue) {
+		if(keywordsValue != null){
+			String[] values =keywordsValue.split("#");
+			keywords = values;
+		}
+	}
+	public String getKeywordsValue() {
+		if(keywords!=null&&keywords.length>0){
+			StringBuilder str = new StringBuilder();
+			for(int i=0;i<keywords.length;i++){
+				str.append(keywords[i]);
+				if(i!=keywords.length-1)
+				  str.append("#");
+			}
+			return str.toString();
+		}
+		return null;
+	}
 	@Override
 	public String toString() {
 		return JSON.toJSONString(this);
-	}
-	public String getTypeValue(){
-		return type == null ? null: type.getValue();
 	}
 }

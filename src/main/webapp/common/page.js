@@ -1,7 +1,6 @@
 var totalheight = 0;
 var currentPage = 1;
 var isonload = true;
-var keyword ='';
 function loadData(keyword){   
 	    var url = contextPath+"/list?currentpage="+currentPage+"&type="+$("#doctype").val();
 	    if(keyword!=null&&keyword!=''){
@@ -31,7 +30,7 @@ function appendCtntTmp(ctntary,imageContextPath,visits){
 		var val = ctntary[i];
 		var ctntTmp = "<article class='excerpt excerpt-1' onclick='location.href=\"contextPath/show/articlescrap_id\"'><a class='focus' href='contextPath/show/articlescrap_id' title='articlescrap_title'>"+
 					  "<img class='thumb' data-original='contextPath/front/images/list/timg3.jpeg' src='imageContextPatharticlescrap_show_picture' style='display:inline;'>"+
-					  "</a><header><a class='cat' href='http://www.dgjs.com/list/mznetblog/' title='articlescrap_type_value'>articlescrap_type_value<i></i></a><h2>"+
+					  "</a><header><a class='cat' href='javascript:void(0)' title='articlescrap_type_value'>articlescrap_type_value<i></i></a><h2>"+
 					  "<a href='contextPath/show/articlescrap_id' title='articlescrap_title'>articlescrap_title</a></h2></header><p class='meta'>"+
 					  "<time class='time'><i class='glyphicon glyphicon-time'></i> articlescrap_start_time</time><span class='views' id='new_visit_articlescrap_id'>"+
 					  "<i class='glyphicon glyphicon-eye-open'></i> visits</span></p><p class='note'>articlescrap_sub_content</p></article>";
@@ -55,11 +54,10 @@ $(window).scroll(function(){
     }
 });
 window.onload=function(){
-	loadData();
-};
-function searchByKeyword(){
-	currentPage=1;
-	keyword=$("input[name='keyword']").val();
-	$('#content_t').html('');
-	loadData(keyword);
+	if(keyword!=''&&keyword!=null){
+		$("input[name='keyword']").val(keyword);
+		searchByKeyword('index');
+	}else{
+		loadData(keyword);
+	}
 };

@@ -13,6 +13,7 @@
 		window['pageinfo'] = pageinfo_;
 		//
 		var contextPath='${contextPath}';
+		var keyword="${(keyword)!''}";
 	</script>
 </head>
 <body class="user-select">
@@ -42,5 +43,6 @@
     <#include "/front/common/footer_title.ftl">
     <#include "/front/common/footer_static.ftl">
     <script src="${contextPath}/common/page.js"></script>
+    <script src="${contextPath}/common/keyword.js"></script>
 </body>
 </html>

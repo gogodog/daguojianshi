@@ -1,21 +1,27 @@
 package com.dgjs.model.enums;
 
-import com.alibaba.fastjson.JSON;
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * 文章分类
  */
 public enum Articlescrap_Type {
 
-	HISTORY(10,"大国简史之中国正史"),
+	HISTORY(10,"正史"),
 	
-	FOREIGN_HISTORY(20,"大国简史之国外历史"),
+	PERSON(20,"人物"),
 	
-	HUMANITY_HISTORY(30,"大国简史之人文"),
+	GEOGRAPHY(30,"地理"),
 	
-	GEOGRAPHY_HISTORY(40,"大国简史之地理"),
+	NATION_CULTURE(40,"民族文化"),
 	
-	UNOFFICIAL_HISTORY(50,"大国简史之野史");
+	AFFAIRS(50,"时事"),
+	
+	UNOFFICIAL(60,"野史"),
+	
+	MYTH_LEGEND(70,"神话传说");
 	
 	
 	private Articlescrap_Type(int key,String value){
@@ -48,16 +54,43 @@ public enum Articlescrap_Type {
         case 10:
             return HISTORY;
         case 20:
-            return FOREIGN_HISTORY;
+            return PERSON;
         case 30:
-        	return HUMANITY_HISTORY;
+        	return GEOGRAPHY;
         case 40:
-        	return GEOGRAPHY_HISTORY;	
+        	return NATION_CULTURE;	
         case 50:
-        	return UNOFFICIAL_HISTORY;
+        	return AFFAIRS;
+        case 60:
+        	return UNOFFICIAL;
+        case 70:
+        	return MYTH_LEGEND;
         default:
             return null;
 	  }
     }
+	
+	public static <T> List<Articlescrap_Type> transFrom(List<T> keys){
+		if(keys==null||keys.size()==0){
+			return null;
+		}
+		List<Articlescrap_Type> list = new ArrayList<Articlescrap_Type>();
+		for(T key:keys){
+			int formatKey=(int)key;
+			list.add(Articlescrap_Type.valueOf(formatKey));
+		}
+		return list;
+	}
+	
+	public static List<Integer> transTo(List<Articlescrap_Type> types){
+		if(types==null||types.size()==0){
+			return null;
+		}
+		List<Integer> list = new ArrayList<Integer>();
+		for(Articlescrap_Type type:types){
+			list.add(type.getKey());
+		}
+		return list;
+	}
 
 }

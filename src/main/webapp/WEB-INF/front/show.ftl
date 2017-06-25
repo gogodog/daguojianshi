@@ -62,10 +62,9 @@
       </article>
       <div class="article-tags">
       	标签：
-      	<a href="http://www.dgjs.com/tags/list/2/" rel="tag" >美国</a>
-      	<a href="http://www.dgjs.com/tags/list/3/" rel="tag" >军事独立</a>
-      	<a href="http://www.dgjs.com/tags/list/4/" rel="tag" >强大国家</a>
-      	<a href="http://www.dgjs.com/tags/list/5/" rel="tag" >大国战略</a>
+      	<#list articlescrap.keywords as keywords>
+      	   <a href="javascript:void(0)" rel="tag" >${(keywords)!''}</a>
+      	</#list>
         </div>
       <#include "/front/common/recommend.ftl">
       <#include "/front/common/response.ftl">
@@ -82,5 +81,6 @@
 </section>
     <#include "/front/common/footer_title.ftl">
     <#include "/front/common/footer_static.ftl">
+    <script src="${contextPath}/common/keyword.js"></script>
 </body>
 </html>
