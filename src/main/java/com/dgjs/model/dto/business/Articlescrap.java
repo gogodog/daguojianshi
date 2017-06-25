@@ -24,13 +24,13 @@ public class Articlescrap {
 	private String show_picture;//展示图片
 	private Long visits;//访问量
 	private String start_time;//内容的起始时间
-	private String start_time_c;//内容的起始时间
-	private String start_time_y;//内容的起始时间
-	private String start_time_m;//内容的起始时间
-	private String start_time_d;//内容的起始时间
 	private String[] keywords;//关键词（分类）
 	private List<Articlescrap_Type> type;//文章类型
 	private Recommend recommend;//推荐信息
+	private transient String start_time_c;//内容的起始时间
+	private transient String start_time_y;//内容的起始时间
+	private transient String start_time_m;//内容的起始时间
+	private transient String start_time_d;//内容的起始时间
 	
 	public String getId() {
 		return id;
