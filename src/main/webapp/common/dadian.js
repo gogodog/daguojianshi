@@ -101,7 +101,7 @@
     var send = function(r){
     	ajax({ 
     		  type:"POST", 
-    		  url:contextPath+"/data/dadian", 
+    		  url:contextPath+"/data/dadian?timestamp="+new Date().getTime(), 
     		  dataType:"json", 
     		  data:JSON.stringify(r),
     		  contentType:"application/json",
