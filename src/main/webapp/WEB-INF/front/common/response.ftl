@@ -17,7 +17,6 @@
                     </div>
                 </div>
             </form>
-            
         </div>
       <div id="postcomments">
         <ol id="comment_list" class="commentlist">      

@@ -4276,7 +4276,8 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 
 .nav>li {
     position: relative;
-    display: block
+    display: block;
+    float: left
 }
 
 .nav>li>a {
