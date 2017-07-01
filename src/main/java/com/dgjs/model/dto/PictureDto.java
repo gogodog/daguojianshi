@@ -2,9 +2,10 @@ package com.dgjs.model.dto;
 
 public class PictureDto extends BaseDto{
 
-	private String imageUrl;
-	private String minImageUrl;
-	private String tailorImageUrl;
+	private String imageUrl;//原图
+	private String minImageUrl;//1：1缩略图
+	private String tailorImageUrl;//宽高裁剪图
+	private String watermarkImageUrl;//带水印图
 
 	public String getImageUrl() {
 		return imageUrl;
@@ -28,6 +29,14 @@ public class PictureDto extends BaseDto{
 
 	public void setTailorImageUrl(String tailorImageUrl) {
 		this.tailorImageUrl = tailorImageUrl;
+	}
+
+	public String getWatermarkImageUrl() {
+		return watermarkImageUrl;
+	}
+
+	public void setWatermarkImageUrl(String watermarkImageUrl) {
+		this.watermarkImageUrl = watermarkImageUrl;
 	}
 	
 }

@@ -33,7 +33,6 @@ public class DadianThread implements Runnable,ApplicationListener<ContextRefresh
 	@Override
 	public void run() {
 		while(true){
-//			log.info("线程循环开始...");
 			try {
 				Thread.sleep(2000);
 			    if(DadianThread.QUEUE.isEmpty()){

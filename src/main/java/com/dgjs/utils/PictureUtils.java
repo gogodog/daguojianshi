@@ -5,7 +5,12 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
+
+import com.dgjs.model.dto.ThumbnailatorDto;
+
 import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.geometry.Positions;
 
 public class PictureUtils {
 
@@ -80,4 +85,46 @@ public class PictureUtils {
 		Thumbnails.of(maxfilePath).size(width, height).toFile(tailorFilePath);
 		return tailorFilePath;
 	}
+	
+	public static String thumbnailatorImage(String fromPath,String toPath, Positions positions,int height,int width) throws IOException{
+		Thumbnails.of(fromPath).size(width, height).watermark(Positions.BOTTOM_RIGHT,ImageIO.read(new File("/Users/user/Documents/pic/广告.png")),1f).toFile(toPath); 
+		return toPath;
+	}
+	
+	public static String thumbnailatorImage(ThumbnailatorDto thumbnailator) throws IOException{
+		if(thumbnailator==null)
+			return null;
+		String fromPath=thumbnailator.getFromPath();
+		String toPath=thumbnailator.getToPath();
+		int height=thumbnailator.getHeight();
+		int width=thumbnailator.getWidth();
+		float scale=thumbnailator.getScale();
+		String watermark=thumbnailator.getWatermark();
+		Positions positions=thumbnailator.getPositions();
+		
+		if(StringUtils.isNullOrEmpty(fromPath) || StringUtils.isNullOrEmpty(toPath))
+			return null;
+		
+		//如果需要水印
+		if(!StringUtils.isNullOrEmpty(watermark) && positions!=null){
+			if(width!=0 && height!=0){
+				Thumbnails.of(fromPath).size(width, height).watermark(positions,ImageIO.read(new File(watermark)),1f).toFile(toPath); 
+			}else{
+				Thumbnails.of(fromPath).scale(1f).watermark(positions,ImageIO.read(new File(watermark)),1f).toFile(toPath); 
+			}
+		}
+		//根据宽高缩放
+		else if(width!=0 && height!=0){
+			Thumbnails.of(fromPath).size(width, height).toFile(toPath);
+		}
+		//如果按比例缩放(默认1：1)
+		else{
+			Thumbnails.of(fromPath).scale(scale!=0?scale:1f).toFile(toPath);
+		}
+	    return toPath;
+	}
+	
+//	public static void main(String[] args) throws IOException {
+//		PictureUtils.thumbnailatorImage("/Users/user/Documents/pic/丰田汽车.jpeg", "/Users/user/Documents/pic/丰田汽车1.jpeg", Positions.BOTTOM_RIGHT);	
+//	}
 }

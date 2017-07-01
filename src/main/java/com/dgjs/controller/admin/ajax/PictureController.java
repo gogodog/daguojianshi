@@ -8,12 +8,14 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.model.dto.PictureDto;
+import com.dgjs.model.dto.ThumbnailatorDto;
 import com.dgjs.model.view.EditorUploadPictureView;
 import com.dgjs.model.view.UploadPictureView;
 import com.dgjs.service.common.PictureService;
@@ -29,24 +31,21 @@ public class PictureController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/ajaxUpload")
-	public String ajaxUpload(HttpServletRequest request, HttpServletResponse response,String imagePath,Boolean isNeedTailor){
+	public String ajaxUpload(HttpServletRequest request, HttpServletResponse response,String imagePath,ThumbnailatorDto thumbnailator){
 		 UploadPictureView view=new UploadPictureView();
 	     try {
-	    	if(isNeedTailor==null||!isNeedTailor){
-	    		PictureDto dto=pictureService.uploadPic(request, imagePath,"uploadImage");
-		        if(dto==null||!dto.getIsSuccess()){
-		        	view.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
+	    	 PictureDto dto=pictureService.uploadPic(request, imagePath,"uploadImage",thumbnailator);
+	    	 if(dto==null||!dto.getIsSuccess()){
+	    		 view.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
 		        	return JSON.toJSONString(view);
-		        }
-		        view.setImageUrl(dto.getMinImageUrl());
-	    	}else{
-	    		PictureDto dto=pictureService.uploadPic(request, imagePath, "uploadImage", 200, 800);
-	    		if(dto==null||!dto.getIsSuccess()){
-		        	view.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
-		        	return JSON.toJSONString(view);
-		        }
-		        view.setImageUrl(dto.getTailorImageUrl());
-	    	}
+	    	 }
+	    	 if(!StringUtils.isEmpty(dto.getWatermarkImageUrl())){
+	    		 view.setImageUrl(dto.getWatermarkImageUrl());
+	    	 }else if(!StringUtils.isEmpty(dto.getTailorImageUrl())){
+	    		 view.setImageUrl(dto.getTailorImageUrl());
+	    	 }else if(!StringUtils.isEmpty(dto.getMinImageUrl())){
+	    		 view.setImageUrl(dto.getMinImageUrl());
+	    	 }
 	    } catch (Exception e) {
 	        view.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
 	        log.error("ajaxUpload error", e);
@@ -56,10 +55,10 @@ public class PictureController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/ajaxUploadEditorImage")
-	public String ajaxUploadEditorImage(HttpServletRequest request, HttpServletResponse response,String imagePath){
+	public String ajaxUploadEditorImage(HttpServletRequest request, HttpServletResponse response,String imagePath,ThumbnailatorDto thumbnailator){
 		EditorUploadPictureView view=new EditorUploadPictureView();
 	     try {
-	        PictureDto dto=pictureService.uploadPic(request, imagePath,"imgFile");
+	        PictureDto dto=pictureService.uploadPic(request, imagePath,"imgFile",thumbnailator);
 	        if(dto==null||!dto.getIsSuccess()){
 	        	view.setError(RETURN_STATUS.SYSTEM_ERROR.toString());
 	        	return JSON.toJSONString(view);

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,16 +42,27 @@ public class DataServiceImpl implements DataService{
 		MacUtils mac = new MacUtils(ip);
 		dadianView.setMac(mac.getMac());
 		dadianView.setIp(ip);
-		IpHttpResponse.IpData ips = this.getLocalAdressByIp(ip);
-		if(ips == null){
-			dadianView.setNote("ip获取地理位置失败");
+		HttpSession session = request.getSession();
+		Object ipsObject = session.getAttribute("ips");
+		IpHttpResponse.IpData ips =null;
+		if(ipsObject!=null){
+			ips = (IpData) session.getAttribute("ips");
 		}else{
+			ips = this.getLocalAdressByIp(ip);
+			if(ips == null){
+				dadianView.setNote("ip获取地理位置失败");
+			}else{
+				session.setAttribute("ips", ips);
+			}
+		}
+		if(ips!=null){
 			dadianView.setIpcity(ips.getCity());
 			dadianView.setIpprovince(ips.getRegion());
 			dadianView.setIpcountry(ips.getCountry());
 		}
 		log.info("插入打点数据：" + JSON.toJSONString(dadianView));
-		return DadianThread.QUEUE.offer(dadianView);
+		boolean isSuccess=DadianThread.QUEUE.offer(dadianView);
+		return isSuccess;
 	}
 
 

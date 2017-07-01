@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.model.dto.PictureDto;
+import com.dgjs.model.dto.ThumbnailatorDto;
 import com.dgjs.service.common.PictureService;
 import com.dgjs.utils.PictureUtils;
 
@@ -30,26 +31,24 @@ public class PictureServiceImpl implements PictureService{
 	@Value("${imageContextPath}")
 	private String imageContextPath;
 	
+	@Value("${watermarker}")
+	private String watermarker;
+	
 	private static String zipPath="/p_";//压缩图存放位置
 	
-	private static String tailor="/t_h_";//裁剪高度为200的图片
+	private static String tailor="/t_h_";//裁剪高度为x的图片
+	
+	private static String wartermark="/wm_";//裁剪高度为200的图片路径
 
 	@Override
 	public String getImageContextPath() {
 		return imageContextPath;
 	}
 	
-	@Override
-	public PictureDto uploadPic(HttpServletRequest request,String imagePath,String fileName) {
-		return uploadProcessedPic(request,imagePath,fileName,1f,null,null);
-	}
-	
-	public PictureDto uploadPic(HttpServletRequest request,String imagePath,String fileName,int height,int width){
-		return uploadProcessedPic(request,imagePath,fileName,1f,height,width);
-	}
-	
+
 	@SuppressWarnings("unused")
-	public PictureDto uploadProcessedPic(HttpServletRequest request,String imagePath,String fileName,Float scale,Integer height,Integer width){
+	@Override
+	public PictureDto uploadPic(HttpServletRequest request,String imagePath,String fileName,ThumbnailatorDto thumbnailator) {
 		PictureDto dto=new PictureDto();
 		try {
 	    	MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;  
@@ -72,14 +71,31 @@ public class PictureServiceImpl implements PictureService{
 	 	        outputStream.close();
 	 	        String imageUrl=PictureUtils.getImageAccessPath(webBasePath,imagePath, imageName);
 	 	        dto.setImageUrl(imageUrl);
-	 	        if(height!=null && width!=null){
-	 	        	 String tailorImageUrl= getTailorImageUrl(imagePath,fileName,imageName,saveImagePath,scale,height,width);
-	 	        	 tailorImageUrl= webBasePath+tailorImageUrl.replaceAll(saveRealBasePath, "");
-	 	        	 dto.setTailorImageUrl(tailorImageUrl);
-	 	        }else if(scale!=null){
-	 	        	 String minImageUrl=getMinImageUrl(imagePath,fileName,imageName,saveImagePath,scale);//获取压缩图片路径
-	 	        	 minImageUrl= webBasePath+minImageUrl.replaceAll(saveRealBasePath, "");
-	 	        	 dto.setMinImageUrl(minImageUrl);
+	 	        if(thumbnailator!=null){
+	 	        	thumbnailator.setFromPath(saveImagePath);
+	 	        	if(thumbnailator.getPositions()!=null){
+	 	        		 thumbnailator.setWatermark(watermarker);
+	 	        		 String p1ImagePath=PictureUtils.getImageSavePath(saveRealBasePath,imagePath+wartermark,imageName);//1:1压缩图存放位置
+	 	        		 thumbnailator.setToPath(p1ImagePath);
+	 	        		 String wmImageUrl =PictureUtils.thumbnailatorImage(thumbnailator);
+	 	        		 wmImageUrl= webBasePath+wmImageUrl.replaceAll(saveRealBasePath, "");
+	 	        		 dto.setWatermarkImageUrl(wmImageUrl);
+	 	        	}else if(thumbnailator.getHeight()!=0 && thumbnailator.getWidth()!=0){
+	 	        		 String tailorImagePath=PictureUtils.getImageSavePath(saveRealBasePath,imagePath+tailor+thumbnailator.getHeight(),imageName);//裁剪图片位置
+	 	        		 thumbnailator.setToPath(tailorImagePath);
+	 	        		 String tailorImageUrl =PictureUtils.thumbnailatorImage(thumbnailator);
+		 	        	 tailorImageUrl = webBasePath+tailorImageUrl.replaceAll(saveRealBasePath, "");
+		 	        	 dto.setTailorImageUrl(tailorImageUrl);
+	 	        	}else {
+	 	        		if(thumbnailator.getScale()==0){
+	 	        			thumbnailator.setScale(1f);
+	 	        		}
+	 	        		 String p1ImagePath=PictureUtils.getImageSavePath(saveRealBasePath,imagePath+zipPath+(int)(thumbnailator.getScale()*100),imageName);//1:1压缩图存放位置
+	 	        		 thumbnailator.setToPath(p1ImagePath);
+	 	        		 String minImageUrl =PictureUtils.thumbnailatorImage(thumbnailator);
+		 	        	 minImageUrl= webBasePath+minImageUrl.replaceAll(saveRealBasePath, "");
+		 	        	 dto.setMinImageUrl(minImageUrl);
+	 	        	}
 	 	        }
 	        }
 	    } catch (IOException e) {
@@ -87,18 +103,5 @@ public class PictureServiceImpl implements PictureService{
 	        dto.setErrorInfo(RETURN_STATUS.SYSTEM_ERROR.getValue(), e.getMessage());
 	    }
 		return dto;
-	}
-	
-	
-	private String getMinImageUrl(String imagePath,String fileName,String imageName,String saveImagePath,float scale) throws IOException{
-		String p1ImagePath=PictureUtils.getImageSavePath(saveRealBasePath,imagePath+zipPath+(int)scale*100,imageName);//1:1压缩图存放位置
-		String minImageUrl = PictureUtils.thumbnailatorImage(saveImagePath, p1ImagePath, scale);
-		return minImageUrl;
-	}
-	
-	private String getTailorImageUrl(String imagePath,String fileName,String imageName,String saveImagePath,Float scale,int height,int width) throws IOException{
-	    String tailorImagePath=PictureUtils.getImageSavePath(saveRealBasePath,imagePath+tailor+height,imageName);//裁剪图片位置
-		String tailorImageUrl = PictureUtils.thumbnailatorImage(saveImagePath, tailorImagePath, height, width);//后裁剪
-		return tailorImageUrl;
 	}
 }
