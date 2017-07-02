@@ -1,7 +1,7 @@
 <div class="widget widget-tabs">
         <ul class="nav nav-tabs" role="tablist">
           <li role="presentation" class="active"><a href="#notice" aria-controls="notice" role="tab" data-toggle="tab" draggable="false">统计信息</a></li>
-          <li role="presentation"><a href="#contact" aria-controls="contact" role="tab" data-toggle="tab" draggable="false">联系站长</a></li>
+     <!-- <li role="presentation"><a href="#contact" aria-controls="contact" role="tab" data-toggle="tab" draggable="false">联系站长</a></li> -->    
         </ul>
         <div class="tab-content">
           <div role="tabpanel" class="tab-pane contact active" id="notice">
