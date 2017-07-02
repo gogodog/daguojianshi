@@ -108,9 +108,9 @@ public class PictureUtils {
 		//如果需要水印
 		if(!StringUtils.isNullOrEmpty(watermark) && positions!=null){
 			if(width!=0 && height!=0){
-				Thumbnails.of(fromPath).size(width, height).watermark(positions,ImageIO.read(new File(watermark)),1f).toFile(toPath); 
+				Thumbnails.of(fromPath).size(width, height).watermark(positions,ImageIO.read(new File(watermark)),0.5f).toFile(toPath); 
 			}else{
-				Thumbnails.of(fromPath).scale(1f).watermark(positions,ImageIO.read(new File(watermark)),1f).toFile(toPath); 
+				Thumbnails.of(fromPath).scale(1f).watermark(positions,ImageIO.read(new File(watermark)),0.5f).toFile(toPath); 
 			}
 		}
 		//根据宽高缩放

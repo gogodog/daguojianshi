@@ -1,5 +1,6 @@
 package com.dgjs.model.dto.business;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -118,6 +119,17 @@ public class Articlescrap {
 		}
 		return null;
 	}
+	public List<String> getTypeValues(){
+		if(type!=null && type.size()>0){
+			List<String> list = new ArrayList<String>();
+			for(Articlescrap_Type at:type){
+				list.add(at.getValue());
+			}
+			return list;
+		}
+		return null;
+	}
+	
 	public void setStart_time(String start_time) {
 		this.start_time = start_time;
 		if(!StringUtils.isNullOrEmpty(start_time)){
