@@ -83,7 +83,7 @@
 	    (
 	        {
 	        	async:false,
-	            url:contextPath+'/admin/ajaxUpload?imagePath='+uploadFileName+"&positions=BOTTOM_RIGHT",//这个是要提交到上传的文件
+	            url:contextPath+'/admin/ajaxUpload?imagePath='+uploadFileName+"&positions=BOTTOM_RIGHT&height=250&width=1000",//这个是要提交到上传的文件
 	            secureuri:false,
 	            fileElementId:'uploadImage',//这里是你文件上传input框的id
 	            dataType: 'json',
