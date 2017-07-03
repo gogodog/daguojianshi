@@ -100,7 +100,7 @@ public class Articlescrap {
 		this.visits = visits;
 	}
 	public String getStart_time() {
-		return start_time;
+		return start_time == null || start_time.trim().equals("公元") || start_time.trim().equals("公元前") ? "无" : this.start_time;
 	}
 	public List<Articlescrap_Type> getType() {
 		return type;

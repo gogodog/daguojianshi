@@ -1823,7 +1823,7 @@ body,input,button,textarea,select {
 	}
 
 	.excerpt .cat {
-		display: none;
+		display: inline-block;
 	}
 
 	.excerpt h2,.excerpt-minic h2 {
@@ -2098,13 +2098,13 @@ body,input,button,textarea,select {
 	}
 
 	.excerpt .views {
-		display: none;
+		display: inline-block;
 	}
 
 	.excerpt .omment {
 		display: none;
 	}
-
+/**
 	.excerpt h2 {
 		overflow: hidden;
 		display: block;
@@ -2146,11 +2146,18 @@ body,input,button,textarea,select {
 		background: -ms-linear-gradient(to right,rgba(255,255,255,0),white 50%,white);
 		background: linear-gradient(to right,rgba(255,255,255,0),white 50%,white);
 	}
+	**/
 }
 
 @media (max-width:360px) {
 	.single .content {
 		padding: 5px 15px;
+	}
+	.excerpt .cat {
+	    color: #FFF;
+	    background-color: #3399CC;
+	    padding: 1px 3px;
+	    font-size: 8px;
 	}
 
 	.cat-ebox li {
@@ -2180,7 +2187,7 @@ body,input,button,textarea,select {
 	}
 
 	.excerpt h2 {
-		font-size: 14px;
+		font-size: 10px;
 		line-height: 18px;
 	}
 
