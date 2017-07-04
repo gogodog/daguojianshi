@@ -23,5 +23,4 @@
       <script src="${contextPath}/front/js/selectivizr-min.js" type="text/javascript"></script>
     <![endif]-->
     <!--[if lt IE 9]>
-    <script>window.location.href='upgrade-browser.html';</script>
     <![endif]-->
