@@ -42,10 +42,8 @@
 				<div class="form-group">
 					<label for="">分类</label>
 					<#list types as type>
-					  <input style="margin-top:9px" type="checkbox" name="typeValue" value="${type}" 
-						  <#list articlescrap.type as t>
-			                 <#if t == type>checked<#break></#if>
-			              </#list>
+					  <input style="margin-top:9px" type="radio" name="typeValue" value="${type}" 
+			                 <#if articlescrap.type == type>checked</#if>
 					  >${type.value}
 					</#list>
 				</div>

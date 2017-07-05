@@ -28,7 +28,7 @@ public class ArticlescrapEs implements java.io.Serializable{
 	private Long visits;//访问量
 	private String start_time;//内容的起始时间
 	private String[] keywords;//关键词（分类）
-	private List<Integer> type;//文章类型
+	private Integer type;//文章类型
 	private Recommend recommend;//推荐
 	 
 	
@@ -56,10 +56,10 @@ public class ArticlescrapEs implements java.io.Serializable{
 	public void setShow_time(String show_time) {
 		this.show_time = show_time;
 	}
-	public List<Integer> getType() {
+	public Integer getType() {
 		return type;
 	}
-	public void setType(List<Integer> type) {
+	public void setType(Integer type) {
 		this.type = type;
 	}
 	public int getStatus() {

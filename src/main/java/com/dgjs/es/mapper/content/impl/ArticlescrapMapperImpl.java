@@ -10,6 +10,7 @@ import java.util.Map;
 import org.apache.lucene.search.join.ScoreMode;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetResponse;
+import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequestBuilder;
@@ -17,6 +18,7 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.NestedQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -134,8 +136,8 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 		articlescrap.setTitle(map.get("title").value());
 		Integer status =map.get("status").value();
 		articlescrap.setStatus(UpDown_Status.valueOf(status));
-		List<Object> typeList = map.get("type").values();
-		articlescrap.setType(Articlescrap_Type.transFrom(typeList));
+		Integer type = map.get("type").value();
+		articlescrap.setType(Articlescrap_Type.transFrom(type));
 		return articlescrap;
 	}
 
@@ -246,5 +248,6 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 		}
 		return null;
 	}
+
 	
 }

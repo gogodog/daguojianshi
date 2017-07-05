@@ -24,6 +24,7 @@ import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.enums.Ad_Position;
 import com.dgjs.model.enums.Articlescrap_Type;
+import com.dgjs.model.enums.Judge_Level;
 import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.persistence.Advertisement;
 import com.dgjs.model.persistence.Carousel;
@@ -142,31 +143,4 @@ public class IndexController {
         return mv;
     }
 	
-	@RequestMapping("/show/{id}")
-    public ModelAndView show(@PathVariable("id") String id, HttpServletRequest request, HttpServletResponse response) throws Exception {  
-		ModelAndView mv = new ModelAndView("front/show");
-		Articlescrap articlescrap=articlescrapService.selectById(id);
-		mv.addObject("articlescrap", articlescrap);
-		mv.addObject("imageContextPath", pictureService.getImageContextPath());
-		PageInfoDto<Comments> pageinfo=commentsService.getCommentsByArticlescrapId(id, 1, Constants.DEFAULT_ONEPAGESIZE, false);
-		//加载最新评论文章
-		List<Articlescrap> commentsArticlescrapList=articlescrapService.getArticlescrapByComments(2);
-		mv.addObject("commentsArticlescrapList", commentsArticlescrapList);
-		mv.addObject("commentsPageinfo", pageinfo);
-		//文章阅读量
-		mv.addObject("pagedocids",id);
-		Map<String,Integer> map=dataSerivce.getDocShowCounts(String.valueOf(id));
-		mv.addObject("visits", map.get(String.valueOf(id)));
-		//加载分类
-		mv.addObject("types", Articlescrap_Type.values());
-		return mv;
-    }
-	
-	@RequestMapping(value="/saveComments",method=RequestMethod.POST)
-	public ModelAndView saveComments(Comments comments,HttpServletRequest request){
-		ModelAndView mv = new ModelAndView("redirect:/show/"+comments.getArticlescrap_id());
-		comments.setIp_address(IPUtils.getIpAddr(request));
-		commentsService.save(comments);
-		return mv;
-	}
 }

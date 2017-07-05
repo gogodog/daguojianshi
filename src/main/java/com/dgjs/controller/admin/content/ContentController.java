@@ -1,5 +1,6 @@
 package com.dgjs.controller.admin.content;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -39,14 +40,17 @@ public class ContentController {
         mv.addObject("title", "Spring MVC And Freemarker");  
         mv.addObject("content", " Hello world ， test my first spring mvc ! ");  
         
-//        ArticlescrapCondtion condition = new ArticlescrapCondtion();
-//        condition.setKeywords("英国");
-//        PageInfoDto<Articlescrap> page=articlescrapSerivce.listArticlescrap(condition);
-//        List<Articlescrap> list=page.getObjects();
-//        for(Articlescrap a:list){
-//        	System.out.println(a.getTitle());
-//        }
         
+        
+        ArticlescrapCondtion condition = new ArticlescrapCondtion();
+        condition.setOnePageSize(40);
+        PageInfoDto<Articlescrap> page=articlescrapSerivce.listArticlescrap(condition);
+        List<Articlescrap> list=page.getObjects();
+        StringBuilder str = new StringBuilder();
+        for(Articlescrap a:list){
+        	str.append("\""+a.getId()+"\",");
+        }
+        System.out.println(str);
         
 //        ArticlescrapCondtion condtion = new ArticlescrapCondtion();
 //        condtion.setOnePageSize(30);

@@ -1,10 +1,13 @@
 <div class="relates">
         <div class="title">
-          <h3>相关推荐</h3>
+          <h3>用户评价</h3>
         </div>
         <ul>
-        <#list rAEList as rea>
-          <li><a href="${contextPath}/show/${rea.id}" title="${rea.title}" >${rea.title}</a></li>
-        </#list>
+        <div class="judge-tags">
+        评价：
+            <#list judgeLevels as jl>
+              <a href="javascript:void(0)" rel="tag" onclick="judge('${articlescrap.id}','${jl}');">${jl.value}</a>
+            </#list>
+        </div>
         </ul>
       </div>

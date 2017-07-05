@@ -11,6 +11,7 @@
 	    pageinfo_['pageadids'] = '${pageadids}';//广告id
 	    pageinfo_['pageid'] = '10336267';
 	    window['pageinfo'] = pageinfo_;
+	    var contextPath='${contextPath}'
     </script>
 </head>
 <body class="user-select single">
@@ -66,9 +67,7 @@
       </article>
       <div class="article-tags">
       	标签：
-      	<#list articlescrap.typeValues as typeValue>
-   	       <a href="javascript:void(0)" rel="tag" >${(typeValue)!''}</a>
-     	</#list>
+   	    <a href="javascript:void(0)" rel="tag" >${(articlescrap.typeValue)!''}</a>
       	<#list articlescrap.keywords as keywords>
       	   <a href="javascript:void(0)" rel="tag" >${(keywords)!''}</a>
       	</#list>
@@ -89,5 +88,6 @@
     <#include "/front/common/footer_title.ftl">
     <#include "/front/common/footer_static.ftl">
     <script src="${contextPath}/common/keyword.js"></script>
+    <script src="${contextPath}/front/js/business/show.js"></script>
 </body>
 </html>

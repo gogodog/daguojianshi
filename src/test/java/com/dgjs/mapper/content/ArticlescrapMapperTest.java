@@ -26,5 +26,5 @@ public class ArticlescrapMapperTest {
 		PageInfoDto<Articlescrap> pageinfo=mapper.listArticlescrap(new ArticlescrapCondtion());
 		System.out.println(JSON.toJSONString(pageinfo, true));
 	}
-	
+
 }

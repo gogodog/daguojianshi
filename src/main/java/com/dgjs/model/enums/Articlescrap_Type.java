@@ -1,8 +1,5 @@
 package com.dgjs.model.enums;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 /**
  * 文章分类
@@ -70,27 +67,18 @@ public enum Articlescrap_Type {
 	  }
     }
 	
-	public static <T> List<Articlescrap_Type> transFrom(List<T> keys){
-		if(keys==null||keys.size()==0){
+	public static Articlescrap_Type transFrom(Integer key){
+		if(key == null){
 			return null;
 		}
-		List<Articlescrap_Type> list = new ArrayList<Articlescrap_Type>();
-		for(T key:keys){
-			int formatKey=(int)key;
-			list.add(Articlescrap_Type.valueOf(formatKey));
-		}
-		return list;
+		return Articlescrap_Type.valueOf(key);
 	}
 	
-	public static List<Integer> transTo(List<Articlescrap_Type> types){
-		if(types==null||types.size()==0){
+	public static Integer transTo(Articlescrap_Type type){
+		if(type==null){
 			return null;
 		}
-		List<Integer> list = new ArrayList<Integer>();
-		for(Articlescrap_Type type:types){
-			list.add(type.getKey());
-		}
-		return list;
+		return type.getKey();
 	}
 
 }
