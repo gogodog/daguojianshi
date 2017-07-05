@@ -1,8 +1,8 @@
 package com.dgjs.model.view;
 
 public class IpHttpResponse extends BaseView{
-	IpData data;
-	public class IpData{
+	IpAliData data;
+	public class IpAliData{
 		String country;
 		String country_id;
 		String area;
@@ -96,11 +96,11 @@ public class IpHttpResponse extends BaseView{
 		}
 	}
 
-	public IpData getData() {
+	public IpAliData getData() {
 		return data;
 	}
 
-	public void setData(IpData data) {
+	public void setData(IpAliData data) {
 		this.data = data;
 	}
 }

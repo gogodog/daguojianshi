@@ -10,6 +10,8 @@ import com.dgjs.model.view.IpHttpResponse;
 
 public interface DataService {
 	
+	String CURRENTIPSRSTYPE = "taobao";
+	
 	public static final String IDSSEPORTE = ";;";
 	
 	boolean dadian(HttpServletRequest request, DadianView dadianView);
@@ -18,7 +20,7 @@ public interface DataService {
 	
 	int getPageTotalVisits(String pageId);
 	
-	IpHttpResponse.IpData getLocalAdressByIp(String ip);
+	IpHttpResponse.IpAliData getLocalAliAdressByIp(String ip);
 	
 	Map<String,Integer> getDocShowCounts(String docids);
 	

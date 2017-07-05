@@ -19,7 +19,7 @@ import com.dgjs.mapper.common.DadianMapper;
 import com.dgjs.model.persistence.result.PagedocidsCountResult;
 import com.dgjs.model.view.DadianView;
 import com.dgjs.model.view.IpHttpResponse;
-import com.dgjs.model.view.IpHttpResponse.IpData;
+import com.dgjs.model.view.IpHttpResponse.IpAliData;
 import com.dgjs.service.common.DataService;
 import com.dgjs.utils.HttpClientUtils;
 import com.dgjs.utils.IPUtils;
@@ -44,11 +44,11 @@ public class DataServiceImpl implements DataService{
 		dadianView.setIp(ip);
 		HttpSession session = request.getSession();
 		Object ipsObject = session.getAttribute("ips");
-		IpHttpResponse.IpData ips =null;
+		IpHttpResponse.IpAliData ips =null;
 		if(ipsObject!=null){
-			ips = (IpData) session.getAttribute("ips");
+			ips = (IpAliData) session.getAttribute("ips");
 		}else{
-			ips = this.getLocalAdressByIp(ip);
+			ips = this.getLocalAliAdressByIp(ip);
 			if(ips == null){
 				dadianView.setNote("ip获取地理位置失败");
 			}else{
@@ -92,8 +92,8 @@ public class DataServiceImpl implements DataService{
 	}
 
 	@Override
-	public IpData getLocalAdressByIp(String ip) {
-		JSONObject result = HttpClientUtils.sendGet("http://ip.taobao.com/service/getIpInfo.php?ip="+ip);
+	public IpAliData getLocalAliAdressByIp(String ip) {
+		JSONObject result = HttpClientUtils.sendGet("http://ip.taobao.com/service/getIpInfo.php?ip=121.79.134.34");
 		if(result == null){
 			return null;
 		}else{
