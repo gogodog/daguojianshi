@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgjs.mapper.content.AJudgeMapper">
+  
+  	<insert id="save" parameterType="aJudge" keyProperty="id" useGeneratedKeys="true">
+	       insert into a_judge
+	       (
+	           articlescrap_id,
+	           judge_level,
+	           ip,
+	           create_time
+	       )
+	       values
+	       (
+	           #{articlescrap_id},
+	           #{judge_level},
+	           #{ip},
+	           now()
+	       )
+	</insert>
+	
+	<select id="getLevelCount" resultType="int">
+	   select count(1) from a_judge where articlescrap_id=#{articlescrap_id}
+	    <if test="judge_level!=null">and judge_level=#{judge_level}</if>
+	</select>
+	
+</mapper>
