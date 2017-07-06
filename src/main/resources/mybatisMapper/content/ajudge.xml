@@ -8,6 +8,7 @@
 	           articlescrap_id,
 	           judge_level,
 	           ip,
+	           judge_message,
 	           create_time
 	       )
 	       values
@@ -15,6 +16,7 @@
 	           #{articlescrap_id},
 	           #{judge_level},
 	           #{ip},
+	           #{judge_message},
 	           now()
 	       )
 	</insert>

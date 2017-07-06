@@ -9,6 +9,7 @@ import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
 import org.elasticsearch.action.admin.indices.mapping.put.PutMappingRequest;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexRequest;
+import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
@@ -32,6 +33,7 @@ import com.dgjs.es.client.ESTransportClient;
 import com.dgjs.es.mapper.content.ArticlescrapMapper;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Articlescrap;
+import com.dgjs.model.es.ArticlescrapEs;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 import com.dgjs.service.content.ArticlescrapService;
 
@@ -126,16 +128,12 @@ public class EsInit {
 		
 	
 	 	
-//		for(String id:ids){
-//			  GetResponse resp = client.prepareGet(index, type , id).get();
-//			  List<Integer> list=(List<Integer>) resp.getSource().get("type");
-//			  UpdateRequest updateRequest = new UpdateRequest(index, type, id)
-//		       .doc(XContentFactory.jsonBuilder()
-//		           .startObject()
-//		               .field("type", list.get(0))
-//		           .endObject());
-//		      client.update(updateRequest).get();
-//		}
+		for(String id:ids){
+			  GetResponse resp = client.prepareGet(index, type , id).get();
+			  Map map=resp.getSourceAsMap();
+			  map.get("");
+			  IndexRequestBuilder indexRequestBuilder =client.prepareIndex("dgjs_v2", "articlescrap_v2");
+		}
 		
 
 	  

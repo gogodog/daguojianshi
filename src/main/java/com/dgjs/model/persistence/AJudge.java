@@ -11,6 +11,7 @@ public class AJudge {
 	private Judge_Level judge_level;//文章评判级别
 	private String ip;//ip地址
 	private Date create_time;//创建时间
+	private String judge_message;//只有不真实
 	public Long getId() {
 		return id;
 	}
@@ -41,6 +42,11 @@ public class AJudge {
 	public void setCreate_time(Date create_time) {
 		this.create_time = create_time;
 	}
-	
+	public String getJudge_message() {
+		return judge_message;
+	}
+	public void setJudge_message(String judge_message) {
+		this.judge_message = judge_message;
+	}
 	
 }

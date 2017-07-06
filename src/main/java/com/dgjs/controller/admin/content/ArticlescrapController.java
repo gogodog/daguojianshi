@@ -1,8 +1,14 @@
 package com.dgjs.controller.admin.content;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -12,9 +18,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.enums.Articlescrap_Type;
+import com.dgjs.model.enums.Judge_Level;
 import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 import com.dgjs.service.common.PictureService;
+import com.dgjs.service.content.AJudgeService;
 import com.dgjs.service.content.ArticlescrapService;
 import com.dgjs.utils.DateUtils;
 
@@ -28,10 +36,16 @@ public class ArticlescrapController {
 	@Autowired
 	PictureService pictureService;
 	
+	@Autowired
+	AJudgeService aJudgeService;
+	
 	@RequestMapping("/articlescrapList")
     public ModelAndView articlescrapList(HttpServletRequest request, HttpServletResponse response,ArticlescrapCondtion condtion) throws Exception {  
 		ModelAndView mv = new ModelAndView("admin/content/articlescrap_list");
 		condtion.setNeedTotalResults(true);
+		Map<String, SortOrder> sort = new HashMap<String, SortOrder>();
+		sort.put("update_time", SortOrder.DESC);
+		condtion.setSort(sort);
 		PageInfoDto<Articlescrap> pageInfo=articlescrapSerivce.listArticlescrap(condtion);
 		mv.addObject("pageInfo", pageInfo);
 		mv.addObject("condition",condtion);
@@ -49,6 +63,11 @@ public class ArticlescrapController {
 			mv.addObject("articlescrap", articlescrap);
 		}
 		mv.addObject("types", Articlescrap_Type.values());
+		StringBuilder str = new StringBuilder();
+		for(Judge_Level jl:Judge_Level.values()){
+			str.append(jl.getValue()+":"+aJudgeService.getLevelCount(articlescrapId, jl)+"   ");
+		}
+		mv.addObject("judge", str.toString());
 		return mv;  
 	}
 	

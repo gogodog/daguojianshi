@@ -85,6 +85,10 @@
 				          ${(articlescrap.content)!''}
 				    </textarea> 
 			    </div>
+			    <div class="form-group">
+				    <label for="">用户评价</label>
+				    <input style="margin-top:9px" type="checkbox" disabled> ${(judge)!''}
+			    </div>
 				<div class="form-group" style="margin-left:150px;">
 					<input type="submit" class="sub-btn" value="提  交" />
 					<input type="reset" class="sub-btn" value="重  置" />

@@ -54,9 +54,9 @@ public class ShowController {
 
 	@ResponseBody
 	@RequestMapping(value = "/judge")
-	public BaseView ajaxJudge(HttpServletRequest request,String aid,Judge_Level level){
+	public BaseView ajaxJudge(HttpServletRequest request,String aid,Judge_Level level,String message){
 		BaseView view=new BaseView();
-		if(StringUtils.isEmpty(aid)||level==null){
+		if(StringUtils.isEmpty(aid)||level==null||(message!=null&&message.length()>255)){
 			view.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
 			return view;
 		}
@@ -67,19 +67,20 @@ public class ShowController {
 				return view;
 			}
 			HttpSession session=request.getSession();
-			Object judgeFlag=session.getAttribute(Session_Keys.judgeFlag);
+			Object judgeFlag=session.getAttribute(aid);
 			Object ip=session.getAttribute(Session_Keys.ip);
-			//说明已经评价过
+			//说明没有评价过
 			if(judgeFlag==null){
 				AJudge aJudge = new AJudge();
 				aJudge.setArticlescrap_id(aid);
 				aJudge.setJudge_level(level);
+				aJudge.setJudge_message(StringUtils.isEmpty(message)?null:message);
 				if(ip!=null){
 					aJudge.setIp(ip.toString());
 				}else{
 					aJudge.setIp(IPUtils.getIpAddr3(request));
 				}
-				session.setAttribute(Session_Keys.judgeFlag, (byte)1);
+				session.setAttribute(aid, (byte)1);
 				session.setAttribute(Session_Keys.ip, aJudge.getIp());
 				int flag=aJudgeService.save(aJudge);
 				if(flag < 1){
