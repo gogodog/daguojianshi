@@ -16,7 +16,7 @@ import com.dgjs.service.ad.AdvertisementService;
 import com.dgjs.service.common.PictureService;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin/ad")
 public class AdvertisementController {
 
 	@Autowired
@@ -51,7 +51,7 @@ public class AdvertisementController {
 	
 	@RequestMapping("/saveAdvertisement")
 	public ModelAndView saveAdvertisement(Advertisement advertisement){
-		ModelAndView mv = new ModelAndView("redirect:/admin/adList");  
+		ModelAndView mv = new ModelAndView("redirect:/admin/ad/adList");  
 		if(advertisement.getId()!=null){
 			advertisementService.updateAdvertisement(advertisement);
 		}else{
@@ -62,7 +62,7 @@ public class AdvertisementController {
 	
 	@RequestMapping("/deleteAdvertisement")
 	public ModelAndView deleteAdvertisement(Long adId){
-		ModelAndView mv = new ModelAndView("redirect:/admin/adList");  
+		ModelAndView mv = new ModelAndView("redirect:/admin/ad/adList");  
 		advertisementService.deleteById(adId);
 		return mv;
 	}

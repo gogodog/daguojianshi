@@ -19,7 +19,7 @@ import com.dgjs.service.content.ArticlescrapService;
 import com.dgjs.service.content.RecommedArticlescrapService;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin/rcma")
 public class RecommedArticlescrapController {
 	
 	private Log log = LogFactory.getLog(RecommedArticlescrapController.class);
@@ -75,7 +75,7 @@ public class RecommedArticlescrapController {
 	
 	@RequestMapping("/deleteRecommedArticlescrap")
 	public ModelAndView deleteRecommedArticlescrap(String recommedArticlescrapId) throws Exception{
-		ModelAndView mv = new ModelAndView("redirect:/admin/recommedArticlescrapList"); 
+		ModelAndView mv = new ModelAndView("redirect:/admin/rcma/recommedArticlescrapList"); 
 		recommedArticlescrapService.deleteById(recommedArticlescrapId);
 		return mv;
 	}

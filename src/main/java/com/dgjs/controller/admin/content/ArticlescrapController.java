@@ -25,7 +25,7 @@ import com.dgjs.service.content.ArticlescrapService;
 import com.dgjs.utils.DateUtils;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin/atcp")
 public class ArticlescrapController {
 	
 	@Autowired
@@ -71,7 +71,7 @@ public class ArticlescrapController {
 	
 	@RequestMapping("/saveArticlescrap")
 	public ModelAndView saveArticlescrap(Articlescrap articlescrap,String showTime) throws Exception{
-		ModelAndView mv = new ModelAndView("redirect:/admin/articlescrapList");  
+		ModelAndView mv = new ModelAndView("redirect:/admin/atcp/articlescrapList");  
 		articlescrap.setShow_time(DateUtils.parseDateFromString(showTime));
 		if(StringUtils.isEmpty(articlescrap.getId()))
 			articlescrapSerivce.saveArticlescrap(articlescrap);
@@ -82,7 +82,7 @@ public class ArticlescrapController {
 	
 	@RequestMapping("/deleteArticlescrap")
 	public ModelAndView deleteArticlescrap(String articlescrapId)  throws Exception{
-		ModelAndView mv = new ModelAndView("redirect:/admin/articlescrapList");  
+		ModelAndView mv = new ModelAndView("redirect:/admin/atcp/articlescrapList");  
 		articlescrapSerivce.deleteArticlescrap(articlescrapId);
 		return mv;
 	}

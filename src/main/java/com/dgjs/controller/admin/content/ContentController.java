@@ -17,7 +17,7 @@ import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 import com.dgjs.service.content.ArticlescrapService;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin/ctnt")
 public class ContentController {
 
 	@Autowired

@@ -12,7 +12,7 @@ import com.dgjs.service.content.CommentsService;
 import com.dgjs.utils.StringUtils;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin/cmt")
 public class CommentsController {
 
 	@Autowired
@@ -28,7 +28,7 @@ public class CommentsController {
 	
 	@RequestMapping("/updateComments")
 	public ModelAndView updateComments(String id,Boolean isShow,String desc,String articlescrapId){
-	   ModelAndView mv = new ModelAndView("redirect:/admin/comments?articlescrapId="+articlescrapId);  
+	   ModelAndView mv = new ModelAndView("redirect:/admin/cmt/comments?articlescrapId="+articlescrapId);  
 	   commentsService.updateStatus(id, isShow, desc);
 	   return mv;
 	}

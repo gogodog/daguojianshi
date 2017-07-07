@@ -61,14 +61,14 @@ function saveRecommedArticlescrap(){
 		return;
 	}
 	$.ajax({
-	    url:contextPath+"/admin/ajaxSaveRecommedArticlescrap",    
+	    url:contextPath+"/admin/rcma/ajaxSaveRecommedArticlescrap",    
 	    dataType:"json",   
 	    async:false,
 	    data:{"id":articlescrap_id,"sort":sort,"status":status}, 
 	    type:"GET",   
 	    success:function(req){
 	    	if(!req.error){
-	    		window.location.href=contextPath+"/admin/recommedArticlescrapList";
+	    		window.location.href=contextPath+"/admin/rcma/recommedArticlescrapList";
 	    	}else if(req.errorCode!='PARAM_ERROR'){
 	    		alert(req.errorMessage);
 	    	}

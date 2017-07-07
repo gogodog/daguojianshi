@@ -13,7 +13,7 @@
 			<div class="public-content-header">
 			<h3 style="display: inline-block;">文章推荐列表</h3>
 				<div class="public-content-right fr">
-				<a href="${contextPath}/admin/recommedArticlescrap" 
+				<a href="${contextPath}/admin/rcma/recommedArticlescrap" 
 				   style="height: 24px; width: 70px;border: 1px solid #ccc;font-size: 12px;text-align:center">添加推荐</a>
 			</div>
 			</div>
@@ -43,7 +43,7 @@
                          </td>
 					     <td>
 					     	<div class="table-fun-1">
-					     	    <a href="${contextPath}/admin/articlescrap?articlescrapId=${recommedArticlescrap.id}">查看文章</a>
+					     	    <a href="${contextPath}/admin/atcp/articlescrap?articlescrapId=${recommedArticlescrap.id}">查看文章</a>
 					     		<a href="javascript:void(0)" onclick="deleteRA('${recommedArticlescrap.id}');">删除</a>
 					     		<a href="javascript:void(0)" onclick="updateStatus('${recommedArticlescrap.id}','${recommedArticlescrap.recommend.status}');">
                                    <#if recommedArticlescrap.recommend.status == 1>
@@ -71,14 +71,14 @@ function updateStatus(recommedArticlescrapId,status){
 		status = 'UP';
 	}
 	$.ajax({
-	    url:contextPath+"/admin/ajaxUpdateRAStatus",    
+	    url:contextPath+"/admin/rcma/ajaxUpdateRAStatus",    
 	    dataType:"json",   
 	    async:false,
 	    data:{"recommedArticlescrapId":recommedArticlescrapId,"status":status}, 
 	    type:"GET",   
 	    success:function(req){
 	    	if(!req.error){
-	    		window.location.href=contextPath+"/admin/recommedArticlescrapList";
+	    		window.location.href=contextPath+"/admin/rcma/recommedArticlescrapList";
 	    	}else if(req.errorCode!='PARAM_ERROR'){
 	    		alert(req.errorMessage);
 	    	}
@@ -93,7 +93,7 @@ function updateStatus(recommedArticlescrapId,status){
 function deleteRA(recommedArticlescrapId){
 	var txt=  "您确定要删除这条数据吗？";
 	window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.confirm,{onOk:function(){
-		window.location.href=contextPath+"/admin/deleteRecommedArticlescrap?recommedArticlescrapId="+recommedArticlescrapId;
+		window.location.href=contextPath+"/admin/rcma/deleteRecommedArticlescrap?recommedArticlescrapId="+recommedArticlescrapId;
 	}})
 }
 

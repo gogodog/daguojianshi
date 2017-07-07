@@ -16,7 +16,7 @@
 			    </div>
 			</div>
 			<div class="public-content-cont">
-			  <form id="selectForm" action="${contextPath}/admin/articlescrapList" method="post">
+			  <form id="selectForm" action="${contextPath}/admin/atcp/articlescrapList" method="post">
 			    <input type="hidden" name="currentPage">
 			    <p style="margin-bottom:10px">
 			        <label>文章标题:</label><input type="text" name="title" value="${(condition.title)!''}"/>&nbsp;&nbsp;
@@ -54,9 +54,9 @@
 					     <td>${articlescrap.update_time?datetime}</td>
 					     <td>
 					     	<div class="table-fun">
-					     		<a href="${contextPath}/admin/articlescrap?articlescrapId=${articlescrap.id}">修改</a>
+					     		<a href="${contextPath}/admin/atcp/articlescrap?articlescrapId=${articlescrap.id}">修改</a>
 					     		<a href="javascript:void(0)" onclick="deleteArticlescrap('${articlescrap.id}');">删除</a>
-					     		<a href="${contextPath}/admin/comments?articlescrapId=${articlescrap.id}">评论</a>
+					     		<a href="${contextPath}/admin/cmt/comments?articlescrapId=${articlescrap.id}">评论</a>
 					     	</div>
 					     </td>
 				     </tr>
@@ -75,7 +75,7 @@ var contextPath="${contextPath}";
 function deleteArticlescrap(articlescrapId){
 	var txt = "您确定要删除这条数据吗？";
 	window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.confirm,{onOk:function(){
-		window.location.href=contextPath+"/admin/deleteArticlescrap?articlescrapId="+articlescrapId;
+		window.location.href=contextPath+"/admin/atcp/deleteArticlescrap?articlescrapId="+articlescrapId;
 	}})
 }
 </script>

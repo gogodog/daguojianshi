@@ -15,7 +15,7 @@ import com.dgjs.service.common.PictureService;
 import com.dgjs.service.content.CarouselService;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin/cul")
 public class CarouselController {
 	
 	@Autowired
@@ -46,7 +46,7 @@ public class CarouselController {
 	
 	@RequestMapping("/saveCarousel")
 	public ModelAndView saveCarousel(HttpServletRequest request, HttpServletResponse response,Carousel carousel){
-		ModelAndView mv = new ModelAndView("redirect:/admin/carouselList");  
+		ModelAndView mv = new ModelAndView("redirect:/admin/cul/carouselList");  
 		try {
 			carouselService.saveOrUpdateCarousel(carousel);
 		} catch (Exception e) {
@@ -58,7 +58,7 @@ public class CarouselController {
 	
 	@RequestMapping("/deleteCarousel")
 	public ModelAndView deleteCarousel(HttpServletRequest request, HttpServletResponse response,Long carouselId){
-		ModelAndView mv = new ModelAndView("redirect:/admin/carouselList");  
+		ModelAndView mv = new ModelAndView("redirect:/admin/cul/carouselList");  
 		carouselService.deleteById(carouselId);
         return mv;  
 	}

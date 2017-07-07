@@ -16,7 +16,7 @@
 				<h3>添加文章</h3>
 			</div>
 			<div class="public-content-cont">
-			<form action="${contextPath}/admin/saveArticlescrap" method="post" enctype="multipart/form-data" id="articlescrapForm">
+			<form action="${contextPath}/admin/atcp/saveArticlescrap" method="post" enctype="multipart/form-data" id="articlescrapForm">
 			    <input type="hidden" name="id" value="${(articlescrap.id)!''}">
 			    <input type="hidden" name="status" value="${(articlescrap.status)!'DOWN'}">
 			    <input type="hidden" name="show_picture" value="${(articlescrap.show_picture)!''}">
@@ -102,7 +102,7 @@
 	
 	<script type="text/javascript">
 	var contextPath="${contextPath}";
-	var editorImagePath=contextPath+"/admin/ajaxUploadEditorImage?imagePath=editor";
+	var editorImagePath=contextPath+"/admin/static/ajaxUploadEditorImage?imagePath=editor";
 	
 	$("#status").click(function(){
 		if($('#status').is(':checked')) {
@@ -119,7 +119,7 @@
 	    (
 	        {
 	        	async:false,
-	            url:contextPath+'/admin/ajaxUpload?imagePath='+uploadFileName,//这个是要提交到上传的php程序文件
+	            url:contextPath+'/admin/static/ajaxUpload?imagePath='+uploadFileName,//这个是要提交到上传的php程序文件
 	            secureuri:false,
 	            fileElementId:'uploadImage',//这里是你文件上传input框的id
 	            dataType: 'json',

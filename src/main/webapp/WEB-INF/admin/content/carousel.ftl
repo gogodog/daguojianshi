@@ -9,13 +9,13 @@
 </head>
 <body marginwidth="0" marginheight="0">
 	<div class="container">
-		<div class="public-nav">您当前的位置：<a href="">内容管理</a>><a href="">轮播图管理</a>><a href="${contextPath}/admin/carousel">添加轮播图</a></div>
+		<div class="public-nav">您当前的位置：<a href="">内容管理</a>><a href="">轮播图管理</a>><a href="${contextPath}/admin/cul/carousel">添加轮播图</a></div>
 		<div class="public-content">
 			<div class="public-content-header">
 				<h3>添加轮播</h3>
 			</div>
 			<div class="public-content-cont">
-			<form action="${contextPath}/admin/saveCarousel" method="post" enctype="multipart/form-data" id="carouselForm">
+			<form action="${contextPath}/admin/cul/saveCarousel" method="post" enctype="multipart/form-data" id="carouselForm">
 			    <fieldset>    
 			    <input type="hidden" name="id" value="${(carousel.id)!''}">
 			    <input type="hidden" name="status" value="${(carousel.status)!'DOWN'}">
@@ -70,7 +70,7 @@ function ajaxFileUpload()
     (
         {
         	async:false,
-            url:contextPath+'/admin/ajaxUpload?imagePath='+uploadFileName+"&width=1000&height=200",//这个是要提交到上传的php程序文件
+            url:contextPath+'/admin/static/ajaxUpload?imagePath='+uploadFileName+"&width=1000&height=200",//这个是要提交到上传的php程序文件
             secureuri:false,
             fileElementId:'uploadImage',//这里是你文件上传input框的id
             dataType: 'json',

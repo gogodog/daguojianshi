@@ -16,7 +16,7 @@
 				<h3>添加广告</h3>
 			</div>
 			<div class="public-content-cont">
-			<form action="${contextPath}/admin/saveAdvertisement" method="post" id="advertisementForm">
+			<form action="${contextPath}/admin/ad/saveAdvertisement" method="post" id="advertisementForm">
 			    <input type="hidden" name="id" value="${(advertisement.id)!''}">
 			    <input type="hidden" name="status" value="${(advertisement.status)!'DOWN'}">
 			    <input type="hidden" name="ad_pic_url" value="${(advertisement.ad_pic_url)!''}">
@@ -83,7 +83,7 @@
 	    (
 	        {
 	        	async:false,
-	            url:contextPath+'/admin/ajaxUpload?imagePath='+uploadFileName+"&positions=BOTTOM_RIGHT&height=250&width=1000",//这个是要提交到上传的文件
+	            url:contextPath+'/admin/static/ajaxUpload?imagePath='+uploadFileName+"&positions=BOTTOM_RIGHT&height=250&width=1000",//这个是要提交到上传的文件
 	            secureuri:false,
 	            fileElementId:'uploadImage',//这里是你文件上传input框的id
 	            dataType: 'json',

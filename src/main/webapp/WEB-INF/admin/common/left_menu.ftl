@@ -9,9 +9,9 @@
 					<a href="javascript:;">内容管理</a>
 					<div class="ifame-item-sub">
 						<ul>
-						    <li class="active"><a href="${contextPath}/admin/articlescrapList" target="content">文章管理</a></li>
-							<li><a href="${contextPath}/admin/carouselList" target="content">轮播图管理</a></li>
-							<li><a href="${contextPath}/admin/recommedArticlescrapList" target="content">推荐管理</a></li>
+						    <li class="active"><a href="${contextPath}/admin/atcp/articlescrapList" target="content">文章管理</a></li>
+							<li><a href="${contextPath}/admin/cul/carouselList" target="content">轮播图管理</a></li>
+							<li><a href="${contextPath}/admin/rcma/recommedArticlescrapList" target="content">推荐管理</a></li>
 						</ul>
 					</div>
 				</li>

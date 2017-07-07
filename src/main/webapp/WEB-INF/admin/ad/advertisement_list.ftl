@@ -11,12 +11,12 @@
 			<div class="public-content-header">
 			<h3 style="display: inline-block;">广告列表</h3>
 				<div class="public-content-right fr">
-				  <a href="${contextPath}/admin/ad" 
+				  <a href="${contextPath}/admin/ad/ad"
 				     style="height: 24px; width: 70px;border: 1px solid #ccc;font-size: 12px;text-align:center">添加广告</a>
 			    </div>
 			</div>
 			<div class="public-content-cont">
-			  <form id="selectForm" action="${contextPath}/admin/adList" method="post">
+			  <form id="selectForm" action="${contextPath}/admin/ad/adList" method="post">
 			    <input type="hidden" name="currentPage">
 			    <p style="margin-bottom:10px">
 			        <label>广告描述:</label><input type="text" name="adDesc" value="${(condition.adDesc)!''}"/>&nbsp;&nbsp;
@@ -73,7 +73,7 @@ var contextPath="${contextPath}";
 function deleteAdvertisement(adId){
 	var txt = "您确定要删除这条数据吗？";
 	window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.confirm,{onOk:function(){
-		window.location.href=contextPath+"/admin/deleteAdvertisement?adId="+adId;
+		window.location.href=contextPath+"/admin/ad/deleteAdvertisement?adId="+adId;
 	}})
 }
 </script>

@@ -21,7 +21,7 @@ import com.dgjs.model.view.UploadPictureView;
 import com.dgjs.service.common.PictureService;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin/static")
 public class PictureController {
 
 	private Log log = LogFactory.getLog(PictureController.class);

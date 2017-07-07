@@ -13,7 +13,7 @@
 	  <h3 style="display: inline-block;">评论管理</h3>
 	</div>
 	<div class="public-content-cont">
-	  <form id="selectForm" action="${contextPath}/admin/articlescrapList" method="post">
+	  <form id="selectForm" action="${contextPath}/admin/atcp/articlescrapList" method="post">
 	    <input type="hidden" name="currentPage">
 	  </form>
 	  <table class="public-cont-table">
@@ -59,7 +59,7 @@ function update(id,articlescrap_id){
 	window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.custom,{onOk:function(){
 		var desc=$("#desc").val();
 		var is_show=$('#is_show').is(':checked');
-		window.location.href=contextPath+"/admin/updateComments?id="+id+"&desc="+desc+"&isShow="+is_show+"&articlescrapId="+articlescrap_id;
+		window.location.href=contextPath+"/admin/cmt/updateComments?id="+id+"&desc="+desc+"&isShow="+is_show+"&articlescrapId="+articlescrap_id;
 	}})
 }
 </script>
