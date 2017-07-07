@@ -999,17 +999,6 @@ body,input,button,textarea,select {
 	filter: alpha(opacity=85);
 }
 
-.judge-tags a {
-	display: inline-block;
-	padding: 4px 7px 3px;
-	margin: 0 4px 4px 0;
-	color: #FFF;
-	font-size: 12px;
-	background-color: #3399CC;
-	opacity: 0.85;
-	filter: alpha(opacity=85);
-}
-
 .article-tags a:hover {
 	opacity: 1;
 	filter: alpha(opacity=100);

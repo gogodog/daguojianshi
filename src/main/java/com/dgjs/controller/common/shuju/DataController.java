@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
 import com.dgjs.model.view.DadianView;
@@ -31,11 +30,7 @@ public class DataController {
 		log.info("进入首页");
 		DadianView dadianView = JSON.parseObject(dadian, DadianView.class);
 	    dataSerivce.dadian(request, dadianView); 
-	    ModelAndView mv = new ModelAndView();
-	    //首页访问量
-	    int indexVisitCount = dataSerivce.getPageTotalVisits("10336266");
-	    mv.addObject("indexVisitCount",indexVisitCount);
-	    return JSON.toJSONString(mv.getModel());
+	    return null;
     }
 	
 }

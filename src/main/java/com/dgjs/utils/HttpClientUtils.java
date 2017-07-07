@@ -1,7 +1,9 @@
 package com.dgjs.utils;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
@@ -83,8 +85,18 @@ public class HttpClientUtils {
     }
     
     public static JSONObject sendGet(String urlp){
+    	return sendGetWithHeader(urlp,null);
+    }
+    
+    
+    public static JSONObject sendGetWithHeader(String urlp,Map<String,String> header){
     	try {
             HttpGet request = new HttpGet(urlp);
+            if(header!=null){
+            	for(String key:header.keySet()){
+                	request.addHeader(key, header.get(key));
+                }
+            }
             HttpClient httpClient = HttpClients.createDefault();
             HttpResponse response = httpClient.execute(request);
             String result = "远程连接返回值不为200";
@@ -98,4 +110,20 @@ public class HttpClientUtils {
 			throw new HttpMessageConversionException(e.getMessage());
 		}
     }
+    
+    public static void main(String[] args) {
+    	Map<String,String> map = new HashMap<String,String>();
+    	map.put("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36");
+        for(int i=0;i<10;i++){
+        	try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        	JSONObject result = HttpClientUtils.sendGetWithHeader("http://ip.taobao.com/service/getIpInfo.php?ip=182.61.33.10"+i,map);
+        	System.out.println("182.61.33.10"+i);
+        	System.out.println(JSON.toJSONString(result));
+    	}
+	}
 }

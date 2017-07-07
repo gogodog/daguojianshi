@@ -102,11 +102,6 @@ public class ShowController {
 		Articlescrap articlescrap=articlescrapService.selectById(id);
 		mv.addObject("articlescrap", articlescrap);
 		mv.addObject("imageContextPath", pictureService.getImageContextPath());
-		PageInfoDto<Comments> pageinfo=commentsService.getCommentsByArticlescrapId(id, 1, Constants.DEFAULT_ONEPAGESIZE, false);
-		//加载最新评论文章
-		List<Articlescrap> commentsArticlescrapList=articlescrapService.getArticlescrapByComments(2);
-		mv.addObject("commentsArticlescrapList", commentsArticlescrapList);
-		mv.addObject("commentsPageinfo", pageinfo);
 		//文章阅读量
 		mv.addObject("pagedocids",id);
 		Map<String,Integer> map=dataSerivce.getDocShowCounts(String.valueOf(id));
@@ -115,8 +110,24 @@ public class ShowController {
 		mv.addObject("types", Articlescrap_Type.values());
 		//加载评判枚举
 		mv.addObject("judgeLevels", Judge_Level.values());
+		//加载最新评论文章
+		List<Articlescrap> commentsArticlescrapList=articlescrapService.getArticlescrapByComments(2);
+		mv.addObject("commentsArticlescrapList", commentsArticlescrapList);
+		//首页访问量
+		int indexVisitCount = dataSerivce.getPageTotalVisits("10336266");
+		mv.addObject("indexVisitCount",indexVisitCount);
 		return mv;
     }
+	
+	@ResponseBody
+	@RequestMapping(value = "/getComments")
+	public BaseView getComments(String id,Integer currentPage){
+		BaseView view=new BaseView();
+		//加载评论
+		PageInfoDto<Comments> pageinfo=commentsService.getCommentsByArticlescrapId(id, currentPage, Constants.DEFAULT_ONEPAGESIZE, false);
+		view.setObjects(pageinfo.getObjects());
+		return view;
+	}
 	
 	@RequestMapping(value="/saveComments",method=RequestMethod.POST)
 	public ModelAndView saveComments(Comments comments,HttpServletRequest request){

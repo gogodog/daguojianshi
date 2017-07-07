@@ -2,6 +2,8 @@ package com.dgjs.model.persistence;
 
 import java.util.Date;
 
+import com.dgjs.utils.DateUtils;
+
 public class Comments{ 
 
        private String id; //id
@@ -54,6 +56,9 @@ public class Comments{
 	}
 	public Date getComment_time() {
 		return comment_time;
+	}
+	public String getFormatComment_time() {
+		return DateUtils.parseStringFromDate(comment_time);
 	}
 	public void setComment_time(Date comment_time) {
 		this.comment_time = comment_time;

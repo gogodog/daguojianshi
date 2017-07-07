@@ -106,12 +106,7 @@
     		  data:JSON.stringify(r),
     		  contentType:"application/json",
     		  success:function(result){ 
-//    		      console.log(JSON.stringify(msg));
-    			  //首页访问量
-    			  var indexVisitCount = result.indexVisitCount;
-    			  if(typeof(indexVisitCount) != "undefined" && indexVisitCount!=null){
-    				  document.getElementById("sitetime").innerHTML=indexVisitCount;
-	    		  }
+    		      console.log(JSON.stringify(msg));
     		  }
     		})
     }

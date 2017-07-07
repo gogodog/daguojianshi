@@ -12,23 +12,18 @@ import javax.servlet.http.HttpServletResponse;
 import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
-import com.dgjs.constants.Constants;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.enums.Ad_Position;
 import com.dgjs.model.enums.Articlescrap_Type;
-import com.dgjs.model.enums.Judge_Level;
 import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.persistence.Advertisement;
 import com.dgjs.model.persistence.Carousel;
-import com.dgjs.model.persistence.Comments;
 import com.dgjs.model.persistence.condition.AdvertisementCondtion;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 import com.dgjs.service.ad.AdvertisementService;
@@ -38,7 +33,6 @@ import com.dgjs.service.content.ArticlescrapService;
 import com.dgjs.service.content.CarouselService;
 import com.dgjs.service.content.CommentsService;
 import com.dgjs.service.content.RecommedArticlescrapService;
-import com.dgjs.utils.IPUtils;
 
 @Controller
 public class IndexController {
@@ -87,9 +81,6 @@ public class IndexController {
 		PageInfoDto<Advertisement> adBelowPageInfo=advertisementService.listAdvertisement(advertisementCondtion);
 		List<Advertisement> adBelowList=adBelowPageInfo.getObjects();
 		mv.addObject("adBelowList", adBelowList);
-		//加载最新评论文章
-		List<Articlescrap> commentsArticlescrapList=articlescrapService.getArticlescrapByComments(2);
-		mv.addObject("commentsArticlescrapList", commentsArticlescrapList);
 		//加载分类
 		mv.addObject("types", Articlescrap_Type.values());
 		//加载页面类型
@@ -102,7 +93,13 @@ public class IndexController {
 		totalAd.addAll(adMiddleList);
 		totalAd.addAll(adBelowList);
 		String pageadids=advertisementService.getDadianAdvertisementIds(totalAd);
-		mv.addObject("pageadids", pageadids);
+		mv.addObject("pageadids", pageadids); 
+		//加载最新评论文章
+		List<Articlescrap> commentsArticlescrapList=articlescrapService.getArticlescrapByComments(2);
+		mv.addObject("commentsArticlescrapList", commentsArticlescrapList);
+		//首页访问量
+	    int indexVisitCount = dataSerivce.getPageTotalVisits("10336266");
+	    mv.addObject("indexVisitCount",indexVisitCount);
 		return mv;
     }
 	

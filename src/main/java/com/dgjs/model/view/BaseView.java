@@ -7,6 +7,7 @@ public class BaseView {
 	private boolean isError=false;
 	private String errorCode;
 	private String errorMessage;
+	private Object objects;
 	
 	public boolean isError() {
 		return isError;
@@ -27,7 +28,12 @@ public class BaseView {
 	public void setErrorMessage(String errorMessage) {
 		this.errorMessage = errorMessage;
 	}
-	
+	public Object getObjects() {
+		return objects;
+	}
+	public void setObjects(Object objects) {
+		this.objects = objects;
+	}
 	public void setBaseViewValue(String errorCode,String errorMessage){
 		this.isError=true;
 		this.errorCode=errorCode;

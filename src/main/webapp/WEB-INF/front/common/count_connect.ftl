@@ -6,7 +6,7 @@
         <div class="tab-content">
           <div role="tabpanel" class="tab-pane contact active" id="notice">
               <h2>首页访问量:</h2>
-              <h2><span id="sitetime"></span></h2>
+              <h2><span id="sitetime">${indexVisitCount}</span></h2>
           </div>
             <div role="tabpanel" class="tab-pane contact" id="contact">
               <h2>Email:

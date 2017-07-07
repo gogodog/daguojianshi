@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.dgjs.constants.Session_Keys;
 import com.dgjs.job.DadianThread;
 import com.dgjs.mapper.common.DadianMapper;
 import com.dgjs.model.persistence.result.PagedocidsCountResult;
@@ -43,22 +44,22 @@ public class DataServiceImpl implements DataService{
 		dadianView.setMac(mac.getMac());
 		dadianView.setIp(ip);
 		HttpSession session = request.getSession();
-		Object ipsObject = session.getAttribute("ips");
-		IpHttpResponse.IpAliData ips =null;
+		Object ipsObject = session.getAttribute(Session_Keys.ip_location);
+		IpHttpResponse.IpAliData location =null;
 		if(ipsObject!=null){
-			ips = (IpAliData) session.getAttribute("ips");
+			location = (IpAliData) ipsObject;
 		}else{
-			ips = this.getLocalAliAdressByIp(ip);
-			if(ips == null){
+			location = this.getLocalAliAdressByIp(ip);
+			if(location == null){
 				dadianView.setNote("ip获取地理位置失败");
 			}else{
-				session.setAttribute("ips", ips);
+				session.setAttribute(Session_Keys.ip_location, location);
 			}
 		}
-		if(ips!=null){
-			dadianView.setIpcity(ips.getCity());
-			dadianView.setIpprovince(ips.getRegion());
-			dadianView.setIpcountry(ips.getCountry());
+		if(location!=null){
+			dadianView.setIpcity(location.getCity());
+			dadianView.setIpprovince(location.getRegion());
+			dadianView.setIpcountry(location.getCountry());
 		}
 		log.info("插入打点数据：" + JSON.toJSONString(dadianView));
 		boolean isSuccess=DadianThread.QUEUE.offer(dadianView);
@@ -93,7 +94,9 @@ public class DataServiceImpl implements DataService{
 
 	@Override
 	public IpAliData getLocalAliAdressByIp(String ip) {
-		JSONObject result = HttpClientUtils.sendGet("http://ip.taobao.com/service/getIpInfo.php?ip=121.79.134.34");
+		Map<String,String> header = new HashMap<String,String>();
+		header.put("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36");
+		JSONObject result = HttpClientUtils.sendGetWithHeader("http://ip.taobao.com/service/getIpInfo.php?ip"+ip,header);
 		if(result == null){
 			return null;
 		}else{
