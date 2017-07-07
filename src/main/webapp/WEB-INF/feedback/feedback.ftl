@@ -45,7 +45,7 @@
 		</form>
 		<h5 style="font-size: smaller;color: #abb7b8;padding-top: 1em;">
 			<p>感谢您对当代史资料库的支持！</p>
-			<p>我们相信用户的反馈能让资料库日趋完善，在未来能让更多的人以更有效的获取今天所证实发生的。</p>
+			<p>我们相信用户的反馈能让资料库日趋完善，在未来能让更多的用户以更有效的获取今天所真是发生的。</p>
 		</h5>
 	</div>
 	<p class="footer">&copy; 2016 Feedback Widget. All Rights Reserved | Design by <a href="http://w3layouts.com/"> W3layouts</a></p>

@@ -1,8 +1,5 @@
 package com.dgjs.controller.admin.content;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,16 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.alibaba.fastjson.JSON;
 import com.dgjs.es.mapper.content.ArticlescrapMapper;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Articlescrap;
-import com.dgjs.model.enums.Articlescrap_Type;
-import com.dgjs.model.enums.UpDown_Status;
-import com.dgjs.model.es.ArticlescrapEs;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 import com.dgjs.service.content.ArticlescrapService;
-import com.dgjs.utils.DateUtils;
 
 @Controller
 @RequestMapping("/admin")
