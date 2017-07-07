@@ -1504,7 +1504,7 @@ body,input,button,textarea,select {
 	font-size: 20px;
 	line-height: 40px;
 	margin: 20px 0;
-	font-family: 'TaurusNormal';
+	font-family: '微软雅黑';
 }
 
 .widget-tabs .tab-content .contact a {
@@ -1618,7 +1618,6 @@ body,input,button,textarea,select {
 	font-size: 12px;
 	line-height: 12px;
 	text-align: center;
-	text-transform: uppercase;
 	color: #999;
 	background-color: #FFF;
 	-moz-box-shadow: 0px 0px 2px 0px rgba(0,0,0,.1);
