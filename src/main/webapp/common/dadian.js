@@ -106,7 +106,7 @@
     		  data:JSON.stringify(r),
     		  contentType:"application/json",
     		  success:function(result){ 
-    		      console.log(JSON.stringify(msg));
+    		      console.log(JSON.stringify(result));
     		  }
     		})
     }
