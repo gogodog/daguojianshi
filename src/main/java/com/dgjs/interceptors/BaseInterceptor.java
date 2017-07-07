@@ -21,11 +21,6 @@ public class BaseInterceptor implements HandlerInterceptor{
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
 		request.setAttribute("contextPath", request.getContextPath());
-		if(request.getRequestURI().contains("phpMyAdmin")){
-			String ua = request.getHeader("User-Agent");
-			String ip = IPUtils.getIpAddr3(request);
-			log.error("phpMyAdmin exception,ua=["+JSON.toJSONString(ua)+"],ip=["+ip+"]");
-		}
 		return true;
 	}
 
