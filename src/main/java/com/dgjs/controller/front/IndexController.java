@@ -131,6 +131,7 @@ public class IndexController {
 			Map<String,Integer> map=dataSerivce.getDocShowCounts(articlescrapIds);
 			list.put("visits", map);
 		}
+		list.put("isTypeShow", type==null?true:false);
 		return list;
     }
 	

@@ -23,5 +23,4 @@ public enum RETURN_STATUS {
 	public void setValue(String value) {
 		this.value = value;
 	}
-	
 }

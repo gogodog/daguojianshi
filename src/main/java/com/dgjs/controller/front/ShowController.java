@@ -1,5 +1,6 @@
 package com.dgjs.controller.front;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +35,7 @@ import com.dgjs.service.common.PictureService;
 import com.dgjs.service.content.AJudgeService;
 import com.dgjs.service.content.ArticlescrapService;
 import com.dgjs.service.content.CommentsService;
+import com.dgjs.utils.DateUtils;
 import com.dgjs.utils.IPUtils;
 
 @Controller
@@ -124,16 +126,36 @@ public class ShowController {
 	public BaseView getComments(String id,Integer currentPage){
 		BaseView view=new BaseView();
 		//加载评论
-		PageInfoDto<Comments> pageinfo=commentsService.getCommentsByArticlescrapId(id, currentPage, Constants.DEFAULT_ONEPAGESIZE, false);
+		PageInfoDto<Comments> pageinfo=commentsService.getCommentsByArticlescrapId(id, currentPage, 2, false);
 		view.setObjects(pageinfo.getObjects());
 		return view;
 	}
 	
+	@ResponseBody
 	@RequestMapping(value="/saveComments",method=RequestMethod.POST)
-	public ModelAndView saveComments(Comments comments,HttpServletRequest request){
-		ModelAndView mv = new ModelAndView("redirect:/show/"+comments.getArticlescrap_id());
-		comments.setIp_address(IPUtils.getIpAddr(request));
-		commentsService.save(comments);
+	public BaseView saveComments(Comments comments,HttpServletRequest request){
+		BaseView mv = new BaseView();
+		if(StringUtils.isEmpty(comments.getComment_name())||StringUtils.isEmpty(comments.getComment())){
+			mv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
+		}else if(!StringUtils.isEmpty(comments.getEmail())&&comments.getEmail().length()>255){
+			mv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
+		}else if(comments.getComment_name().length()>255||comments.getComment().length()>1000){
+			mv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
+		}else{
+			try{
+				Date now =new Date();
+				comments.setIp_address(IPUtils.getIpAddr3(request));
+				comments.setComment_time(now);
+				int flag=commentsService.save(comments);
+				if(flag<1){
+					mv.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
+				}
+				mv.setObjects(DateUtils.parseStringFromDate(now));
+			}catch(Exception e){
+				log.error("saveComments exception", e);
+				mv.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
+			}
+		}
 		return mv;
 	}
 }
