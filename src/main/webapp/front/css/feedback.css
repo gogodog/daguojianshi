@@ -121,7 +121,7 @@ p.footer a:hover {
 	-ms-transition:0.5s all;
 }
 
-.main form input[type="submit"] {
+.main form input[type="button"] {
     background: #27bccd;
     color: #FFFFFF;
     text-align: center;

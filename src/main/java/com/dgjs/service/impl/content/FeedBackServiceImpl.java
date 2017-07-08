@@ -3,19 +3,19 @@ package com.dgjs.service.impl.content;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dgjs.mapper.content.AJudgeMapper;
+import com.dgjs.mapper.content.FeedBackMapper;
 import com.dgjs.model.enums.Judge_Level;
-import com.dgjs.model.persistence.AJudge;
-import com.dgjs.service.content.AJudgeService;
+import com.dgjs.model.persistence.FeedBack;
+import com.dgjs.service.content.FeedBackService;
 
 @Service
-public class AJudgeServiceImpl implements AJudgeService{
+public class FeedBackServiceImpl implements FeedBackService{
 
 	@Autowired
-	AJudgeMapper mapper;
+	FeedBackMapper mapper;
 	
 	@Override
-	public int save(AJudge aJudge) {
+	public int save(FeedBack aJudge) {
 		return mapper.save(aJudge);
 	}
 

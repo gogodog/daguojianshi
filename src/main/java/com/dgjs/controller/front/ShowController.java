@@ -27,12 +27,12 @@ import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.Judge_Level;
-import com.dgjs.model.persistence.AJudge;
+import com.dgjs.model.persistence.FeedBack;
 import com.dgjs.model.persistence.Comments;
 import com.dgjs.model.view.BaseView;
 import com.dgjs.service.common.DataService;
 import com.dgjs.service.common.PictureService;
-import com.dgjs.service.content.AJudgeService;
+import com.dgjs.service.content.FeedBackService;
 import com.dgjs.service.content.ArticlescrapService;
 import com.dgjs.service.content.CommentsService;
 import com.dgjs.utils.DateUtils;
@@ -44,8 +44,6 @@ public class ShowController {
 	private Log log = LogFactory.getLog(RecommedArticlescrapController.class);
 	
 	@Autowired
-	AJudgeService aJudgeService;
-	@Autowired
 	ArticlescrapService articlescrapService;
 	@Autowired
 	CommentsService commentsService;
@@ -54,49 +52,6 @@ public class ShowController {
 	@Autowired
 	DataService dataSerivce;
 
-	@ResponseBody
-	@RequestMapping(value = "/judge")
-	public BaseView ajaxJudge(HttpServletRequest request,String aid,Judge_Level level,String message){
-		BaseView view=new BaseView();
-		if(StringUtils.isEmpty(aid)||level==null||(message!=null&&message.length()>255)){
-			view.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
-			return view;
-		}
-		try{
-			Articlescrap articlescrap=articlescrapService.selectById(aid);
-			if(articlescrap==null){
-				view.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
-				return view;
-			}
-			HttpSession session=request.getSession();
-			Object judgeFlag=session.getAttribute(aid);
-			Object ip=session.getAttribute(Session_Keys.ip);
-			//说明没有评价过
-			if(judgeFlag==null){
-				AJudge aJudge = new AJudge();
-				aJudge.setArticlescrap_id(aid);
-				aJudge.setJudge_level(level);
-				aJudge.setJudge_message(StringUtils.isEmpty(message)?null:message);
-				if(ip!=null){
-					aJudge.setIp(ip.toString());
-				}else{
-					aJudge.setIp(IPUtils.getIpAddr3(request));
-				}
-				session.setAttribute(aid, (byte)1);
-				session.setAttribute(Session_Keys.ip, aJudge.getIp());
-				int flag=aJudgeService.save(aJudge);
-				if(flag < 1){
-					view.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
-				}
-			}else{
-				view.setBaseViewValue(RETURN_STATUS.SERVICE_ERROR);//已经评价过
-			}
-		}catch(Exception e){
-			log.error("SERVICE_ERROR", e);
-			view.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
-		}
-	    return view;
-	}
 	
 	@RequestMapping("/show/{id}")
     public ModelAndView show(@PathVariable("id") String id, HttpServletRequest request, HttpServletResponse response) throws Exception {  

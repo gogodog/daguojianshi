@@ -4,14 +4,19 @@ import java.util.Date;
 
 import com.dgjs.model.enums.Judge_Level;
 
-public class AJudge {
+public class FeedBack {
 
 	private Long id;//id
 	private String articlescrap_id;//文章id
-	private Judge_Level judge_level;//文章评判级别
 	private String ip;//ip地址
 	private Date create_time;//创建时间
-	private String judge_message;//只有不真实
+	private Judge_Level judge_level;//文章评判级别
+	private String judge_message;//评论内容
+	
+	private String uname;//用户姓名
+	private String email;//邮箱
+	private Integer doubt_level;//疑问程度（当judge_level是DOUBT时有）
+	
 	public Long getId() {
 		return id;
 	}
@@ -48,5 +53,23 @@ public class AJudge {
 	public void setJudge_message(String judge_message) {
 		this.judge_message = judge_message;
 	}
-	
+	public String getUname() {
+		return uname;
+	}
+	public void setUname(String uname) {
+		this.uname = uname;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public Integer getDoubt_level() {
+		return doubt_level;
+	}
+	public void setDoubt_level(Integer doubt_level) {
+		this.doubt_level = doubt_level;
+	}
+    	
 }

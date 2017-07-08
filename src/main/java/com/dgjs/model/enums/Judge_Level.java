@@ -2,8 +2,6 @@ package com.dgjs.model.enums;
 
 public enum Judge_Level {
 
-	REAL(10,"真实"),
-	
 	DOUBT(20,"有疑问"),
 	
 	UNREAL(30,"不真实");
@@ -35,8 +33,6 @@ public enum Judge_Level {
     
 	public static Judge_Level valueOf(int key){
 		switch (key) {
-		case 10:
-			return REAL;
 		case 20:
 			return DOUBT;
 		case 30:

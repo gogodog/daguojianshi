@@ -16,11 +16,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.enums.Articlescrap_Type;
-import com.dgjs.model.enums.Judge_Level;
 import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 import com.dgjs.service.common.PictureService;
-import com.dgjs.service.content.AJudgeService;
+import com.dgjs.service.content.FeedBackService;
 import com.dgjs.service.content.ArticlescrapService;
 import com.dgjs.utils.DateUtils;
 
@@ -35,7 +34,7 @@ public class ArticlescrapController {
 	PictureService pictureService;
 	
 	@Autowired
-	AJudgeService aJudgeService;
+	FeedBackService aJudgeService;
 	
 	@RequestMapping("/articlescrapList")
     public ModelAndView articlescrapList(HttpServletRequest request, HttpServletResponse response,ArticlescrapCondtion condtion) throws Exception {  
@@ -61,11 +60,6 @@ public class ArticlescrapController {
 			mv.addObject("articlescrap", articlescrap);
 		}
 		mv.addObject("types", Articlescrap_Type.values());
-		StringBuilder str = new StringBuilder();
-		for(Judge_Level jl:Judge_Level.values()){
-			str.append(jl.getValue()+":"+aJudgeService.getLevelCount(articlescrapId, jl)+"   ");
-		}
-		mv.addObject("judge", str.toString());
 		return mv;  
 	}
 	
