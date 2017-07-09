@@ -31,7 +31,7 @@ public class FeedBackController {
 	private Log log = LogFactory.getLog(FeedBackController.class);
 	
 	@Autowired
-	FeedBackService aJudgeService;
+	FeedBackService feedBackService;
 	
 	@Autowired
 	ArticlescrapService articlescrapService;
@@ -72,7 +72,7 @@ public class FeedBackController {
 					aJudge.setIp(IPUtils.getIpAddr3(request));
 				}
 				session.setAttribute(Session_Keys.ip, aJudge.getIp());
-				int flag=aJudgeService.save(aJudge);
+				int flag=feedBackService.save(aJudge);
 				if(flag < 1){
 					view.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
 				}else{

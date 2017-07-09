@@ -32,4 +32,35 @@
 	    <if test="judge_level!=null">and judge_level=#{judge_level}</if>
 	</select>
 	
+	<select id="listFeedBack" resultType="feedBack">
+	    select 
+	           id,
+	           articlescrap_id,
+	           ip,
+	           judge_level,
+	           judge_message,
+	           uname,
+	           email,
+	           doubt_level,
+	           create_time
+	    from feedback 
+      <where>
+         <if test="articlescrap_id!=null and articlescrap_id!=''">and articlescrap_id=#{articlescrap_id}</if>
+         <if test="timeFrom!=null"> <![CDATA[ and create_time >= #{timeFrom} ]]></if>
+         <if test="timeTo!=null"> <![CDATA[ and create_time <= #{timeTo} ]]></if>
+      </where>
+      order by create_time desc
+	  limit #{beginNum},#{onePageSize}
+	</select>
+	
+	<select id="countFeedBack" resultType="int">
+	    select count(1)
+	    from feedback 
+      <where>
+         <if test="articlescrap_id!=null and articlescrap_id!=''">and articlescrap_id=#{articlescrap_id}</if>
+         <if test="timeFrom!=null"> <![CDATA[ and create_time >= #{timeFrom} ]]></if>
+         <if test="timeTo!=null"> <![CDATA[ and create_time <= #{timeTo} ]]></if>
+      </where>
+	</select>
+	
 </mapper>
