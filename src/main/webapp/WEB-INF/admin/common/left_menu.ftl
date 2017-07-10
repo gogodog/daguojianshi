@@ -20,7 +20,7 @@
 				    <a href="javascript:;">广告管理</a>
 				    <div class="ifame-item-sub">
 					    <ul>
-					        <li class="active"><a href="${contextPath}/admin/adList" target="content">广告内容管理</a></li>
+					        <li class="active"><a href="${contextPath}/admin/ad/adList" target="content">广告内容管理</a></li>
 					    </ul>
 				    </div>
 			    </li>

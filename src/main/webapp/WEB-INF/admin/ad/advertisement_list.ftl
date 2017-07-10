@@ -53,7 +53,7 @@
 					     <td>${advertisement.update_time?datetime}</td>
 					     <td>
 					     	<div class="table-fun">
-					     		<a href="${contextPath}/admin/ad?adId=${advertisement.id}">修改</a>
+					     		<a href="${contextPath}/admin/ad/ad?adId=${advertisement.id}">修改</a>
 					     		<a href="javascript:void(0)" onclick="deleteAdvertisement(${advertisement.id});">删除</a>
 					     	</div>
 					     </td>
