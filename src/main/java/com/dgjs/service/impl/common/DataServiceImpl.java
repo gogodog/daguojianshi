@@ -96,7 +96,7 @@ public class DataServiceImpl implements DataService{
 	public IpAliData getLocalAliAdressByIp(String ip) {
 		Map<String,String> header = new HashMap<String,String>();
 		header.put("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36");
-		JSONObject result = HttpClientUtils.sendGetWithHeader("http://ip.taobao.com/service/getIpInfo.php?ip"+ip,header);
+		JSONObject result = HttpClientUtils.sendGetWithHeader("http://ip.taobao.com/service/getIpInfo.php?ip="+ip,header);
 		if(result == null){
 			return null;
 		}else{
