@@ -15,6 +15,7 @@
           </div>
         </form>
         <ul class="nav navbar-nav navbar-right">
+          <li><a data-cont="大国简史" title="大国简史" href="${contextPath}/index">首页</a></li>
           <#list types as type>
             <li><a data-cont="大国简史" title="大国简史" href="${contextPath}/index?type=${type}">${type.value}</a></li>
           </#list>
