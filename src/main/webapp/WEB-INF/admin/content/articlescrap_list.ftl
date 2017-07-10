@@ -11,7 +11,7 @@
 			<div class="public-content-header">
 			<h3 style="display: inline-block;">文章列表</h3>
 				<div class="public-content-right fr">
-				  <a href="${contextPath}/admin/articlescrap" 
+				  <a href="${contextPath}/admin/atcp/articlescrap" 
 				     style="height: 24px; width: 70px;border: 1px solid #ccc;font-size: 12px;text-align:center">添加文章</a>
 			    </div>
 			</div>
