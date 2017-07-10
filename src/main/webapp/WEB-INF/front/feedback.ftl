@@ -40,7 +40,7 @@
 			    <label for="rating1">1</label>
 			</span>
 		<form>	
-			<h5>如果您有什么问题请如下填写</h5>	
+			<h5>相关问题备注</h5>	
 				<textarea name="judge_message" id="judge_message" onkeyup="if(value.length>255) value=value.substr(0,255)" required=""></textarea>
 				<input type="button" value="填写完毕" onclick="judge();">
 		</form>

@@ -134,6 +134,7 @@ p.footer a:hover {
     cursor: pointer;
     margin-bottom: 0px;
 	text-transform:capitalize;
+	-webkit-appearance:none;
 
 }
 .main form input[type="submit"]:hover{
