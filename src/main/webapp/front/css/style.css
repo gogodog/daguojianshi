@@ -688,14 +688,14 @@ body,input,button,textarea,select {
 }
 
 .excerpt .cat {
-	color: #FFF;
-	background-color: #3399CC;
-	padding: 3px 6px;
 	font-size: 12px;
 	display: inline-block;
 	position: relative;
 	top: -2px;
 	margin-right: 6px;
+	padding-left: 3px;
+    padding-right: 3px;
+    border: solid 1px;
 }
 
 .excerpt .cat:hover {
@@ -2149,10 +2149,7 @@ body,input,button,textarea,select {
 		padding: 5px 15px;
 	}
 	.excerpt .cat {
-	    color: #FFF;
-	    background-color: #3399CC;
-	    padding: 1px 3px;
-	    font-size: 8px;
+	    font-size: 6px;
 	}
 
 	.cat-ebox li {
@@ -2163,7 +2160,6 @@ body,input,button,textarea,select {
 	.cat-ebox li:first-child {
 		border-bottom: 2px solid #eaeaea;
 	}
-
 	.cat-posts li a {
 		height: 170px;
 	}
