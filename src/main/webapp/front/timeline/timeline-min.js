@@ -1395,8 +1395,8 @@ typeof VMM != "undefined" && typeof VMM.Slider == "undefined" && (VMM.Slider = f
         w.prevBtnContainer = VMM.appendAndGetElement(w.prevBtn, "<div>", "nav-container", a),
         o.timeline && (w.nextDate = VMM.appendAndGetElement(w.nextBtnContainer, "<div>", "date", "1957"),
         w.prevDate = VMM.appendAndGetElement(w.prevBtnContainer, "<div>", "date", "1957")),
-        w.nextTitle = VMM.appendAndGetElement(w.nextBtnContainer, "<div>", "title", "Title Goes Here"),
-        w.prevTitle = VMM.appendAndGetElement(w.prevBtnContainer, "<div>", "title", "Title Goes Here"),
+        //w.nextTitle = VMM.appendAndGetElement(w.nextBtnContainer, "<div>", "title", "Title Goes Here"),
+        //w.prevTitle = VMM.appendAndGetElement(w.prevBtnContainer, "<div>", "title", "Title Goes Here"),
         VMM.bindEvent(".nav-next", A),
         VMM.bindEvent(".nav-previous", B)
     }
@@ -2590,7 +2590,8 @@ VMM.Timeline.TimeNav = function(a, b, c) {
         D = VMM.appendAndGetElement(H, "<div>", "toolbar"),
         r.has_start_page && ($backhome = VMM.appendAndGetElement(D, "<div>", "back-home", "<div class='icon'></div>"),
         VMM.bindEvent(".back-home", N, "click"),
-        VMM.Element.css(D, "top", 27)),
+        VMM.Element.css(D, "top", 27),
+        VMM.Element.css(D, "background", "#444")),
         E = VMM.appendAndGetElement(D, "<div>", "zoom-in", "<div class='icon'></div>"),
         F = VMM.appendAndGetElement(D, "<div>", "zoom-out", "<div class='icon'></div>"),
         VMM.Element.attribute($backhome, "title", "Return to Title"),

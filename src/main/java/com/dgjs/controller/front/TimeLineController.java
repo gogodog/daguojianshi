@@ -26,6 +26,8 @@ public class TimeLineController {
 	@RequestMapping("/timeline")
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response,Articlescrap_Type type,String keyword) throws Exception {  
 		ModelAndView mv = new ModelAndView("front/timeline");
+		//加载分类
+		mv.addObject("types", Articlescrap_Type.values());
 		return mv;
     }
 	
@@ -46,21 +48,8 @@ public class TimeLineController {
 			ast.setCredit("大清复明大清复明大清复明大清复明大清复明");
 			ast.setMedia("http://www.cwillow.com/images/editor/p1/20170614040110908618.jpg");
 			dt.setAsset(one);
-			dt.setHeadline("'The Grammys - "+i+"fdsfsfdsaf'");
-			dt.setStartDate("200"+i);
-			dt.setText("【大国简史】第"+i+"次text测试");
-			dts.add(dt);
-		}
-		
-		for(int i = 0 ; i< 10 ; i++){
-			Dat dt = new Dat();
-			Asset one = new Asset();
-			ast.setCaption("大清复明");
-			ast.setCredit("大清复明大清复明大清复明大清复明大清复明");
-			ast.setMedia("http://www.cwillow.com/images/editor/p1/20170614040110908618.jpg");
-			dt.setAsset(one);
 			dt.setHeadline("'The XXmmys - "+i+"fdsafdsafdsafdsafdsafdsafdsa'");
-			dt.setStartDate("200"+i);
+			dt.setStartDate("201"+i);
 			dt.setText("【大国简史】第"+i+"次text测试");
 			dts.add(dt);
 		}
@@ -73,7 +62,7 @@ public class TimeLineController {
 			ast.setMedia("http://www.cwillow.com/images/editor/p1/20170614040110908618.jpg");
 			dt.setAsset(one);
 			dt.setHeadline("'The TTammys - "+i+"fdsafdsafdsafdsa'");
-			dt.setStartDate("200"+i);
+			dt.setStartDate("203"+i);
 			dt.setText("【大国简史】第"+i+"次text测试");
 			dts.add(dt);
 		}
@@ -83,10 +72,10 @@ public class TimeLineController {
 			Asset one = new Asset();
 			ast.setCaption("大清复明");
 			ast.setCredit("大清复明大清复明大清复明大清复明大清复明");
-			ast.setMedia("http://www.cwillow.com/images/editor/p1/20170614040110908618.jpg");
+			ast.setMedia("http://www.youtubi.com/images/editor/p1/20170614040110908618.jpg");
 			dt.setAsset(one);
 			dt.setHeadline("'The YYmmys - "+i+"'");
-			dt.setStartDate("200"+i);
+			dt.setStartDate("204"+i);
 			dt.setText("【大国简史】第"+i+"次text测试");
 			dts.add(dt);
 		}
