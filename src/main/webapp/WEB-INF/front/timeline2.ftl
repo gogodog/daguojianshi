@@ -23,8 +23,9 @@
     </style>
     <!-- HTML5 shim, for IE6-8 support of HTML elements--><!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-
-    <script type="text/javascript" src="/front/timelinef/jquery-min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/front/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/front/css/style.css">
+    <script src="/front/js/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="/front/timelinef/storyjs-embed.js"></script>
     <script>
       $(document).ready(function() {
@@ -43,7 +44,11 @@
       });
     </script>
   </head>
-  <body><div id="timeline"></div></body>
+  <body>
+  	<#include "/front/common/header.ftl">
+  	<div id="timeline"></div>
+  	<#include "/front/common/footer_static.ftl">
+  </body>
 </html>
 
 
