@@ -25,7 +25,7 @@ public class TimeLineController {
 	
 	@RequestMapping("/timeline")
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response,Articlescrap_Type type,String keyword) throws Exception {  
-		ModelAndView mv = new ModelAndView("front/timeline");
+		ModelAndView mv = new ModelAndView("front/timeline2");
 		//加载分类
 		mv.addObject("types", Articlescrap_Type.values());
 		return mv;
@@ -44,11 +44,50 @@ public class TimeLineController {
 		for(int i = 0 ; i< 10 ; i++){
 			Dat dt = new Dat();
 			Asset one = new Asset();
-			ast.setCaption("大清复明");
+			ast.setCaption("大清复明1");
+			ast.setCredit("大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明");
+			ast.setMedia("http://www.cwillow.com/images/editor/p1/20170614040110908618.jpg");
+			dt.setAsset(one);
+			dt.setHeadline("'The XX4mmys - "+i+"fdsafdsafdsafdsafdsafdsafdsa'");
+			dt.setStartDate("201"+i);
+			dt.setText("【大国简史】第"+i+"次text测试");
+			dts.add(dt);
+		}
+		
+		for(int i = 0 ; i< 10 ; i++){
+			Dat dt = new Dat();
+			Asset one = new Asset();
+			ast.setCaption("大清复明2");
 			ast.setCredit("大清复明大清复明大清复明大清复明大清复明");
 			ast.setMedia("http://www.cwillow.com/images/editor/p1/20170614040110908618.jpg");
 			dt.setAsset(one);
-			dt.setHeadline("'The XXmmys - "+i+"fdsafdsafdsafdsafdsafdsafdsa'");
+			dt.setHeadline("'The XX3mmys - "+i+"fdsafdsafdsafdsafdsafdsafdsa'");
+			dt.setStartDate("201"+i);
+			dt.setText("【大国简史】第"+i+"次text测试");
+			dts.add(dt);
+		}
+		
+		for(int i = 0 ; i< 10 ; i++){
+			Dat dt = new Dat();
+			Asset one = new Asset();
+			ast.setCaption("大清复明3");
+			ast.setCredit("大清复明大清复明大清复明大清复明大清复明");
+			ast.setMedia("http://www.cwillow.com/images/editor/p1/20170614040110908618.jpg");
+			dt.setAsset(one);
+			dt.setHeadline("'The XX1mmys - "+i+"fdsafdsafdsafdsafdsafdsafdsa'");
+			dt.setStartDate("201"+i);
+			dt.setText("【大国简史】第"+i+"次text测试");
+			dts.add(dt);
+		}
+		
+		for(int i = 0 ; i< 10 ; i++){
+			Dat dt = new Dat();
+			Asset one = new Asset();
+			ast.setCaption("大清复明4");
+			ast.setCredit("大清复明大清复明大清复明大清复明大清复明");
+			ast.setMedia("http://www.cwillow.com/images/editor/p1/20170614040110908618.jpg");
+			dt.setAsset(one);
+			dt.setHeadline("'The XX2mmys - "+i+"fdsafdsafdsafdsafdsafdsafdsa'");
 			dt.setStartDate("201"+i);
 			dt.setText("【大国简史】第"+i+"次text测试");
 			dts.add(dt);
@@ -58,12 +97,12 @@ public class TimeLineController {
 			Dat dt = new Dat();
 			Asset one = new Asset();
 			ast.setCaption("大清复明");
-			ast.setCredit("大清复明大清复明大清复明大清复明大清复明");
+			ast.setCredit("大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明");
 			ast.setMedia("http://www.cwillow.com/images/editor/p1/20170614040110908618.jpg");
 			dt.setAsset(one);
 			dt.setHeadline("'The TTammys - "+i+"fdsafdsafdsafdsa'");
 			dt.setStartDate("203"+i);
-			dt.setText("【大国简史】第"+i+"次text测试");
+			dt.setText("【大国简史】第"+i+"次text测试大清复明大清复明大清复明大清复明大清复明大清复明大清复明大明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大<a>明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清</a>复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明大清复明");
 			dts.add(dt);
 		}
 		
@@ -90,6 +129,7 @@ public class TimeLineController {
 		TimelineView tv = new TimelineView();
 		tv.setTimeline(timeline);
 		response.setCharacterEncoding("utf-8");
+		response.setContentType("application/json; charset=utf-8"); 
 		PrintWriter pw = null;
 		try {
 			pw = response.getWriter();
