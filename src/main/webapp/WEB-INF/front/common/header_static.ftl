@@ -9,8 +9,8 @@
     <link rel="stylesheet" type="text/css" href="${contextPath}/front/css/nprogress.css">
     <link rel="stylesheet" type="text/css" href="${contextPath}/front/css/style.css">
     <link rel="stylesheet" type="text/css" href="${contextPath}/front/css/font-awesome.min.css">
-    <link rel="apple-touch-icon-precomposed" href="${contextPath}/front/images/red32.ico">
-    <link rel="shortcut icon" href="${contextPath}/front/images/red32.ico">
+    <link rel="apple-touch-icon-precomposed" href="${contextPath}/front/images/favico.ico">
+    <link rel="shortcut icon" href="${contextPath}/front/images/favico.ico">
     <script src="${contextPath}/front/js/jquery-2.1.4.min.js"></script>
     <script src="${contextPath}/front/js/jquery.lazyload.min.js"></script>
     <!--[if gte IE 9]>

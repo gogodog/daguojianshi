@@ -124,7 +124,13 @@ body,input,button,textarea,select {
 	margin-bottom: 10px;
 	overflow: hidden;
 }
-
+.titlelog{
+	font-size: 30px;
+}
+.titlelog img {
+	margin-right: 20px;
+	width:20%;
+}
 .title h3,.pagetitle h1,.pagetitle h2 {
 	font-size: 20px;
 	margin: 0;
@@ -192,6 +198,15 @@ body,input,button,textarea,select {
 @media (min-width:992px) {
 	.container {
 		width: auto;
+	}
+}
+
+@media (max-width:880px) {
+	.titlelog {
+		font-size: 20px;
+	}
+	.titlelog img {
+		margin-right: 10px;
 	}
 }
 
@@ -642,7 +657,7 @@ body,input,button,textarea,select {
 .excerpt {
 	clear: both;
 	border: 1px solid #EAEAEA;
-	padding: 20px 20px 20px 255px;
+	padding: 10px 20px 10px 245px;
 	overflow: hidden;
 	background-color: #fff;
 	margin-bottom: -1px;
@@ -768,6 +783,8 @@ body,input,button,textarea,select {
 	word-wrap: break-word;
 	line-height: 20px;
 	cursor: default;
+	height: 100px;
+    overflow: hidden;
 }
 
 .pagination {
@@ -1799,12 +1816,13 @@ body,input,button,textarea,select {
 	}
 
 	.excerpt {
-		padding: 10px 10px 10px 180px;
+		padding: 10px 180px 10px 8px;
 	}
 
 	.excerpt .focus {
 		width: 160px;
-		margin-left: -170px;
+		margin-right: -170px;
+		float: right;
 	}
 
 	.excerpt .thumb {
@@ -2075,12 +2093,13 @@ body,input,button,textarea,select {
 	}
 
 	.excerpt {
-		padding: 10px 10px 10px 120px;
+		padding: 10px 120px 10px 7px;
 	}
 
 	.excerpt .focus {
 		width: 100px;
-		margin-left: -110px;
+		margin-right: -110px;
+		float:right;
 	}
 
 	.excerpt .thumb {

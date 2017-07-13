@@ -2591,7 +2591,7 @@ VMM.Timeline.TimeNav = function(a, b, c) {
         r.has_start_page && ($backhome = VMM.appendAndGetElement(D, "<div>", "back-home", "<div class='icon'></div>"),
         VMM.bindEvent(".back-home", N, "click"),
         VMM.Element.css(D, "top", 27),
-        VMM.Element.css(D, "background", "#444")),
+        VMM.Element.css(D, "background", "darkgrey")),
         E = VMM.appendAndGetElement(D, "<div>", "zoom-in", "<div class='icon'></div>"),
         F = VMM.appendAndGetElement(D, "<div>", "zoom-out", "<div class='icon'></div>"),
         VMM.Element.attribute($backhome, "title", "Return to Title"),
