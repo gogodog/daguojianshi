@@ -30,16 +30,16 @@
     <script>
       $(document).ready(function() {
         $.get('/getstroies.json',function(result){
-        	console.log(JSON.stringify(result));
+        	//console.log(JSON.stringify(result));
+        	var h = $(document).outerHeight(true) - 60 - 20;
             createStoryJS({
                 type:   'timeline',
                 width:    '100%',
-                height:   '600',
+                height:   h,
                 source:   result,
                 embed_id: 'timeline',
-                debug:    true
+                debug:    false
             });
-
         });
       });
     </script>

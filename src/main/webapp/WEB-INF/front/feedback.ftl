@@ -20,9 +20,8 @@
 			<div class="radio-btns">
 					<div class="swit">		
 					    <#list judgeLevels as level>
-					        <div class="check_box"> <div class="radio"><label><input type="radio" name="levels" value="${level}" <#if level=='DOUBT'>checked</#if> ><i></i>${level.value}</label></div></div>
+					        <div class="check_box"> <div class="radio"><label><input type="radio" name="levels" value="${level}" <#if level=='DOUBT'>checked</#if>><i></i>${level.value}</label></div></div>
 					    </#list>
-						
 						<div class="clear"></div>
 					</div>
 			</div>
