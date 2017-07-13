@@ -40,7 +40,7 @@
             });
 
         });
-      });    
+      });
     </script>
   </head>
   <body><div id="timeline"></div></body>
