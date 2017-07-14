@@ -2,12 +2,7 @@
 <html lang="en">
 
   <head>
-    <title>30 Technology in 30 Days Timeline</title>
-    <meta charset="utf-8">
-    <meta name="description" content="30 Technology in 30 Days Timeline">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-touch-fullscreen" content="yes">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <#include "/front/common/header_static.ftl">
     <!-- Style-->
     <style>
       <style>
@@ -21,29 +16,30 @@
 		    height: 100%;
 		}
     </style>
-    <!-- HTML5 shim, for IE6-8 support of HTML elements--><!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-
-    <script type="text/javascript" src="/front/timelinef/jquery-min.js"></script>
     <script type="text/javascript" src="/front/timelinef/storyjs-embed.js"></script>
     <script>
       $(document).ready(function() {
         $.get('/getstroies.json',function(result){
-        	console.log(JSON.stringify(result));
+        	//console.log(JSON.stringify(result));
+        	var h = $(document).outerHeight(true) - 60 - 20;
             createStoryJS({
                 type:   'timeline',
                 width:    '100%',
-                height:   '600',
+                height:   h,
                 source:   result,
                 embed_id: 'timeline',
-                debug:    true
+                debug:    false
             });
-
         });
-      });    
+      });
     </script>
   </head>
-  <body><div id="timeline"></div></body>
+  <body>
+  	<#assign page_name='timeline'>
+  	<#include "/front/common/header.ftl">
+  	<div id="timeline"></div>
+  	<#include "/front/common/footer_static.ftl">
+  </body>
 </html>
 
 

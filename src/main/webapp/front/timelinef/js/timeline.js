@@ -2764,13 +2764,13 @@ if(typeof VMM != 'undefined' && typeof VMM.Language == 'undefined') {
 			full_long_small_date: "h:MM TT'<br/><small>mmm d',' yyyy'</small>'"
 		},
 		messages: {
-			loading_timeline: "Loading Timeline... ",
-			return_to_title: "Return to Title",
-			expand_timeline: "Expand Timeline",
-			contract_timeline: "Contract Timeline",
+			loading_timeline: "加载时间轴... ",
+			return_to_title: "返回",
+			expand_timeline: "放大",
+			contract_timeline: "缩小",
 			wikipedia: "From Wikipedia, the free encyclopedia",
-			loading_content: "Loading Content",
-			loading: "Loading"
+			loading_content: "正在加载内容...",
+			loading: "加载中..."
 		}
 	}
 };
@@ -5829,7 +5829,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Slider == 'undefined') {
 				
 				// EXPLAINER
 				$explainer = VMM.appendAndGetElement($slider_mask, "<div>", "vco-feedback", "");
-				showMessege(null, "Swipe to Navigate");
+				showMessege(null, "轻触滑动");
 				VMM.Lib.height($explainer, config.slider.height);
 				VMM.bindEvent($explainer, onExplainerClick);
 				VMM.bindEvent($explainer, onExplainerClick, 'touchend');
@@ -8921,7 +8921,7 @@ if(typeof VMM.Timeline != 'undefined' && typeof VMM.Timeline.TimeNav == 'undefin
 			$dragslide.createPanel(layout, $timenav, config.nav.constraint, config.touch);
 			
 			
-			
+//cott.wen注释掉手机端的单点显示			
 //			if (config.touch && config.start_page) {
 //				VMM.Lib.addClass($toolbar, "touch");
 //				VMM.Lib.css($toolbar, "top", 55);
