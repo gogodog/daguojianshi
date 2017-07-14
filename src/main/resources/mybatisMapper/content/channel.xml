@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgjs.mapper.content.ChannelMapper">
+  
+  	<insert id="save" parameterType="channel" keyProperty="id" useGeneratedKeys="true">
+	       insert into channel
+	       (
+	           c_name,
+	           sort,
+	           status,
+	           create_time,
+	           update_time
+	       )
+	       values
+	       (
+	           #{c_name},
+	           #{sort},
+	           #{status},
+	           now(),
+	           now()
+	       )
+	</insert>
+	
+	<select id="selectById" resultType="channel">
+	       select 
+	           id,
+	           c_name,
+	           sort,
+	           status,
+	           create_time,
+	           update_time
+	        from channel where id = #{id}
+	</select>
+	
+	<update id="update">
+	       update channel set 
+	           c_name=#{c_name},
+	           sort=#{sort},
+	           status=#{status},
+	           update_time=now()
+	       where id = #{id}  
+	</update>
+	
+	<select id="list" resultType="channel">
+	        select 
+	           id,
+	           c_name,
+	           sort,
+	           status,
+	           create_time,
+	           update_time
+	        from channel order by update_time desc
+	</select>
+	
+	<delete id="deleteById">
+	        delete from channel where id =#{id}
+	</delete>
+	
+</mapper>
