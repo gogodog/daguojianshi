@@ -19,8 +19,10 @@
     <script type="text/javascript" src="/front/timelinef/storyjs-embed.js"></script>
     <script>
       $(document).ready(function() {
+      	//front/timeline/data.json
+      	//getstroies.json
         $.get('/getstroies.json',function(result){
-        	//console.log(JSON.stringify(result));
+        	console.log(JSON.stringify(result));
         	var h = $(document).outerHeight(true) - 60 - 20;
             createStoryJS({
                 type:   'timeline',
