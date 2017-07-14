@@ -38,21 +38,21 @@ public class TimeLineController {
 		Asset ast = new Asset();
 		ast.setCaption("大国简史正史时间轴");
 		ast.setCredit("19世纪的百年资料");
-		ast.setMedia("http://www.cwillow.com/images/editor/p1/20170614040110908618.jpg");
+		ast.setMedia("http://img.taopic.com/uploads/allimg/140326/235113-1403260U22059.jpg");
 		
 		List<Dat> dts = new ArrayList<>();
 		Random rndm = new Random();
 		for(int i = 0 ; i< 10 ; i++){
 			Asset one = new Asset();
-			one.setCaption(i + "：测试数据");
+			one.setCaption("<a href='/show/AV0DmzcMqMQTX7aOp80m'>阅读原文 >></a>");
 			one.setCredit("通信凭证" + rndm.nextLong());
-			one.setMedia("http://www.cwillow.com/images/editor/p1/20170614040110908618.jpg");
+			one.setMedia("http://img.taopic.com/uploads/allimg/140326/235113-1403260U22059.jpg");
 			
 			Dat dt = new Dat();
 			dt.setAsset(one);
 			dt.setHeadline("各国领导人年轻时的照片");
 			dt.setStartDate("201"+i);
-			dt.setText("【大国简史】第"+i+"次text测试");
+			dt.setText("【大国简史】第"+i+"次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想");
 			dts.add(dt);
 		}
 		
@@ -60,7 +60,7 @@ public class TimeLineController {
 		timeline.setAsset(ast);
 		timeline.setDate(dts);
 		timeline.setHeadline("大国简史正史时间轴");
-		timeline.setStartDate("2005");
+		timeline.setStartDate("2010");
 		timeline.setText("人文与情怀的一次共舞");
 		
 		TimelineView tv = new TimelineView();
