@@ -2555,3 +2555,12 @@ body,input,button,textarea,select {
 	display: block;
 	color: #666;
 }
+
+.widget-tabs .tab-content a {
+	display: block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: #8a6d3b;
+	letter-spacing:0.5px;
+}

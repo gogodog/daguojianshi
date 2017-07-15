@@ -16,7 +16,6 @@ import com.dgjs.model.dto.FeedBackDto;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.enums.Judge_Level;
-import com.dgjs.model.persistence.Comments;
 import com.dgjs.model.persistence.FeedBack;
 import com.dgjs.model.persistence.condition.FeedBackCondition;
 import com.dgjs.service.content.FeedBackService;
