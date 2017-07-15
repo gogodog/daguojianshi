@@ -37,9 +37,10 @@ public class FeedBackController {
 	ArticlescrapService articlescrapService;
 	
 	@RequestMapping(value = "/{docid}")
-	public ModelAndView ajaxJudge(Model model, @PathVariable("docid")String docid){
+	public ModelAndView ajaxJudge(Model model, @PathVariable("docid")String docid, String title){
 		ModelAndView mv = new ModelAndView("front/feedback");
 		mv.addObject("docid", docid);
+		mv.addObject("title", title);
 		mv.addObject("judgeLevels", Judge_Level.values());
 		return mv;
 	}

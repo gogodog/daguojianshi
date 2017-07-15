@@ -8,7 +8,7 @@
 	        <div class="carousel-inner" role="listbox">
 	              <#list carouselList as carousel>
 	                 <div class="item<#if carousel_index==0> active</#if>">
-	                    <a href="${carousel.link_url}" target="_blank" title="${carousel.image_desc}" >
+	                    <a href="${carousel.link_url}" title="${carousel.image_desc}" >
 			            <img src="${carousel.image_url}" alt="dgjs" class="img-responsive" style="width:100%;height:100%"></a>
 		              </div>
 		          </#list>
