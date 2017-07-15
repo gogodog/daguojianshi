@@ -16,9 +16,9 @@
       		<img class="thumb" data-original="/images/list/timg.jpeg" src="/images/list/timg.jpeg" alt="大国简史标题图"  style="display: inline;">
       	</a>
         <header>
-        	<a class="cat" href="http://www.dgjs.com/list/mznetblog/" title="MZ-NetBlog主题" >军事<i></i></a>
+        	<a class="cat" href="http://www.dgjs.com/list/mznetblog/">军事<i></i></a>
           	<h2>
-          		<a href="http://www.dgjs.com/show/269.html" title="用DTcms做一个独立博客网站（响应式模板）" target="_blank" >
+          		<a href="http://www.dgjs.com/show/269.html" title="" >
           			美国崛起成为世界大国有哪些条件
           		</a>
           	</h2>
@@ -26,7 +26,7 @@
         <p class="meta">
           <time class="time"><i class="glyphicon glyphicon-time"></i> 2016-10-14</time>
           <span class="views"><i class="glyphicon glyphicon-eye-open"></i> 217</span>
-          <a class="comment" href="http://www.dgjs.com/show/269.html#comment" title="评论" target="_blank" >
+          <a class="comment" href="http://www.dgjs.com/show/269.html#comment" title="评论" >
           	<i class="glyphicon glyphicon-comment"></i>4
           </a>
         </p>

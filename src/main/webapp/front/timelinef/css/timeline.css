@@ -2285,6 +2285,7 @@
     background-image: url(timeline.png?v4.4);
     background-repeat: no-repeat;
     background-position: 0 -53px;
+    word-wrap: break-word;
     width: 153px;
     height: 53px
 }

@@ -61,7 +61,7 @@ function showChannelPop(channelId){
 	var txt = "频道名称：<input type=\"text\" class=\"inputBox\" style=\"width:120px;\"><br>"
 			+ "排序：<input type=\"text\" class=\"inputBox\" style=\"width:120px;\"><br>"
 	        + "状态：<input type=\"checkbox\"><br>";
-	window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.input,{onOk:function(){
+	window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.confirm,{onOk:function(){
 		window.location.href=contextPath+"/admin/channel/delete?channel_id="+channelId;
 	}})
 }
