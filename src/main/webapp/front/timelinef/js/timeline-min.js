@@ -42,6 +42,7 @@ function onYouTubePlayerAPIReady() {
     trace("GLOBAL YOUTUBE API CALLED");
     VMM.ExternalAPI.youtube.onAPIReady()
 }
+var iisfirst = 1;
 (function() {
     var e = !1
       , t = /xyz/.test(function() {
@@ -1601,7 +1602,6 @@ typeof VMM != "undefined" && typeof VMM.ExternalAPI == "undefined" && (VMM.Exter
         VMM.ExternalAPI.keys = e
     },
     pushQues: function() {
-    	$("div[isfirst]").click();
         VMM.master_config.googlemaps.active && VMM.ExternalAPI.googlemaps.pushQue();
         VMM.master_config.youtube.active && VMM.ExternalAPI.youtube.pushQue();
         VMM.master_config.soundcloud.active && VMM.ExternalAPI.soundcloud.pushQue();
@@ -3606,6 +3606,10 @@ typeof VMM.Slider != "undefined" && (VMM.Slider.Slide = function(e, t) {
         T();
         clearTimeout(y.pushque);
         clearTimeout(y.render);
+        if(iisfirst == 1){
+        	$("div[isfirst]").click();
+        	iisfirst ++;
+        }
         y.pushque = setTimeout(VMM.ExternalAPI.pushQues, b.pushque)
     }
       , E = function() {
