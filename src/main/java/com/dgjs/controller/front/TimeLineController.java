@@ -45,8 +45,31 @@ public class TimeLineController {
 		for(int i = 0 ; i< 10 ; i++){
 			Asset one = new Asset();
 			one.setCaption("<a href='/show/AV0DmzcMqMQTX7aOp80m'>阅读原文 >></a>");
-			one.setCredit("通信凭证" + rndm.nextLong());
+			one.setCredit("资料编号" + rndm.nextLong());
 			one.setMedia("http://img.taopic.com/uploads/allimg/140326/235113-1403260U22059.jpg");
+			if(i == 5){
+				Dat dt = new Dat();
+				dt.setAsset(one);
+				dt.setHeadline("特殊设置的时轴起始页码");
+				dt.setStartDate("201"+i);
+				dt.setIsfirst("1");
+				dt.setText("【大国简史】第"+i+"次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想");
+				dts.add(dt);
+				continue;
+			}
+			Dat dt = new Dat();
+			dt.setAsset(one);
+			dt.setHeadline("各国领导人年轻时的照片");
+			dt.setStartDate("201"+i);
+			dt.setText("【大国简史】第"+i+"次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想");
+			dts.add(dt);
+		}
+		
+		for(int i = 0 ; i< 10 ; i++){
+			Asset one = new Asset();
+			one.setCaption("<a href='/show/AV0DmzcMqMQTX7aOp80m'>阅读原文 >></a>");
+			one.setCredit("通信凭证" + rndm.nextLong());
+			one.setMedia("");
 			
 			Dat dt = new Dat();
 			dt.setAsset(one);

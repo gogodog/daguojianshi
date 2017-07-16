@@ -1601,6 +1601,7 @@ typeof VMM != "undefined" && typeof VMM.ExternalAPI == "undefined" && (VMM.Exter
         VMM.ExternalAPI.keys = e
     },
     pushQues: function() {
+    	$("div[isfirst]").click();
         VMM.master_config.googlemaps.active && VMM.ExternalAPI.googlemaps.pushQue();
         VMM.master_config.youtube.active && VMM.ExternalAPI.youtube.pushQue();
         VMM.master_config.soundcloud.active && VMM.ExternalAPI.soundcloud.pushQue();
@@ -4323,6 +4324,7 @@ if (typeof VMM != "undefined" && typeof VMM.Timeline == "undefined") {
                         t.text = d.date[e].text;
                         t.content = "";
                         t.tag = d.date[e].tag;
+                        t.isfirst = d.date[e].isfirst;
                         t.slug = d.date[e].slug;
                         t.uniqueid = VMM.Util.unique_ID(7);
                         t.classname = d.date[e].classname;
@@ -5300,6 +5302,9 @@ typeof VMM.Timeline != "undefined" && typeof VMM.Timeline.TimeNav == "undefined"
                 VMM.appendElement(f, "<h3 id='marker_content_" + T[r].uniqueid + "'>" + v + "</h3>")
             }
             VMM.Lib.attr(u, "id", ("marker_" + T[r].uniqueid).toString());
+            if(T[r].isfirst == '1'){
+            	VMM.Lib.attr(a, "isfirst", T[r].isfirst);
+            }
             VMM.bindEvent(a, Q, "", {
                 number: r
             });

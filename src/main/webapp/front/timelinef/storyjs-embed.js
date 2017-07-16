@@ -275,6 +275,7 @@ function createStoryJS(e, t) {
     this.onloaded_check_again = function() {
         x()
     }
+    e.roolback();
 }
 LazyLoad = function(e) {
     function u(t, n) {
