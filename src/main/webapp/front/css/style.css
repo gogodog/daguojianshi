@@ -508,6 +508,9 @@ body,input,button,textarea,select {
 	.navbar-nav {
 		overflow: hidden;
 	}
+}
+
+@media (max-width:767px) {
 	
 	.navbar-nav>li>a {
 		padding: 0px 10px;
