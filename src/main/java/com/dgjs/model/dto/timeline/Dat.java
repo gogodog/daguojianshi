@@ -5,6 +5,7 @@ public class Dat {
 	String headline;
 	String text;
 	Asset asset;
+	String isfirst;
 	public String getStartDate() {
 		return startDate;
 	}
@@ -28,5 +29,11 @@ public class Dat {
 	}
 	public void setAsset(Asset asset) {
 		this.asset = asset;
+	}
+	public String getIsfirst() {
+		return isfirst;
+	}
+	public void setIsfirst(String isfirst) {
+		this.isfirst = isfirst;
 	}
 }

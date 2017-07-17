@@ -42,6 +42,7 @@ function onYouTubePlayerAPIReady() {
     trace("GLOBAL YOUTUBE API CALLED");
     VMM.ExternalAPI.youtube.onAPIReady()
 }
+var iisfirst = 1;
 (function() {
     var e = !1
       , t = /xyz/.test(function() {
@@ -3605,6 +3606,10 @@ typeof VMM.Slider != "undefined" && (VMM.Slider.Slide = function(e, t) {
         T();
         clearTimeout(y.pushque);
         clearTimeout(y.render);
+        if(iisfirst == 1){
+        	$("div[isfirst]").click();
+        	iisfirst ++;
+        }
         y.pushque = setTimeout(VMM.ExternalAPI.pushQues, b.pushque)
     }
       , E = function() {
@@ -4323,6 +4328,7 @@ if (typeof VMM != "undefined" && typeof VMM.Timeline == "undefined") {
                         t.text = d.date[e].text;
                         t.content = "";
                         t.tag = d.date[e].tag;
+                        t.isfirst = d.date[e].isfirst;
                         t.slug = d.date[e].slug;
                         t.uniqueid = VMM.Util.unique_ID(7);
                         t.classname = d.date[e].classname;
@@ -5300,6 +5306,9 @@ typeof VMM.Timeline != "undefined" && typeof VMM.Timeline.TimeNav == "undefined"
                 VMM.appendElement(f, "<h3 id='marker_content_" + T[r].uniqueid + "'>" + v + "</h3>")
             }
             VMM.Lib.attr(u, "id", ("marker_" + T[r].uniqueid).toString());
+            if(T[r].isfirst == '1'){
+            	VMM.Lib.attr(a, "isfirst", T[r].isfirst);
+            }
             VMM.bindEvent(a, Q, "", {
                 number: r
             });
