@@ -12,13 +12,17 @@ public enum Articlescrap_Type {
 	
 	GEOGRAPHY(30,"地理"),
 	
-	NATION_CULTURE(40,"民族"),
+	NATION_CULTURE(40,"民族文化"),
 	
 	AFFAIRS(50,"时事"),
 	
 	UNOFFICIAL(60,"野史"),
 	
-	MYTH_LEGEND(70,"神话");
+	WAR(80,"战争"),
+	
+	SCIENCE(90,"科技"),
+	
+	MYTH_LEGEND(70,"神话传说");
 	
 	
 	private Articlescrap_Type(int key,String value){

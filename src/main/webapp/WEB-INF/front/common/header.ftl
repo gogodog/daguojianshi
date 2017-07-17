@@ -2,11 +2,11 @@
   <nav class="navbar navbar-default" id="navbar">
     <div class="container">
       <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-navbar" aria-expanded="false"> <span class="sr-only"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+        <button type="button" class="navbar-toggle collapsed" onclick="menu()"> <span class="sr-only"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
         <h1 class="logo hvr-bounce-in"><a class="titlelog" href="${contextPath}/timeline"><img src="${contextPath}/front/images/slogo.png">大国简史</a></h1>
       </div>
       <div class="collapse navbar-collapse" id="header-navbar">
-        <form class="navbar-form visible-xs" action="/Search" method="post">
+        <form class="navbar-form visible-xs" action="/Search" method="post" style="margin-top: 0px;border-color:#ffffff;">
           <div class="input-group">
             <input type="text" name="keyword" class="form-control" placeholder="请输入关键字" maxlength="20" autocomplete="off">
             <span class="input-group-btn">
@@ -20,7 +20,29 @@
             <li><a data-cont="大国简史" title="大国简史" href="${contextPath}/index?type=${type}">${type.value}</a></li>
           </#list>
         </ul>
+        <table class="mobile-menu">
+	    <tbody>
+	    	<tr>
+	    		<td><a data-cont="大国简史" title="大国简史" href="${contextPath}/index">首页</a></a></td>
+				<td><a data-cont="大国简史" title="大国简史" href="${contextPath}/index?type=${types[0]}">${types[0].value}</a></td>
+				<td><a data-cont="大国简史" title="大国简史" href="${contextPath}/index?type=${types[1]}">${types[1].value}</a></td>
+				<td><a data-cont="大国简史" title="大国简史" href="${contextPath}/index?type=${types[2]}">${types[2].value}</a></td>
+				<td><a data-cont="大国简史" title="大国简史" href="${contextPath}/index?type=${types[3]}">${types[3].value}</a></td>
+		    </tr>
+		    <tr>
+		    	<td><a data-cont="大国简史" title="大国简史" href="${contextPath}/index?type=${types[4]}">${types[4].value}</a></td>
+	    		<td><a data-cont="大国简史" title="大国简史" href="${contextPath}/index?type=${types[5]}">${types[5].value}</a></td>
+	    		<td><a data-cont="大国简史" title="大国简史" href="${contextPath}/index?type=${types[6]}">${types[6].value}</a></td>
+	    		<td><a data-cont="大国简史" title="大国简史" href="${contextPath}/index?type=${types[7]}">${types[7].value}</a></td>
+	    		<td><a data-cont="大国简史" title="大国简史" href="${contextPath}/index?type=${types[8]}">${types[8].value}</a></td>
+		    </tr>
+		</tbody></table>
       </div>
     </div>
   </nav>
 </header>
+<script>
+function menu(){
+	$('#header-navbar').toggle();
+}
+</script>

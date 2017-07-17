@@ -205,6 +205,7 @@ body,input,button,textarea,select {
 	.titlelog {
 		font-size: 20px;
 	}
+	
 	.titlelog img {
 		margin-right: 10px;
 		width:27px;
@@ -507,6 +508,7 @@ body,input,button,textarea,select {
 @media (max-width:768px) {
 	.navbar-nav {
 		overflow: hidden;
+		display:none;
 	}
 }
 
@@ -2571,4 +2573,21 @@ body,input,button,textarea,select {
 	text-overflow: ellipsis;
 	color: #8a6d3b;
 	letter-spacing:0.5px;
+}
+@media (max-width:990px) {
+	.navbar-nav>li>a {
+	    padding: 0px 7px;
+	    font-size: 16px;
+	}
+}
+.searchform{}
+@media (max-width:880px) {
+	.navbar-nav>li>a {
+	    padding: 0px 7px;
+	    font-size: 12px;
+	}
+	.searchform{
+		margin-top: 0px;
+		border-color:#ffffff;
+	}
 }

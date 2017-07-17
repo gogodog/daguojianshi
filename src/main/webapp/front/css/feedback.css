@@ -27,6 +27,7 @@ a{text-decoration:none;}
 nav.vertical ul li{	display:block;}/* vertical menu */
 nav.horizontal ul li{	display: inline-block;}/* horizontal menu */
 img{max-width:100%;}
+input,textarea{-webkit-appearance: none;}
 /*end reset*/
 
 body{
@@ -514,4 +515,8 @@ span.starRating {
 	.main form input[type="submit"] {
 		padding: 12px 0 8px;
 	}
+}
+.notetag{
+	font-size: 10px;
+	color: #A5A5A5;
 }
