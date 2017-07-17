@@ -761,7 +761,6 @@ body,input,button,textarea,select {
 .excerpt .meta {
 	color: #999;
 	font-size: 12px;
-	margin-bottom: 10px;
 }
 
 .excerpt .time,.excerpt .comment,.excerpt .views {
