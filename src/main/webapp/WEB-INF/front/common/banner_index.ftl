@@ -10,6 +10,7 @@
 	                 <div class="item<#if carousel_index==0> active</#if>">
 	                    <a href="${carousel.link_url}" title="${carousel.image_desc}" >
 			            <img src="${carousel.image_url}" alt="dgjs" class="img-responsive" style="width:100%;height:100%"></a>
+			            <a class="banner-title" href="${carousel.link_url}">${carousel.image_desc}</a>
 		              </div>
 		          </#list>
 	        </div>

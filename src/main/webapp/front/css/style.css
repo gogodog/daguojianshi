@@ -2594,3 +2594,18 @@ body,input,button,textarea,select {
 		border-color:#ffffff;
 	}
 }
+.banner-title{
+	display: table-cell;
+    vertical-align: top;
+    width: 412px;
+    display: block;
+    width:100%;
+    position:absolute;
+    bottom:10px;
+    text-indent:10px;
+    height:28px;
+    line-height:28px;
+    background:url(../images/focusBg.png) repeat-x;
+    color:#fff;
+    text-align:left;
+}
