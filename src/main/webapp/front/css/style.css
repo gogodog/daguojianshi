@@ -2178,7 +2178,7 @@ body,input,button,textarea,select {
 		padding: 5px 15px;
 	}
 	.excerpt .cat {
-	    font-size: 6px;
+	    font-size: 10px;
 	}
 
 	.cat-ebox li {
@@ -2207,8 +2207,12 @@ body,input,button,textarea,select {
 	}
 
 	.excerpt h2 {
-		font-size: 10px;
+		font-size: 14px;
 		line-height: 18px;
+	}
+	
+	.excerpt .meta {
+		font-size: 10px;
 	}
 
 	.excerpt .comment {
