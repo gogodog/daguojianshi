@@ -14,5 +14,5 @@ public interface ChannelMapper {
 	
 	public List<Channel> list();
 	
-	public int deleteById();
+	public int deleteById(Integer id);
 }
