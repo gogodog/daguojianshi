@@ -36,9 +36,10 @@
 					     <td>${channel.create_time?datetime}</td>
 					     <td>${channel.update_time?datetime}</td>
 					     <td>
-					     	<div class="table-fun">
-					     		<a href="javascript:void(0)">修改</a>
-					     		<a href="javascript:void(0)" onclick="deleteChannel(${channel.id});">删除</a>
+					     	<div class="table-fun-1">
+					     	    <a href="${contextPath}/admin/channel/caList?channelId=${channel.id}&channelName=${channel.c_name}">关联文章</a>
+					     		<a href="javascript:void(0)" onclick="update('${channel.id}','${channel.c_name}','${channel.status}','${channel.sort}');">修改</a>
+					     		<a href="javascript:void(0)" onclick="deleteChannel('${channel.id}');">删除</a>
 					     	</div>
 					     </td>
 				     </tr>
@@ -58,12 +59,61 @@ function deleteChannel(channelId){
 }
 
 function showChannelPop(channelId){
-	var txt = "频道名称：<input type=\"text\" class=\"inputBox\" style=\"width:120px;\"><br>"
-			+ "排序：<input type=\"text\" class=\"inputBox\" style=\"width:120px;\"><br>"
-	        + "状态：<input type=\"checkbox\"><br>";
+	var txt = "频道名称：<input type=\"text\" name=\"p_name\" class=\"inputBox\" style=\"width:120px;\"><br>"
+			+ "排序：<input type=\"text\" name=\"p_sort\" class=\"inputBox\" style=\"width:120px;\" onkeyup=\"this.value=this.value.replace(/\\D/g,'')\"><br>"
+	        + "状态：<input type=\"checkbox\" name=\"p_status\"><br>";
 	window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.confirm,{onOk:function(){
-		window.location.href=contextPath+"/admin/channel/delete?channel_id="+channelId;
+		saveOrUpdate(null);
 	}})
+}
+
+function update(channelId,c_name,status,sort){
+	var isChecked = status == 'UP'?'checked':'';
+	var txt = "频道名称：<input type=\"text\" value=\""+c_name+"\" name=\"p_name\" class=\"inputBox\" style=\"width:120px;\"><br>"
+			+ "排序：<input type=\"text\" value=\""+sort+"\" name=\"p_sort\" class=\"inputBox\" style=\"width:120px;\" onkeyup=\"this.value=this.value.replace(/\\D/g,'')\"><br>"
+	        + "状态：<input type=\"checkbox\" name=\"p_status\" "+isChecked+"><br>";
+	window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.confirm,{onOk:function(){
+		saveOrUpdate(channelId);
+	}})
+}
+
+function saveOrUpdate(channelId){
+	var p_name=$("input[name='p_name']").val();
+	var p_sort=$("input[name='p_sort']").val();
+	var p_status='';
+	if($("input[name='p_status']").is(':checked')) {
+		p_status='UP';
+	}else{
+		p_status='DOWN';
+	}
+	if(p_sort==null||p_sort==''){
+		alert('请输入排序');
+		return;
+	}
+	if(p_name==null||p_name.length<1||p_name.length>10){
+		alert('频道名称不能为空且长度不能超过10');
+		return;
+	}
+	$.ajax({
+		async:false,
+		data:{id:channelId,c_name:p_name,sort:p_sort,status:p_status},
+		dataType: "json",
+		url:contextPath+"/admin/channel/save",
+		type:"POST",
+		success:function(data) {
+            if(data.error){
+            	if(data.errorCode!='SUCCESS'){
+            		alert('服务器繁忙...');
+            	}
+            }else{
+            	alert('填写成功');
+            	window.location.href=contextPath+"/admin/channel/list";
+            }
+        }, 
+        error:function(){
+            console.log("服务器繁忙...");
+        }
+	});
 }
 </script>
 </html>

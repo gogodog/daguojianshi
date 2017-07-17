@@ -39,7 +39,7 @@ public class ChannelServiceImpl implements ChannelService{
 	public int update(Channel channel) {
 		return channelMapper.update(channel);
 	}
-
+	
 	@Override
 	public List<Channel> list() {
 		return channelMapper.list();
@@ -47,7 +47,7 @@ public class ChannelServiceImpl implements ChannelService{
 
 	@Override
 	public int deleteById(Integer id) {
-		return channelMapper.deleteById();
+		return channelMapper.deleteById(id);
 	}
 
 	@Override
@@ -69,23 +69,36 @@ public class ChannelServiceImpl implements ChannelService{
 	@Override
 	public List<ChannelArticlescrapDto> listCA(Integer channelId) {
 		List<ChannelArticlescrap> list=caMapper.list(channelId);
-		List<String> ids = new ArrayList<String>();
-		for(ChannelArticlescrap ca:list){
-			ids.add(ca.getArticlescrap_id());
+		if(list!=null && !list.isEmpty()){
+			List<String> ids = new ArrayList<String>();
+			for(ChannelArticlescrap ca:list){
+				ids.add(ca.getArticlescrap_id());
+			}
+			String[] idsArray = new String[ids.size()];
+			int index=0;
+			for(String id:ids){
+				idsArray[index++] =	id;
+			}
+			List<Articlescrap> articlescrapList=articlescrapMapper.getArticlescrapByIds(idsArray);
+			Map<String,Articlescrap> map = new HashMap<String,Articlescrap>();
+			for(Articlescrap articlescrap:articlescrapList){
+				map.put(articlescrap.getId(), articlescrap);
+			}
+			List<ChannelArticlescrapDto> cad = new ArrayList<ChannelArticlescrapDto>();
+			for(ChannelArticlescrap ca:list){
+				ChannelArticlescrapDto dto = new ChannelArticlescrapDto();
+				dto.setChannelArticlescrap(ca);
+				dto.setTitle(map.get(ca.getArticlescrap_id()).getTitle());
+				cad.add(dto);
+			}
+			return cad;
 		}
-		List<Articlescrap> articlescrapList=articlescrapMapper.getArticlescrapByIds((String[])ids.toArray());
-		Map<String,Articlescrap> map = new HashMap<String,Articlescrap>();
-		for(Articlescrap articlescrap:articlescrapList){
-			map.put(articlescrap.getId(), articlescrap);
-		}
-		List<ChannelArticlescrapDto> cad = new ArrayList<ChannelArticlescrapDto>();
-		for(ChannelArticlescrap ca:list){
-			ChannelArticlescrapDto dto = new ChannelArticlescrapDto();
-			dto.setChannelArticlescrap(ca);
-			dto.setTitle(map.get(ca.getArticlescrap_id()).getTitle());
-			cad.add(dto);
-		}
-		return cad;
+		return null;
+	}
+
+	@Override
+	public Channel selectById(Integer id) {
+		return channelMapper.selectById(id);
 	}
 
 }

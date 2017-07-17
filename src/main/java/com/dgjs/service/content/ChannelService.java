@@ -23,4 +23,6 @@ public interface ChannelService {
     public int deleteCA(String id);
     
     public List<ChannelArticlescrapDto> listCA(Integer channelId);
+    
+    public Channel selectById(Integer id);
 }
