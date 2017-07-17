@@ -28,7 +28,7 @@
             <a href="javascript:void(0)" title="主题" >
             ${articlescrap.typeValue}
             </a></span> 
-            <span id="show_visits" class="item article-meta-views" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="浏览量"><i class="glyphicon glyphicon-eye-open"></i> ${visits}</span></div>
+            <span id="show_visits" class="item article-meta-views" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="浏览量"><i class="glyphicon glyphicon-eye-open"></i> ${visits}</span><a href="${contextPath}/timeline?id=${articlescrap.id}" style="float: right;">查看时轴&gt;&gt;</a></div>
       </header>
       <article class="article-content">
         <p>${articlescrap.content}</p>
@@ -50,7 +50,7 @@
     		 人类简史的时间轴
     	   </p>
     	   <p style="text-align:center;text-indent:0px;">
-    		 价值 &nbsp; 历史 &nbsp; 年代轴
+    		 价值 &nbsp; 历史 &nbsp; 年代
     	   </p>
     	   <br><br>
         </div>
