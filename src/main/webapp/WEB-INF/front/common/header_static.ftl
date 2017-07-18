@@ -6,6 +6,24 @@
 	<meta name="full-screen" content="yes">
     <meta name="keywords" content="">
     <meta name="description" content="">
+    
+    
+    <meta name="keywords" content="手机万柳网,手机大国简史,历史资料,大国简史无线">
+	<meta name="description" content="cwillow.com">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+	<meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT">
+	<meta http-equiv="Last-Modified" content="Wed, 26 Feb 1997 08:21:57 GMT">
+	<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="referrer" content="always">
+	<meta name="robots" content="index, follow">
+	<meta name="googlebot" content="index, follow">
+	<meta name="author" content="dgjs_mobile">
+	<meta name="baidu-site-verification" content="rTnMzcp5WP">
+    
+    
+    
     <title>大国简史</title>
     <link rel="stylesheet" type="text/css" href="${contextPath}/front/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="${contextPath}/front/css/nprogress.css">
