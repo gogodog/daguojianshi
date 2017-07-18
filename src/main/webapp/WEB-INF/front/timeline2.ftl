@@ -23,7 +23,7 @@
       	//getstroies.json
         $.get('/getstroies.json',function(result){
         	console.log(JSON.stringify(result));
-        	var h = $(document).outerHeight(true) - 60 - 20;
+        	var h = $(document).outerHeight(true) - 60 - 20 + 16;
             createStoryJS({
                 type:   'timeline',
                 width:    '100%',
