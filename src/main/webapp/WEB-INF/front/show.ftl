@@ -32,8 +32,7 @@
       </header>
       <article class="article-content">
         <p>${articlescrap.content}</p>
-        <div>
-           <br><br>
+        <div style="margin: 10px 0">
            <p style="text-align:center;text-indent:0px;">
     	     - 大国简史 -
            </p>
@@ -52,7 +51,6 @@
     	   <p style="text-align:center;text-indent:0px;">
     		 价值 &nbsp; 历史 &nbsp; 年代
     	   </p>
-    	   <br><br>
         </div>
       <div class="bdsharebuttonbox">
 		<!-- <a href="#" class="bds_more" data-cmd="more"></a> -->

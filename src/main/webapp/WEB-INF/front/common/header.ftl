@@ -20,7 +20,7 @@
             <li><a data-cont="大国简史" title="大国简史" href="${contextPath}/index?type=${type}">${type.value}</a></li>
           </#list>
         </ul>
-        <table class="mobile-menu">
+        <table class="mobile-menu" style="border-spacing:10px 100px;">
 	    <tbody>
 	    	<tr>
 	    		<td><a data-cont="大国简史" title="大国简史" href="${contextPath}/index">首页</a></a></td>

@@ -2609,3 +2609,11 @@ body,input,button,textarea,select {
     color:#fff;
     text-align:left;
 }
+.hidepn-btn{
+	display:block;
+}
+@media (max-width:680px) {
+	.hidepn-btn{
+	display:none;
+}
+}
