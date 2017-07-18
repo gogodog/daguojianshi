@@ -1,5 +1,10 @@
 <!-- 头 -->
-<div class="title" style="padding: 10px 10px;border-radius: 4px 4px 0 0;margin-bottom: 0px;background-color: #ffffff;border-bottom: solid 1px #337ab7;"><h3 style="ont-size: 19px;font-size: 1.6em;"><a>地 理</a></h3></div>
+<div class="title" style="padding: 10px 10px;border-radius: 4px 4px 0 0;margin-bottom: 0px;background-color: #ffffff;border-bottom: solid 1px #337ab7;">
+	<h3 style="ont-size: 19px;font-size: 1.6em;width:100%">
+		<a>地 理 |</a>
+		<a style="float: right;font-size: 10px;line-height: px;top: 10px;right: 7%; position: relative;">东亚-南美-地中海</a>
+	</h3>
+</div>
 
 <!--  -->
 <article class="excerpt" style="border: darkred;padding: 10px 0px 10px 7px" onclick="location.href=&quot;/show/AV0DmzcMqMQTX7aOp80m&quot;">
@@ -44,7 +49,7 @@
 	</p>
 </article>
 
-<article class="excerpt" style="border-bottom: solid 2px blur;border: darkred;padding: 10px 0px 10px 7px" onclick="location.href=&quot;/show/AV0DmzcMqMQTX7aOp80m&quot;">
+<article class="excerpt" style="border-bottom: solid 2px #EAEAEA;padding: 10px 0px 10px 7px" onclick="location.href=&quot;/show/AV0DmzcMqMQTX7aOp80m&quot;">
 	<div class='diliimg'>
 		<img class="thumb" style="width: 100%;border-radius: 0;" data-original="/front/images/list/timg3.jpeg" src="http://www.cwillow.com/images/carousel/p_100/20170702054527046417.jpg" style="display:inline;">
 	</div>
@@ -59,7 +64,7 @@
 <style>
 	.diliimg{
 		width: 31%;
-	    border: solid 1px blur;
+	    border: solid 1px black;
 	    float: left;
 		margin: 0 1%;
 	}

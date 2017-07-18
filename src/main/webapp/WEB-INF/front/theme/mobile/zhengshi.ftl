@@ -1,4 +1,9 @@
-<div class="title" style="padding: 10px 10px;border-radius: 4px 4px 0 0;margin-bottom: 0px;background-color: #ffffff;border-bottom: solid 1px #337ab7;"><h3 style="ont-size: 19px;font-size: 1.6em;"><a>正 史</a></h3></div>
+<div class="title" style="padding: 10px 10px;border-radius: 4px 4px 0 0;margin-bottom: 0px;background-color: #ffffff;border-bottom: solid 1px #337ab7;">
+	<h3 style="ont-size: 19px;font-size: 1.6em;width: 100%">
+		<a>正 史 |</a>
+		<a style="float: right;font-size: 10px;line-height: px;top: 10px;right: 7%; position: relative;">唐&bull;宋&bull;元&bull;明&bull;清</a>
+	</h3>
+</div>
 
 <!-- 前三条 -->
 <article class="excerpt" style="border: darkred;padding: 10px 0px 10px 7px" onclick="location.href=&quot;/show/AV0DmzcMqMQTX7aOp80m&quot;">
