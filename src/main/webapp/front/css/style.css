@@ -2601,7 +2601,7 @@ body,input,button,textarea,select {
     display: block;
     width:100%;
     position:absolute;
-    bottom:10px;
+    bottom:20px;
     text-indent:10px;
     height:28px;
     line-height:28px;
