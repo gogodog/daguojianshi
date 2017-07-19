@@ -2,7 +2,7 @@
 <div class="title" style="padding: 10px 10px;border-radius: 4px 4px 0 0;margin-bottom: 0px;background-color: #ffffff;border-bottom: solid 1px #337ab7;">
 	<h3 style="ont-size: 19px;font-size: 1.6em;width:100%">
 		<a>地 理 |</a>
-		<a style="float: right;font-size: 10px;line-height: px;top: 10px;right: 7%; position: relative;">东亚-南美-地中海</a>
+		<a style="float: right;font-size: 10px;line-height: px;top: 10px;right: 7%; position: relative;">&lceil;东亚&lceil;南美&lceil;地中海</a>
 	</h3>
 </div>
 
