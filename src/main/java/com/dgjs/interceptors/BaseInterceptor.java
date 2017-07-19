@@ -8,19 +8,20 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.dgjs.utils.MachineUtils;
 
+import freemarker.log.Logger;
+
 public class BaseInterceptor implements HandlerInterceptor{
-	
+	private Logger log = Logger.getLogger(this.getClass().getName());
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		request.setAttribute("contextPath", request.getContextPath());
 		String userAgent = request.getHeader("USER-AGENT");  
+		log.info("http:--" + request.getRequestURL());
         boolean isphone =MachineUtils.check(userAgent);  
         if(isphone){  
-            //手机访问操作
-        	System.out.println("我是手机...");
+        	log.info("我是手机...");
         }else{
-        	//pc访问操作
-        	System.out.println("我是电脑...");
+        	log.info("我是电脑...");
         }
 		return true;
 	}
