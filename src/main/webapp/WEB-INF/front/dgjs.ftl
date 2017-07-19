@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-    <#include "/front/common/header_static.ftl">
+    <#include "/front/common/header_static_mobile.ftl">
     <script>
 		//页面统计
 		var pageinfo_ = {};
