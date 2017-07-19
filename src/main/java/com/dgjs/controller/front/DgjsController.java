@@ -19,6 +19,7 @@ import com.dgjs.service.content.CarouselService;
 import com.dgjs.service.content.RecommedArticlescrapService;
 
 @Controller
+@RequestMapping("/m")
 public class DgjsController {
 
 	@Autowired
@@ -28,7 +29,7 @@ public class DgjsController {
 	@Autowired
 	PictureService pictureService;
 	
-	@RequestMapping("/mobile/dgjs")
+	@RequestMapping("/index")
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response,Articlescrap_Type type,String keyword) throws Exception {  
 		ModelAndView mv = new ModelAndView("front/dgjs");
 		//加载轮播
