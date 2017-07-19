@@ -17,6 +17,7 @@
 	<div class='diliimg'>
 		<img class="itemimg" src="http://www.cwillow.com/images/carousel/p_100/20170702054527046417.jpg">
 	</div>
+	<p style="text-align: right;padding-right: 10px;color: cadetblue;font-size: .5em;">DImbiaTowen发咯啊</p>
 </article>
 <article class="excerpt threeimg" onclick="location.href=&quot;/show/AV0DmzcMqMQTX7aOp80m&quot;">
 	<div class='diliimg'>
@@ -28,6 +29,7 @@
 	<div class='diliimg'>
 		<img class="itemimg" src="http://www.cwillow.com/images/carousel/p_100/20170702054527046417.jpg">
 	</div>
+	<p style="text-align: right;padding-right: 10px;color: cadetblue;font-size: .5em;">DImbiaTowen发咯啊</p>
 </article>
 <article class="excerpt threeimg" onclick="location.href=&quot;/show/AV0DmzcMqMQTX7aOp80m&quot;">
 	<div class='diliimg'>
@@ -39,6 +41,7 @@
 	<div class='diliimg'>
 		<img class="itemimg" src="http://www.cwillow.com/images/carousel/p_100/20170702054527046417.jpg">
 	</div>
+	<p style="text-align: right;padding-right: 10px;color: cadetblue;font-size: .5em;">DImbiaTowen发咯啊</p>
 </article>
 
 <!-- 查看更多 -->

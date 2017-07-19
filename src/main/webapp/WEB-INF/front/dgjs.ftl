@@ -31,6 +31,7 @@
 	      <#include "/front/theme/mobile/dili.ftl">
 	      <#include "/front/theme/mobile/yeshi.ftl">
 	      <#include "/front/theme/mobile/renwu.ftl">
+	      <#include "/front/theme/mobile/test.ftl">
 	    </div>
 	  </div>
 	  <!-- 防止移动端页面抖动 -->

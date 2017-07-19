@@ -2,7 +2,7 @@
 <div class="title title-mobile">
 	<h3>
 		<a>人 物 |</a>
-		<a class="small-title-mobile">&lceil;国内&lceil;国际</a>
+		<a class="small-title-mobile">国内&bull;国际</a>
 	</h3>
 </div>
 <article class="excerpt threeimg" onclick="location.href=&quot;/show/AV0DmzcMqMQTX7aOp80m&quot;">
@@ -61,4 +61,4 @@
 		<span class="views" id="new_visit_AV0DmzcMqMQTX7aOp80m"><i class="glyphicon glyphicon-eye-open"></i> 40</span>
 	</p>
 </article>
-<div class="title showmore" style='border-top: solid 1px #EAEAEA;'><a href="javascript:void(0);" onclick="alert('cao dan !!!');">点击查看更多>></a></div>
+<div class="title showmore"><a href="javascript:void(0);" onclick="alert('cao dan !!!');">点击查看更多>></a></div>
