@@ -10,7 +10,7 @@
                         http://www.springframework.org/schema/mvc  
                         http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 	<!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
-	<context:component-scan base-package="com.dgjs.controller" />
+	<context:component-scan base-package="com" />
 	<!--避免IE执行AJAX时，返回JSON出现下载文件 -->
 	<bean id="mappingJacksonHttpMessageConverter"
 		class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
@@ -48,6 +48,8 @@
     <mvc:resources mapping="/images/**" location="/images/"/> 
     <!-- 前台 -->
     <mvc:resources mapping="/front/**" location="/front/"/>
+    <!-- cps -->
+    <mvc:resources mapping="/cps/**" location="/cps/"/>
 	<!-- 后台 -->
 	<mvc:resources mapping="/admin/images/**" location="/admin/images/"/>  
 	<mvc:resources mapping="/admin/js/**" location="/admin/js/"/>  
