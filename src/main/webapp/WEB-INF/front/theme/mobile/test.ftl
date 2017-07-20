@@ -1,6 +1,6 @@
-<div class="title title-mobile" style="border-bottom: 0">
+<div class="title title-mobile" style="border-bottom: 0;">
 	<h3 style='text-align: left;'>
-		<a>CE SHI |</a>
+		<a>History Of Country |</a>
 		<a class="small-title-mobile" style="top:0">Acc&bull;Dbs&bull;Fan&bull;TT</a>
 	</h3>
 </div>

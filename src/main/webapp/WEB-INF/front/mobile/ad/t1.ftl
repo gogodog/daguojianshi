@@ -1,4 +1,4 @@
-<#if 1=1>
+<#if 1=2>
 <div class="t1" style="display:none">
 <a href="javascript:void(0);" onclick="hidet1()">关闭</a>
 <img src="http://img4.imgtn.bdimg.com/it/u=4220205916,2193830798&amp;fm=214&amp;gp=0.jpg">
@@ -11,6 +11,7 @@
 	position: absolute;
 	width: 100%;
 	z-index: 1000;
+	height:100%;
 	/*border: solid 3px black;*/
 }
 .t1 a{
@@ -20,8 +21,11 @@
 	color: aliceblue;
 }
 .t1 img{
-	max-width: 100%;
+	position: relative;
+    max-width: 100%;
     max-height: 200px;
+    opacity: 0.5;
+    top: 20%;
 }
 </style>
 <script>

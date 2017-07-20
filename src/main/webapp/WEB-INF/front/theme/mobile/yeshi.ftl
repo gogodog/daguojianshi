@@ -35,19 +35,29 @@
     	</div>
 	</div>
 </div>
-<!-- 单列链接 -->
-<article class="excerpt onehref" sonclick="location.href=&quot;/show/AV0DmzcMqMQTX7aOp80m&quot;">
-	<a>&bull;&nbsp各国领导人年少谁的颜值更高代，谁的颜值更领谁的颜值更领导fdsa人导fdsa人</a>
-	<a>&bull;&nbsp各国领导人年少谁的颜值更高时代，谁的颜值更高</a>
-	<a>&bull;&nbsp各国领导人年少谁的颜值更高代，谁的颜值更领谁的颜值更领导fdsa人导fdsa人</a>
-	<a>&bull;&nbsp各国领导人年少谁的颜值更高时代，谁的颜值更高</a>
-	<a>&bull;&nbsp各国领导人年少谁的颜值更高代，谁的颜值更领谁的颜值更领导fdsa人导fdsa人</a>
-	<a>&bull;&nbsp各国领导人年少谁的颜值更高时代，谁的颜值更高</a>
-	<a>&bull;&nbsp各国领导人年少谁的颜值更高代，谁的颜值更领谁的颜值更领导fdsa人导fdsa人</a>
-	<a>&bull;&nbsp各国领导人年少谁的颜值更高时代，谁的颜值更高</a>
-	<a>&bull;&nbsp各国领导人年少谁的颜值更高时代，谁的颜值更高</a>
-	<a>&bull;&nbsp各国领导人年少谁的颜值更高时代，谁的颜值更高</a>
-	<a>&bull;&nbsp各国领导人年少谁的颜值更高时代，谁的颜值更高</a>
+<article class="excerpt listtxt" onclick="location.href=&quot;/show/AV0DmzcMqMQTX7aOp80m&quot;">
+	<header>
+		<a class="cat" href="javascript:void(0)">新加坡<i></i></a>
+		<h2>
+			<a class="dilitxt" href="/show/AV0DmzcMqMQTX7aOp80m" >各国领导人年少范德萨发大水发afdsa的撒发大水时代，谁的颜值更高</a>
+		</h2>
+	</header>
+</article>
+<article class="excerpt listtxt" onclick="location.href=&quot;/show/AV0DmzcMqMQTX7aOp80m&quot;">
+	<header>
+		<a class="cat" href="javascript:void(0)">美帝<i></i></a>
+		<h2>
+			<a class="dilitxt" href="/show/AV0DmzcMqMQTX7aOp80m" >各国领导人年少范德萨发大水发afdsa的撒发大水时代，谁的颜值更高</a>
+		</h2>
+	</header>
+</article>
+<article class="excerpt listtxt" onclick="location.href=&quot;/show/AV0DmzcMqMQTX7aOp80m&quot;">
+	<header>
+		<a class="cat" href="javascript:void(0)">法西斯<i></i></a>
+		<h2>
+			<a class="dilitxt" href="/show/AV0DmzcMqMQTX7aOp80m" >各国领导人年少范德萨发大水发afdsa的撒发大水时代，谁的颜值更高</a>
+		</h2>
+	</header>
 </article>
 <!-- 两列链接 -->
 <article class="excerpt twohref" style='border-top: solid 1px #EAEAEA;' onclick="location.href=&quot;/show/AV0DmzcMqMQTX7aOp80m&quot;">

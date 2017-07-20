@@ -45,13 +45,13 @@
 	height: 28px;
 	line-height: 28px;
 	overflow: hidden;
+	font-size: 20px;
+    font-weight: 400;
+    color:#555
 }
 .twohref{
 	border: darkred;
 	padding: 2px 5px 2px 5px
-}
-.onehref a{
-	color:#555
 }
 .listright{
 	border-top: aqua;
@@ -90,4 +90,13 @@
 }
 .bottommargin10{
 	padding-bottom:10px;
+}
+.listtxt{
+	border: darkred;
+	padding: 10px 8px 10px 8px
+}
+.dilitxt{
+	color:#555;
+	font-size: 1em;
+    font-weight: 400;
 }

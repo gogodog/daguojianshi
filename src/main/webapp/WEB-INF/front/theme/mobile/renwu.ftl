@@ -23,7 +23,7 @@
 	<header>
 		<a class="cat" href="javascript:void(0)">广告<i></i></a>
 		<h2>
-			<a href="/show/AV0DmzcMqMQTX7aOp80m">各国领导人年少时代，谁的颜值更高</a>
+			<a class="dilitxt" href="/show/AV0DmzcMqMQTX7aOp80m">各国领导人年少时代，谁的颜值更高</a>
 		</h2>
 	</header>
 	<p class="meta">
@@ -38,7 +38,7 @@
 	<header>
 		<a class="cat" href="javascript:void(0)">广告<i></i></a>
 		<h2>
-			<a href="/show/AV0DmzcMqMQTX7aOp80m">各国领导人年少时代，谁的颜值更高</a>
+			<a class="dilitxt" href="/show/AV0DmzcMqMQTX7aOp80m">各国领导人年少时代，谁的颜值更高</a>
 		</h2>
 	</header>
 	<p class="meta">
@@ -53,7 +53,7 @@
 	<header>
 		<a class="cat" href="javascript:void(0)">广告<i></i></a>
 		<h2>
-			<a href="/show/AV0DmzcMqMQTX7aOp80m">各国领导人年少时代，谁的颜值更高</a>
+			<a class="dilitxt" href="/show/AV0DmzcMqMQTX7aOp80m">各国领导人年少时代，谁的颜值更高</a>
 		</h2>
 	</header>
 	<p class="meta">
@@ -68,7 +68,7 @@
 	<header>
 		<a class="cat" href="javascript:void(0)">广告<i></i></a>
 		<h2>
-			<a href="/show/AV0DmzcMqMQTX7aOp80m">各国领导人年少时代，谁的颜值更高</a>
+			<a class="dilitxt" href="/show/AV0DmzcMqMQTX7aOp80m">各国领导人年少时代，谁的颜值更高</a>
 		</h2>
 	</header>
 	<p class="meta">
@@ -83,7 +83,7 @@
 	<header>
 		<a class="cat" href="javascript:void(0)">广告<i></i></a>
 		<h2>
-			<a href="/show/AV0DmzcMqMQTX7aOp80m">各国领导人年少时代，谁的颜值更高</a>
+			<a class="dilitxt" href="/show/AV0DmzcMqMQTX7aOp80m">各国领导人年少时代，谁的颜值更高</a>
 		</h2>
 	</header>
 	<p class="meta">
