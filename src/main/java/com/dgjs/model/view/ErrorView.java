@@ -5,8 +5,8 @@ public class ErrorView extends BaseView{
 	String problem;
 	String exmsg;
 	String tips;
-	String callback;
-	String callbakcbtn = "返 回";
+	String callback = "/index";
+	String callbakcbtn = "返 回 首 页";
 	public String getTitle() {
 		return title;
 	}

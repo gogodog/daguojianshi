@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<errors>
+	<error>
+		<name>NullPointerException</name>
+		<type>system</type>
+		<code>80001</code>
+		<tip>系统空指针找不到你要的页面</tip>
+		<problem>空指针异常</problem>
+		<log>1</log>
+	</error>
+	<error>
+		<name>ClassNotFoundException</name>
+		<type>system</type>
+		<code>80002</code>
+		<tip>系统类造型异常请稍后重试</tip>
+		<problem>类造型异常</problem>
+		<log>2</log>
+	</error>
+	<error>
+		<name>ArrayIndexOutOfBoundsException</name>
+		<type>customer</type>
+		<code>70002</code>
+		<tip>系统数组越界，请检查之前操作</tip>
+		<problem>数组越界</problem>
+		<log>3</log>
+	</error>
+</errors>

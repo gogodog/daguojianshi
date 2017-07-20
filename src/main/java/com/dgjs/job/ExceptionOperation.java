@@ -27,12 +27,10 @@ public class ExceptionOperation implements HandlerExceptionResolver{
         	ev.setErrorMessage(ex.getMessage());
         	ev.setProblem("空指针异常");
         	ev.setTips("系统空指针找不到你要的页面");
-        	ev.setCallback("/test/freemaker?page=index");
         }else {
         	ev.setErrorCode("800022");
         	ev.setErrorMessage(ex.getMessage());
         	ev.setProblem("系统异常");
-        	ev.setCallback("/test/freemaker?page=index");
         	ev.setTips("系统异常 系统发出异常信息请检查你的操作");
         }
         mv.addObject("info", ev);

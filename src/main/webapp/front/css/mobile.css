@@ -1,0 +1,77 @@
+.diliimg{
+		width: 31%;
+	    border: solid 1px black;
+	    float: left;
+		margin: 0 1%;
+}
+.itemimg{
+	width: 100%;
+	border-radius: 0;
+	display:inline;
+	overflow: hidden;
+}
+.inline2div a{
+	float: left;
+    width: 50%;
+    padding:0 2px 0 2px;
+    height:22px;
+    line-height:22px;
+    overflow: hidden;
+}
+.title-mobile{
+	padding: 10px 10px;
+	border-radius: 4px 4px 0 0;
+	margin-bottom: 0px;
+	background-color: #ffffff;
+	border-bottom: solid 1px #337ab7;
+}
+.small-title-mobile{
+	float: right;
+	font-size: 10px;
+	top: 10px;
+	right: 7%; 
+	position: relative;
+}
+.title-mobile h3{
+	font-size: 19px;
+	width:100%
+}
+.onehref{
+	border: darkred;
+	padding: 2px 5px 2px 5px
+}
+.onehref a{
+	display: block;
+	height: 28px;
+	line-height: 28px;
+	overflow: hidden;
+}
+.twohref{
+	border: darkred;
+	padding: 2px 5px 2px 5px
+}
+.listright{
+	border-top: aqua;
+	border-right: aqua;
+	border-left: aqua;
+	border-bottom: 2px solid #EAEAEA;
+}
+.threeimg{
+	border: darkred;
+	border-bottom: solid 2px #EAEAEA;
+	padding: 10px 0px 10px 7px
+}
+.showmore{
+	border-radius:0 0 4px 4px;
+	margin-bottom: 20px;
+	background-color: #ffffff;
+	text-align: center;
+	padding: 10px;
+}
+.listtext{
+	border: darkred;
+	padding: 10px 4px 10px 4px
+}
+.listtext p{
+	display:block;
+}

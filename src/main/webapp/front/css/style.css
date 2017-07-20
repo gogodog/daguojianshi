@@ -2608,6 +2608,7 @@ body,input,button,textarea,select {
     background:url(../images/focusBg.png) repeat-x;
     color:#fff;
     text-align:left;
+    overflow: hidden;
 }
 .hidepn-btn{
 	display:block;

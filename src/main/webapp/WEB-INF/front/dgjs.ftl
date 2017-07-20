@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-    <#include "/front/common/header_static.ftl">
+    <#include "/front/common/header_static_mobile.ftl">
     <script>
 		//页面统计
 		var pageinfo_ = {};
@@ -26,8 +26,12 @@
 	    <div class="content" id="content_t">
 	      <#include "/front/common/banner_index.ftl">
 	      <#include "/front/common/recommend_index.ftl">
+	      <#include "/front/theme/mobile/shishi.ftl">
 	      <#include "/front/theme/mobile/zhengshi.ftl">
 	      <#include "/front/theme/mobile/dili.ftl">
+	      <#include "/front/theme/mobile/yeshi.ftl">
+	      <#include "/front/theme/mobile/renwu.ftl">
+	      <#include "/front/theme/mobile/test.ftl">
 	    </div>
 	  </div>
 	  <!-- 防止移动端页面抖动 -->
