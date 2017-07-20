@@ -6,20 +6,6 @@
 	</h3>
 </div>
 
-<!-- 三种并列图片 -->
-<article class="excerpt threeimg" onclick="location.href=&quot;/show/AV0DmzcMqMQTX7aOp80m&quot;">
-	<div class='diliimg'>
-		<img class="itemimg" src="http://www.cwillow.com/images/carousel/p_100/20170702054527046417.jpg">
-	</div>
-	<div class='diliimg'>
-		<img class="itemimg" src="http://www.cwillow.com/images/carousel/p_100/20170702054527046417.jpg">
-	</div>
-	<div class='diliimg'>
-		<img class="itemimg" src="http://www.cwillow.com/images/carousel/p_100/20170702054527046417.jpg">
-	</div>
-	<p style="text-align: right;padding-right: 10px;color: cadetblue;font-size: .5em;">DImbiaTowen发咯啊</p>
-</article>
-
 <article class="excerpt listright" onclick="location.href=&quot;/show/AV0DmzcMqMQTX7aOp80m&quot;">
 	<a class="focus" href="/show/AV0DmzcMqMQTX7aOp80m">
 		<img class="thumb" data-original="/front/images/list/timg3.jpeg" src="http://www.cwillow.com//images/articlescrap/p_100/20170702095122629561.jpg" style="display:inline;">
