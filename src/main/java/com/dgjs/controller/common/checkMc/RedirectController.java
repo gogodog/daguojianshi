@@ -19,9 +19,9 @@ public class RedirectController {
         boolean isphone =MachineUtils.check(request.getHeader("USER-AGENT"));  
         log.info((isphone?"[mobile]":"[pc]") + request.getRequestURL()+"");
         if(isphone){  
-        	return "forward:/index";
-        }else{
         	return "forward:/m/index";
+        }else{
+        	return "forward:/index";
         }
     }
 }

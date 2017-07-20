@@ -17,6 +17,7 @@
 	</script>
 </head>
 <body class="user-select">
+	<#include "/front/mobile/ad/t1.ftl">
 	<input type="hidden" id="doctype" value="${doctype}">
 	<input type="hidden" id="contextPath" value="${contextPath}">
 	<#assign page_name='index'>
@@ -31,13 +32,12 @@
 	      <#include "/front/theme/mobile/dili.ftl">
 	      <#include "/front/theme/mobile/yeshi.ftl">
 	      <#include "/front/theme/mobile/renwu.ftl">
-	      <#include "/front/theme/mobile/test.ftl">
 	    </div>
 	  </div>
 	  <!-- 防止移动端页面抖动 -->
 	  <aside class="sidebar"></aside>
 	</section>
-    <#include "/front/common/footer_title.ftl">
+    <#include "/front/common/footer_title_mobile.ftl">
     <#include "/front/common/footer_static.ftl">
 </body>
 </html>

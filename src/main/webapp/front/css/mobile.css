@@ -50,6 +50,9 @@
 	border: darkred;
 	padding: 2px 5px 2px 5px
 }
+.onehref a{
+	color:#555
+}
 .listright{
 	border-top: aqua;
 	border-right: aqua;
@@ -70,8 +73,21 @@
 }
 .listtext{
 	border: darkred;
-	padding: 10px 4px 10px 4px
+	padding: 0px 8px 0px 8px
+}
+.listtext h2{
+	font-size: 1em;
+	font-weight: 400;
+}
+.listtext header{
+	margin-bottom:0px
 }
 .listtext p{
 	display:block;
+}
+.topmargin10{
+	padding-top:10px;
+}
+.bottommargin10{
+	padding-bottom:10px;
 }
