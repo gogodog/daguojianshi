@@ -16,12 +16,13 @@
 		    height: 100%;
 		}
     </style>
-    <script type="text/javascript" src="/front/timelinef/storyjs-embed.js"></script>
+    <script type="text/javascript" src="${contextPath}/front/timelinef/storyjs-embed.js"></script>
     <script>
+      var contextPath='${contextPath}';
       $(document).ready(function() {
       	//front/timeline/data.json
       	//getstroies.json
-        $.get('/getstroies.json',function(result){
+        $.get(contextPath+'/getstroies.json',function(result){
         	console.log(JSON.stringify(result));
         	var h = $(document).outerHeight(true) - 60 - 20 + 16;
             createStoryJS({

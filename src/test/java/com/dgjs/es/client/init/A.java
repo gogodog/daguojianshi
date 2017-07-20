@@ -1,4 +1,8 @@
-package com.dgjs.model.es;
+package com.dgjs.es.client.init;
+
+import java.util.Random;
+
+import org.springframework.util.StringUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.dgjs.model.dto.business.Articlescrap;
@@ -6,11 +10,10 @@ import com.dgjs.model.dto.business.entity.Recommend;
 import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.TIME_DEGREE;
 import com.dgjs.model.enums.UpDown_Status;
+import com.dgjs.model.es.ArticlescrapEs;
 import com.dgjs.utils.DateUtils;
 
-public class ArticlescrapEs implements java.io.Serializable{
-
-	private static final long serialVersionUID = 598908887547996139L;
+public class A {
 	
 	private Long id;//id
 	private String title;//标题
@@ -23,11 +26,10 @@ public class ArticlescrapEs implements java.io.Serializable{
 	private String sub_content;//精简内容
 	private String show_picture;//展示图片
 	private Long visits;//访问量
-	private Integer start_time;//内容的起始时间
+	private String start_time;//内容的起始时间
 	private String[] keywords;//关键词（分类）
 	private Integer type;//文章类型
 	private Recommend recommend;//推荐
-	private int time_degree;//起始时间精度
 	 
 	
 	public Long getId() {
@@ -118,17 +120,11 @@ public class ArticlescrapEs implements java.io.Serializable{
 	public String toString() {
 		return JSON.toJSONString(this);
 	}
-	public Integer getStart_time() {
+	public String getStart_time() {
 		return start_time;
 	}
-	public void setStart_time(Integer start_time) {
+	public void setStart_time(String start_time) {
 		this.start_time = start_time;
-	}
-	public int getTime_degree() {
-		return time_degree;
-	}
-	public void setTime_degree(int time_degree) {
-		this.time_degree = time_degree;
 	}
 	public static ArticlescrapEs ConvertToEs(Articlescrap articlescrap){
 		if(articlescrap == null){
@@ -148,7 +144,6 @@ public class ArticlescrapEs implements java.io.Serializable{
 		articlescrapEs.setVisits(articlescrap.getVisits());
 		articlescrapEs.setStart_time(articlescrap.getBegin_time());
 		articlescrapEs.setKeywords(articlescrap.getKeywords());
-		articlescrapEs.setTime_degree(articlescrap.getTime_degree()==null?-1:articlescrap.getTime_degree().getKey());
 		Recommend recommend = new Recommend();
 		recommend.setSort(-1);
 		recommend.setStatus(-1);
@@ -156,7 +151,7 @@ public class ArticlescrapEs implements java.io.Serializable{
 		return articlescrapEs;
 	}
 	
-	public static Articlescrap ConvertToVo(ArticlescrapEs articlescrapEs){
+	public static Articlescrap ConvertToVo(A articlescrapEs){
 		if(articlescrapEs == null){
 			return null;
 		}
@@ -166,7 +161,43 @@ public class ArticlescrapEs implements java.io.Serializable{
 		articlescrap.setCreate_time(DateUtils.parseDateFromString(articlescrapEs.getCreate_time()));
 		articlescrap.setShow_picture(articlescrapEs.getShow_picture());
 		articlescrap.setShow_time(DateUtils.parseDateFromString(articlescrapEs.getShow_time()));
-		articlescrap.setBegin_time(articlescrapEs.getStart_time());
+		String start_time=articlescrapEs.getStart_time();
+		if(!StringUtils.isEmpty(start_time)){
+			Random random = new Random();
+			StringBuilder str = new StringBuilder();
+			String[] years=start_time.split("年");
+			String year=years[0];
+			if(year.startsWith("公元前")){
+				str.append("-");
+			}
+			year=year.replaceAll("公元前", "").replaceAll("公元", "");
+			str.append(year);
+			articlescrap.setTime_degree(TIME_DEGREE.YEAR);
+			if(years.length>1){
+				String monthday=years[1];
+				if(monthday.contains("月")){
+					String[] months=monthday.split("月");
+					String month = months[0];
+					str.append(month.length()==1?"0"+month:month);
+					articlescrap.setTime_degree(TIME_DEGREE.MONTH);
+					if(months.length>1){
+						String days=months[1];
+						String day=days.replaceAll("日", "");
+						str.append(day.length()==1?"0"+day:day);
+						articlescrap.setTime_degree(TIME_DEGREE.DAY);
+					}else{
+						int day=random.nextInt(28)+1;//随机算月份
+						str.append(day<10?"0"+day:day);//随机算月份
+					}
+				}
+			}else{
+				int month = random.nextInt(12)+1;
+				str.append(month<10?"0"+month:month);//随机算月份
+				int day=random.nextInt(28)+1;//随机算月份
+				str.append(day<10?"0"+day:day);//随机算月份
+			}
+			articlescrap.setBegin_time(Integer.parseInt(str.toString()));
+		}
 		articlescrap.setStatus(articlescrapEs.getStatus()==-1?null:UpDown_Status.valueOf(articlescrapEs.getStatus()));
 		articlescrap.setSub_content(articlescrapEs.getSub_content());
 		articlescrap.setTitle(articlescrapEs.getTitle());
@@ -175,8 +206,6 @@ public class ArticlescrapEs implements java.io.Serializable{
 		articlescrap.setVisits(articlescrapEs.getVisits());
 		articlescrap.setRecommend(articlescrapEs.getRecommend());
 		articlescrap.setKeywords(articlescrapEs.getKeywords());
-		articlescrap.setTime_degree(articlescrapEs.getTime_degree()==-1?null:TIME_DEGREE.valueOf(articlescrapEs.getTime_degree()));
 		return articlescrap;
 	}
-	
 }

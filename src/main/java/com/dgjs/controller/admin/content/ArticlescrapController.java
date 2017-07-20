@@ -66,6 +66,7 @@ public class ArticlescrapController {
 	@RequestMapping("/saveArticlescrap")
 	public ModelAndView saveArticlescrap(Articlescrap articlescrap,String showTime) throws Exception{
 		ModelAndView mv = new ModelAndView("redirect:/admin/atcp/articlescrapList");  
+		articlescrap.setBeginTime();
 		articlescrap.setShow_time(DateUtils.parseDateFromString(showTime));
 		if(StringUtils.isEmpty(articlescrap.getId()))
 			articlescrapSerivce.saveArticlescrap(articlescrap);

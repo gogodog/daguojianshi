@@ -67,12 +67,13 @@ public class EsInit {
 				.startObject("author").field("type", "keyword").field("store", "yes").field("index", "not_analyzed").endObject()
 				.startObject("create_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "yes").field("index", "not_analyzed").endObject()
 		        .startObject("update_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "yes").field("index", "not_analyzed").endObject()
-		        .startObject("start_time").field("type", "keyword").field("store", "yes").field("index", "not_analyzed").endObject()
+		        .startObject("start_time").field("type", "integer").field("store", "yes").field("index", "not_analyzed").endObject()
 		        .startObject("show_picture").field("type", "keyword").field("store", "yes").field("index", "not_analyzed").endObject()
 				.startObject("sub_content").field("type", "text").field("store", "yes").field("index", "analyzed").field("analyzer", "ik_smart").endObject()
 				.startObject("content").field("type", "text").field("store", "yes").field("index", "analyzed").field("analyzer", "ik_smart").endObject()
 				.startObject("visits").field("type", "long").field("store", "yes").field("index", "not_analyzed").endObject()
 				.startObject("keywords").field("type", "keyword").field("store", "yes").field("index", "not_analyzed").endObject()
+				.startObject("time_degree").field("type", "integer").field("store", "yes").field("index", "not_analyzed").endObject()
 				.startObject("recommend").field("type", "nested")
 				.startObject("properties")
 				.startObject("sort").field("type", "integer").field("store", "yes").field("index", "not_analyzed").endObject()
@@ -124,23 +125,15 @@ public class EsInit {
 //		                    .endObject()
 //		                  )
 //		        .get();
-		
-		
-	
-	 	
-		for(String id:ids){
-			  GetResponse resp = client.prepareGet(index, type , id).get();
-			  Map map=resp.getSourceAsMap();
-			  map.get("");
-			  IndexRequestBuilder indexRequestBuilder =client.prepareIndex("dgjs_v2", "articlescrap_v2");
-		}
-		
-
-	  
-	  
-	  
-	  
-		
+//		for(String id:ids){
+//			GetResponse response = client.prepareGet(index, type , id).get();
+//		 	A articlescrapEs=JSON.parseObject(response.getSourceAsString(), A.class);
+//		 	Articlescrap articlescrap =  A.ConvertToVo(articlescrapEs);
+//		 	articlescrap.setId(id);
+//			  
+//		 	IndexRequestBuilder indexRequestBuilder =client.prepareIndex("dgjs_v2", "articlescrap_v2",id);
+//		    indexRequestBuilder.setSource(ArticlescrapEs.ConvertToEs(articlescrap).toString()).execute().actionGet();
+//		}
 //      UpdateRequest updateRequest = new UpdateRequest("dgjs_test", "dgjs_type", "1")
 //       .doc(XContentFactory.jsonBuilder()
 //           .startObject()
@@ -163,5 +156,21 @@ public class EsInit {
 //			System.out.println("number:"+JSON.toJSONString(map));
 //			System.out.println("sourceAsString:"+hits.getHits()[i].getSourceAsString());
 //		}
+		
+	}
+	
+	@Test
+	public void testMoveData() throws Exception{
+		TransportClient client=transportClient.getObject();
+		String[] ids={"AVzZrZRC9b4MAjksb_WL","AVzZrY1I9b4MAjksb_WD","AVzZrZMX9b4MAjksb_WI","AVzZrYlm9b4MAjksb_WA","AVzZrZOM9b4MAjksb_WJ","AVzZrYoE9b4MAjksb_WB","AVzZrY769b4MAjksb_WG","AV0DmzcMqMQTX7aOp80m","AVzZrY6J9b4MAjksb_WF","AVzZrYyi9b4MAjksb_WC","AVzZrZPu9b4MAjksb_WK","AV0H7njhqMQTX7aOp80q","AVzZrY-z9b4MAjksb_WH","AVzZrY3Z9b4MAjksb_WE"};
+		for(String id:ids){
+			GetResponse response = client.prepareGet(index, type , id).get();
+		 	A articlescrapEs=JSON.parseObject(response.getSourceAsString(), A.class);
+		 	Articlescrap articlescrap =  A.ConvertToVo(articlescrapEs);
+		 	articlescrap.setId(id);
+			  
+		 	IndexRequestBuilder indexRequestBuilder =client.prepareIndex("dgjs_v2", "articlescrap_v2",id);
+		    indexRequestBuilder.setSource(ArticlescrapEs.ConvertToEs(articlescrap).toString()).execute().actionGet();
+		}
 	}
 }
