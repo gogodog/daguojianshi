@@ -27,7 +27,6 @@ import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.dgjs.es.client.ESTransportClient;
@@ -41,6 +40,7 @@ import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.es.ArticlescrapEs;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 import com.dgjs.utils.DateUtils;
+import com.dgjs.utils.StringUtils;
 
 @Service("cArticlescrapMapper")
 public class ArticlescrapMapperImpl implements ArticlescrapMapper{
@@ -48,15 +48,16 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 	@Autowired
 	ESTransportClient transportClient;
 	
-	final static String index = "dgjs_v2";
+	final static String index = "dgjs_v3";
 	
-	final static String type = "articlescrap_v2";
+	final static String type = "articlescrap_v3";
 	
 	
 	@Override
  	public Articlescrap getArticlescrapIndex(String id){
 		TransportClient client=transportClient.getClient();
  		GetResponse response = client.prepareGet(index, type , id).get();
+ 		System.out.println(response.getSourceAsString());
  		ArticlescrapEs articlescrapEs=JSON.parseObject(response.getSourceAsString(), ArticlescrapEs.class);
  		Articlescrap articlescrap =  ArticlescrapEs.ConvertToVo(articlescrapEs);
  		articlescrap.setId(id);
@@ -68,7 +69,7 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 		BoolQueryBuilder boolBuilder = getListQueryBuilder(condition);
 		TransportClient client=transportClient.getClient();
 		SearchRequestBuilder responsebuilder = client.prepareSearch(index).setTypes(type);
-		String[] fields={"title","show_time","status","type","author","create_time","update_time","sub_content","show_picture","start_time","time_degree"};
+		String[] fields={"title","show_time","status","type","author","create_time","update_time","sub_content","show_picture","start_time","time_degree","pictures"};
 		responsebuilder.setQuery(boolBuilder);
 		Map<String, SortOrder> sort = condition.getSort();
 		if(sort!=null&&!sort.isEmpty()){
@@ -97,10 +98,10 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 	private BoolQueryBuilder getListQueryBuilder(ArticlescrapCondtion condition){
 		BoolQueryBuilder boolBuilder = new BoolQueryBuilder();
 		if(condition!=null){
-			if(!StringUtils.isEmpty(condition.getTitle())){
+			if(!StringUtils.isNullOrEmpty(condition.getTitle())){
 				boolBuilder.must(QueryBuilders.matchQuery("title", condition.getTitle()));
 			}
-			if(!StringUtils.isEmpty(condition.getAuthor())){
+			if(!StringUtils.isNullOrEmpty(condition.getAuthor())){
 				boolBuilder.must(QueryBuilders.termQuery("author", condition.getAuthor()));
 			}
 			if(condition.getStatus()!=null){
@@ -121,7 +122,7 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 			if(condition.getStartTimeTo()!=null){
 				boolBuilder.must(QueryBuilders.rangeQuery("start_time").lte(condition.getStartTimeTo()));
 			}
-		    if(!StringUtils.isEmpty(condition.getKeyword())){
+		    if(!StringUtils.isNullOrEmpty(condition.getKeyword())){
 		    	String[] matchFields={"title","sub_content","keywords","content"};
 		    	boolBuilder.must(QueryBuilders.multiMatchQuery(condition.getKeyword(),matchFields));
 		    }
@@ -133,7 +134,7 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 		Articlescrap articlescrap = new Articlescrap();
 		articlescrap.setAuthor(map.get("author").value());
 		articlescrap.setCreate_time(DateUtils.parseDateFromString(map.get("create_time").value()));
-		articlescrap.setShow_picture(map.get("show_picture").value());
+//		articlescrap.setShow_picture(map.get("show_picture").value());
 		articlescrap.setShow_time(DateUtils.parseDateFromString(map.get("show_time").value()));
 		articlescrap.setSub_content(map.get("sub_content").value());
 		articlescrap.setUpdate_time(DateUtils.parseDateFromString(map.get("update_time").value()));
@@ -146,6 +147,8 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 		articlescrap.setBegin_time(start_time);
 		Integer time_degree=map.get("time_degree").value();
 		articlescrap.setTime_degree(TIME_DEGREE.valueOf(time_degree));
+		List<Object> pictures = map.get("pictures").values();
+		articlescrap.setPictures(StringUtils.parseListToArray(pictures));
 		return articlescrap;
 	}
 
@@ -153,7 +156,7 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 	public int deleteById(String id){
 		TransportClient client=transportClient.getClient();
 		DeleteResponse response=client.prepareDelete(index, type, id).execute().actionGet();
-		return StringUtils.isEmpty(response.getId())?0:1;
+		return StringUtils.isNullOrEmpty(response.getId())?0:1;
 	}
 
 	@Override
@@ -169,7 +172,7 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 	    StringBuilder str=new StringBuilder("ctx._source.recommend=params.recommend;");
 	    Script script = new Script(ScriptType.INLINE,"painless",str.toString(),map);
 	    UpdateResponse response=client.prepareUpdate(index, type, id).setScript(script).execute().actionGet();
-	    return StringUtils.isEmpty(response.getId())?0:1;
+	    return StringUtils.isNullOrEmpty(response.getId())?0:1;
 	}
 
 	@Override
@@ -218,9 +221,15 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 	    if(articlescrap.getCreate_time()==null){
 	    	 articlescrap.setCreate_time(date==null?date=new Date():date);
 	    }
+	    if(articlescrap.getRecommend()==null){
+	    	Recommend recommend = new Recommend();
+	    	recommend.setSort(-1);
+	    	recommend.setStatus(-1);
+	    	articlescrap.setRecommend(recommend);
+	    }
 	    IndexRequestBuilder indexRequestBuilder =client.prepareIndex(index, type);
 	    IndexResponse response = indexRequestBuilder.setSource(ArticlescrapEs.ConvertToEs(articlescrap).toString()).execute().actionGet();
-	    return StringUtils.isEmpty(response.getId())?0:1;
+	    return StringUtils.isNullOrEmpty(response.getId())?0:1;
 	}
 
 	@SuppressWarnings("deprecation")
@@ -240,7 +249,7 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 	public List<Articlescrap> getArticlescrapByIds(String[] ids) {
 		TransportClient client=transportClient.getClient();
 		SearchRequestBuilder responsebuilder = client.prepareSearch(index).setTypes(type).setQuery(QueryBuilders.idsQuery().addIds(ids));
-		String[] fields={"title","show_time","status","type","author","create_time","update_time","sub_content","show_picture","start_time","time_degree"};
+		String[] fields={"title","show_time","status","type","author","create_time","update_time","sub_content","show_picture","start_time","time_degree","pictures"};
 		responsebuilder.storedFields(fields);
 		SearchResponse myresponse = responsebuilder.execute().actionGet();		
 		SearchHits hits = myresponse.getHits();

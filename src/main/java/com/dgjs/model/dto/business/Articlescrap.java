@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Random;
 
 import com.alibaba.fastjson.JSON;
+import com.dgjs.es.client.init.Pictures;
 import com.dgjs.model.dto.business.entity.Recommend;
 import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.TIME_DEGREE;
@@ -30,6 +31,8 @@ public class Articlescrap {
 	
 	private Integer begin_time;//起始时间
 	private TIME_DEGREE time_degree;//起始时间精度
+	private String[] pictures;//图片路径
+	private int pic_num;//图片数量
 	
 	private transient String start_time_c;//内容的起始时间
 	private transient String start_time_y;//内容的起始时间
@@ -147,6 +150,18 @@ public class Articlescrap {
 	}
 	public void setKeywords(String[] keywords) {
 		this.keywords = keywords;
+	}
+	public String[] getPictures() {
+		return pictures;
+	}
+	public void setPictures(String[] pictures) {
+		this.pictures = pictures;
+	}
+	public int getPic_num() {
+		return pic_num;
+	}
+	public void setPic_num(int pic_num) {
+		this.pic_num = pic_num;
 	}
 	public void setKeywordsValue(String keywordsValue) {
 		if(keywordsValue != null){

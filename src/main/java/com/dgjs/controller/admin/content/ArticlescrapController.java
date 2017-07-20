@@ -68,6 +68,7 @@ public class ArticlescrapController {
 		ModelAndView mv = new ModelAndView("redirect:/admin/atcp/articlescrapList");  
 		articlescrap.setBeginTime();
 		articlescrap.setShow_time(DateUtils.parseDateFromString(showTime));
+		articlescrap.setPic_num(articlescrap.getPictures()==null?0:articlescrap.getPictures().length);
 		if(StringUtils.isEmpty(articlescrap.getId()))
 			articlescrapSerivce.saveArticlescrap(articlescrap);
 		else

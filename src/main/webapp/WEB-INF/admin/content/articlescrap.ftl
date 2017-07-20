@@ -20,6 +20,13 @@
 			    <input type="hidden" name="id" value="${(articlescrap.id)!''}">
 			    <input type="hidden" name="status" value="${(articlescrap.status)!'DOWN'}">
 			    <input type="hidden" name="show_picture" value="${(articlescrap.show_picture)!''}">
+			    <div style="display:none" id="pictures">
+			    <#if articlescrap.pictures??>
+			      <#list  articlescrap.pictures as url>
+			          <input type="hidden" name="pictures" value="${(url)!''}">
+		          </#list>
+		        </#if>
+		        </div>
 			    <fieldset>    
 			    <div class="form-group">
 					<label for="">文章标题</label>
@@ -31,8 +38,14 @@
 			    </div>
 			    <div class="form-group">
 				    <label for="">展示图片</label>
-				    <img src="<#if articlescrap.show_picture??>${imageContextPath}${articlescrap.show_picture}</#if>" id="showImage" style="width:200px;height:200px;<#if articlescrap.show_picture??>display:block;<#else>display:none;</#if>">
-				    <div class="file"><input type="file" class="form-input-file" id="uploadImage" name="uploadImage"/>选择文件</div>
+				    <div id="showImage">
+				      <#if articlescrap.pictures??>
+				        <#list  articlescrap.pictures as url>
+				          <img src="${imageContextPath}${url}" style="width:200px;height:200px;"> 
+				        </#list>
+				      </#if>
+				    </div>
+				    <div class="file"><input type="file" class="form-input-file" id="uploadImage" name="uploadImage" multiple/>选择文件</div>
 				    <div class="file"><input type="button" class="form-input-file" id="buttonUpload" onClick="return ajaxFileUpload();">上传</div>
 			    </div>
 				<div class="form-group">
@@ -128,10 +141,20 @@
 	                        alert(result.errorMessage);//如有错误则弹出错误
 	                    }else
 	                    {
-	                    	var accessPath=imageContextPath+result.imageUrl;
-	                        $("#showImage").attr("src",accessPath);
-	                        $("input[name='show_picture']").val(result.imageUrl);
-	                        $("#showImage").show();
+	                    	var results=result.list;
+	                    	var divImages="";
+	                    	var pictures="";
+	                    	for(var i=0;i<results.length;i++){
+	                    		var accessPath=imageContextPath+results[i].minImageUrl;
+	                    		divImages+="<img src=\""+accessPath+"\" style=\"width:200px;height:200px;\">";
+	                    		pictures+="<input type=\"hidden\" name=\"pictures\" value=\""+results[i].minImageUrl+"\">";
+	                    	}
+	                    	$("#showImage").html(divImages);
+	                    	$("#pictures").html(pictures);
+//	                    	var accessPath=imageContextPath+result.imageUrl;
+//	                        $("#showImage").attr("src",accessPath);
+//	                        $("input[name='show_picture']").val(result.imageUrl);
+//	                        $("#showImage").show();
 	                    }
 	                }
 	            },

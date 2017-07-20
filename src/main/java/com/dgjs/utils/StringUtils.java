@@ -1,5 +1,7 @@
 package com.dgjs.utils;
 
+import java.util.List;
+
 public class StringUtils extends com.mysql.jdbc.StringUtils{
 
 	public static String combineStr(String[] strs,String blank){
@@ -34,5 +36,17 @@ public class StringUtils extends com.mysql.jdbc.StringUtils{
 	
 	public static Integer parseInt(String str){
 		return parseInt(str,null);
+	}
+	
+	public static String[] parseListToArray(List<Object> list){
+		if(list==null){
+			return null;
+		}
+		String[] array = new String[list.size()];
+		int index=0;
+		for(Object object:list){
+			array[index++]=object.toString();
+		}
+		return array;
 	}
 }
