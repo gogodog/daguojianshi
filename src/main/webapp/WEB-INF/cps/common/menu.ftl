@@ -33,3 +33,4 @@
         </ul>
     </div>
 </nav>
+<#include "/cps/common/alert.ftl">
