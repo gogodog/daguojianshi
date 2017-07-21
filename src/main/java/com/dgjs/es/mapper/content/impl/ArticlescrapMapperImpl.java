@@ -115,6 +115,12 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 			if(condition.getShowTimeTo()!=null){
 				boolBuilder.must(QueryBuilders.rangeQuery("show_time").lte(DateUtils.parseStringFromDate(condition.getShowTimeTo())));
 			}
+			if(condition.getStartTimeFrom()!=null){
+				boolBuilder.must(QueryBuilders.rangeQuery("start_time").gte(condition.getStartTimeFrom()));
+			}
+			if(condition.getStartTimeTo()!=null){
+				boolBuilder.must(QueryBuilders.rangeQuery("start_time").lte(condition.getStartTimeTo()));
+			}
 		    if(!StringUtils.isEmpty(condition.getKeyword())){
 		    	String[] matchFields={"title","sub_content","keywords","content"};
 		    	boolBuilder.must(QueryBuilders.multiMatchQuery(condition.getKeyword(),matchFields));

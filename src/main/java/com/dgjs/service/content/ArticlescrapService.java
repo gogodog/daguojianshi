@@ -20,5 +20,7 @@ public interface ArticlescrapService {
 	
 	public List<Articlescrap> getArticlescrapByComments(int number);
 	
+    public List<Articlescrap> getArticlescrapByIds(String[] ids);
+	
 	public String getDadianArticlescrapIds(List<Articlescrap> recommedArticlescraps,List<Articlescrap> newArticlescraps,List<Articlescrap> commentsArticlescrap);
 }

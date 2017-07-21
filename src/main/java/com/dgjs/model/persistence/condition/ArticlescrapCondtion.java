@@ -23,6 +23,8 @@ public class ArticlescrapCondtion {
 	private Date showTimeTo;
 	private Date updateTimeFrom;
 	private Date updateTimeTo;
+	private Integer startTimeFrom;
+	private Integer startTimeTo;
 	private int subContentLength;//查询截取的内容长度，默认20
 	private Map<String,SortOrder> sort;//排序
 	private int beginNum=0;//从哪条开始查
@@ -132,10 +134,29 @@ public class ArticlescrapCondtion {
 	public void setNeedTotalResults(boolean needTotalResults) {
 		this.needTotalResults = needTotalResults;
 	}
+	public Integer getStartTimeFrom() {
+		return startTimeFrom;
+	}
+	public void setStartTimeFrom(Integer startTimeFrom) {
+		this.startTimeFrom = startTimeFrom;
+	}
+	public Integer getStartTimeTo() {
+		return startTimeTo;
+	}
+	public void setStartTimeTo(Integer startTimeTo) {
+		this.startTimeTo = startTimeTo;
+	}
 	public String getKeyword() {
 		return keyword;
 	}
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
 	}
+	public void setShowTimeFrom(Date showTimeFrom) {
+		this.showTimeFrom = showTimeFrom;
+	}
+	public void setShowTimeTo(Date showTimeTo) {
+		this.showTimeTo = showTimeTo;
+	}
+	
 }
