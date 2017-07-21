@@ -45,6 +45,9 @@
 	height: 28px;
 	line-height: 28px;
 	overflow: hidden;
+	font-size: 20px;
+    font-weight: 400;
+    color:#555
 }
 .twohref{
 	border: darkred;
@@ -70,8 +73,30 @@
 }
 .listtext{
 	border: darkred;
-	padding: 10px 4px 10px 4px
+	padding: 0px 8px 0px 8px
+}
+.listtext h2{
+	font-size: 1em;
+	font-weight: 400;
+}
+.listtext header{
+	margin-bottom:0px
 }
 .listtext p{
 	display:block;
+}
+.topmargin10{
+	padding-top:10px;
+}
+.bottommargin10{
+	padding-bottom:10px;
+}
+.listtxt{
+	border: darkred;
+	padding: 10px 8px 10px 8px
+}
+.dilitxt{
+	color:#555;
+	font-size: 1em;
+    font-weight: 400;
 }

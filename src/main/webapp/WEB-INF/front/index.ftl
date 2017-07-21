@@ -19,6 +19,7 @@
 <body class="user-select">
 	<input type="hidden" id="doctype" value="${doctype}">
 	<input type="hidden" id="contextPath" value="${contextPath}">
+	<#include "/front/pc/ad/t1.ftl">
 	<#assign page_name='index'>
     <#include "/front/common/header.ftl">
     <section class="container">
