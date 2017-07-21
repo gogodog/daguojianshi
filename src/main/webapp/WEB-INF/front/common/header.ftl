@@ -17,13 +17,13 @@
         <ul class="nav navbar-nav navbar-right">
           <li><a data-cont="大国简史" title="大国简史" href="${contextPath}/dgjs">首页</a></li>
           <#list types as type>
-            <li><a data-cont="大国简史" title="大国简史" href="${contextPath}/dgjs?type=${type}">${type.value}</a></li>
+            <li><a data-cont="大国简史" title="大国简史" href="${contextPath}/index?type=${type}">${type.value}</a></li>
           </#list>
         </ul>
         <table class="mobile-menu" style="border-spacing:10px 100px;">
 	    <tbody>
 	    	<tr>
-	    		<td><a data-cont="大国简史" title="大国简史" href="${contextPath}/index">首页</a></a></td>
+	    		<td><a data-cont="大国简史" title="大国简史" href="${contextPath}/dgjs">首页</a></a></td>
 				<td><a data-cont="大国简史" title="大国简史" href="${contextPath}/index?type=${types[0]}">${types[0].value}</a></td>
 				<td><a data-cont="大国简史" title="大国简史" href="${contextPath}/index?type=${types[1]}">${types[1].value}</a></td>
 				<td><a data-cont="大国简史" title="大国简史" href="${contextPath}/index?type=${types[2]}">${types[2].value}</a></td>
