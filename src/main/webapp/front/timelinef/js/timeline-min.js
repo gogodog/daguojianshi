@@ -48,7 +48,7 @@ function fp_10(){
 function fn_10(){
 	alert("n10");
 }
-var s = 1;
+var s = 2;
 function close_toolbar(){
 	if(s == 1){
 		$(".vco-toolbar").animate({left:'-250px'})
@@ -1594,6 +1594,9 @@ typeof VMM != "undefined" && typeof VMM.Language == "undefined" && (VMM.Language
         return_to_title: "返回",
         expand_timeline: "放大",
         contract_timeline: "缩小",
+        content_prev: "百年前",
+        content_next: "百年后",
+        content_tool: "工具栏",
         wikipedia: "From Wikipedia, the free encyclopedia",
         loading_content: "加载内容..",
         loading: "加载中.."
@@ -5194,25 +5197,16 @@ typeof VMM.Timeline != "undefined" && typeof VMM.Timeline.TimeNav == "undefined"
         if (b.touch && b.start_page) {
             VMM.Lib.addClass(v, "touch");
             //VMM.Lib.css(v, "top", 355);
-            VMM.Lib.css(v, "left", 0)
-            VMM.Lib.css(v, "border", "0px")
-            //VMM.Lib.css(v, "display", "none");display: inline-block;
-            //VMM.Lib.css(v, "display", "inline-block");
+            VMM.Lib.css(v, "left", -250);
+            VMM.Lib.css(v, "border", "0px");
+            VMM.Lib.css(v, "display", "inline-flex");
             b.start_page && VMM.Lib.css(v, "top",-47);
             
-            var style__ = "style='background-image: url(timeline.png?v4.4);background-repeat: no-repeat;background-position: -108px -160px;width: 40px;height: 40px;'";
-            m = VMM.appendAndGetElement(v, "<div>", "zoom-in smalltool", "<div class='icon'></div>");
-            g = VMM.appendAndGetElement(v, "<div>", "zoom-out smalltool", "<div class='icon'></div>");
-            p10 = VMM.appendAndGetElement(v, "<div>", "zoom-in smalltool", "<div class='icon' "+ style__ +"></div>");
-            n10 = VMM.appendAndGetElement(v, "<div>", "zoom-in smalltool", "<div class='icon' "+ style__ +"></div>");
-            c10 = VMM.appendAndGetElement(v, "<div>", "zoom-in smalltool", "<div class='icon' "+ style__ +"></div>");
-            
-            VMM.Lib.css(p10, "float", "left");
-            VMM.Lib.css(n10, "float", "left");
-            VMM.Lib.css(m, "float", "left");
-            VMM.Lib.css(g, "float", "left");
-            VMM.Lib.css($backhome, "float", "left");
-            VMM.Lib.css(c10, "float", "left");
+            m = VMM.appendAndGetElement(v, "<div>", "zoom-in", "<div class='icon'></div>");
+            g = VMM.appendAndGetElement(v, "<div>", "zoom-out", "<div class='icon'></div>");
+            p10 = VMM.appendAndGetElement(v, "<div>", "zoom-next", "<div class='icon'></div>");
+            n10 = VMM.appendAndGetElement(v, "<div>", "zoom-prev", "<div class='icon'></div>");
+            c10 = VMM.appendAndGetElement(v, "<div>", "zoom-kk", "<div class='icon'></div>");
             
             VMM.Lib.css(p10, "background", "rgba(251, 248, 251, 0.2)");
             VMM.Lib.css(n10, "background", "rgba(251, 248, 251, 0.2)");
@@ -5246,6 +5240,12 @@ typeof VMM.Timeline != "undefined" && typeof VMM.Timeline.TimeNav == "undefined"
             VMM.bindEvent(g, V, "click");
             VMM.Lib.attribute(m, "title", VMM.master_config.language.messages.expand_timeline);
             VMM.Lib.attribute(m, "rel", "timeline-tooltip");
+            VMM.Lib.attribute(p10, "title", VMM.master_config.language.messages.content_prev);
+            VMM.Lib.attribute(p10, "rel", "timeline-tooltip");
+            VMM.Lib.attribute(n10, "title", VMM.master_config.language.messages.content_next);
+            VMM.Lib.attribute(n10, "rel", "timeline-tooltip");
+            VMM.Lib.attribute(c10, "title", VMM.master_config.language.messages.content_tool);
+            VMM.Lib.attribute(c10, "rel", "timeline-tooltip");
             VMM.Lib.attribute(g, "title", VMM.master_config.language.messages.contract_timeline);
             VMM.Lib.attribute(g, "rel", "timeline-tooltip");
             v.tooltip({

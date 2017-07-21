@@ -16,7 +16,7 @@
 		    height: 100%;
 		}
     </style>
-    <script type="text/javascript" src="${contextPath}/front/timelinef/storyjs-embed.js"></script>
+    <script type="text/javascript" src="${contextPath}/front/timelinef/storyjs-embed.js?v=1"></script>
     <script>
       var contextPath='${contextPath}';
       $(document).ready(function() {

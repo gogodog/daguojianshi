@@ -124,7 +124,7 @@
     font-family: "Georgia",Times New Roman,Times,serif;
 }
 
-.vco-storyjs .twitter,.vco-storyjs .vcard,.vco-storyjs .messege,.vco-storyjs .credit,.vco-storyjs .caption,.vco-storyjs .zoom-in,.vco-storyjs .zoom-out,.vco-storyjs .back-home,.vco-storyjs .time-interval div,.vco-storyjs .time-interval-major div,.vco-storyjs .nav-container {
+.vco-storyjs .twitter,.vco-storyjs .vcard,.vco-storyjs .messege,.vco-storyjs .credit,.vco-storyjs .caption,.vco-storyjs .zoom-in,.vco-storyjs .zoom-next,.vco-storyjs .zoom-prev,.vco-storyjs .zoom-kk,.vco-storyjs .zoom-out,.vco-storyjs .back-home,.vco-storyjs .time-interval div,.vco-storyjs .time-interval-major div,.vco-storyjs .nav-container {
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important
 }
 
@@ -2025,7 +2025,7 @@
     box-shadow: 1px 1px 0 rgba(0,0,0,0.2)
 }
 
-.vco-timeline .vco-navigation .vco-toolbar .zoom-in,.vco-timeline .vco-navigation .vco-toolbar .zoom-out,.vco-timeline .vco-navigation .vco-toolbar .back-home{
+.vco-timeline .vco-navigation .vco-toolbar .zoom-in,.vco-timeline .vco-navigation .vco-toolbar .zoom-next,.vco-timeline .vco-navigation .vco-toolbar .zoom-prev,.vco-timeline .vco-navigation .vco-toolbar .zoom-kk,.vco-timeline .vco-navigation .vco-toolbar .zoom-out,.vco-timeline .vco-navigation .vco-toolbar .back-home{
     font-weight: normal;
     font-size: 10px;
     line-height: 20px;
@@ -2045,6 +2045,30 @@
 }
 
 .vco-timeline .vco-navigation .vco-toolbar .zoom-in .icon {
+    background-image: url(timeline.png?v4.4);
+    background-repeat: no-repeat;
+    background-position: -256px 0;
+    width: 24px;
+    height: 24px
+}
+
+.vco-timeline .vco-navigation .vco-toolbar .zoom-next .icon {
+    background-image: url(timeline.png?v4.4);
+    background-repeat: no-repeat;
+    background-position: -256px 0;
+    width: 24px;
+    height: 24px
+}
+
+.vco-timeline .vco-navigation .vco-toolbar .zoom-prev .icon {
+    background-image: url(timeline.png?v4.4);
+    background-repeat: no-repeat;
+    background-position: -256px 0;
+    width: 24px;
+    height: 24px
+}
+
+.vco-timeline .vco-navigation .vco-toolbar .zoom-kk .icon {
     background-image: url(timeline.png?v4.4);
     background-repeat: no-repeat;
     background-position: -256px 0;
@@ -2083,7 +2107,7 @@
     box-shadow: none
 }
 
-.vco-timeline .vco-navigation .vco-toolbar.touch .zoom-in,.vco-timeline .vco-navigation .vco-toolbar.touch .zoom-out,.vco-timeline .vco-navigation .vco-toolbar.touch .back-home {
+.vco-timeline .vco-navigation .vco-toolbar.touch .zoom-in,.vco-timeline .vco-navigation .vco-toolbar.touch .zoom-prev,.vco-timeline .vco-navigation .vco-toolbar.touch .zoom-next,.vco-timeline .vco-navigation .vco-toolbar.touch .zoom-kk,.vco-timeline .vco-navigation .vco-toolbar.touch .zoom-out,.vco-timeline .vco-navigation .vco-toolbar.touch .back-home {
     width: 40px;
     height: 40px;
     padding: 5px;
@@ -2102,9 +2126,33 @@
 }
 
 .vco-timeline .vco-navigation .vco-toolbar.touch .zoom-in .icon {
-    background-image: url(timeline.png?v4.4);
+    background-image: url(timeline.png?v4.5);
     background-repeat: no-repeat;
     background-position: -208px -160px;
+    width: 40px;
+    height: 40px
+}
+
+.vco-timeline .vco-navigation .vco-toolbar.touch .zoom-next .icon {
+    background-image: url(timeline.png?v4.5);
+    background-repeat: no-repeat;
+    background-position: -120px -160px;
+    width: 40px;
+    height: 40px
+}
+
+.vco-timeline .vco-navigation .vco-toolbar.touch .zoom-prev .icon {
+    background-image: url(timeline.png?v4.5);
+    background-repeat: no-repeat;
+    background-position: -80px -160px;
+    width: 40px;
+    height: 40px
+}
+
+.vco-timeline .vco-navigation .vco-toolbar.touch .zoom-kk .icon {
+    background-image: url(timeline.png?v4.5);
+    background-repeat: no-repeat;
+    background-position: -35px -160px;
     width: 40px;
     height: 40px
 }
@@ -2902,6 +2950,33 @@
         width: 24px;
         height: 24px
     }
+    
+    .vco-notouch .vco-navigation .vco-toolbar .zoom-kk .icon {
+        background-image:url(timeline@2x.png?v4.4);
+        background-size: 352px 260px;
+        background-repeat: no-repeat;
+        background-position: -256px 0;
+        width: 24px;
+        height: 24px
+    }
+    
+    .vco-notouch .vco-navigation .vco-toolbar .zoom-next .icon {
+        background-image:url(timeline@2x.png?v4.4);
+        background-size: 352px 260px;
+        background-repeat: no-repeat;
+        background-position: -256px 0;
+        width: 24px;
+        height: 24px
+    }
+    
+    .vco-notouch .vco-navigation .vco-toolbar .zoom-prev .icon {
+        background-image:url(timeline@2x.png?v4.4);
+        background-size: 352px 260px;
+        background-repeat: no-repeat;
+        background-position: -256px 0;
+        width: 24px;
+        height: 24px
+    }
 
     .vco-notouch .vco-navigation .vco-toolbar .zoom-out .icon {
         background-image: url(timeline@2x.png?v4.4);
@@ -2926,6 +3001,34 @@
         background-size: 352px 260px;
         background-repeat: no-repeat;
         background-position: -208px -160px;
+        width: 40px;
+        height: 40px
+    }
+    
+    .vco-notouch .vco-navigation .vco-toolbar.touch .zoom-kk .icon {
+        background-image: url(timeline@2x.png?v4.4);
+        background-size: 352px 260px;
+        background-repeat: no-repeat;
+        background-position: -35px -120px;
+        border: 1px solid;
+        width: 40px;
+        height: 40px
+    }
+    
+    .vco-notouch .vco-navigation .vco-toolbar.touch .zoom-next .icon {
+        background-image: url(timeline@2x.png?v4.4);
+        background-size: 352px 260px;
+        background-repeat: no-repeat;
+        background-position: -100px -150px;
+        width: 40px;
+        height: 40px
+    }
+
+	.vco-notouch .vco-navigation .vco-toolbar.touch .zoom-prev .icon {
+        background-image: url(timeline@2x.png?v4.4);
+        background-size: 352px 260px;
+        background-repeat: no-repeat;
+        background-position: -80px -160px;
         width: 40px;
         height: 40px
     }
@@ -2984,7 +3087,6 @@
         height: 24px
     }
 }
-
 @media screen and (-webkit-max-device-pixel-ratio: 1) {
 }
 
