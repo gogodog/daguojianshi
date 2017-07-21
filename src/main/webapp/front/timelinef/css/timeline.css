@@ -2025,14 +2025,14 @@
     box-shadow: 1px 1px 0 rgba(0,0,0,0.2)
 }
 
-.vco-timeline .vco-navigation .vco-toolbar .zoom-in,.vco-timeline .vco-navigation .vco-toolbar .zoom-out,.vco-timeline .vco-navigation .vco-toolbar .back-home {
+.vco-timeline .vco-navigation .vco-toolbar .zoom-in,.vco-timeline .vco-navigation .vco-toolbar .zoom-out,.vco-timeline .vco-navigation .vco-toolbar .back-home{
     font-weight: normal;
     font-size: 10px;
     line-height: 20px;
     top: 0;
     z-index: 202;
     width: 18px;
-    height: 18px;
+    height: 14px;
     color: #333;
     text-align: center;
     font-weight: bold;
@@ -2050,6 +2050,11 @@
     background-position: -256px 0;
     width: 24px;
     height: 24px
+}
+
+.smalltool .icon {
+    width: 16px;
+    height: 16px;
 }
 
 .vco-timeline .vco-navigation .vco-toolbar .zoom-out .icon {

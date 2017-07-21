@@ -69,20 +69,20 @@
 <article class="excerpt twohref" onclick="location.href=&quot;/show/AV0DmzcMqMQTX7aOp80m&quot;">
 	<div class="inline2div">
 		<a>
-			&bull;&nbsp各国领导人年少fdsa谁人年少1
+			★&nbsp各国领导人年少fdsa谁人年少1
 		</a>
 		<a>
-			&bull;&nbsp各国领导人年少fdsafd谁的代人1
+			★&nbsp各国领导人年少fdsafd谁的代人1
 		</a>
 	</div>
 </article>
 <article class="excerpt twohref" onclick="location.href=&quot;/show/AV0DmzcMqMQTX7aOp80m&quot;">
 	<div class="inline2div">
 		<a>
-			&bull;&nbsp各国领导人年少fdsa谁人年少1
+			★&nbsp各国领导人年少fdsa谁人年少1
 		</a>
 		<a>
-			&bull;&nbsp各国领导人年少fdsafd谁的代人1
+			★&nbsp各国领导人年少fdsafd谁的代人1
 		</a>
 	</div>
 </article>

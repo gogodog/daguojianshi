@@ -2,6 +2,8 @@
 <html lang="zh-CN">
 <head>
     <#include "/front/common/header_static_mobile.ftl">
+    <link rel="shortcut icon" href="http://photoswipe.com/dist/default-skin/default-skin.css?v=4.1.1-1.0.4">
+    <link rel="shortcut icon" href="http://photoswipe.com/dist/photoswipe.css?v=4.1.1-1.0.4">
     <script>
 		//页面统计
 		var pageinfo_ = {};
