@@ -117,4 +117,10 @@ public class ArticlescrapServiceImpl implements ArticlescrapService{
 		return str == null?null:str.toString();
 	}
 
+	@Override
+	public List<Articlescrap> getArticlescrapByIds(String[] ids) {
+		List<Articlescrap> list=articlescrapMapper.getArticlescrapByIds(ids);
+		return list;
+	}
+
 }

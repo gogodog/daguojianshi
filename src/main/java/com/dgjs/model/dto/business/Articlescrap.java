@@ -261,4 +261,7 @@ public class Articlescrap {
 		return JSON.toJSONString(this);
 	}
 	
+	public Integer getYear(){
+	   return begin_time==null?null:begin_time/10000;
+	}
 }
