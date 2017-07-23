@@ -1,6 +1,7 @@
 package com.dgjs.model.es;
 
 import com.alibaba.fastjson.JSON;
+import com.dgjs.es.client.init.Pictures;
 import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.dto.business.entity.Recommend;
 import com.dgjs.model.enums.Articlescrap_Type;
@@ -12,7 +13,7 @@ public class ArticlescrapEs implements java.io.Serializable{
 
 	private static final long serialVersionUID = 598908887547996139L;
 	
-	private Long id;//id
+	private String id;//id
 	private String title;//标题
 	private String content;//文章内容
 	private String show_time;//展示时间
@@ -28,12 +29,13 @@ public class ArticlescrapEs implements java.io.Serializable{
 	private Integer type;//文章类型
 	private Recommend recommend;//推荐
 	private int time_degree;//起始时间精度
+    private String[] pictures;//图片
+    private int pic_num;//图片数量
 	 
-	
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getTitle() {
@@ -130,6 +132,18 @@ public class ArticlescrapEs implements java.io.Serializable{
 	public void setTime_degree(int time_degree) {
 		this.time_degree = time_degree;
 	}
+	public String[] getPictures() {
+		return pictures;
+	}
+	public void setPictures(String[] pictures) {
+		this.pictures = pictures;
+	}
+	public int getPic_num() {
+		return pic_num;
+	}
+	public void setPic_num(int pic_num) {
+		this.pic_num = pic_num;
+	}
 	public static ArticlescrapEs ConvertToEs(Articlescrap articlescrap){
 		if(articlescrap == null){
 			return null;
@@ -149,10 +163,11 @@ public class ArticlescrapEs implements java.io.Serializable{
 		articlescrapEs.setStart_time(articlescrap.getBegin_time());
 		articlescrapEs.setKeywords(articlescrap.getKeywords());
 		articlescrapEs.setTime_degree(articlescrap.getTime_degree()==null?-1:articlescrap.getTime_degree().getKey());
-		Recommend recommend = new Recommend();
-		recommend.setSort(-1);
-		recommend.setStatus(-1);
-		articlescrapEs.setRecommend(recommend);
+		if(articlescrap.getRecommend()!=null){
+			articlescrapEs.setRecommend(articlescrap.getRecommend());
+		}
+		articlescrapEs.setPictures(articlescrap.getPictures());
+		articlescrapEs.setPic_num(articlescrap.getPic_num());
 		return articlescrapEs;
 	}
 	
@@ -176,6 +191,8 @@ public class ArticlescrapEs implements java.io.Serializable{
 		articlescrap.setRecommend(articlescrapEs.getRecommend());
 		articlescrap.setKeywords(articlescrapEs.getKeywords());
 		articlescrap.setTime_degree(articlescrapEs.getTime_degree()==-1?null:TIME_DEGREE.valueOf(articlescrapEs.getTime_degree()));
+		articlescrap.setRecommend(articlescrapEs.getRecommend());
+		articlescrap.setPictures(articlescrapEs.getPictures());
 		return articlescrap;
 	}
 	

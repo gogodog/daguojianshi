@@ -41,9 +41,9 @@ import com.dgjs.service.content.ArticlescrapService;
 @ContextConfiguration(locations = "classpath:spring-*.xml") 
 public class EsInit {
 
-    final static String index = "dgjs_v1";
+    final static String index = "dgjs_v2";
 	
-	final static String type = "articlescrap_v1";
+	final static String type = "articlescrap_v2";
 	
 	@Autowired
 	ESTransportClient transportClient;
@@ -68,12 +68,13 @@ public class EsInit {
 				.startObject("create_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "yes").field("index", "not_analyzed").endObject()
 		        .startObject("update_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "yes").field("index", "not_analyzed").endObject()
 		        .startObject("start_time").field("type", "integer").field("store", "yes").field("index", "not_analyzed").endObject()
-		        .startObject("show_picture").field("type", "keyword").field("store", "yes").field("index", "not_analyzed").endObject()
 				.startObject("sub_content").field("type", "text").field("store", "yes").field("index", "analyzed").field("analyzer", "ik_smart").endObject()
 				.startObject("content").field("type", "text").field("store", "yes").field("index", "analyzed").field("analyzer", "ik_smart").endObject()
 				.startObject("visits").field("type", "long").field("store", "yes").field("index", "not_analyzed").endObject()
 				.startObject("keywords").field("type", "keyword").field("store", "yes").field("index", "not_analyzed").endObject()
 				.startObject("time_degree").field("type", "integer").field("store", "yes").field("index", "not_analyzed").endObject()
+				.startObject("pictures").field("type", "keyword").field("store", "yes").field("index", "not_analyzed").endObject()
+				.startObject("pic_num").field("type", "integer").field("index", "not_analyzed").endObject()
 				.startObject("recommend").field("type", "nested")
 				.startObject("properties")
 				.startObject("sort").field("type", "integer").field("store", "yes").field("index", "not_analyzed").endObject()
@@ -86,6 +87,39 @@ public class EsInit {
 	   PutMappingRequest mapping = Requests.putMappingRequest(index).type(type).source(builder); 
 	   client.admin().indices().putMapping(mapping).actionGet();
 	}
+	
+//	private void initArticlescrap(TransportClient client) throws IOException {
+//		createIndex(client,index);
+//		XContentBuilder builder=XContentFactory.jsonBuilder()
+//				.startObject()
+//				.startObject(type)
+//				.startObject("properties")
+//				.startObject("title").field("type", "text").field("store", "yes").field("index", "analyzed").field("analyzer", "ik_smart").endObject()
+//				.startObject("show_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "yes").field("index", "not_analyzed").endObject()
+//				.startObject("type").field("type", "integer").field("store", "yes").field("index", "not_analyzed").endObject()
+//				.startObject("status").field("type", "integer").field("store", "yes").field("index", "not_analyzed").endObject()
+//				.startObject("author").field("type", "keyword").field("store", "yes").field("index", "not_analyzed").endObject()
+//				.startObject("create_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "yes").field("index", "not_analyzed").endObject()
+//		        .startObject("update_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "yes").field("index", "not_analyzed").endObject()
+//		        .startObject("start_time").field("type", "integer").field("store", "yes").field("index", "not_analyzed").endObject()
+//		        .startObject("show_picture").field("type", "keyword").field("store", "yes").field("index", "not_analyzed").endObject()
+//				.startObject("sub_content").field("type", "text").field("store", "yes").field("index", "analyzed").field("analyzer", "ik_smart").endObject()
+//				.startObject("content").field("type", "text").field("store", "yes").field("index", "analyzed").field("analyzer", "ik_smart").endObject()
+//				.startObject("visits").field("type", "long").field("store", "yes").field("index", "not_analyzed").endObject()
+//				.startObject("keywords").field("type", "keyword").field("store", "yes").field("index", "not_analyzed").endObject()
+//				.startObject("time_degree").field("type", "integer").field("store", "yes").field("index", "not_analyzed").endObject()
+//				.startObject("recommend").field("type", "nested")
+//				.startObject("properties")
+//				.startObject("sort").field("type", "integer").field("store", "yes").field("index", "not_analyzed").endObject()
+//				.startObject("status").field("type", "integer").field("store", "yes").field("index", "not_analyzed").endObject()
+//				.endObject()
+//				.endObject()
+//				.endObject()
+//				.endObject()
+//				.endObject();
+//	   PutMappingRequest mapping = Requests.putMappingRequest(index).type(type).source(builder); 
+//	   client.admin().indices().putMapping(mapping).actionGet();
+//	}
 	
 	private void createIndex(TransportClient client,String index) {
 		CreateIndexRequest request = new CreateIndexRequest(index);
@@ -162,15 +196,20 @@ public class EsInit {
 	@Test
 	public void testMoveData() throws Exception{
 		TransportClient client=transportClient.getObject();
-		String[] ids={"AVzZrZRC9b4MAjksb_WL","AVzZrY1I9b4MAjksb_WD","AVzZrZMX9b4MAjksb_WI","AVzZrYlm9b4MAjksb_WA","AVzZrZOM9b4MAjksb_WJ","AVzZrYoE9b4MAjksb_WB","AVzZrY769b4MAjksb_WG","AV0DmzcMqMQTX7aOp80m","AVzZrY6J9b4MAjksb_WF","AVzZrYyi9b4MAjksb_WC","AVzZrZPu9b4MAjksb_WK","AV0H7njhqMQTX7aOp80q","AVzZrY-z9b4MAjksb_WH","AVzZrY3Z9b4MAjksb_WE"};
+		String[] ids={"AVzZrZRC9b4MAjksb_WL","AVzZrY1I9b4MAjksb_WD","AVzZrYlm9b4MAjksb_WA","AVzZrZOM9b4MAjksb_WJ","AVzZrZMX9b4MAjksb_WI","AVzZrYoE9b4MAjksb_WB","AVzZrY769b4MAjksb_WG","AV0DmzcMqMQTX7aOp80m","AVzZrY6J9b4MAjksb_WF","AVzZrYyi9b4MAjksb_WC","AVzZrZPu9b4MAjksb_WK","AVzZrY-z9b4MAjksb_WH","AVzZrY3Z9b4MAjksb_WE"};
 		for(String id:ids){
 			GetResponse response = client.prepareGet(index, type , id).get();
-		 	A articlescrapEs=JSON.parseObject(response.getSourceAsString(), A.class);
-		 	Articlescrap articlescrap =  A.ConvertToVo(articlescrapEs);
-		 	articlescrap.setId(id);
-			  
-		 	IndexRequestBuilder indexRequestBuilder =client.prepareIndex("dgjs_v2", "articlescrap_v2",id);
-		    indexRequestBuilder.setSource(ArticlescrapEs.ConvertToEs(articlescrap).toString()).execute().actionGet();
+			ArticlescrapEs articlescrapEs=JSON.parseObject(response.getSourceAsString(), ArticlescrapEs.class);
+			
+		 	A a =  A.ConvertToVo(articlescrapEs);
+		 	if(a==null){
+		 		System.out.println(id+"是空");
+		 	}else{
+		 		a.setId(id);
+			 	IndexRequestBuilder indexRequestBuilder =client.prepareIndex("dgjs_v3", "articlescrap_v3",id);
+			    indexRequestBuilder.setSource(JSON.toJSONString(a)).execute().actionGet();
+		 	}
+		 	
 		}
 	}
 }

@@ -83,10 +83,17 @@ function ajaxFileUpload()
                         alert(result.errorMessage);//如有错误则弹出错误
                     }else
                     {
-                    	var accessPath=imageContextPath+result.imageUrl;
-                        $("#showImage").attr("src",accessPath);
-                        $("input[name='image_url']").val(result.imageUrl);
-                        $("#showImage").show();
+//                    	var accessPath=imageContextPath+result.imageUrl;
+//                        $("#showImage").attr("src",accessPath);
+//                        $("input[name='image_url']").val(result.imageUrl);
+//                        $("#showImage").show();
+                        var results=result.list;
+                    	for(var i=0;i<results.length;i++){
+                    		var accessPath=imageContextPath+results[i].minImageUrl;
+                    		 $("#showImage").attr("src",accessPath);
+                             $("input[name='image_url']").val(results[i].minImageUrl);
+                             $("#showImage").show();
+                    	}
                     }
                 }
             },

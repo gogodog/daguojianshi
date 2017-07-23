@@ -1,6 +1,8 @@
 package com.dgjs.controller.admin.ajax;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -34,18 +36,8 @@ public class PictureController {
 	public String ajaxUpload(HttpServletRequest request, HttpServletResponse response,String imagePath,ThumbnailatorDto thumbnailator){
 		 UploadPictureView view=new UploadPictureView();
 	     try {
-	    	 PictureDto dto=pictureService.uploadPic(request, imagePath,"uploadImage",thumbnailator);
-	    	 if(dto==null||!dto.getIsSuccess()){
-	    		 view.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
-		        	return JSON.toJSONString(view);
-	    	 }
-	    	 if(!StringUtils.isEmpty(dto.getWatermarkImageUrl())){
-	    		 view.setImageUrl(dto.getWatermarkImageUrl());
-	    	 }else if(!StringUtils.isEmpty(dto.getTailorImageUrl())){
-	    		 view.setImageUrl(dto.getTailorImageUrl());
-	    	 }else if(!StringUtils.isEmpty(dto.getMinImageUrl())){
-	    		 view.setImageUrl(dto.getMinImageUrl());
-	    	 }
+	    	 List<PictureDto> list = pictureService.uploadPic(request, imagePath,"uploadImage",thumbnailator);
+	    	 view.setList(list);
 	    } catch (Exception e) {
 	        view.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
 	        log.error("ajaxUpload error", e);
@@ -58,7 +50,8 @@ public class PictureController {
 	public String ajaxUploadEditorImage(HttpServletRequest request, HttpServletResponse response,String imagePath,ThumbnailatorDto thumbnailator){
 		EditorUploadPictureView view=new EditorUploadPictureView();
 	     try {
-	        PictureDto dto=pictureService.uploadPic(request, imagePath,"imgFile",thumbnailator);
+	    	 List<PictureDto> list = pictureService.uploadPic(request, imagePath,"imgFile",thumbnailator);
+	    	 PictureDto dto=null;
 	        if(dto==null||!dto.getIsSuccess()){
 	        	view.setError(RETURN_STATUS.SYSTEM_ERROR.toString());
 	        	return JSON.toJSONString(view);

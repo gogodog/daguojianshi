@@ -33,11 +33,22 @@ jQuery.extend({
 		var formId = 'jUploadForm' + id;
 		var fileId = 'jUploadFile' + id;
 		var form = $('<form  action="" method="POST" name="' + formId + '" id="' + formId + '" enctype="multipart/form-data"></form>');	
+		//单图上传 begin
 		var oldElement = $('#' + fileElementId);
 		var newElement = $(oldElement).clone();
 		$(oldElement).attr('id', fileId);
 		$(oldElement).before(newElement);
 		$(oldElement).appendTo(form);
+		//单图上传end
+		//多图上传begin
+		for(var i in fileElementId){  
+		      var oldElement = jQuery('#' + fileElementId[i]);  
+		      var newElement = jQuery(oldElement).clone();  
+		      jQuery(oldElement).attr('id', fileId);  
+		      jQuery(oldElement).before(newElement);  
+		      jQuery(oldElement).appendTo(form);  
+		}
+		//多图上传end
 		//set attributes
 		$(form).css('position', 'absolute');
 		$(form).css('top', '-1200px');
