@@ -6,7 +6,7 @@ public class ChannelArticlescrapDto {
 
 	private ChannelArticlescrap channelArticlescrap;
 	
-	private String title;//文章日志
+	private String title;//文章标题
 
 	public ChannelArticlescrap getChannelArticlescrap() {
 		return channelArticlescrap;

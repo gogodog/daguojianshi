@@ -25,13 +25,13 @@ public class ArticlescrapCondtion {
 	private Date updateTimeTo;
 	private Integer startTimeFrom;
 	private Integer startTimeTo;
-	private int subContentLength;//查询截取的内容长度，默认20
 	private Map<String,SortOrder> sort;//排序
 	private int beginNum=0;//从哪条开始查
 	private int onePageSize=Constants.DEFAULT_ONEPAGESIZE;
 	private int currentPage=1;//当前页
 	private boolean needTotalResults;//是否需要查询总数
 	private String keyword;//关键词搜索
+	private Integer picNum;//图片数量
     
 	public UpDown_Status getStatus() {
 		return status;
@@ -116,12 +116,6 @@ public class ArticlescrapCondtion {
 	public void setOnePageSize(int onePageSize) {
 		this.onePageSize = onePageSize;
 	}
-	public int getSubContentLength() {
-		return subContentLength;
-	}
-	public void setSubContentLength(int subContentLength) {
-		this.subContentLength = subContentLength;
-	}
 	public int getCurrentPage() {
 		return currentPage;
 	}
@@ -152,11 +146,11 @@ public class ArticlescrapCondtion {
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
 	}
-	public void setShowTimeFrom(Date showTimeFrom) {
-		this.showTimeFrom = showTimeFrom;
+	public Integer getPicNum() {
+		return picNum;
 	}
-	public void setShowTimeTo(Date showTimeTo) {
-		this.showTimeTo = showTimeTo;
+	public void setPicNum(Integer picNum) {
+		this.picNum = picNum;
 	}
 	
 }

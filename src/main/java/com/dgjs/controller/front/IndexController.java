@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
+import com.dgjs.model.dto.ChannelArticlescrapDto;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.enums.Ad_Position;
@@ -24,6 +25,7 @@ import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.persistence.Advertisement;
 import com.dgjs.model.persistence.Carousel;
+import com.dgjs.model.persistence.Channel;
 import com.dgjs.model.persistence.condition.AdvertisementCondtion;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 import com.dgjs.service.ad.AdvertisementService;
@@ -31,6 +33,7 @@ import com.dgjs.service.common.DataService;
 import com.dgjs.service.common.PictureService;
 import com.dgjs.service.content.ArticlescrapService;
 import com.dgjs.service.content.CarouselService;
+import com.dgjs.service.content.ChannelService;
 import com.dgjs.service.content.CommentsService;
 import com.dgjs.service.content.RecommedArticlescrapService;
 
@@ -51,6 +54,8 @@ public class IndexController {
 	PictureService pictureService;
 	@Autowired
 	DataService dataSerivce;
+	@Autowired
+	ChannelService channelService;
 	
 	@RequestMapping("/index")
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response,Articlescrap_Type type,String keyword) throws Exception {  
@@ -141,4 +146,17 @@ public class IndexController {
         return mv;
     }
 	
+	@RequestMapping("/channelList")
+	@ResponseBody
+	public Object channelList(){
+		JSONObject mv = new JSONObject();
+		List<Channel> list=channelService.list();
+		Map<Integer,List<ChannelArticlescrapDto>> map = new HashMap<Integer,List<ChannelArticlescrapDto>>();
+		for(Channel channel:list){
+			map.put(channel.getId(), channelService.listCA(channel.getId()));
+		}
+		mv.put("channelList", list);
+		mv.put("ca", map);
+		return mv;
+	}
 }

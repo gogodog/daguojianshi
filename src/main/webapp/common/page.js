@@ -65,4 +65,41 @@ window.onload=function(){
 	}else{
 		loadData(keyword);
 	}
+	channel();
 };
+
+function channel(){
+	jQuery.ajax({
+        type:"get",
+        url: contextPath+"/channelList",
+//        async: false,
+        dataType: "json",
+        success:function(data) {
+           var channelList = data.channelList;
+           var caList = data.ca;
+           var li="";
+           var div="";
+           for(var i=0;i<channelList.length;i++){
+        	   if(i==0){
+        		   li+="<li role=\"presentation\" class=\"active\"><a href=\"#notice\" aria-controls=\"notice\" role=\"tab\" data-toggle=\"tab\" draggable=\"false\">"+channelList[i].c_name+"</a></li>";
+        		   div+="<div role=\"tabpanel\" class=\"tab-pane contact active\" id=\"notice\">";
+        	   }else{
+        		   li+="<li role=\"presentation\"><a href=\"#contact\" aria-controls=\"contact\" role=\"tab\" data-toggle=\"tab\" draggable=\"false\">"+channelList[i].c_name+"</a></li>";
+        		   div+= "<div role=\"tabpanel\" class=\"tab-pane contact\" id=\"contact\">";
+        	   }
+        	   var ca=caList[channelList[i].id];
+        	   if(ca!=null){
+        		   for(var j=0;j<ca.length;j++){
+        			  div+= "<h2><span><a href=\""+contextPath+"/show/"+ca[j].channelArticlescrap.articlescrap_id+"\">"+ca[j].title+"</a></span></h2>";
+            	   }
+        	   }
+        	   div+="</div>"
+           }
+           $("#tablist").html(li);
+           $(".tab-content").html(div);
+        }, 
+        error:function(){
+            console.log("加载失败");
+        }
+    });   
+}
