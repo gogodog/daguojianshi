@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dgjs.model.enums.Carousel_Position;
+import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.persistence.Carousel;
 import com.dgjs.service.common.PictureService;
 import com.dgjs.service.content.CarouselService;
@@ -26,10 +28,13 @@ public class CarouselController {
 	
 	
 	@RequestMapping("/carouselList")
-    public ModelAndView carouselList(HttpServletRequest request, HttpServletResponse response) throws Exception {  
+    public ModelAndView carouselList(Carousel carousel,HttpServletRequest request, HttpServletResponse response) throws Exception {  
 		ModelAndView mv = new ModelAndView("admin/content/carousel_list");  
-		List<Carousel> carouselList=carouselService.listCarousel(null);
+		List<Carousel> carouselList=carouselService.listCarousel(carousel);
 		mv.addObject("carouselList", carouselList);
+		mv.addObject("upDownStatus", UpDown_Status.values());
+		mv.addObject("positions", Carousel_Position.values());
+		mv.addObject("carousel", carousel);
         return mv;  
     }  
 	
@@ -37,6 +42,7 @@ public class CarouselController {
 	public ModelAndView carousel(HttpServletRequest request, HttpServletResponse response,Long carouselId){
 		ModelAndView mv = new ModelAndView("admin/content/carousel"); 
 		mv.addObject("imageContextPath", pictureService.getImageContextPath());
+		mv.addObject("positions", Carousel_Position.values());
 		if(carouselId!=null){
 			Carousel carousel=carouselService.selectById(carouselId);
 			mv.addObject("carousel", carousel);

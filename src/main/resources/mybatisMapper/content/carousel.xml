@@ -9,6 +9,7 @@
 	           sort,
 	           link_url,
 	           image_desc,
+	           position,
 	           status
 	       )
 	       values
@@ -17,17 +18,20 @@
 	           #{sort},
 	           #{link_url},
 	           #{image_desc},
+	           #{position},
 	           status
 	       )
 	</insert>
 	
 	<select id="listCarousel" resultType="carousel">
-	    select id,image_url,sort,link_url,image_desc,status from carousel where 1=1
-	        <if test="status!=null">and status=#{status}</if> order by sort
+	    select id,image_url,sort,link_url,image_desc,status,position from carousel where 1=1
+	        <if test="status!=null">and status=#{status}</if> 
+	        <if test="position!=null">and position=#{position}</if> 
+	    order by sort
 	</select>
 	
 	<select id="selectById" resultType="carousel">
-	    select id,image_url,sort,link_url,image_desc,status from carousel where id=#{id}
+	    select id,image_url,sort,link_url,image_desc,status,position from carousel where id=#{id}
 	</select>
 	
 	<delete id="deleteById">
@@ -42,7 +46,8 @@
 	     sort=#{sort},
 	     link_url=#{link_url},
 	     image_desc=#{image_desc},
-	     status=#{status}
+	     status=#{status},
+	     position=#{position},
 	     where id=#{id}
 	</update>
 	

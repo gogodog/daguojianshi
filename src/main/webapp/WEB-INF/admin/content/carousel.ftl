@@ -39,6 +39,14 @@
 					<div class="file"><input type="button" class="form-input-file" id="buttonUpload" onClick="return ajaxFileUpload();">上传</div>
 				</div>
 				<div class="form-group">
+			        <label for="">位置</label>
+			        <select name="position">
+			           <#list positions as position>
+			              <option <#if carousel.position?? && carousel.position == position>selected</#if> value="${position}">${position.value}</option>
+			           </#list>
+			        </select>
+		        </div>
+				<div class="form-group">
 				    <label for="">是否上架：</label>
 				    <input style="margin-top:9px" type="checkbox" id="status" value="" <#if carousel.status.key?? && carousel.status.key==1>checked</#if> />
 			    </div>

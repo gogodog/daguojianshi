@@ -19,6 +19,15 @@
 			</div>
 			
 			<div class="public-content-cont">
+			<form id="selectForm" action="/daguojianshi/admin/cul/carouselList" method="post">
+		      <p style="margin-bottom:10px">
+		        <label>位置:</label><select name="position"><option value="">全部</option><#list positions as position>
+	              <option <#if carousel.position?? && carousel.position == position>selected</#if> value="${position}">${position.value}</option>
+	           </#list></select>&nbsp;&nbsp;
+		        <label>状态:</label><select name="status"><option value="">全部</option><#list upDownStatus as status><option value="${status}" <#if carousel.status.key=="${status.key}">selected</#if>>${status.value}</option></#list></select>&nbsp;&nbsp;
+		        <input type="submit" value="查询" name="conditionButton" class="select-btn">
+		      </p>
+		   </form>
 				<table class="public-cont-table">
 					<tr>
 						<th style="width:3%">ID</th>

@@ -1,5 +1,6 @@
 package com.dgjs.model.persistence;
 
+import com.dgjs.model.enums.Carousel_Position;
 import com.dgjs.model.enums.UpDown_Status;
 
 
@@ -11,6 +12,7 @@ public class Carousel {
 	private String link_url;//跳转链接
 	private String image_desc;//图片描述
 	private UpDown_Status status;//状态
+	private Carousel_Position position;//轮播位置
 	
 	public Long getId() {
 		return id;
@@ -48,4 +50,11 @@ public class Carousel {
 	public void setStatus(UpDown_Status status) {
 		this.status = status;
 	}
+	public Carousel_Position getPosition() {
+		return position;
+	}
+	public void setPosition(Carousel_Position position) {
+		this.position = position;
+	}
+	
 }
