@@ -49,13 +49,14 @@ public class TimeLineController {
 	@ResponseBody
 	@RequestMapping(value = "/getstroies.json")
 	public void getstroies(String articlescrapId,Integer currentPage,HttpServletResponse response,HttpServletRequest request){
-		int gap=50;
+		int gap=200;
 		if(currentPage==null){
 			currentPage=1;
 		}
 		if(StringUtils.isEmpty(articlescrapId)){
 			articlescrapId = "AVzZrY1I9b4MAjksb_WD";
 		}
+		
 		
 		String[] aid={articlescrapId};
 		List<Articlescrap> list=articlescrapService.getArticlescrapByIds(aid);
