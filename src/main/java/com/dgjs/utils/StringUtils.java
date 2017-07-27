@@ -38,13 +38,13 @@ public class StringUtils extends com.mysql.jdbc.StringUtils{
 		return parseInt(str,null);
 	}
 	
-	public static String[] parseListToArray(List<Object> list){
+	public static <T> String[] parseListToArray(List<T> list){
 		if(list==null){
 			return null;
 		}
 		String[] array = new String[list.size()];
 		int index=0;
-		for(Object object:list){
+		for(T object:list){
 			array[index++]=object.toString();
 		}
 		return array;

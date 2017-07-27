@@ -1,10 +1,12 @@
 package com.dgjs.model.dto.business;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import com.alibaba.fastjson.JSON;
-import com.dgjs.es.client.init.Pictures;
 import com.dgjs.model.dto.business.entity.Recommend;
 import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.TIME_DEGREE;
@@ -278,5 +280,16 @@ public class Articlescrap {
 	
 	public Integer getYear(){
 	   return begin_time==null?null:begin_time/10000;
+	}
+	
+	public static Map<String,Articlescrap> parseListToMap(List<Articlescrap> list){
+		if(list==null||list.size()==0){
+			return null;
+		}
+		Map<String,Articlescrap> map = new HashMap<String,Articlescrap>();
+		for(Articlescrap articlescrap:list){
+			map.put(articlescrap.getId(), articlescrap);
+		}
+		return map;
 	}
 }
