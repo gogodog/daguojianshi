@@ -30,6 +30,9 @@ public class CarouselController {
 	@RequestMapping("/carouselList")
     public ModelAndView carouselList(Carousel carousel,HttpServletRequest request, HttpServletResponse response) throws Exception {  
 		ModelAndView mv = new ModelAndView("admin/content/carousel_list");  
+		if(carousel.getPosition()==null){
+			carousel.setPosition(Carousel_Position.HISTORY);
+		}
 		List<Carousel> carouselList=carouselService.listCarousel(carousel);
 		mv.addObject("carouselList", carouselList);
 		mv.addObject("upDownStatus", UpDown_Status.values());
@@ -52,7 +55,7 @@ public class CarouselController {
 	
 	@RequestMapping("/saveCarousel")
 	public ModelAndView saveCarousel(HttpServletRequest request, HttpServletResponse response,Carousel carousel){
-		ModelAndView mv = new ModelAndView("redirect:/admin/cul/carouselList");  
+		ModelAndView mv = new ModelAndView("redirect:/admin/cul/carouselList?position="+carousel.getPosition());  
 		try {
 			carouselService.saveOrUpdateCarousel(carousel);
 		} catch (Exception e) {
@@ -63,9 +66,9 @@ public class CarouselController {
 	}
 	
 	@RequestMapping("/deleteCarousel")
-	public ModelAndView deleteCarousel(HttpServletRequest request, HttpServletResponse response,Long carouselId){
-		ModelAndView mv = new ModelAndView("redirect:/admin/cul/carouselList");  
-		carouselService.deleteById(carouselId);
+	public ModelAndView deleteCarousel(HttpServletRequest request, HttpServletResponse response,Carousel carousel){
+		ModelAndView mv = new ModelAndView("redirect:/admin/cul/carouselList?position="+carousel.getPosition());  
+		carouselService.deleteById(carousel.getId());
         return mv;  
 	}
 	

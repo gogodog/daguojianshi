@@ -21,7 +21,7 @@
 			<div class="public-content-cont">
 			<form id="selectForm" action="/daguojianshi/admin/cul/carouselList" method="post">
 		      <p style="margin-bottom:10px">
-		        <label>位置:</label><select name="position"><option value="">全部</option><#list positions as position>
+		        <label>位置:</label><select name="position"><#list positions as position>
 	              <option <#if carousel.position?? && carousel.position == position>selected</#if> value="${position}">${position.value}</option>
 	           </#list></select>&nbsp;&nbsp;
 		        <label>状态:</label><select name="status"><option value="">全部</option><#list upDownStatus as status><option value="${status}" <#if carousel.status.key=="${status.key}">selected</#if>>${status.value}</option></#list></select>&nbsp;&nbsp;
@@ -51,7 +51,7 @@
 					     <td>
 					     	<div class="table-fun">
 					     		<a href="${contextPath}/admin/cul/carousel?carouselId=${carousel.id}">修改</a>
-					     		<a href="javascript:void(0)" onclick="deleteCarousel(${carousel.id});">删除</a>
+					     		<a href="javascript:void(0)" onclick="deleteCarousel('${carousel.id}','${carousel.position}');">删除</a>
 					     	</div>
 					     </td>
 				     </tr>
@@ -63,10 +63,10 @@
 </body>
 <script>
 var contextPath="${contextPath}";
-function deleteCarousel(carouselId){
+function deleteCarousel(carouselId,position){
 	var txt=  "您确定要删除这条数据吗？";
 	window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.confirm,{onOk:function(){
-		window.location.href=contextPath+"/admin/cul/deleteCarousel?carouselId="+carouselId;
+		window.location.href=contextPath+"/admin/cul/deleteCarousel?id="+carouselId+"&position="+position;
 	}})
 }
 </script>
