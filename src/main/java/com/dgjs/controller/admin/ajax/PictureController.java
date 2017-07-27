@@ -18,8 +18,8 @@ import com.alibaba.fastjson.JSON;
 import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.model.dto.PictureDto;
 import com.dgjs.model.dto.ThumbnailatorDto;
-import com.dgjs.model.view.EditorUploadPictureView;
-import com.dgjs.model.view.UploadPictureView;
+import com.dgjs.model.result.view.EditorUploadPictureView;
+import com.dgjs.model.result.view.UploadPictureView;
 import com.dgjs.service.common.PictureService;
 
 @Controller

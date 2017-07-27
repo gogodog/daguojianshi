@@ -32,6 +32,7 @@ public class ArticlescrapCondtion {
 	private boolean needTotalResults;//是否需要查询总数
 	private String keyword;//关键词搜索
 	private Integer picNum;//图片数量
+	private String[] withoutIds;//不查询的id
     
 	public UpDown_Status getStatus() {
 		return status;
@@ -151,6 +152,12 @@ public class ArticlescrapCondtion {
 	}
 	public void setPicNum(Integer picNum) {
 		this.picNum = picNum;
+	}
+	public String[] getWithoutIds() {
+		return withoutIds;
+	}
+	public void setWithoutIds(String[] withoutIds) {
+		this.withoutIds = withoutIds;
 	}
 	
 }

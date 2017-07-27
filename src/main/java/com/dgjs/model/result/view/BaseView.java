@@ -1,4 +1,4 @@
-package com.dgjs.model.view;
+package com.dgjs.model.result.view;
 
 import com.dgjs.constants.RETURN_STATUS;
 

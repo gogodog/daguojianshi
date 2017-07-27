@@ -1,9 +1,12 @@
 package com.dgjs.controller.front;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,12 +18,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
+import com.dgjs.model.dto.IndexConfigDto;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Articlescrap;
+import com.dgjs.model.enums.Ad_Position;
+import com.dgjs.model.enums.Articlescrap_Type;
+import com.dgjs.model.enums.Carousel_Position;
+import com.dgjs.model.enums.Index_Type;
+import com.dgjs.model.enums.UpDown_Status;
+import com.dgjs.model.persistence.Advertisement;
+import com.dgjs.model.persistence.Carousel;
+import com.dgjs.model.persistence.IndexConfig;
+import com.dgjs.model.persistence.condition.AdvertisementCondtion;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
-import com.dgjs.service.common.DataService;
-import com.dgjs.service.common.PictureService;
+import com.dgjs.model.result.view.MIndexView;
+import com.dgjs.service.ad.AdvertisementService;
 import com.dgjs.service.content.ArticlescrapService;
+import com.dgjs.service.content.CarouselService;
+import com.dgjs.service.content.IndexConfigService;
+import com.mysql.jdbc.StringUtils;
 
 @Controller
 public class AjaxController {
@@ -28,31 +44,227 @@ public class AjaxController {
 	@Autowired
 	ArticlescrapService articlescrapService;
 	@Autowired
-	PictureService pictureService;
+    IndexConfigService indexConfigService;
 	@Autowired
-	DataService dataSerivce;
+	CarouselService carouselService;
+	@Autowired
+	AdvertisementService advertisementService;
 	
-	@RequestMapping("/alist")
+	@RequestMapping("/idxAfis")
 	@ResponseBody
-    public Object list(HttpServletRequest request, HttpServletResponse response,ArticlescrapCondtion condition) throws Exception {  
-		JSONObject list = new JSONObject();
-		Map<String,SortOrder> sort = new HashMap<String,SortOrder>();
-		sort.put("show_time", SortOrder.DESC);
-		condition.setSort(sort);
-		PageInfoDto<Articlescrap> pageInfo=articlescrapService.listArticlescrap(condition);
-		list.put("pageInfo", pageInfo);
-		list.put("imageContextPath", pictureService.getImageContextPath());
-		//加载文章阅读量
-		List<Articlescrap> aticlescrapList = pageInfo == null?null:pageInfo.getObjects();
-		if(aticlescrapList!=null&&aticlescrapList.size()>0){
-			List<String> articlescrapIds = new ArrayList<String>();
-			for(Articlescrap articlescrap:aticlescrapList){
-				articlescrapIds.add(String.valueOf(articlescrap.getId()));
-			}
-			Map<String,Integer> map=dataSerivce.getDocShowCounts(articlescrapIds);
-			list.put("visits", map);
-		}
-		list.put("isTypeShow", condition.getType()==null?true:false);
-		return list;
+    public Object affairs(HttpServletRequest request, HttpServletResponse response) throws Exception {  
+		JSONObject json = new JSONObject();
+		List<MIndexView> list = commonList(Index_Type.AFFAIRS,2,3,1,null);
+		json.put("list", list);
+		//查看更多链接
+		json.put("moreLink",getMoreLink(Index_Type.AFFAIRS,request));
+		return json;
     } 
+	
+	@RequestMapping("/idxhstry")
+	@ResponseBody
+    public Object history(HttpServletRequest request, HttpServletResponse response) throws Exception {  
+		JSONObject json = new JSONObject();
+		List<MIndexView> list = commonList(Index_Type.HISTORY,1,4,3,null);
+		json.put("list", list);
+		//查看更多链接
+		json.put("moreLink",getMoreLink(Index_Type.HISTORY,request));
+		return json;
+    } 
+	
+	@RequestMapping("/idxpsn")
+	@ResponseBody
+    public Object person(HttpServletRequest request, HttpServletResponse response) throws Exception {  
+		JSONObject json = new JSONObject();
+		List<MIndexView> list = commonList(Index_Type.PERSON,4,4,1,null);
+		json.put("list", list);
+		//查看更多链接
+		json.put("moreLink",getMoreLink(Index_Type.PERSON,request));
+		return json;
+    }
+	
+	@RequestMapping("/idxuofcl")
+	@ResponseBody
+    public Object unofficial(HttpServletRequest request, HttpServletResponse response) throws Exception {  
+		JSONObject json = new JSONObject();
+		List<MIndexView> list = commonList(Index_Type.UNOFFICIAL,3,4,null,null);
+		json.put("list", list);
+		//轮播图信息需要展示
+		Carousel carousel = new Carousel();
+		carousel.setStatus(UpDown_Status.UP);
+		carousel.setPosition(Carousel_Position.UNOFFICIAL);
+		List<Carousel> carouselList=carouselService.listCarousel(carousel);
+		json.put("carouselList", carouselList);
+		//查看更多链接
+		json.put("moreLink",getMoreLink(Index_Type.UNOFFICIAL,request));
+		return json;
+    }
+	
+	@RequestMapping("/idxgogry")
+	@ResponseBody
+    public Object geography(HttpServletRequest request, HttpServletResponse response) throws Exception {  
+		JSONObject json = new JSONObject();
+		List<MIndexView> list = commonList(Index_Type.GEOGRAPHY,1,5,3,1);
+		json.put("list", list);
+		//查看更多链接
+		json.put("moreLink",getMoreLink(Index_Type.GEOGRAPHY,request));
+		return json;
+    }
+	
+	@RequestMapping("/idcommon")
+	@ResponseBody
+	public Object idCommon(HttpServletRequest request, HttpServletResponse response){
+		JSONObject json = new JSONObject();
+		//顶部轮播图信息需要展示
+		Carousel carousel = new Carousel();
+		carousel.setStatus(UpDown_Status.UP);
+		carousel.setPosition(Carousel_Position.INDEX);
+		List<Carousel> carouselList=carouselService.listCarousel(carousel);
+		json.put("carouselList", carouselList);
+		//底部广告位展示
+		AdvertisementCondtion condition = new AdvertisementCondtion();
+		condition.setAdPosition(Ad_Position.M_INDEX_CONFIG);
+		condition.setStatus(UpDown_Status.UP);
+		PageInfoDto<Advertisement> adPage=advertisementService.listAdvertisement(condition);
+		List<Advertisement> adList=adPage.getObjects();
+		json.put("adList", adList);
+		return json;
+	}
+	
+	private List<MIndexView> getMIndexViewList(List<IndexConfigDto> list,int size){
+		if(list == null || list.size() == 0 || size > list.size()){
+			return null;
+		}
+		List<MIndexView> resultList = new ArrayList<MIndexView>();
+		for(int i=0;i<size;i++){
+			IndexConfigDto dto=list.get(i);
+			MIndexView mIndex = new MIndexView();
+			mIndex.setAid(dto.getIndexConfig().getAid());
+			mIndex.setPosition(dto.getIndexConfig().getPosition());
+			mIndex.setStart_time(dto.getArticlescrap().getStart_time());
+			mIndex.setType(dto.getIndexConfig().getType());
+			mIndex.setPictures(dto.getPics());
+			mIndex.setTitle(dto.getIndexConfig().getTitle());
+			mIndex.setSub_content(dto.getIndexConfig().getSub_content());
+			if(StringUtils.isNullOrEmpty(mIndex.getTitle())){
+				mIndex.setTitle(dto.getArticlescrap().getTitle());
+			}
+			if(StringUtils.isNullOrEmpty(mIndex.getSub_content())){
+				mIndex.setSub_content(dto.getArticlescrap().getSub_content());
+			}
+			if(mIndex.getPictures() == null || mIndex.getPictures().length==0){
+				mIndex.setPictures(dto.getArticlescrap().getPictures());
+			}
+			resultList.add(mIndex);
+		}
+		return resultList;
+	}
+	
+	private List<MIndexView> getMIndexViewList(List<Articlescrap> list){
+		if(list == null || list.size() == 0){
+			return null;
+		}
+		List<MIndexView> mIndexList = new ArrayList<MIndexView>();
+		for(Articlescrap articlescrap:list){
+			 MIndexView mIndexView  = new MIndexView();
+			 mIndexView.setAid(articlescrap.getId());
+			 mIndexView.setPictures(articlescrap.getPictures());
+			 mIndexView.setPosition(1);
+			 mIndexView.setStart_time(articlescrap.getStart_time());
+			 mIndexView.setSub_content(articlescrap.getSub_content());
+			 mIndexView.setTitle(articlescrap.getTitle());
+			 mIndexView.setType(Index_Type.AFFAIRS);
+			 mIndexList.add(mIndexView);
+		 }
+		return mIndexList;
+	}
+	
+	private String[] getMIndexViewList(Set<String> set,List<MIndexView> mvList){
+		String[] ids = null;
+		if(mvList!=null && mvList.size()!=0){
+			for(MIndexView mv:mvList){
+				set.add(mv.getAid());
+			}
+		}
+		if(set!=null && set.size()>0){
+			ids = new String[set.size()];
+			int index = 0;
+			for(String id:set){
+				ids[index++] = id;
+			}
+		}
+		return ids;
+	}
+	/*
+	 * type 类型
+	 * position1 位置1需要显示的文章数
+	 * position2 位置2需要显示的文章数
+	 * picNum1 位置1需要显示的图片数
+	 * picNum2 位置2需要显示的图片数
+	 */
+	private List<MIndexView> commonList(Index_Type type,int position1,int position2,Integer picNum1,Integer picNum2){
+		//时事
+		List<MIndexView> affairsList = new ArrayList<MIndexView>();
+		Set<String> aids = new HashSet<String>();
+		//查询有图的配置
+		IndexConfig affairsConfig = new IndexConfig();
+		affairsConfig.setType(type);
+		affairsConfig.setStatus(UpDown_Status.UP);
+		affairsConfig.setPosition(1);
+		List<IndexConfigDto> affairsConfigList=indexConfigService.list(affairsConfig);
+		int affairsConfigSize = 0;
+			 //如果有图的配置数量小于需要展示的数量
+			 if(affairsConfigList==null||(affairsConfigSize=affairsConfigList.size())<position1){
+				 if(affairsConfigSize!=0){
+					 affairsList.addAll(getMIndexViewList(affairsConfigList,affairsConfigSize));
+				 }
+				 int needSelectCount = position1 - affairsConfigSize;
+				 ArticlescrapCondtion affairsCondition = new ArticlescrapCondtion();
+				 affairsCondition.setType(Articlescrap_Type.valueOf(type.getKey()));
+				 affairsCondition.setOnePageSize(needSelectCount);
+				 affairsCondition.setPicNum(picNum1);
+				 affairsCondition.setWithoutIds(getMIndexViewList(aids,affairsList));
+				 Map<String, SortOrder> sort = new HashMap<String, SortOrder>();
+				 sort.put("show_time", SortOrder.DESC);
+				 affairsCondition.setSort(sort);
+				 PageInfoDto<Articlescrap> dto = articlescrapService.listArticlescrap(affairsCondition);
+				 List<Articlescrap> articlescrapList=dto.getObjects();
+				 if(articlescrapList!=null){
+					 affairsList.addAll(getMIndexViewList(articlescrapList));
+				 }
+			 }else if(affairsConfigSize>=position1){
+				 affairsList.addAll(getMIndexViewList(affairsConfigList,position1));
+			 }
+	    //查询无图的配置
+	    affairsConfig.setPosition(2);
+	    affairsConfigSize = 0;
+	    affairsConfigList=indexConfigService.list(affairsConfig);
+	    if(affairsConfigList==null||(affairsConfigSize=affairsConfigList.size())<position2){
+	    	 if(affairsConfigSize!=0){
+				 affairsList.addAll(getMIndexViewList(affairsConfigList,affairsConfigSize));
+			 }
+			 int needSelectCount = position2 - affairsConfigSize;
+			 ArticlescrapCondtion affairsCondition = new ArticlescrapCondtion();
+			 affairsCondition.setPicNum(picNum2);
+			 affairsCondition.setType(Articlescrap_Type.valueOf(type.getKey()));
+			 affairsCondition.setWithoutIds(getMIndexViewList(aids,affairsList));
+			 affairsCondition.setOnePageSize(needSelectCount);
+			 Map<String, SortOrder> sort = new HashMap<String, SortOrder>();
+			 sort.put("show_time", SortOrder.DESC);
+			 affairsCondition.setSort(sort);
+			 PageInfoDto<Articlescrap> dto = articlescrapService.listArticlescrap(affairsCondition);
+			 List<Articlescrap> articlescrapList=dto.getObjects();
+			 if(articlescrapList!=null){
+				 affairsList.addAll(getMIndexViewList(articlescrapList));
+			 }
+		 }else if(affairsConfigSize>=position2){
+			 affairsList.addAll(getMIndexViewList(affairsConfigList,position2));
+		 }
+	    return affairsList;
+	}
+	
+	private String getMoreLink(Index_Type type,HttpServletRequest request){
+		String contextPath=(String) request.getAttribute("contextPath");
+		return contextPath+"/index?type="+Articlescrap_Type.valueOf(Index_Type.AFFAIRS.getKey());
+	}
 }

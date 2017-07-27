@@ -9,7 +9,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSON;
-import com.dgjs.model.view.DadianView;
+import com.dgjs.model.result.view.DadianView;
 import com.dgjs.service.common.DataService;
 
 import freemarker.log.Logger;

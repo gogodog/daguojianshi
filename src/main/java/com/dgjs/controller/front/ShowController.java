@@ -29,7 +29,7 @@ import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.Judge_Level;
 import com.dgjs.model.persistence.FeedBack;
 import com.dgjs.model.persistence.Comments;
-import com.dgjs.model.view.BaseView;
+import com.dgjs.model.result.view.BaseView;
 import com.dgjs.service.common.DataService;
 import com.dgjs.service.common.PictureService;
 import com.dgjs.service.content.FeedBackService;

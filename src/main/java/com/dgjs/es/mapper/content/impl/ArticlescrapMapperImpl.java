@@ -125,6 +125,9 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 			if(condition.getPicNum()!=null){
 				boolBuilder.must(QueryBuilders.rangeQuery("pic_num").gte(condition.getPicNum()));
 			}
+			if(condition.getWithoutIds()!=null && condition.getWithoutIds().length>0){
+				boolBuilder.mustNot(QueryBuilders.idsQuery().addIds(condition.getWithoutIds()));
+			}
 		    if(!StringUtils.isNullOrEmpty(condition.getKeyword())){
 		    	String[] matchFields={"title","sub_content","keywords","content"};
 		    	boolBuilder.must(QueryBuilders.multiMatchQuery(condition.getKeyword(),matchFields));

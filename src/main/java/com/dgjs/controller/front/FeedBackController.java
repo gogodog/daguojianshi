@@ -19,7 +19,7 @@ import com.dgjs.constants.Session_Keys;
 import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.enums.Judge_Level;
 import com.dgjs.model.persistence.FeedBack;
-import com.dgjs.model.view.BaseView;
+import com.dgjs.model.result.view.BaseView;
 import com.dgjs.service.content.FeedBackService;
 import com.dgjs.service.content.ArticlescrapService;
 import com.dgjs.utils.IPUtils;

@@ -26,7 +26,9 @@ public enum Ad_Position {
     
     INDEX_BELOW_SECOND(162,"首页底部第二个广告位"),
     
-    INDEX_BELOW_THIRD(163,"首页底部第三个广告位");
+    INDEX_BELOW_THIRD(163,"首页底部第三个广告位"),
+    
+    M_INDEX_CONFIG(191,"m端第底部广告位");
     
     private Ad_Position(int key,String value){
     	this.key=key;
@@ -75,6 +77,8 @@ public enum Ad_Position {
 			return INDEX_BELOW_SECOND;
 		case 163:
 			return INDEX_BELOW_THIRD;
+		case 191:
+			return M_INDEX_CONFIG;
 		default:
 			break;
 		}

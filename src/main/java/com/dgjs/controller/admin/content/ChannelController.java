@@ -17,7 +17,7 @@ import com.dgjs.model.dto.ChannelArticlescrapDto;
 import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.persistence.Channel;
 import com.dgjs.model.persistence.ChannelArticlescrap;
-import com.dgjs.model.view.BaseView;
+import com.dgjs.model.result.view.BaseView;
 import com.dgjs.service.content.ArticlescrapService;
 import com.dgjs.service.content.ChannelService;
 import com.dgjs.utils.StringUtils;

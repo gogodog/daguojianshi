@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
-import com.dgjs.model.view.DadianView;
+import com.dgjs.model.result.view.DadianView;
 import com.dgjs.service.common.DataService;
 
 import freemarker.log.Logger;

@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.dgjs.model.persistence.result.PagedocidsCountResult;
-import com.dgjs.model.view.DadianView;
+import com.dgjs.model.result.view.DadianView;
 
 public interface DadianMapper {
 	

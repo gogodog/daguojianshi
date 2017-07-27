@@ -32,6 +32,7 @@
 	     <where>
 	         <if test="status!=null">and status=#{status}</if>
 	         <if test="type!=null">and type=#{type}</if>
+	         <if test="position!=0">and position=#{position}</if>
 	     </where>
 	     order by sort asc
 	</select>

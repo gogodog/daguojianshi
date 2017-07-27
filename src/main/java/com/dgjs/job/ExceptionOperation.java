@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.dgjs.model.view.ErrorView;
+import com.dgjs.model.result.view.ErrorView;
 
 import freemarker.log.Logger;
 

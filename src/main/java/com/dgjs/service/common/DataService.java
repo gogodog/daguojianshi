@@ -5,8 +5,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.dgjs.model.view.DadianView;
-import com.dgjs.model.view.IpHttpResponse;
+import com.dgjs.model.result.view.DadianView;
+import com.dgjs.model.result.view.IpHttpResponse;
 
 public interface DataService {
 	
