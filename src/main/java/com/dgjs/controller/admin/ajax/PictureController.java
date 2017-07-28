@@ -51,12 +51,11 @@ public class PictureController {
 		EditorUploadPictureView view=new EditorUploadPictureView();
 	     try {
 	    	 List<PictureDto> list = pictureService.uploadPic(request, imagePath,"imgFile",thumbnailator);
-	    	 PictureDto dto=null;
-	        if(dto==null||!dto.getIsSuccess()){
+	         if(list==null||list.size()==0){
 	        	view.setError(RETURN_STATUS.SYSTEM_ERROR.toString());
 	        	return JSON.toJSONString(view);
-	        }
-	        view.setUrl(pictureService.getImageContextPath()+dto.getMinImageUrl());
+	         }
+	        view.setUrl(pictureService.getImageContextPath()+list.get(0).getMinImageUrl());
 	        view.setError("0");
 	    } catch (Exception e) {
 	        log.error("ajaxUpload error", e);

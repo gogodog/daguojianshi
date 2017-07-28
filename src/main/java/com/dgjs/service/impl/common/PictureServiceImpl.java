@@ -69,7 +69,7 @@ public class PictureServiceImpl implements PictureService{
 		 	        String imageName=PictureUtils.generateImageName();
 		 	        String saveImagePath=PictureUtils.getImageSavePath(saveRealBasePath,imagePath,imageName);
 					int flag;
-		 	        byte[] buff=new byte[1024*1024];
+		 	        byte[] buff=new byte[1024*512];
 		 	        File outputfile=new File(saveImagePath);
 		 	        outputfile.createNewFile();
 		 	        FileOutputStream outputStream =new FileOutputStream(outputfile,true);
