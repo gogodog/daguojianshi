@@ -81,10 +81,10 @@ function channel(){
            var div="";
            for(var i=0;i<channelList.length;i++){
         	   if(i==0){
-        		   li+="<li role=\"presentation\" class=\"active\"><a href=\"#notice\" aria-controls=\"notice\" role=\"tab\" data-toggle=\"tab\" draggable=\"false\">"+channelList[i].c_name+"</a></li>";
+        		   li+="<li role=\"presentation\" onclick=\"getContent(this,"+i+");\" class=\"active\"><a href=\"#notice\" aria-controls=\"notice\" role=\"tab\" data-toggle=\"tab\" draggable=\"false\">"+channelList[i].c_name+"</a></li>";
         		   div+="<div role=\"tabpanel\" class=\"tab-pane contact active\" id=\"notice\">";
         	   }else{
-        		   li+="<li role=\"presentation\"><a href=\"#contact\" aria-controls=\"contact\" role=\"tab\" data-toggle=\"tab\" draggable=\"false\">"+channelList[i].c_name+"</a></li>";
+        		   li+="<li role=\"presentation\" onclick=\"getContent(this,"+i+");\"><a href=\"#contact\" aria-controls=\"contact\" role=\"tab\" data-toggle=\"tab\" draggable=\"false\">"+channelList[i].c_name+"</a></li>";
         		   div+= "<div role=\"tabpanel\" class=\"tab-pane contact\" id=\"contact\">";
         	   }
         	   var ca=caList[channelList[i].id];
@@ -102,4 +102,12 @@ function channel(){
             console.log("加载失败");
         }
     });   
+}
+
+function getContent(item,index){
+	var div=$(item).parent().next("div");
+	for(var i=0;i<$(div).children("div").length;i++){
+		$(div).children("div:eq("+i+")").hide();
+	}
+	$(div).children("div:eq("+index+")").show();
 }
