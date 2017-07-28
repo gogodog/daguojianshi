@@ -41,5 +41,8 @@
 	</section>
     <#include "/front/common/footer_title_mobile.ftl">
     <#include "/front/common/footer_static.ftl">
+   
+    <script src="${contextPath}/front/js/jquery-1.11.1.min.js"></script>
+    <script src="${contextPath}/front/js/business/m_index.js"></script>
 </body>
 </html>

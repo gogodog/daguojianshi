@@ -6,6 +6,7 @@
 	</h3>
 </div>
 <!-- 三种并列图片 -->
+<div id="zhengshi">
 <article class="excerpt threeimg" onclick="location.href=&quot;/show/AV0DmzcMqMQTX7aOp80m&quot;">
 	<div class='diliimg'>
 		<img class="itemimg" src="http://www.cwillow.com/images/carousel/p_100/20170702054527046417.jpg">
@@ -51,6 +52,6 @@
 	</header>
 	<p class="note" style="display:block">士别三日当刮目相待，每个人经历了时间的打磨之后都会留下岁月的痕迹，那些站在时代顶点的人留下岁月的痕迹，那些站在时代顶点的人们也不例外</p>
 </article>
-
+</div>
 <!-- 查看更多 -->
-<div class="title showmore" style='border-top: solid 1px #EAEAEA;'><a href="javascript:void(0);" onclick="alert('cao dan !!!');">点击查看更多>></a></div>
+<div class="title showmore" style='border-top: solid 1px #EAEAEA;'><a href="javascript:void(0);" id="shishimore">点击查看更多>></a></div>

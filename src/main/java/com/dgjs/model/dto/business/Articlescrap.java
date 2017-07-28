@@ -201,7 +201,7 @@ public class Articlescrap {
 				int month = random.nextInt(12)+1;
 				st.append(month<10?"0"+month:month);//随机算月份
 			}else{
-				st.append(start_time_m);
+				st.append(start_time_m.length()<2?"0"+start_time_m:start_time_m);
 				time_degree=TIME_DEGREE.MONTH;
 			}
 			//日
@@ -209,7 +209,7 @@ public class Articlescrap {
 				int day=random.nextInt(28)+1;//随机算月份
 				st.append(day<10?"0"+day:day);//随机算月份
 			}else{
-				st.append(start_time_d);
+				st.append(start_time_d.length()<2?"0"+start_time_d:start_time_d);
 				time_degree=TIME_DEGREE.DAY;
 			}
 			begin_time = Integer.valueOf(st.toString());
@@ -239,6 +239,7 @@ public class Articlescrap {
                 }else if(time_degree==TIME_DEGREE.DAY){
                 	st.append(month+"月");
                 	st.append(day+"日");
+                	start_time_m=month;
                 	start_time_d=day;
                 }
 			}

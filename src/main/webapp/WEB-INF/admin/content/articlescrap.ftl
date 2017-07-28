@@ -74,9 +74,9 @@
 					     <option value="公元" <#if articlescrap.start_time_c == "公元">selected</#if>>公元</option>
 					     <option value="公元前" <#if articlescrap.start_time_c == "公元前">selected</#if>>公元前</option>
 				    </select>
-				    <input class="form-input-txt" style="width:5%;" type="text" name="start_time_y" value="${(articlescrap.start_time_y)!''}" maxlength="5" />年
-				    <input class="form-input-txt" style="width:5%;" type="text" name="start_time_m" value="${(articlescrap.start_time_m)!''}" maxlength="2" />月
-				    <input class="form-input-txt" style="width:5%;" type="text" name="start_time_d" value="${(articlescrap.start_time_d)!''}" maxlength="2" />日
+				    <input class="form-input-txt" style="width:5%;" type="text" name="start_time_y" value="${(articlescrap.start_time_y)!''}" maxlength="5" onkeyup="this.value=this.value.replace(/\D/g,'')"/>年
+				    <input class="form-input-txt" style="width:5%;" type="text" name="start_time_m" value="${(articlescrap.start_time_m)!''}" maxlength="2" onkeyup="this.value=this.value.replace(/\D/g,'')"/>月
+				    <input class="form-input-txt" style="width:5%;" type="text" name="start_time_d" value="${(articlescrap.start_time_d)!''}" maxlength="2" onkeyup="this.value=this.value.replace(/\D/g,'')"/>日
 		        </div>
 				<div class="form-group">
 					<label for="">作者</label>
@@ -211,10 +211,16 @@
 		    },
 		    submitHandler:function(form){
 	           var content=$("#editor_id").val();
-	           if(content.val()==''){
+	           var start_time_m=$("input[name='start_time_m']").val();
+	           var start_time_d=$("input[name='start_time_d']").val();
+	           if(content ==''){
 	        	   alert("请输入文章内容")
 	           }else if($("input[name='show_picture']").val()==''){
 	        	   alert("请选择展示图片")
+	           }else if(start_time_m!=''&&start_time_m!=null&&parseInt(start_time_m)>12){
+	        	   alert("请您选择正确的月份")
+	           }else if(start_time_d!=''&&start_time_d!=null&&parseInt(start_time_d)>31){
+	        	   alert("请您选择正确的日期")
 	           }else{
 	               form.submit();
 	           }
