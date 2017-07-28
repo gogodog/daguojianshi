@@ -1477,6 +1477,19 @@ body,input,button,textarea,select {
 	padding: 15px;
 }
 
+.widget-tabs .tab-content-1 {
+	padding: 10px;
+}
+.widget-tabs .tab-content-1 .tab-pane h2{
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-size: 15px;
+	letter-spacing:1px;
+}
+.widget-tabs .tab-content-1 .tab-pane h2 span a{
+	color:#888;
+}
+
 .widget-tabs .tab-content li {
 	margin-bottom: 12px;
 	overflow: hidden;

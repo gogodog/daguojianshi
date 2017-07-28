@@ -85,7 +85,7 @@ function channel(){
         		   div+="<div role=\"tabpanel\" class=\"tab-pane contact active\" id=\"notice\">";
         	   }else{
         		   li+="<li role=\"presentation\" onclick=\"getContent(this,"+i+");\"><a href=\"#contact\" aria-controls=\"contact\" role=\"tab\" data-toggle=\"tab\" draggable=\"false\">"+channelList[i].c_name+"</a></li>";
-        		   div+= "<div role=\"tabpanel\" class=\"tab-pane contact\" id=\"contact\">";
+        		   div+= "<div role=\"tabpanel\" class=\"tab-pane contact\" id=\"contact\" style=\"display:none\">";
         	   }
         	   var ca=caList[channelList[i].id];
         	   if(ca!=null){
@@ -96,7 +96,8 @@ function channel(){
         	   div+="</div>"
            }
            $("#tablist").html(li);
-           $(".tab-content").html(div);
+           $(".tab-content-1").html(div);
+           $("#tablist").parent().show();
         }, 
         error:function(){
             console.log("加载失败");
