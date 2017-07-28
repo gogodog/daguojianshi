@@ -41,7 +41,7 @@ function appendCtntTmp(ctntary,imageContextPath,visits,isTypeShow){
 		list += ctntTmp.replace(cre("articlescrap_id"),val.id)
 			.replace(cre("contextPath"),contextPath)
 			.replace(cre("articlescrap_title"),val.title)
-			.replace(cre("articlescrap_show_picture"),val.pictures[0])
+			.replace(cre("articlescrap_show_picture"),val.show_picture)
 			.replace(cre("articlescrap_type_value"),val.typeValue)
 			.replace(cre("articlescrap_start_time"),val.start_time)
 			.replace(cre("imageContextPath"),imageContextPath)

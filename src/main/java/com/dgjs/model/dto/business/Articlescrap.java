@@ -115,7 +115,7 @@ public class Articlescrap {
 		this.sub_content = sub_content;
 	}
 	public String getShow_picture() {
-		return show_picture;
+		return pictures == null||pictures.length==0?null:pictures[0];
 	}
 	public void setShow_picture(String show_picture) {
 		this.show_picture = show_picture;
