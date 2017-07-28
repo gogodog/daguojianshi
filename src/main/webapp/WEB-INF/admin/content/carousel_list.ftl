@@ -19,7 +19,7 @@
 			</div>
 			
 			<div class="public-content-cont">
-			<form id="selectForm" action="/daguojianshi/admin/cul/carouselList" method="post">
+			<form id="selectForm" action="${contextPath}/admin/cul/carouselList" method="post">
 		      <p style="margin-bottom:10px">
 		        <label>位置:</label><select name="position"><#list positions as position>
 	              <option <#if carousel.position?? && carousel.position == position>selected</#if> value="${position}">${position.value}</option>
