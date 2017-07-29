@@ -25,7 +25,8 @@ function shishi(){
             	}else{
             		content+=shishi2.replace(rplc("aId"),item.aid)
             		      .replace(rplc("atitle"),item.title) 
-            		      .replace(rplc("sub_content"),item.sub_content);
+            		      .replace(rplc("sub_content"),item.sub_content)
+            		      .replace(rplc("contextPath"),contextPath);
             	}
             }
             $("#shishi").html(content);
@@ -60,7 +61,8 @@ function zhengshi(){
             	}else{
             		content+=zhengshi2.replace(rplc("aId"),item.aid)
             	       	 .replace(rplc("sub_content"),item.sub_content)
-            	       	 .replace(rplc("atitle"),item.title);
+            	       	 .replace(rplc("atitle"),item.title)
+            	       	.replace(rplc("contextPath"),contextPath);
             	}
             }
             $("#zhengshi").html(content);
@@ -76,7 +78,7 @@ function rplc(str){
 	return new RegExp(str,"gm");
 }
 
-var shishi1="<article class=\"excerpt listright\" onclick=\"location.href=/show/aId&quot;\">"
+var shishi1="<article class=\"excerpt listright\" onclick=\"location.href='contextPath/show/aId'\">"
 	   +"<a class=\"focus\" href=\"javascript:void(0)\">"
 	   +"<img class=\"thumb\" src=\"contextPathpicUrl\" style=\"display:inline;\">"
 	   +"</a><header>"
@@ -85,15 +87,15 @@ var shishi1="<article class=\"excerpt listright\" onclick=\"location.href=/show/
        +"<p class=\"meta\">"
 	   +"<time class=\"time\"><i class=\"glyphicon glyphicon-time\"></i>start_time</time>"	
 	   +"</p></article>";
-var shishi2="<article class=\"excerpt listtext\" onclick=\"location.href=&quot;/show/aid&quot;\">"
+var shishi2="<article class=\"excerpt listtext\" onclick=\"location.href='contextPath/show/aId'\">"
 	   +"<header><h2><a href=\"javascript:void(0)\" >&bull;&nbsp atitle</a></h2></header>"
 	   +"<p class=\"note\" style=\"display:block\">sub_content</p></article>";
-var zhengshi1="<article class=\"excerpt threeimg\" onclick=\"location.href=&quot;/show/aId&quot;\">"
+var zhengshi1="<article class=\"excerpt threeimg\" onclick=\"location.href='contextPath/show/aId'\">"
 	   +"<div class='diliimg'><img class=\"itemimg\" src=\"contextPathpicUrl1\"></div>"
 	   +"<div class='diliimg'><img class=\"itemimg\" src=\"contextPathpicUrl2\"></div>"
 	   +"<div class='diliimg'><img class=\"itemimg\" src=\"contextPathpicUrl3\"></div>"
 	   +"<p style=\"text-align: right;padding-right: 10px;color: cadetblue;font-size: .5em;\">sub_content</p></article>";
-var zhengshi2="<article class=\"excerpt listtext\" onclick=\"location.href=&quot;/show/aId&quot;\">"
+var zhengshi2="<article class=\"excerpt listtext\" onclick=\"location.href='contextPath/show/aId'\">"
 	   +"<header><h2><a href=\"javascript:void(0)\" >&bull;&nbsp atitle</a></h2></header>"
 	   +"<p class=\"note\" style=\"display:block\">sub_content</p></article>";
 			
