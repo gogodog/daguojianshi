@@ -215,8 +215,6 @@
 	           var start_time_d=$("input[name='start_time_d']").val();
 	           if(content ==''){
 	        	   alert("请输入文章内容")
-	           }else if($("input[name='show_picture']").val()==''){
-	        	   alert("请选择展示图片")
 	           }else if(start_time_m!=''&&start_time_m!=null&&parseInt(start_time_m)>12){
 	        	   alert("请您选择正确的月份")
 	           }else if(start_time_d!=''&&start_time_d!=null&&parseInt(start_time_d)>31){

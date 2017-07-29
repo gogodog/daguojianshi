@@ -149,12 +149,16 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 		articlescrap.setStatus(UpDown_Status.valueOf(status));
 		Integer type = map.get("type").value();
 		articlescrap.setType(Articlescrap_Type.transFrom(type));
-		Integer start_time=map.get("start_time").value();
-		articlescrap.setBegin_time(start_time);
-		Integer time_degree=map.get("time_degree").value();
-		articlescrap.setTime_degree(TIME_DEGREE.valueOf(time_degree));
-		List<Object> pictures = map.get("pictures").values();
-		articlescrap.setPictures(StringUtils.parseListToArray(pictures));
+		if(map.get("start_time")!=null){
+			Integer start_time=map.get("start_time").value();
+			articlescrap.setBegin_time(start_time);
+			Integer time_degree=map.get("time_degree").value();
+			articlescrap.setTime_degree(TIME_DEGREE.valueOf(time_degree));
+		}
+		if(map.get("pictures")!=null){
+			List<Object> pictures = map.get("pictures").values();
+			articlescrap.setPictures(StringUtils.parseListToArray(pictures));
+		}
 		return articlescrap;
 	}
 
