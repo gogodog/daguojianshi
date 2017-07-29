@@ -54,4 +54,4 @@
 </article>
 </div>
 <!-- 查看更多 -->
-<div class="title showmore" style='border-top: solid 1px #EAEAEA;'><a href="javascript:void(0);" id="shishimore">点击查看更多>></a></div>
+<div class="title showmore" style='border-top: solid 1px #EAEAEA;'><a href="javascript:void(0);" id="zhengshishimore">点击查看更多>></a></div>

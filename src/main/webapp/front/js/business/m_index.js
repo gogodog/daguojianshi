@@ -66,7 +66,7 @@ function zhengshi(){
             	}
             }
             $("#zhengshi").html(content);
-            $("#shishimore").attr("href",moreLink);
+            $("#zhengshimore").attr("href",moreLink);
         }, 
         error:function(){
             console.log("加载失败");
