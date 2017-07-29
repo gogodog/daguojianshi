@@ -139,7 +139,7 @@ var dili1="<article class=\"excerpt threeimg\" onclick=\"location.href='contextP
        +"<div class='diliimg'><img class=\"itemimg\" src=\"contextPathpicUrl1\"></div>"
        +"<div class='diliimg'><img class=\"itemimg\" src=\"contextPathpicUrl2\"></div>"
        +"<div class='diliimg'><img class=\"itemimg\" src=\"contextPathpicUrl3\"></div></article>";
-var dili2="<article class=\"excerpt listright\" onclick=\"location.href=contextPath/show/aId\">"
+var dili2="<article class=\"excerpt listright\" onclick=\"location.href='contextPath/show/aId'\">"
        +"<a class=\"focus\" href=\"javascript:void(0)\">"
        +"<img class=\"thumb\" src=\"contextPathpicUrl\" style=\"display:inline;\"></a>"
        +"<header><a class=\"cat\" href=\"javascript:void(0)\">地理<i></i></a>"
