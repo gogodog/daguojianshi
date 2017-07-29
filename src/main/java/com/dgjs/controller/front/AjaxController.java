@@ -104,7 +104,7 @@ public class AjaxController {
 	@ResponseBody
     public Object geography(HttpServletRequest request, HttpServletResponse response) throws Exception {  
 		JSONObject json = new JSONObject();
-		List<MIndexView> list = commonList(Index_Type.GEOGRAPHY,1,5,3,1);
+		List<MIndexView> list = commonList(Index_Type.GEOGRAPHY,1,4,3,1);
 		json.put("list", list);
 		//查看更多链接
 		json.put("moreLink",getMoreLink(Index_Type.GEOGRAPHY,request));

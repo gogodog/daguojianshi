@@ -43,7 +43,7 @@ function appendCtntTmp(ctntary,imageContextPath,visits,isTypeShow){
 			.replace(cre("articlescrap_title"),val.title)
 			.replace(cre("articlescrap_show_picture"),val.show_picture)
 			.replace(cre("articlescrap_type_value"),val.typeValue)
-			.replace(cre("articlescrap_start_time"),val.start_time)
+			.replace(cre("articlescrap_start_time"),val.start_time == null||val.start_time.length==0?"无":val.start_time)
 			.replace(cre("imageContextPath"),imageContextPath)
 			.replace(cre("articlescrap_sub_content"),val.sub_content)
 			.replace(cre("isTypeShow"),typeShowHtml)
