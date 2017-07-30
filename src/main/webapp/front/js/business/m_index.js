@@ -2,6 +2,8 @@ window.onload=function(){
 	shishi();
 	zhengshi();
 	dili();
+	renwu();
+	yeshi();
 };
 
 function shishi(){
@@ -111,6 +113,100 @@ function dili(){
     });   
 }
 
+function renwu(){
+	jQuery.ajax({
+        type:"POST",
+        url: contextPath+"/idxpsn",
+        async: true,
+        dataType: "json",
+        success:function(data) {
+            var list = data.list;
+            var moreLink = data.moreLink;
+            var position1 = 4;
+            var content="";
+            var temp="";
+            for(var i=0;i<list.length;i++){
+            	var item = list[i];
+            	if(i < position1){
+            		content+=renwu1.replace(rplc("aId"),item.aid)
+            		      .replace(rplc("contextPath"),contextPath)
+            		      .replace(rplc("picUrl"),item.pictures[0])
+            		      .replace(rplc("start_time"),item.start_time==null||item.start_time.length==0?'无':item.start_time)
+            		      .replace(rplc("atitle"),item.title);
+            	}else{
+            		if(i%2==0){
+            			temp="";
+            			temp+=renwu2.replace(rplc("aId1"),item.aid)
+            			  .replace(rplc("atitle1"),item.title)
+    		              .replace(rplc("contextPath"),contextPath);
+            		}else{
+            			temp=temp.replace(rplc("aId2"),item.aid)
+          			      .replace(rplc("atitle2"),item.title)
+		                  .replace(rplc("contextPath"),contextPath);
+            			content+=temp;
+            		}
+            	}
+            }
+            $("#renwu").html(content);
+            $("#renwumore").attr("href",moreLink);
+        }, 
+        error:function(){
+            console.log("加载失败");
+        }
+    });   
+}
+
+function yeshi(){
+	jQuery.ajax({
+        type:"POST",
+        url: contextPath+"/idxuofcl",
+        async: true,
+        dataType: "json",
+        success:function(data) {
+            var list = data.list;
+            var moreLink = data.moreLink;
+            var carouselList=data.carouselList;
+            var position1 = 3;
+            var content="";
+            var temp="";
+            for(var i=0;i<list.length;i++){
+            	var item = list[i];
+            	if(i < position1){
+            		content+=renwu1.replace(rplc("aId"),item.aid)
+            		      .replace(rplc("contextPath"),contextPath)
+            		      .replace(rplc("atitle"),item.title);
+            	}else{
+            		if(i%2==1){
+            			temp="";
+            			temp+=renwu2.replace(rplc("aId1"),item.aid)
+            			  .replace(rplc("atitle1"),item.title)
+    		              .replace(rplc("contextPath"),contextPath);
+            		}else{
+            			temp=temp.replace(rplc("aId2"),item.aid)
+          			      .replace(rplc("atitle2"),item.title)
+		                  .replace(rplc("contextPath"),contextPath);
+            			content+=temp;
+            		}
+            	}
+            }
+            $("#yeshi").html(content);
+            $("#yeshimore").attr("href",moreLink);
+            var crsl = "";
+            for(var i=0;i<carouselList.length;i++){
+            	var carousel = carouselList[i];
+            	crsl+=yeshicrsl.replace(rplc("linkUrl"),carousel.link_url)
+            	         .replace(rplc("contextPath"),contextPath)
+            	         .replace(rplc("picUrl"),carousel.image_url)
+            	         .replace(rplc("image_desc"),carousel.image_desc);
+            }
+            $("#yeshicrsl").html(crsl);
+        }, 
+        error:function(){
+            console.log("加载失败");
+        }
+    });   
+}
+
 function rplc(str){
 	return new RegExp(str,"gm");
 }
@@ -119,7 +215,7 @@ var shishi1="<article class=\"excerpt listright\" onclick=\"location.href='conte
 	   +"<a class=\"focus\" href=\"javascript:void(0)\">"
 	   +"<img class=\"thumb\" src=\"contextPathpicUrl\" style=\"display:inline;\">"
 	   +"</a><header>"
-	   +"<a class=\"cat\" href=\"javascript:void(0)\">冰岛<i></i></a></h2>"
+	   +"<a class=\"cat\" href=\"javascript:void(0)\">国内<i></i></a></h2>"
 	   +"<h2><a href=\"javascript:void(0)\">atitle</a></header>"
        +"<p class=\"meta\">"
 	   +"<time class=\"time\"><i class=\"glyphicon glyphicon-time\"></i>start_time</time>"	
@@ -146,6 +242,31 @@ var dili2="<article class=\"excerpt listright\" onclick=\"location.href='context
        +"<h2><a class=\"dilitxt\" href=\"javascript:void(0)\">atitle</a></h2></header>"
        +"<p class=\"meta\"><time class=\"time\"><i class=\"glyphicon glyphicon-time\"></i>start_time</time>"
 	   +"</p></article>";
+var renwu1="<article class=\"excerpt listright\" onclick=\"location.href='contextPath/show/aId'\">"
+       +"<a class=\"focus\" href=\"javascript:void(0)\">"
+       +"<img class=\"thumb\" src=\"contextPathpicUrl\" style=\"display:inline;\">"
+	   +"</a><header><a class=\"cat\" href=\"javascript:void(0)\">世界<i></i></a>"
+	   +"<h2><a class=\"dilitxt\" href=\"javascript:void(0)\">atitle</a></h2>"
+	   +"</header><p class=\"meta\"><time class=\"time\"><i class=\"glyphicon glyphicon-time\"></i>start_time</time>"
+       +"</p></article>";
+var renwu2="<article class=\"excerpt twohref\">"
+       +"<div class=\"inline2div\"><a href='contextPath/show/aId1'>★&nbspatitle1</a>"
+       +"<a href='contextPath/show/aId2'>★&nbspatitle2</a></div></article>";
+var yeshi1="<article class=\"excerpt listtxt\" onclick=\"location.href='contextPath/show/aId'\">"
+	   +"<header><a class=\"cat\" href=\"javascript:void(0)\">新加坡<i></i></a>"
+	   +"<h2><a class=\"dilitxt\" href=\"javascript:void(0)\" >atitle</a></h2></header></article>";
+var yeshi2="<article class=\"excerpt twohref\"><div class=\"inline2div\">"
+	   +"<a href='contextPath/show/aId1'>&Xi;&nbspatitle1</a><a href='contextPath/show/aId2'>&Xi;&nbspatitle2</a></div></article>";
+var yeshicrsl="<div class=\"item\"><a href=\"linkUrl\">"
+       +"<img src=\"contextPathpicUrl\" class=\"img-responsive\" style=\"border-radius:0px;width:100%;height:100%;max-height: 100px;\"></a>"       
+	   +"<a class=\"banner-title\" style=\"color: #fff;\" href=\"linkUrl\">image_desc</a></div>";        
+	            
+
+
+
+	
+
+
 
 
 	

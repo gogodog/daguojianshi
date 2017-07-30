@@ -19,7 +19,7 @@
 	           #{link_url},
 	           #{image_desc},
 	           #{position},
-	           status
+	           #{status}
 	       )
 	</insert>
 	
@@ -47,7 +47,7 @@
 	     link_url=#{link_url},
 	     image_desc=#{image_desc},
 	     status=#{status},
-	     position=#{position},
+	     position=#{position}
 	     where id=#{id}
 	</update>
 	

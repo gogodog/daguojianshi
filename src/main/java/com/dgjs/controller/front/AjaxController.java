@@ -253,8 +253,8 @@ public class AjaxController {
 			 sort.put("show_time", SortOrder.DESC);
 			 affairsCondition.setSort(sort);
 			 PageInfoDto<Articlescrap> dto = articlescrapService.listArticlescrap(affairsCondition);
-			 List<Articlescrap> articlescrapList=dto.getObjects();
-			 if(articlescrapList!=null){
+			 List<Articlescrap> articlescrapList=null;
+			 if(dto!=null&&(articlescrapList=dto.getObjects())!=null){
 				 affairsList.addAll(getMIndexViewList(articlescrapList));
 			 }
 		 }else if(affairsConfigSize>=position2){

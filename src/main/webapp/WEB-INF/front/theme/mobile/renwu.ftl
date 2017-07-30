@@ -6,6 +6,7 @@
 	</h3>
 </div>
 
+<div id="renwu">
 <article class="excerpt listright" onclick="location.href=&quot;/show/AV0DmzcMqMQTX7aOp80m&quot;">
 <a class="focus" href="/show/AV0DmzcMqMQTX7aOp80m">
 	<img class="thumb" data-original="/front/images/list/timg3.jpeg" src="http://www.cwillow.com//images/articlescrap/p_100/20170702095122629561.jpg" style="display:inline;">
@@ -86,5 +87,6 @@
 	</a>
 </div>
 </article>
+</div>
 
-<div class="title showmore"><a href="javascript:void(0);" onclick="alert('cao dan !!!');">点击查看更多>></a></div>
+<div class="title showmore"><a href="javascript:void(0);" id="renwumore">点击查看更多>></a></div>

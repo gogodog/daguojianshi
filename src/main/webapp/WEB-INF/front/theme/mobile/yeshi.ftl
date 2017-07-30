@@ -7,16 +7,10 @@
 </div>
 
 
-
-
-
-
-
-
 <!-- 幻灯片 -->
 <div class="carousel slide" data-ride="carousel" style="touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
-    <div class="carousel-inner" role="listbox">
-		<div class="item">
+    <div class="carousel-inner" role="listbox" id="yeshicrsl">
+		      <div class="item">
                 <a href="http://www.cwillow.com/show/AVzZrY1I9b4MAjksb_WD" title="迪拜db">
                 <!--[测试轮播图] http://www.cwillow.com/images/carousel/p_100/20170702054527046417.jpg -->
 	            <img src="http://www.cwillow.com/images/carousel/p_100/20170702054527046417.jpg" alt="dgjs" class="img-responsive" style="border-radius:0px;width:100%;height:100%;max-height: 100px;"></a>
@@ -43,6 +37,7 @@
     	</div>
 	</div>
 </div>
+<div id="yeshi">
 <article class="excerpt listtxt" onclick="location.href=&quot;/show/AV0DmzcMqMQTX7aOp80m&quot;">
 	<header>
 		<a class="cat" href="javascript:void(0)">新加坡<i></i></a>
@@ -89,4 +84,5 @@
 		</a>
 	</div>
 </article>
-<div class="title showmore" style='border-top: solid 1px #EAEAEA;'><a href="javascript:void(0);" onclick="alert('cao dan !!!');">点击查看更多>></a></div>
+</div>
+<div class="title showmore" style='border-top: solid 1px #EAEAEA;'><a href="javascript:void(0);" id="yeshimore">点击查看更多>></a></div>
