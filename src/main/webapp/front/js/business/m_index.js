@@ -174,6 +174,8 @@ function yeshi(){
             	if(i < position1){
             		content+=renwu1.replace(rplc("aId"),item.aid)
             		      .replace(rplc("contextPath"),contextPath)
+            		      .replace(rplc("picUrl"),item.pictures[0])
+            		      .replace(rplc("start_time"),item.start_time==null||item.start_time.length==0?'无':item.start_time)
             		      .replace(rplc("atitle"),item.title);
             	}else{
             		if(i%2==1){
@@ -194,9 +196,14 @@ function yeshi(){
             var crsl = "";
             for(var i=0;i<carouselList.length;i++){
             	var carousel = carouselList[i];
+            	var activeHtml = "";
+            	if(i==0){
+            		activeHtml = " active";
+            	}
             	crsl+=yeshicrsl.replace(rplc("linkUrl"),carousel.link_url)
             	         .replace(rplc("contextPath"),contextPath)
             	         .replace(rplc("picUrl"),carousel.image_url)
+            	         .replace(rplc("active"),activeHtml)
             	         .replace(rplc("image_desc"),carousel.image_desc);
             }
             $("#yeshicrsl").html(crsl);
@@ -256,10 +263,10 @@ var yeshi1="<article class=\"excerpt listtxt\" onclick=\"location.href='contextP
 	   +"<header><a class=\"cat\" href=\"javascript:void(0)\">新加坡<i></i></a>"
 	   +"<h2><a class=\"dilitxt\" href=\"javascript:void(0)\" >atitle</a></h2></header></article>";
 var yeshi2="<article class=\"excerpt twohref\"><div class=\"inline2div\">"
-	   +"<a href='contextPath/show/aId1'>&Xi;&nbspatitle1</a><a href='contextPath/show/aId2'>&Xi;&nbspatitle2</a></div></article>";
-var yeshicrsl="<div class=\"item\"><a href=\"linkUrl\">"
-       +"<img src=\"contextPathpicUrl\" class=\"img-responsive\" style=\"border-radius:0px;width:100%;height:100%;max-height: 100px;\"></a>"       
-	   +"<a class=\"banner-title\" style=\"color: #fff;\" href=\"linkUrl\">image_desc</a></div>";        
+	   +"<a href='contextPath/show/aId1'>&Xi;&nbspatitle1</a><a href='contextPathlinkUrl'>&Xi;&nbspatitle2</a></div></article>";
+var yeshicrsl="<div class=\"itemactive\"><a href=\"contextPath/show/aId\">"
+       +"<img src=\"contextPathPicUrl\" alt=\"dgjs\" class=\"img-responsive\" style=\"width:100%;height:100%\"></a>"         
+       +"<a class=\"banner-title\" href=\"contextPathlinkUrl\">image_desc</a></div>";
 	            
 
 
