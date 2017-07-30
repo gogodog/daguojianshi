@@ -69,15 +69,21 @@ public class PictureServiceImpl implements PictureService{
 		 	        String imageName=PictureUtils.generateImageName();
 		 	        String saveImagePath=PictureUtils.getImageSavePath(saveRealBasePath,imagePath,imageName);
 					int flag;
-		 	        byte[] buff=new byte[1024*512];
+					int buffSize=1024*512;
+		 	        byte[] buff=new byte[buffSize];
 		 	        File outputfile=new File(saveImagePath);
 		 	        outputfile.createNewFile();
 		 	        FileOutputStream outputStream =new FileOutputStream(outputfile,true);
+		 	        int index=0;
 		 	        while((flag=inputStream.read(buff))!=-1){
 		 	        	outputStream.write(buff);
+		 	        	index++;
 		 	        }
 		 	        inputStream.close();
 		 	        outputStream.close();
+		 	        if(thumbnailator.isAdapt()){
+		 	        	thumbnailator.calScale(index*buffSize);
+		 	        }
 		 	        String imageUrl=PictureUtils.getImageAccessPath(webBasePath,imagePath, imageName);
 		 	        dto.setImageUrl(imageUrl);
 		 	        if(thumbnailator!=null){
@@ -96,9 +102,9 @@ public class PictureServiceImpl implements PictureService{
 			 	        	 tailorImageUrl = webBasePath+tailorImageUrl.replaceAll(saveRealBasePath, "");
 			 	        	 dto.setTailorImageUrl(tailorImageUrl);
 		 	        	}else {
-		 	        		if(thumbnailator.getScale()==0){
+		 	        		 if(thumbnailator.getScale()==0){
 		 	        			thumbnailator.setScale(1f);
-		 	        		}
+		 	        		 }
 		 	        		 String p1ImagePath=PictureUtils.getImageSavePath(saveRealBasePath,imagePath+zipPath+(int)(thumbnailator.getScale()*100),imageName);//1:1压缩图存放位置
 		 	        		 thumbnailator.setToPath(p1ImagePath);
 		 	        		 String minImageUrl =PictureUtils.thumbnailatorImage(thumbnailator);

@@ -124,7 +124,8 @@ public class PictureUtils {
 	    return toPath;
 	}
 	
-//	public static void main(String[] args) throws IOException {
-//		PictureUtils.thumbnailatorImage("/Users/user/Documents/pic/丰田汽车.jpeg", "/Users/user/Documents/pic/丰田汽车1.jpeg", Positions.BOTTOM_RIGHT);	
-//	}
+	public static void main(String[] args) throws IOException {
+		PictureUtils.thumbnailatorImage("/Users/user/Documents/pic/led/f02.jpg", "/Users/user/Documents/pic/led/f00201.jpg", 0.1f);
+//		PictureUtils.thumbnailatorImage("/Users/user/Documents/pic/led/f02.jpg", "/Users/user/Documents/pic/led/f00210.jpg", 1f);
+	}
 }

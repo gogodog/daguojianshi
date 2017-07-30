@@ -128,7 +128,7 @@
 	    (
 	        {
 	        	async:false,
-	            url:contextPath+'/admin/static/ajaxUpload?imagePath='+uploadFileName,//这个是要提交到上传的php程序文件
+	            url:contextPath+'/admin/static/ajaxUpload?imagePath='+uploadFileName+"&adapt=true",
 	            secureuri:false,
 	            fileElementId:'uploadImage',//这里是你文件上传input框的id
 	            dataType: 'json',

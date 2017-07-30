@@ -17,6 +17,17 @@ public class ThumbnailatorDto {
 	private String watermark;//水印图片路径
 	
 	private Positions positions;//水印位置
+	
+	private boolean isAdapt;//是否根据图片大小算出缩放比例
+	
+
+	public boolean isAdapt() {
+		return isAdapt;
+	}
+
+	public void setAdapt(boolean isAdapt) {
+		this.isAdapt = isAdapt;
+	}
 
 	public String getFromPath() {
 		return fromPath;
@@ -74,5 +85,14 @@ public class ThumbnailatorDto {
 		this.positions = positions;
 	}
 	
-	
+	public void calScale(int size){
+		//当在1m和0.5m之间，则按1：1压缩
+		if(1024*1024>size){
+			this.setScale(1f);
+		}else if(1024*1024*2>size&&size>1024*1024){
+			this.setScale(0.5f);
+		}else{
+			this.setScale(0.1f);
+		}
+	}
 }

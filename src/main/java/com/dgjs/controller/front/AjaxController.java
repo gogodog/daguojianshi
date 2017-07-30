@@ -265,6 +265,6 @@ public class AjaxController {
 	
 	private String getMoreLink(Index_Type type,HttpServletRequest request){
 		String contextPath=(String) request.getAttribute("contextPath");
-		return contextPath+"/index?type="+Articlescrap_Type.valueOf(Index_Type.AFFAIRS.getKey());
+		return contextPath+"/index?type="+Articlescrap_Type.valueOf(type.getKey());
 	}
 }

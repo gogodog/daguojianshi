@@ -23,7 +23,7 @@
       <header class="article-header">
         <h1 class="article-title"><a href="javascript:void(0)" title="大国崛起的条件" >${articlescrap.title}</a></h1>
         <div class="article-meta"> <span class="item article-meta-time">
-          <time class="time" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="发表时间：2016-10-14"><i class="glyphicon glyphicon-time"></i><#if articlescrap.start_time ??> ${articlescrap.start_time}<else> 无</#if></time>
+          <time class="time" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="发表时间：2016-10-14"><i class="glyphicon glyphicon-time"></i><#if articlescrap.start_time ??> ${articlescrap.start_time}<#else> 无</#if></time>
           </span> <span class="item article-meta-source" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="来源：大国简史"><i class="glyphicon glyphicon-globe"></i> 大国简史</span> <span class="item article-meta-category" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="大国简史古军事主题"><i class="glyphicon glyphicon-list"></i> 
             <a href="javascript:void(0)" title="主题" >
             ${articlescrap.typeValue}
