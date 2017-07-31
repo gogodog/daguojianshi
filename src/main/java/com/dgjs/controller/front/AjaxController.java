@@ -33,6 +33,7 @@ import com.dgjs.model.persistence.condition.AdvertisementCondtion;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 import com.dgjs.model.result.view.MIndexView;
 import com.dgjs.service.ad.AdvertisementService;
+import com.dgjs.service.common.DataService;
 import com.dgjs.service.content.ArticlescrapService;
 import com.dgjs.service.content.CarouselService;
 import com.dgjs.service.content.IndexConfigService;
@@ -49,6 +50,8 @@ public class AjaxController {
 	CarouselService carouselService;
 	@Autowired
 	AdvertisementService advertisementService;
+	@Autowired
+	DataService dataSerivce;
 	
 	@RequestMapping("/idxAfis")
 	@ResponseBody
@@ -58,6 +61,8 @@ public class AjaxController {
 		json.put("list", list);
 		//查看更多链接
 		json.put("moreLink",getMoreLink(Index_Type.AFFAIRS,request));
+		//访问量
+		json.put("visits", getVisits(list));
 		return json;
     } 
 	
@@ -80,6 +85,8 @@ public class AjaxController {
 		json.put("list", list);
 		//查看更多链接
 		json.put("moreLink",getMoreLink(Index_Type.PERSON,request));
+		//访问量
+		json.put("visits", getVisits(list));
 		return json;
     }
 	
@@ -108,6 +115,8 @@ public class AjaxController {
 		json.put("list", list);
 		//查看更多链接
 		json.put("moreLink",getMoreLink(Index_Type.GEOGRAPHY,request));
+		//访问量
+		json.put("visits", getVisits(list));
 		return json;
     }
 	
@@ -266,5 +275,17 @@ public class AjaxController {
 	private String getMoreLink(Index_Type type,HttpServletRequest request){
 		String contextPath=(String) request.getAttribute("contextPath");
 		return contextPath+"/index?type="+Articlescrap_Type.valueOf(type.getKey());
+	}
+	
+	private Map<String,Integer> getVisits(List<MIndexView> list){
+		if(list == null || list.size() == 0){
+			return null;
+		}
+		List<String> aids = new ArrayList<String>();
+		for(MIndexView miv : list){
+			aids.add(miv.getAid());
+		}
+		Map<String,Integer> map=dataSerivce.getDocShowCounts(aids);
+		return map;
 	}
 }

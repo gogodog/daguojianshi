@@ -38,6 +38,7 @@ public class DgjsController {
 	@Autowired
 	AdvertisementService advertisementService;
 	
+	
 	@RequestMapping("/index")
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response,Articlescrap_Type type,String keyword) throws Exception {  
 		ModelAndView mv = new ModelAndView("front/dgjs");
