@@ -4,12 +4,14 @@ package com.dgjs.controller.front;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -39,130 +41,119 @@ public class TimeLineController {
 	PictureService pictureService;
 	
 	@RequestMapping("/timeline")
-    public ModelAndView index(HttpServletRequest request, HttpServletResponse response,Articlescrap_Type type,String keyword) throws Exception {  
+    public ModelAndView index(HttpServletRequest request, HttpServletResponse response,Articlescrap_Type type,
+    		String keyword,String articlescrapId,Boolean isNext) throws Exception {  
 		ModelAndView mv = new ModelAndView("front/timeline2");
 		//加载分类
 		mv.addObject("types", Articlescrap_Type.values());
+		mv.addObject("articlescrapId", articlescrapId);
+		mv.addObject("isNext", String.valueOf(isNext==null?true:isNext));
 		return mv;
     }
 	
 	@ResponseBody
 	@RequestMapping(value = "/getstroies.json")
-	public void getstroies(String articlescrapId,Integer currentPage,HttpServletResponse response,HttpServletRequest request){
-		int gap=200;
-		if(currentPage==null){
-			currentPage=1;
-		}
+	public void getstroies(String articlescrapId,Boolean isNext,HttpServletResponse response,HttpServletRequest request){
+		int onePageSize=5;
+		String contextPath = (String) request.getAttribute("contextPath");
+		Articlescrap articlescrap = null;
+		Map<String, SortOrder> sort = new HashMap<String, SortOrder>();
+		sort.put("start_time", SortOrder.ASC);
+		isNext = isNext == null ? true : isNext;
 		if(StringUtils.isEmpty(articlescrapId)){
-			articlescrapId = "AVzZrY1I9b4MAjksb_WD";
-		}
-		
-		
-		String[] aid={articlescrapId};
-		List<Articlescrap> list=articlescrapService.getArticlescrapByIds(aid);
-		Articlescrap articlescrap=list.get(0);
-	    Integer year=articlescrap.getYear();
-	    List<Dat> dts = new ArrayList<>();
-	    String contextPath=(String) request.getAttribute("contextPath");
-	    String imageContextPath=pictureService.getImageContextPath();
-	    if(year!=null){
-	    	ArticlescrapCondtion contion = new ArticlescrapCondtion();
-	    	contion.setCurrentPage(currentPage);
-	    	contion.setOnePageSize(20);
+			ArticlescrapCondtion contion = new ArticlescrapCondtion();
+	    	contion.setCurrentPage(1);
+	    	contion.setOnePageSize(1);
+	    	contion.setStartTimeFrom(-10000);
+	    	contion.setSort(sort);
 	    	PageInfoDto<Articlescrap> page=articlescrapService.listArticlescrap(contion);
-	    	List<Articlescrap> aList=page.getObjects();
-	    	for(Articlescrap a:aList){
-	    		Asset one = new Asset();
-				one.setCaption("<a href='"+contextPath+"/show/"+a.getId()+"'>阅读原文 >></a>");
-				one.setCredit("资料编号" + a.getStart_time());
-				Dat dt = new Dat();
-				dt.setAsset(one);
-				dt.setHeadline(a.getTitle());
-				dt.setStartDate(a.getYear()+"");
-				if(a.getSub_content().length()>100){
-					dt.setText("");
-					one.setMedia(imageContextPath+a.getShow_picture());
-				}else{
-					dt.setText(a.getSub_content()+"<br><a href='"+contextPath+"/show/"+a.getId()+"'>阅读原文 >></a>");
-				}
-				if(a.getId().equals(articlescrapId)){
-					dt.setIsfirst("1");
-				}
-				dts.add(dt);
+	    	if(page!=null && page.getObjects()!=null && page.getObjects().size()>0){
+	    	    articlescrap = page.getObjects().get(0);
 	    	}
-	    }
-	    
-		
-		
-		Asset ast = new Asset();
+		}else{
+			String[] aid={articlescrapId};
+			List<Articlescrap> list=articlescrapService.getArticlescrapByIds(aid);
+			if(list != null && list.size() != 0){
+				articlescrap = list.get(0);
+			}
+		}
+		if(articlescrap!=null && articlescrap.getBegin_time()!=null){
+			TimelineView tv = new TimelineView();
+			ArticlescrapCondtion contion = new ArticlescrapCondtion();
+	    	contion.setCurrentPage(1);
+	    	contion.setOnePageSize(onePageSize);
+	    	if(isNext){
+	    		contion.setSort(sort);
+	    		contion.setStartTimeFrom(articlescrap.getBegin_time());
+	    	}else{
+	    		sort.put("start_time", SortOrder.DESC);
+	    		contion.setSort(sort);
+	    		contion.setStartTimeTo(articlescrap.getBegin_time());
+	    	}
+	    	PageInfoDto<Articlescrap> page= articlescrapService.listArticlescrap(contion);
+	    	if(page!=null && page.getObjects()!=null && page.getObjects().size()>0){
+	    	    List<Articlescrap> list= page.getObjects();
+	    	    //如果是升序排列
+	    	    if(sort.get("start_time").equals(SortOrder.ASC)){
+	    	    	tv.setMaxTimeAid(list.get(list.size()-1).getId());
+	    	    	tv.setMinTimeAid(list.get(0).getId());
+	    	    }else{
+	    	    	tv.setMaxTimeAid(list.get(0).getId());
+	    	    	tv.setMinTimeAid(list.get(list.size()-1).getId());
+	    	    }
+	    	    Timeline timeline = getTimeLine(list,contextPath,pictureService.getImageContextPath(),articlescrap);
+	    		tv.setTimeline(timeline);
+	    		response.setCharacterEncoding("utf-8");
+	    		response.setContentType("application/json; charset=utf-8"); 
+	    		PrintWriter pw = null;
+	    		try {
+	    			pw = response.getWriter();
+	    			pw.write(JSONObject.toJSONString(tv));
+	    			pw.flush();
+	    		} catch (IOException e) {
+	    			e.printStackTrace();
+	    		} finally{
+	    			if(pw != null){
+	    				pw.flush();
+	    				pw.close();
+	    			}
+	    		}
+	    	}
+		}
+	}
+	
+	private Timeline getTimeLine(List<Articlescrap> list,String contextPath,String imageContextPath,Articlescrap articlescrap){
+		List<Dat> dts = new ArrayList<>();
+    	for(Articlescrap a:list){
+    		Asset one = new Asset();
+			one.setCaption("<a href='"+contextPath+"/show/"+a.getId()+"'>阅读原文 >></a>");
+			one.setCredit("资料编号" + a.getStart_time());
+			Dat dt = new Dat();
+			dt.setAsset(one);
+			dt.setHeadline(a.getTitle());
+			dt.setStartDate(a.getYear()+"");
+			if(a.getSub_content().length()>100){
+				dt.setText("");
+				one.setMedia(imageContextPath+a.getShow_picture());
+			}else{
+				dt.setText(a.getSub_content()+"<br><a href='"+contextPath+"/show/"+a.getId()+"'>阅读原文 >></a>");
+			}
+			if(a.getId().equals(articlescrap.getId())){
+				dt.setIsfirst("1");
+			}
+			dts.add(dt);
+    	}
+    	Asset ast = new Asset();
 		ast.setCaption("大国简史正史时间轴");
 		ast.setCredit("19世纪的百年资料");
 		ast.setMedia("http://img.taopic.com/uploads/allimg/140326/235113-1403260U22059.jpg");
-		
-		
-		
-//		List<Dat> dts = new ArrayList<>();
-//		Random rndm = new Random();
-//		for(int i = 0 ; i< 10 ; i++){
-//			Asset one = new Asset();
-//			one.setCaption("<a href='/show/AV0DmzcMqMQTX7aOp80m'>阅读原文 >></a>");
-//			one.setCredit("资料编号" + rndm.nextLong());
-//			one.setMedia("http://img.taopic.com/uploads/allimg/140326/235113-1403260U22059.jpg");
-//			if(i == 5){
-//				Dat dt = new Dat();
-//				dt.setAsset(one);
-//				dt.setHeadline("特殊设置的时轴起始页码");
-//				dt.setStartDate("201"+i);
-//				dt.setIsfirst("1");
-//				dt.setText("【大国简史】第"+i+"次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想");
-//				dts.add(dt);
-//				continue;
-//			}
-//			Dat dt = new Dat();
-//			dt.setAsset(one);
-//			dt.setHeadline("各国领导人年轻时的照片");
-//			dt.setStartDate("201"+i);
-//			dt.setText("【大国简史】第"+i+"次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想");
-//			dts.add(dt);
-//		}
-//		
-//		for(int i = 0 ; i< 10 ; i++){
-//			Asset one = new Asset();
-//			one.setCaption("<a href='/show/AV0DmzcMqMQTX7aOp80m'>阅读原文 >></a>");
-//			one.setCredit("通信凭证" + rndm.nextLong());
-//			one.setMedia("");
-//			
-//			Dat dt = new Dat();
-//			dt.setAsset(one);
-//			dt.setHeadline("各国领导人年轻时的照片");
-//			dt.setStartDate("201"+i);
-//			dt.setText("【大国简史】第"+i+"次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想次text测试想");
-//			dts.add(dt);
-//		}
-		
+		ast.setStart("-1000");
 		Timeline timeline = new Timeline();
 		timeline.setAsset(ast);
 		timeline.setDate(dts);
 		timeline.setHeadline("大国简史正史时间轴");
 		timeline.setStartDate(articlescrap.getYear()+"");
 		timeline.setText("人文与情怀的一次共舞");
-		
-		TimelineView tv = new TimelineView();
-		tv.setTimeline(timeline);
-		response.setCharacterEncoding("utf-8");
-		response.setContentType("application/json; charset=utf-8"); 
-		PrintWriter pw = null;
-		try {
-			pw = response.getWriter();
-			pw.write(JSONObject.toJSONString(tv));
-			pw.flush();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally{
-			if(pw != null){
-				pw.flush();
-				pw.close();
-			}
-		}
+		return timeline;
 	}
 }

@@ -43,10 +43,14 @@ function onYouTubePlayerAPIReady() {
     VMM.ExternalAPI.youtube.onAPIReady()
 }
 function fp_10(){
-	alert("p10");
+	var aid=$("#minTimeAid").val();
+	window.location.href=contextPath+'/timeline?articlescrapId='+aid+'&isNext=false';
+//	alert("p10");
 }
 function fn_10(){
-	alert("n10");
+	var aid=$("#maxTimeAid").val();
+	window.location.href=contextPath+'/timeline?articlescrapId='+aid+'&isNext=true';
+//	alert("n10");
 }
 var s = 2;
 function close_toolbar(){
@@ -4349,6 +4353,7 @@ if (typeof VMM != "undefined" && typeof VMM.Timeline == "undefined") {
                         t.tag = d.date[e].tag;
                         t.isfirst = d.date[e].isfirst;
                         t.slug = d.date[e].slug;
+                        t.start = d.date[e].start;
                         t.uniqueid = VMM.Util.unique_ID(7);
                         t.classname = d.date[e].classname;
                         v.push(t)

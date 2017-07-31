@@ -4,6 +4,7 @@ public class Asset {
 	String media;
 	String credit;
 	String caption;
+	String start;
 	public String getMedia() {
 		return media;
 	}
@@ -22,4 +23,11 @@ public class Asset {
 	public void setCaption(String caption) {
 		this.caption = caption;
 	}
+	public String getStart() {
+		return start;
+	}
+	public void setStart(String start) {
+		this.start = start;
+	}
+	
 }
