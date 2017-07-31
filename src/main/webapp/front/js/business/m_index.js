@@ -231,7 +231,7 @@ var shishi1="<article class=\"excerpt listright\" onclick=\"location.href='conte
 	   +"<h2><a href=\"javascript:void(0)\">atitle</a></header>"
        +"<p class=\"meta\">"
 	   +"<time class=\"time\"><i class=\"glyphicon glyphicon-time\"></i>start_time</time>"	
-	   +"<span class=\"views\"><i class=\"glyphicon glyphicon-eye-open\"></i>visits</span>"
+	   +"<span class=\"views\"><i class=\"glyphicon glyphicon-eye-open\"></i> visits</span>"
 	   +"</p></article>";
 var shishi2="<article class=\"excerpt listtext\" onclick=\"location.href='contextPath/show/aId'\">"
 	   +"<header><h2><a href=\"javascript:void(0)\" >&bull;&nbsp atitle</a></h2></header>"
@@ -254,7 +254,7 @@ var dili2="<article class=\"excerpt listright\" onclick=\"location.href='context
        +"<header><a class=\"cat\" href=\"javascript:void(0)\">地理<i></i></a>"
        +"<h2><a class=\"dilitxt\" href=\"javascript:void(0)\">atitle</a></h2></header>"
        +"<p class=\"meta\"><time class=\"time\"><i class=\"glyphicon glyphicon-time\"></i> start_time</time>"
-       +"<span class=\"views\"><i class=\"glyphicon glyphicon-eye-open\"></i>visits</span>"
+       +"<span class=\"views\"><i class=\"glyphicon glyphicon-eye-open\"></i> visits</span>"
 	   +"</p></article>";
 var renwu1="<article class=\"excerpt listright\" onclick=\"location.href='contextPath/show/aId'\">"
        +"<a class=\"focus\" href=\"javascript:void(0)\">"
