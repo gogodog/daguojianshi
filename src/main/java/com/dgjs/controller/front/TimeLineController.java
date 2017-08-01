@@ -56,7 +56,7 @@ public class TimeLineController {
 	@RequestMapping(value = "/getstroies.json")
 	public void getstroies(TimeLineView view,HttpServletResponse response,HttpServletRequest request){
 		TimelineView tv = null;
-		int onePageSize=5;
+		int onePageSize=4;
 		String contextPath = (String) request.getAttribute("contextPath");
 		Articlescrap articlescrap = null;
 		Map<String, SortOrder> sort = new HashMap<String, SortOrder>();
@@ -128,6 +128,7 @@ public class TimeLineController {
 				contion.setStartTimeFrom(articlescrap.getBegin_time());
 				contion.setType(view.getType());
 		    	contion.setKeyword(view.getKeyword());
+		    	contion.setStatus(UpDown_Status.UP);
 				sort.put("start_time", SortOrder.ASC);
 				contion.setSort(sort);
 				page= articlescrapService.listArticlescrap(contion);
