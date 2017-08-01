@@ -19,7 +19,7 @@
     <script type="text/javascript" src="${contextPath}/front/timelinef/storyjs-embed.js?v=1"></script>
     <script>
       var contextPath='${contextPath}';
-      var aid='${articlescrapId}';
+      var aid='${timeline.articlescrapId}';
       var isNext='${isNext}';
       var isSlip='${isSlip}';
       $(document).ready(function() {

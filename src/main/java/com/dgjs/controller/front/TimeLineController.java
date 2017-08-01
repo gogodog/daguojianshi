@@ -1,6 +1,5 @@
 package com.dgjs.controller.front;
 
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -27,6 +26,7 @@ import com.dgjs.model.dto.timeline.Dat;
 import com.dgjs.model.dto.timeline.Timeline;
 import com.dgjs.model.dto.timeline.TimelineView;
 import com.dgjs.model.enums.Articlescrap_Type;
+import com.dgjs.model.param.view.TimeLineView;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 import com.dgjs.service.common.PictureService;
 import com.dgjs.service.content.ArticlescrapService;
@@ -41,27 +41,27 @@ public class TimeLineController {
 	PictureService pictureService;
 	
 	@RequestMapping("/timeline")
-    public ModelAndView index(HttpServletRequest request, HttpServletResponse response,Articlescrap_Type type,
-    		String keyword,String articlescrapId,Boolean isNext,Boolean isSlip) throws Exception {  
+    public ModelAndView index(TimeLineView view) throws Exception {  
 		ModelAndView mv = new ModelAndView("front/timeline2");
 		//加载分类
 		mv.addObject("types", Articlescrap_Type.values());
-		mv.addObject("articlescrapId", articlescrapId);
-		mv.addObject("isNext", String.valueOf(isNext==null?true:isNext));
-		mv.addObject("isSlip", String.valueOf(isSlip==null?false:isSlip));
+		mv.addObject("isNext", String.valueOf(view.getIsNext()==null?true:view.getIsNext()));
+		mv.addObject("isSlip", String.valueOf(view.getIsSlip()==null?false:view.getIsSlip()));
+		mv.addObject("timeline",view);
 		return mv;
     }
 	
 	@ResponseBody
 	@RequestMapping(value = "/getstroies.json")
-	public void getstroies(String articlescrapId,Boolean isNext,Boolean isSlip,HttpServletResponse response,HttpServletRequest request){
+	public void getstroies(TimeLineView view,HttpServletResponse response,HttpServletRequest request){
+		TimelineView tv = null;
 		int onePageSize=5;
 		String contextPath = (String) request.getAttribute("contextPath");
 		Articlescrap articlescrap = null;
 		Map<String, SortOrder> sort = new HashMap<String, SortOrder>();
 		sort.put("start_time", SortOrder.ASC);
-		isNext = isNext == null ? true : isNext;
-		if(StringUtils.isEmpty(articlescrapId)){
+		boolean isNext = view.getIsNext() == null ? true : view.getIsNext();
+		if(StringUtils.isEmpty(view.getArticlescrapId())){
 			ArticlescrapCondtion contion = new ArticlescrapCondtion();
 	    	contion.setCurrentPage(1);
 	    	contion.setOnePageSize(1);
@@ -72,17 +72,17 @@ public class TimeLineController {
 	    	    articlescrap = page.getObjects().get(0);
 	    	}
 		}else{
-			String[] aid={articlescrapId};
+			String[] aid={view.getArticlescrapId()};
 			List<Articlescrap> list=articlescrapService.getArticlescrapByIds(aid);
 			if(list != null && list.size() != 0){
 				articlescrap = list.get(0);
 			}
 		}
 		if(articlescrap!=null && articlescrap.getBegin_time()!=null){
-			TimelineView tv = new TimelineView();
+		    tv = new TimelineView();
 			ArticlescrapCondtion contion = new ArticlescrapCondtion();
 			List<Articlescrap> aList = null;
-			if(isSlip){
+			if(view.getIsSlip()){
 				contion.setCurrentPage(1);
 		    	contion.setOnePageSize(onePageSize);
 		    	if(isNext){
@@ -141,13 +141,13 @@ public class TimeLineController {
 	    	    if(sort.get("start_time").equals(SortOrder.ASC)){
 	    	    	tv.setMaxTimeAid(list.get(list.size()-1).getId());
 	    	    	tv.setMinTimeAid(list.get(0).getId());
-	    	    	if(isSlip){
+	    	    	if(view.getIsSlip()){
 	    	    		articlescrap = list.get(0);
 		    	    }
 	    	    }else{
 	    	    	tv.setMaxTimeAid(list.get(0).getId());
 	    	    	tv.setMinTimeAid(list.get(list.size()-1).getId());
-	    	    	if(isSlip){
+	    	    	if(view.getIsSlip()){
 	    	    		articlescrap = list.get(list.size()-1);
 		    	    }
 	    	    }
@@ -156,20 +156,20 @@ public class TimeLineController {
 	    		tv.setTimeline(timeline);
 	    		response.setCharacterEncoding("utf-8");
 	    		response.setContentType("application/json; charset=utf-8"); 
-	    		PrintWriter pw = null;
-	    		try {
-	    			pw = response.getWriter();
-	    			pw.write(JSONObject.toJSONString(tv));
-	    			pw.flush();
-	    		} catch (IOException e) {
-	    			e.printStackTrace();
-	    		} finally{
-	    			if(pw != null){
-	    				pw.flush();
-	    				pw.close();
-	    			}
-	    		}
 	    	}
+		}
+		PrintWriter pw = null;
+		try {
+			pw = response.getWriter();
+			pw.write(JSONObject.toJSONString(tv));
+			pw.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally{
+			if(pw != null){
+				pw.flush();
+				pw.close();
+			}
 		}
 	}
 	
@@ -207,4 +207,5 @@ public class TimeLineController {
 		timeline.setText("人文与情怀的一次共舞");
 		return timeline;
 	}
+	
 }
