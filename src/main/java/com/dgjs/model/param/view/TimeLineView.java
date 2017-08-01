@@ -9,7 +9,6 @@ public class TimeLineView {
 	private String articlescrapId;
 	private Boolean isNext;
 	private Boolean isSlip;
-	private String keyWord;
 	
 	public Articlescrap_Type getType() {
 		return type;
@@ -40,12 +39,6 @@ public class TimeLineView {
 	}
 	public void setIsSlip(Boolean isSlip) {
 		this.isSlip = isSlip;
-	}
-	public String getKeyWord() {
-		return keyWord;
-	}
-	public void setKeyWord(String keyWord) {
-		this.keyWord = keyWord;
 	}
 	
 }

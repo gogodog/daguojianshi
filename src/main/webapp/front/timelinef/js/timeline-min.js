@@ -44,12 +44,16 @@ function onYouTubePlayerAPIReady() {
 }
 function fp_10(){
 	var aid=$("#minTimeAid").val();
-	window.location.href=contextPath+'/timeline?articlescrapId='+aid+'&isNext=false&isSlip=true';
+	var type=$("#timelinetype").val();
+	var keyword=$("#timelinekeyword").val();
+	window.location.href=contextPath+'/timeline?articlescrapId='+aid+'&isNext=false&isSlip=true&keyword='+keyword+'&type='+type;
 //	alert("p10");
 }
 function fn_10(){
 	var aid=$("#maxTimeAid").val();
-	window.location.href=contextPath+'/timeline?articlescrapId='+aid+'&isNext=true&isSlip=true';
+	var type=$("#timelinetype").val();
+	var keyword=$("#timelinekeyword").val();
+	window.location.href=contextPath+'/timeline?articlescrapId='+aid+'&isNext=true&isSlip=true&keyword='+keyword+'&type='+type;
 //	alert("n10");
 }
 var s = 2;

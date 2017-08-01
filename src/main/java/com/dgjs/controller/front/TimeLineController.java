@@ -26,6 +26,7 @@ import com.dgjs.model.dto.timeline.Dat;
 import com.dgjs.model.dto.timeline.Timeline;
 import com.dgjs.model.dto.timeline.TimelineView;
 import com.dgjs.model.enums.Articlescrap_Type;
+import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.param.view.TimeLineView;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 import com.dgjs.service.common.PictureService;
@@ -67,6 +68,7 @@ public class TimeLineController {
 	    	contion.setOnePageSize(1);
 	    	contion.setStartTimeFrom(-10000);
 	    	contion.setSort(sort);
+	    	contion.setStatus(UpDown_Status.UP);
 	    	PageInfoDto<Articlescrap> page=articlescrapService.listArticlescrap(contion);
 	    	if(page!=null && page.getObjects()!=null && page.getObjects().size()>0){
 	    	    articlescrap = page.getObjects().get(0);
@@ -85,6 +87,9 @@ public class TimeLineController {
 			if(view.getIsSlip()){
 				contion.setCurrentPage(1);
 		    	contion.setOnePageSize(onePageSize);
+		    	contion.setType(view.getType());
+		    	contion.setKeyword(view.getKeyword());
+		    	contion.setStatus(UpDown_Status.UP);
 		    	if(isNext){
 		    		contion.setSort(sort);
 		    		contion.setGreaterStartTime(articlescrap.getBegin_time());
@@ -106,6 +111,9 @@ public class TimeLineController {
 				contion.setSort(sort);
 				contion.setOnePageSize(preNum);
 				contion.setLessThanStartTime(articlescrap.getBegin_time());
+				contion.setType(view.getType());
+		    	contion.setKeyword(view.getKeyword());
+		    	contion.setStatus(UpDown_Status.UP);
 				PageInfoDto<Articlescrap> page= articlescrapService.listArticlescrap(contion);
 				if(page!=null && page.getObjects()!=null && page.getObjects().size()>0){
 					prevList = page.getObjects();
@@ -118,6 +126,8 @@ public class TimeLineController {
 				contion = new ArticlescrapCondtion();
 				contion.setOnePageSize(nextNum);
 				contion.setStartTimeFrom(articlescrap.getBegin_time());
+				contion.setType(view.getType());
+		    	contion.setKeyword(view.getKeyword());
 				sort.put("start_time", SortOrder.ASC);
 				contion.setSort(sort);
 				page= articlescrapService.listArticlescrap(contion);
