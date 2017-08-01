@@ -122,6 +122,12 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 			if(condition.getStartTimeTo()!=null){
 				boolBuilder.must(QueryBuilders.rangeQuery("start_time").lte(condition.getStartTimeTo()));
 			}
+			if(condition.getGreaterStartTime()!=null){
+				boolBuilder.must(QueryBuilders.rangeQuery("start_time").gt(condition.getGreaterStartTime()));
+			}
+			if(condition.getLessThanStartTime()!=null){
+				boolBuilder.must(QueryBuilders.rangeQuery("start_time").lt(condition.getLessThanStartTime()));
+			}
 			if(condition.getPicNum()!=null){
 				boolBuilder.must(QueryBuilders.rangeQuery("pic_num").gte(condition.getPicNum()));
 			}

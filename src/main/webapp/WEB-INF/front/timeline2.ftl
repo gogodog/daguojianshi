@@ -21,10 +21,11 @@
       var contextPath='${contextPath}';
       var aid='${articlescrapId}';
       var isNext='${isNext}';
+      var isSlip='${isSlip}';
       $(document).ready(function() {
       	//front/timeline/data.json
       	//getstroies.json
-        $.get(contextPath+'/getstroies.json?articlescrapId='+aid+"&isNext="+isNext,function(result){
+        $.get(contextPath+'/getstroies.json?articlescrapId='+aid+"&isNext="+isNext+"&isSlip="+isSlip,function(result){
 //        	console.log(JSON.stringify(result));
         	if(result!=null&&result!=''&&result.maxTimeAid!=''&&result.maxTimeAid!=null&&result.minTimeAid!=null&&result.minTimeAid!=''){
         		var hidden ="<input type=\"hidden\" id=\"maxTimeAid\" value=\""+result.maxTimeAid+"\"><input type=\"hidden\" id=\"minTimeAid\" value=\""+result.minTimeAid+"\">";

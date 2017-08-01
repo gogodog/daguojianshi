@@ -23,8 +23,6 @@ public class ArticlescrapCondtion {
 	private Date showTimeTo;
 	private Date updateTimeFrom;
 	private Date updateTimeTo;
-	private Integer startTimeFrom;
-	private Integer startTimeTo;
 	private Map<String,SortOrder> sort;//排序
 	private int beginNum=0;//从哪条开始查
 	private int onePageSize=Constants.DEFAULT_ONEPAGESIZE;
@@ -33,6 +31,10 @@ public class ArticlescrapCondtion {
 	private String keyword;//关键词搜索
 	private Integer picNum;//图片数量
 	private String[] withoutIds;//不查询的id
+	private Integer startTimeFrom;//startTime大于等于
+	private Integer startTimeTo;//startTime小于等于
+	private Integer greaterStartTime;//startTime要大于的时间
+	private Integer lessThanStartTime;//startTime要小于的时间
     
 	public UpDown_Status getStatus() {
 		return status;
@@ -158,6 +160,18 @@ public class ArticlescrapCondtion {
 	}
 	public void setWithoutIds(String[] withoutIds) {
 		this.withoutIds = withoutIds;
+	}
+	public Integer getGreaterStartTime() {
+		return greaterStartTime;
+	}
+	public void setGreaterStartTime(Integer greaterStartTime) {
+		this.greaterStartTime = greaterStartTime;
+	}
+	public Integer getLessThanStartTime() {
+		return lessThanStartTime;
+	}
+	public void setLessThanStartTime(Integer lessThanStartTime) {
+		this.lessThanStartTime = lessThanStartTime;
 	}
 	
 }
