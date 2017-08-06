@@ -23,6 +23,7 @@ public class DraftEs implements java.io.Serializable{
 	private int time_degree;//起始时间精度
 	private String[] pictures;//图片
     private int pic_num;//图片数量
+    private Integer user_id;//用户id
     
 	public String getId() {
 		return id;
@@ -103,6 +104,12 @@ public class DraftEs implements java.io.Serializable{
 		this.pic_num = pic_num;
 	}
     
+	public Integer getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(Integer user_id) {
+		this.user_id = user_id;
+	}
 	public static DraftEs ConvertToEs(Draft draft){
 		if(draft == null){
 			return null;
@@ -120,6 +127,7 @@ public class DraftEs implements java.io.Serializable{
 		draftEs.setTitle(draft.getTitle());
 		draftEs.setType(Articlescrap_Type.transTo(draft.getType()));
 		draftEs.setUpdate_time(DateUtils.parseStringFromDate(draft.getUpdate_time()));
+		draftEs.setUser_id(draft.getUser_id());
 		return draftEs;
 	}
 	
@@ -139,6 +147,7 @@ public class DraftEs implements java.io.Serializable{
 		draft.setKeywords(draftEs.getKeywords());
 		draft.setTime_degree(draftEs.getTime_degree()==-1?null:TIME_DEGREE.valueOf(draftEs.getTime_degree()));
 		draft.setPictures(draftEs.getPictures());
+		draft.setUser_id(draftEs.getUser_id());
 		return draft;
 	}
 

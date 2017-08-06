@@ -95,6 +95,7 @@ public class StructureInit {
 					.startObject("time_degree").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
 					.startObject("pictures").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
 					.startObject("pic_num").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
+					.startObject("user_id").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
 					.endObject()
 					.endObject()
 					.endObject();

@@ -17,6 +17,7 @@ public class Draft extends StartTime{
 	private String[] keywords;//关键词（分类）
 	private String[] pictures;//图片
     private int pic_num;//图片数量
+	private Integer user_id;//用户id
 	
 	public String getId() {
 		return id;
@@ -84,6 +85,11 @@ public class Draft extends StartTime{
 	public void setPic_num(int pic_num) {
 		this.pic_num = pic_num;
 	}
-    
+	public Integer getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(Integer user_id) {
+		this.user_id = user_id;
+	}
     
 }
