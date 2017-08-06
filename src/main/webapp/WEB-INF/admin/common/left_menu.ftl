@@ -12,7 +12,6 @@
 						    <li class="active"><a href="${contextPath}/admin/atcp/articlescrapList" target="content">文章管理</a></li>
 							<li><a href="${contextPath}/admin/cul/carouselList" target="content">轮播图管理</a></li>
 							<li><a href="${contextPath}/admin/rcma/recommedArticlescrapList" target="content">推荐管理</a></li>
-							<li><a href="${contextPath}/admin/fb/feedBackList" target="content">反馈管理</a></li>
 							<li><a href="${contextPath}/admin/channel/list" target="content">频道管理</a></li>
 							<li><a href="${contextPath}/admin/idxcfg/list" target="content">首页配置管理</a></li>
 						</ul>
@@ -26,6 +25,14 @@
 					    </ul>
 				    </div>
 			    </li>
+			    <li class="public-ifame-item">
+			        <a href="javascript:;">反馈管理</a>
+			        <div class="ifame-item-sub">
+				        <ul>
+				             <li class="active"><a href="${contextPath}/admin/fb/feedBackList" target="content">反馈管理</a></li>
+				        </ul>
+			        </div>
+		        </li>
 				<!-- 
 				<li class="public-ifame-item">
 					<a href="javascript:;">信息管理</a>

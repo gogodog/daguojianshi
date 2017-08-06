@@ -1,7 +1,6 @@
 package com.dgjs.model.es;
 
 import com.alibaba.fastjson.JSON;
-import com.dgjs.es.client.init.Pictures;
 import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.dto.business.entity.Recommend;
 import com.dgjs.model.enums.Articlescrap_Type;
