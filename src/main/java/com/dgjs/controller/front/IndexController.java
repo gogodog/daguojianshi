@@ -22,6 +22,7 @@ import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.enums.Ad_Position;
 import com.dgjs.model.enums.Articlescrap_Type;
+import com.dgjs.model.enums.Carousel_Position;
 import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.persistence.Advertisement;
 import com.dgjs.model.persistence.Carousel;
@@ -63,6 +64,7 @@ public class IndexController {
 		//加载轮播
 		Carousel c=new Carousel();
 		c.setStatus(UpDown_Status.UP);
+		c.setPosition(type==null?Carousel_Position.INDEX:Carousel_Position.valueOf(type.getKey()));
 		List<Carousel> carouselList=carouselService.listCarousel(c);
 		mv.addObject("carouselList", carouselList);
 		//加载推荐文章
