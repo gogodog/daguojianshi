@@ -30,7 +30,8 @@ public class StructureInit {
 		
 		@Test
 		public void testInitTable() throws Exception{
-			initDraft(transportClient.getObject());
+//			initDraft(transportClient.getObject());
+			initPending(transportClient.getObject());
 		}
 		
 		private void createIndex(TransportClient client,String index) {
@@ -96,6 +97,43 @@ public class StructureInit {
 					.startObject("pictures").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
 					.startObject("pic_num").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
 					.startObject("user_id").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
+					.endObject()
+					.endObject()
+					.endObject();
+		   PutMappingRequest mapping = Requests.putMappingRequest(index).type(type).source(builder); 
+		   client.admin().indices().putMapping(mapping).actionGet();
+		}
+		
+		private void initPending(TransportClient client) throws IOException {
+			String type =  "pending_v4";
+//			createIndex(client,index);
+			List<String> list = Arrays.asList("content");
+			XContentBuilder builder=XContentFactory.jsonBuilder()
+					.startObject()
+					.startObject(type)
+					.startObject("_source").field("excludes", list).endObject()
+					.startObject("properties")
+					.startObject("title").field("type", "text").field("store", "false").field("index", "analyzed").field("analyzer", "ik_smart").endObject()
+					.startObject("type").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
+					.startObject("author").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
+					.startObject("create_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "false").field("index", "not_analyzed").endObject()
+			        .startObject("update_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "false").field("index", "not_analyzed").endObject()
+					.startObject("sub_content").field("type", "text").field("store", "false").field("index", "analyzed").field("analyzer", "ik_smart").endObject()
+					.startObject("content").field("type", "text").field("store", "yes").field("index", "analyzed").field("analyzer", "ik_smart").endObject()
+					.startObject("keywords").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
+					.startObject("start_time").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
+					.startObject("time_degree").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
+					.startObject("pictures").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
+					.startObject("pic_num").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
+					.startObject("user_id").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
+					.startObject("status").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
+					.startObject("audit_user_id").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
+					.startObject("audit_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "false").field("index", "not_analyzed").endObject()
+					.startObject("audit_desc").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
+					.startObject("publish_user_id").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
+					.startObject("publish_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "false").field("index", "not_analyzed").endObject()
+					.startObject("visits").field("type", "long").field("store", "yes").field("index", "not_analyzed").endObject()
+					.startObject("show_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "false").field("index", "not_analyzed").endObject()
 					.endObject()
 					.endObject()
 					.endObject();

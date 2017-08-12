@@ -13,11 +13,15 @@ import com.alibaba.fastjson.JSON;
 import com.dgjs.es.client.ESTransportClient;
 import com.dgjs.es.mapper.content.ArticlescrapMapper;
 import com.dgjs.es.mapper.content.DraftMapper;
+import com.dgjs.es.mapper.content.PendingMapper;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Draft;
+import com.dgjs.model.dto.business.Pending;
 import com.dgjs.model.enums.Articlescrap_Type;
+import com.dgjs.model.enums.Pending_Status;
 import com.dgjs.model.enums.TIME_DEGREE;
 import com.dgjs.model.persistence.condition.DraftCondition;
+import com.dgjs.model.persistence.condition.PendingCondition;
 
 @RunWith(SpringJUnit4ClassRunner.class)  
 @ContextConfiguration(locations = "classpath:spring-*.xml") 
@@ -34,6 +38,10 @@ public class DataInit {
 	 @Autowired
 	 ArticlescrapMapper articlescrapMapper;
 	 
+	 @Autowired
+	 PendingMapper pendingMapper;
+	 
+	 /* ================================== draft begin ==================================*/
 	 @Test
 	 public void testSaveDraft(){
 		 Date date = new Date();
@@ -102,4 +110,58 @@ public class DataInit {
 	 public void testGetContent(){
 		 draftMapper.getContent("AV23cJS0iB8TaXhbksdI");
 	 }
+	 
+	 /* ==================================  draft end  ================================== */
+	 
+	 /* ================================== pending begin ==================================*/
+	 @Test
+	 public void savePending(){
+		 Date date = new Date();
+		 Pending pending = new Pending();
+		 pending.setAuthor("joy测试");
+		 pending.setBegin_time(20170711);
+		 pending.setContent("joy测试 content");
+		 pending.setCreate_time(date);
+		 String[] keywords = {"draft keywords"};
+		 pending.setKeywords(keywords);
+		 pending.setPic_num(1);
+		 pending.setPictures(keywords);
+		 pending.setSub_content("joy测试 sub_content");
+		 pending.setTime_degree(TIME_DEGREE.DAY);
+		 pending.setTitle("joy测试 title");
+		 pending.setType(Articlescrap_Type.AFFAIRS);
+		 pending.setUpdate_time(date);
+		 
+		 pending.setStatus(Pending_Status.AUDIT_PENDING);
+		 int flag = pendingMapper.savePending(pending);
+		 System.out.println(flag);
+	 }
+	 
+	 @Test
+	 public void selectById(){
+		 Pending pending = pendingMapper.selectById("AV3WCNPB76afZAVcqAsi");
+		 System.out.println(JSON.toJSONString(pending, true));
+	 }
+	 
+	 @Test
+	 public void testAudit() throws Exception{
+		 int flag = pendingMapper.audit("AV3WCNPB76afZAVcqAsi", Pending_Status.Audit_FAIL, 1, "重复内容");
+	     System.out.println(flag);
+	 }
+	 
+	 @Test
+	 public void testPublish() throws Exception{
+		 Date now = new Date();
+		 int flag = pendingMapper.publish("AV3WCNPB76afZAVcqAsi", 1, now, 1001, now);
+		 System.out.println(flag);
+	 }
+	 
+	 @Test
+	 public void listPending(){
+		 PendingCondition condition = new PendingCondition();
+		 condition.setStatus(Pending_Status.PUBLISHED);
+		 PageInfoDto<Pending> pageinfo = pendingMapper.listPending(condition);
+		 System.out.println(JSON.toJSONString(pageinfo, true));
+	 }
+	 /* ==================================  pending end  ==================================*/
 }
