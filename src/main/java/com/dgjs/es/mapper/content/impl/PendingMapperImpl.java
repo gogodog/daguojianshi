@@ -14,6 +14,7 @@ import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHitField;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,8 +55,7 @@ public class PendingMapperImpl implements PendingMapper{
 	public int audit(String id,Pending_Status status, Integer audit_user_id,
 			String audit_desc) throws Exception{
 		TransportClient client=transportClient.getClient();
-		GetResponse response = client.prepareGet(index, type, id).get();
-		PendingEs pendingEs = JSON.parseObject(response.getSourceAsString(), PendingEs.class);
+		PendingEs pendingEs=selectWithContent(id);
 		Date now = new Date();
 		String datenow = DateUtils.parseStringFromDate(now);
 		if(pendingEs.getStatus()!=Pending_Status.AUDIT_PENDING.getKey()){
@@ -85,13 +85,12 @@ public class PendingMapperImpl implements PendingMapper{
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public int publish(String id,Integer publish_user_id, Date publish_time, int visits,
+	public Pending publish(String id,Integer publish_user_id, Date publish_time, int visits,
 			Date show_time) throws Exception{
 		TransportClient client=transportClient.getClient();
-		GetResponse response = client.prepareGet(index, type, id).get();
-		PendingEs pendingEs = JSON.parseObject(response.getSourceAsString(), PendingEs.class);
+		PendingEs pendingEs=selectWithContent(id);
 		if(pendingEs.getStatus()!=Pending_Status.PUBLISH_PENDING.getKey()){
-			return 0;
+			return null;
 		}
 		Date now = new Date();
 		String datenow = DateUtils.parseStringFromDate(now);
@@ -99,10 +98,14 @@ public class PendingMapperImpl implements PendingMapper{
 		pendingEs.setPublish_time(datenow);
 		pendingEs.setStatus(Pending_Status.PUBLISHED.getKey());
 		pendingEs.setPublish_user_id(publish_user_id);
+		pendingEs.setShow_time(DateUtils.parseStringFromDate(show_time));
+		pendingEs.setVisits(visits);
 		UpdateRequest updateRequest = new UpdateRequest(index, type,id);
 		updateRequest.doc(pendingEs.toString());
 		client.update(updateRequest).get();
-		return 1;
+		Pending pending=selectById(id);
+		pending.setContent(getContent(id));
+		return pending;
 	}
 
 	@Override
@@ -155,6 +158,39 @@ public class PendingMapperImpl implements PendingMapper{
 		    }
 		}
 		return boolBuilder;
+	}
+
+	@Override
+	public Pending selectByIdAll(String id) {
+		PendingEs pendingEs = selectWithContent(id);
+		Pending pending = PendingEs.ConvertToVo(pendingEs);
+		return pending;
+	}
+	
+	private String getContent(String id) {
+		TransportClient client=transportClient.getClient();
+		SearchRequestBuilder responsebuilder = client.prepareSearch(index).setTypes(type);
+		responsebuilder.setQuery(QueryBuilders.idsQuery().addIds(id));
+		String[] fields= {"content"};
+		responsebuilder.storedFields(fields);
+		SearchResponse myresponse = responsebuilder.setExplain(true).execute().actionGet();
+		SearchHits hits = myresponse.getHits();
+		if(hits.getTotalHits()>0){
+		    Map<String,SearchHitField> map=hits.getHits()[0].getFields();
+		    SearchHitField sf = map.get("content");
+		    String content = sf.getValue();
+		    return content;
+		}
+		return null;
+	}
+	
+	private PendingEs selectWithContent(String id){
+		TransportClient client=transportClient.getClient();
+		GetResponse response = client.prepareGet(index, type, id).get();
+		PendingEs pendingEs = JSON.parseObject(response.getSourceAsString(), PendingEs.class);
+		String content = getContent(id);
+		pendingEs.setContent(content);
+		return pendingEs;
 	}
 
 }

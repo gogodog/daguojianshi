@@ -15,7 +15,9 @@ public interface PendingMapper {
 	
 	public Pending selectById(String id);
 	
-	public int publish(String id,Integer publish_user_id,Date publish_time,int visits,Date show_time) throws Exception;
+	public Pending publish(String id,Integer publish_user_id,Date publish_time,int visits,Date show_time) throws Exception;
 	
 	public PageInfoDto<Pending> listPending(PendingCondition condition);
+	
+	public Pending selectByIdAll(String id);
 }

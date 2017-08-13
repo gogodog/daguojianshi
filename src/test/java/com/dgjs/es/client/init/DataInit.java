@@ -22,6 +22,7 @@ import com.dgjs.model.enums.Pending_Status;
 import com.dgjs.model.enums.TIME_DEGREE;
 import com.dgjs.model.persistence.condition.DraftCondition;
 import com.dgjs.model.persistence.condition.PendingCondition;
+import com.dgjs.service.content.PendingService;
 
 @RunWith(SpringJUnit4ClassRunner.class)  
 @ContextConfiguration(locations = "classpath:spring-*.xml") 
@@ -41,6 +42,9 @@ public class DataInit {
 	 @Autowired
 	 PendingMapper pendingMapper;
 	 
+	 @Autowired
+	 PendingService pendingService;
+	 
 	 /* ================================== draft begin ==================================*/
 	 @Test
 	 public void testSaveDraft(){
@@ -48,7 +52,7 @@ public class DataInit {
 		 Draft draft = new Draft();
 		 draft.setAuthor("joy测试");
 		 draft.setBegin_time(20170711);
-		 draft.setContent("joy测试 content");
+		 draft.setContent("joy测试 content123");
 		 draft.setCreate_time(date);
 		 String[] keywords = {"draft keywords"};
 		 draft.setKeywords(keywords);
@@ -108,7 +112,7 @@ public class DataInit {
 	 
 	 @Test
 	 public void testGetContent(){
-		 draftMapper.getContent("AV23cJS0iB8TaXhbksdI");
+		 draftMapper.getContent("AV3Zlgrx76afZAVcqAsj");
 	 }
 	 
 	 /* ==================================  draft end  ================================== */
@@ -118,9 +122,9 @@ public class DataInit {
 	 public void savePending(){
 		 Date date = new Date();
 		 Pending pending = new Pending();
-		 pending.setAuthor("joy测试");
+		 pending.setAuthor("joy测试 a111");
 		 pending.setBegin_time(20170711);
-		 pending.setContent("joy测试 content");
+		 pending.setContent("joy测试 content pending a111");
 		 pending.setCreate_time(date);
 		 String[] keywords = {"draft keywords"};
 		 pending.setKeywords(keywords);
@@ -145,14 +149,16 @@ public class DataInit {
 	 
 	 @Test
 	 public void testAudit() throws Exception{
-		 int flag = pendingMapper.audit("AV3WCNPB76afZAVcqAsi", Pending_Status.Audit_FAIL, 1, "重复内容");
+		 int flag = pendingMapper.audit("AV3ZuyQG76afZAVcqAsm", Pending_Status.PUBLISH_PENDING, 1, "重复内容");
 	     System.out.println(flag);
 	 }
 	 
 	 @Test
 	 public void testPublish() throws Exception{
 		 Date now = new Date();
-		 int flag = pendingMapper.publish("AV3WCNPB76afZAVcqAsi", 1, now, 1001, now);
+//		 Pending pending = pendingMapper.publish("AV3WCNPB76afZAVcqAsi", 1, now, 1001, now);
+//		 System.out.println(JSON.toJSONString(pending, true));
+		 int flag = pendingService.publish("AV3ZuyQG76afZAVcqAsm", 1, now, 1001, now);
 		 System.out.println(flag);
 	 }
 	 
@@ -164,4 +170,11 @@ public class DataInit {
 		 System.out.println(JSON.toJSONString(pageinfo, true));
 	 }
 	 /* ==================================  pending end  ==================================*/
+	 
+	 @Test
+	 public void testDelete(){
+		 int flag=articlescrapMapper.deleteById("AV3XINsziB8TaXhbksdM");
+		 System.out.println(flag);
+	 }
+	 
 }

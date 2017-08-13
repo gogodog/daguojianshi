@@ -5,6 +5,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dgjs.es.mapper.content.ArticlescrapMapper;
 import com.dgjs.es.mapper.content.PendingMapper;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Pending;
@@ -17,6 +18,9 @@ public class PendingServiceImpl implements PendingService{
 	
 	@Autowired
 	PendingMapper pendingMapper;
+	
+	@Autowired
+	ArticlescrapMapper articlescrapMapper;
 
 	@Override
 	public int savePending(Pending pending) {
@@ -37,7 +41,11 @@ public class PendingServiceImpl implements PendingService{
 	@Override
 	public int publish(String id, Integer publish_user_id, Date publish_time,
 			int visits, Date show_time) throws Exception {
-		int flag = pendingMapper.publish(id, publish_user_id, publish_time, visits, show_time);
+		int flag = 0;
+		Pending pending= pendingMapper.publish(id, publish_user_id, publish_time, visits, show_time);
+		if(pending!=null){
+			flag=articlescrapMapper.saveArticlescrap(Pending.transToArticlescrap(pending));
+		}
 		return flag;
 	}
 

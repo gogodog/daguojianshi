@@ -3,6 +3,7 @@ package com.dgjs.model.dto.business;
 import java.util.Date;
 
 import com.dgjs.model.enums.Pending_Status;
+import com.dgjs.model.enums.UpDown_Status;
 
 public class Pending extends Draft{
 
@@ -83,6 +84,29 @@ public class Pending extends Draft{
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	
+	public static Articlescrap transToArticlescrap(Pending pending){
+		if(pending == null){
+			return null;
+		}
+		Articlescrap articlescrap = new Articlescrap();
+		articlescrap.setAuthor(pending.getAuthor());
+		articlescrap.setBegin_time(pending.getBegin_time());
+		articlescrap.setContent(pending.getContent());
+		articlescrap.setCreate_time(pending.getPublish_time());
+		articlescrap.setKeywords(pending.getKeywords());
+		articlescrap.setPic_num(pending.getPic_num());
+		articlescrap.setPictures(pending.getPictures());
+		articlescrap.setShow_time(pending.getShow_time());
+		articlescrap.setStatus(UpDown_Status.DOWN);
+		articlescrap.setSub_content(pending.getSub_content());
+		articlescrap.setTime_degree(pending.getTime_degree());
+		articlescrap.setTitle(pending.getTitle());
+		articlescrap.setType(pending.getType());
+		articlescrap.setUpdate_time(new Date());
+		articlescrap.setVisits(pending.getVisits()==null?null:pending.getVisits().longValue());
+		return articlescrap;
 	}
 	
 }

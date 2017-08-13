@@ -18,4 +18,5 @@ public interface PendingService {
 	public int publish(String id,Integer publish_user_id,Date publish_time,int visits,Date show_time) throws Exception;
 	
 	public PageInfoDto<Pending> listPending(PendingCondition condition);
+	
 }

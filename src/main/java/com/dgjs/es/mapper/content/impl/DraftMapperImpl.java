@@ -143,12 +143,10 @@ public class DraftMapperImpl implements DraftMapper{
 		SearchResponse myresponse = responsebuilder.setExplain(true).execute().actionGet();
 		SearchHits hits = myresponse.getHits();
 		if(hits.getTotalHits()>0){
-			for (int i = 0; i < hits.getHits().length; i++) {
-				Map<String,SearchHitField> map=hits.getHits()[i].getFields();
-				SearchHitField sf = map.get("content");
-				String content = sf.getValue();
-				System.out.println(content);
-			}
+		    Map<String,SearchHitField> map=hits.getHits()[0].getFields();
+		    SearchHitField sf = map.get("content");
+		    String content = sf.getValue();
+		    return content;
 		}
 		return null;
 	}
