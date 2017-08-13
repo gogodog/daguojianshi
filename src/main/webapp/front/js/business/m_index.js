@@ -1,4 +1,5 @@
 window.onload=function(){
+	total();
 	shishi();
 	zhengshi();
 	dili();
@@ -219,6 +220,44 @@ function yeshi(){
     });   
 }
 
+function total(){
+	jQuery.ajax({
+        type:"POST",
+        url: contextPath+"/idxtotal",
+        async: true,
+        dataType: "json",
+        success:function(data) {
+            var list = data.list;
+            var moreLink = data.moreLink;
+            var visits = data.visits;
+            var position1 = 3;
+            var content="";
+            for(var i=0;i<list.length;i++){
+            	var item = list[i];
+            	if(i < position1){
+            		content+=total1.replace(rplc("aId"),item.aid)
+            		      .replace(rplc("picUrl"),item.pictures[0])
+            		      .replace(rplc("atitle"),item.title)
+            		      .replace(rplc("start_time"),item.start_time==null||item.start_time.length==0?'无':item.start_time)
+            		      .replace(rplc("visits"),visits[item.aid])
+            		      .replace(rplc("atype"),item.aType)
+            		      .replace(rplc("contextPath"),contextPath);
+            	}else{
+            		content+=total2.replace(rplc("aId"),item.aid)
+            		      .replace(rplc("atitle"),item.title) 
+            		      .replace(rplc("atype"),item.aType)
+            		      .replace(rplc("contextPath"),contextPath);
+            	}
+            }
+            $("#total").html(content);
+            $("#totalmore").attr("href",moreLink);
+        }, 
+        error:function(){
+            console.log("加载失败");
+        }
+    });   
+}
+
 function rplc(str){
 	return new RegExp(str,"gm");
 }
@@ -275,6 +314,23 @@ var yeshi2="<article class=\"excerpt twohref\"><div class=\"inline2div\">"
 var yeshicrsl="<div class=\"itemactive\"><a href=\"linkUrl\">"
        +"<img src=\"image_url\" alt=\"dgjs\" class=\"img-responsive\" style=\"width:100%;height:100%\"></a>"         
        +"<a class=\"banner-title\" href=\"linkUrl\">image_desc</a></div>";
+var total1="<article class=\"excerpt listright\" onclick=\"location.href='contextPath/show/aId'\">"
+       +"<a class=\"focus\" href=\"javascript:void(0)\"><img class=\"thumb\" src=\"contextPathpicUrl\" style=\"display:inline;\"></a>"
+       +"<header><a class=\"cat\" href=\"javascript:void(0)\">atype<i></i></a>"
+       +"<h2><a class=\"dilitxt\" href=\"javacript:void(0)\">atitle</a></h2></header>"
+       +"<p class=\"meta\"><time class=\"time\"><i class=\"glyphicon glyphicon-time\"></i>start_time</time>"
+       +"<span class=\"views\"><i class=\"glyphicon glyphicon-eye-open\"></i> visits</span>"
+	   +"</p></article>";
+var total2="<article class=\"excerpt listtxt\" onclick=\"location.href='contextPath/show/aId'\">"
+	   +"<header><a class=\"cat\" href=\"javascript:void(0)\">atype<i></i></a><h2>"
+	   +"<a class=\"dilitxt\" href=\"javascript:void(0)\" >atitle</a>"
+	   +"</h2></header></article>";
+	
+		
+	
+
+
+	
 	            
 
 

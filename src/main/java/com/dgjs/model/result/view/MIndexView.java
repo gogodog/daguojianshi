@@ -11,6 +11,8 @@ public class MIndexView {
 	private String title;//标题
 	private String sub_content;//精简内容
 	private String start_time;//开始时间
+	private String aType;//文章类型
+	
 	public Index_Type getType() {
 		return type;
 	}
@@ -53,6 +55,11 @@ public class MIndexView {
 	public void setStart_time(String start_time) {
 		this.start_time = start_time;
 	}
-	
+	public String getaType() {
+		return aType == null?type.getValue():aType;
+	}
+	public void setaType(String aType) {
+		this.aType = aType;
+	}
 	
 }

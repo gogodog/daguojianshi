@@ -1,7 +1,6 @@
 package com.dgjs.controller.front;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -120,6 +119,19 @@ public class AjaxController {
 		return json;
     }
 	
+	@RequestMapping("/idxtotal")
+	@ResponseBody
+	public Object total(HttpServletRequest request, HttpServletResponse response) throws Exception {  
+		JSONObject json = new JSONObject();
+		List<MIndexView> list = commonList(Index_Type.TOTAL,3,2,1,null);
+		json.put("list", list);
+		//查看更多链接
+		json.put("moreLink",getMoreLink(Index_Type.TOTAL,request));
+		//访问量
+		json.put("visits", getVisits(list));
+		return json;
+    }
+	
 	@RequestMapping("/idcommon")
 	@ResponseBody
 	public Object idCommon(HttpServletRequest request, HttpServletResponse response){
@@ -182,7 +194,8 @@ public class AjaxController {
 			 mIndexView.setStart_time(articlescrap.getStart_time());
 			 mIndexView.setSub_content(articlescrap.getSub_content());
 			 mIndexView.setTitle(articlescrap.getTitle());
-			 mIndexView.setType(Index_Type.AFFAIRS);
+			 mIndexView.setType(Index_Type.valueOf(articlescrap.getType().getKey()));
+			 mIndexView.setaType(articlescrap.getTypeValue());
 			 mIndexList.add(mIndexView);
 		 }
 		return mIndexList;
@@ -274,7 +287,10 @@ public class AjaxController {
 	
 	private String getMoreLink(Index_Type type,HttpServletRequest request){
 		String contextPath=(String) request.getAttribute("contextPath");
-		return contextPath+"/index?type="+Articlescrap_Type.valueOf(type.getKey());
+		if(type!=Index_Type.TOTAL){
+			return contextPath+"/index?type="+Articlescrap_Type.valueOf(type.getKey());
+		}
+	    return contextPath+"/index";
 	}
 	
 	private Map<String,Integer> getVisits(List<MIndexView> list){

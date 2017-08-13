@@ -29,6 +29,7 @@
 	    <div class="content" id="content_t">
 	      <#include "/front/common/banner_index.ftl">
 	      <#include "/front/common/recommend_index.ftl">
+	      <#include "/front/theme/mobile/total.ftl">
 	      <#include "/front/theme/mobile/shishi.ftl">
 	      <#include "/front/theme/mobile/zhengshi.ftl">
 	      <#include "/front/theme/mobile/dili.ftl">

@@ -10,7 +10,9 @@ public enum Index_Type {
 	
     AFFAIRS(50,"时事"),
 	
-	UNOFFICIAL(60,"野史");
+	UNOFFICIAL(60,"野史"),
+	
+	TOTAL(1,"最新");
     
     private Index_Type(int key,String value){
     	this.key=key;
@@ -49,6 +51,8 @@ public enum Index_Type {
 			return AFFAIRS;
 		case 60:
 			return UNOFFICIAL;
+		case 1:
+			return TOTAL;
 		default:
 			return null;
 		}
