@@ -167,6 +167,7 @@ public class AjaxController {
 			mIndex.setPictures(dto.getPics());
 			mIndex.setTitle(dto.getIndexConfig().getTitle());
 			mIndex.setSub_content(dto.getIndexConfig().getSub_content());
+			mIndex.setaType(dto.getArticlescrap().getTypeValue());
 			if(StringUtils.isNullOrEmpty(mIndex.getTitle())){
 				mIndex.setTitle(dto.getArticlescrap().getTitle());
 			}
