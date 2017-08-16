@@ -46,6 +46,7 @@ public class TimeLineController {
 		ModelAndView mv = new ModelAndView("front/timeline2");
 		//加载分类
 		mv.addObject("types", Articlescrap_Type.values());
+		mv.addObject("isContain", view.getIsContain());
 		mv.addObject("isNext", String.valueOf(view.getIsNext()==null?true:view.getIsNext()));
 		mv.addObject("isSlip", String.valueOf(view.getIsSlip()==null?false:view.getIsSlip()));
 		mv.addObject("timeline",view);
@@ -56,7 +57,7 @@ public class TimeLineController {
 	@RequestMapping(value = "/getstroies.json")
 	public void getstroies(TimeLineView view,HttpServletResponse response,HttpServletRequest request){
 		TimelineView tv = null;
-		int onePageSize=4;
+		int onePageSize=8;
 		String contextPath = (String) request.getAttribute("contextPath");
 		Articlescrap articlescrap = null;
 		Map<String, SortOrder> sort = new HashMap<String, SortOrder>();
@@ -92,11 +93,19 @@ public class TimeLineController {
 		    	contion.setStatus(UpDown_Status.UP);
 		    	if(isNext){
 		    		contion.setSort(sort);
-		    		contion.setGreaterStartTime(articlescrap.getBegin_time());
+		    		if(view.getIsContain()==1){
+		    			contion.setGreaterStartTime(articlescrap.getBegin_time());
+			    	}else{
+			    		contion.setStartTimeFrom(articlescrap.getBegin_time());
+			    	}
 		    	}else{
 		    		sort.put("start_time", SortOrder.DESC);
 		    		contion.setSort(sort);
-		    		contion.setLessThanStartTime(articlescrap.getBegin_time());
+		    		if(view.getIsContain()==1){
+		    			contion.setLessThanStartTime(articlescrap.getBegin_time());
+			    	}else{
+			    		contion.setStartTimeTo(articlescrap.getBegin_time());
+			    	}
 		    	}
 		    	PageInfoDto<Articlescrap> page= articlescrapService.listArticlescrap(contion);
 		    	if(page!=null && page.getObjects()!=null && page.getObjects().size()>0){
@@ -165,12 +174,14 @@ public class TimeLineController {
 	    	    //组装数据
 	    	    Timeline timeline = getTimeLine(list,contextPath,pictureService.getImageContextPath(),articlescrap);
 	    		tv.setTimeline(timeline);
-	    		response.setCharacterEncoding("utf-8");
-	    		response.setContentType("application/json; charset=utf-8"); 
+	    		
 	    	}
 		}
 		PrintWriter pw = null;
 		try {
+			processNullValue(tv,isNext,articlescrap==null?null:articlescrap.getId(),contextPath);
+			response.setCharacterEncoding("utf-8");
+    		response.setContentType("application/json; charset=utf-8"); 
 			pw = response.getWriter();
 			pw.write(JSONObject.toJSONString(tv));
 			pw.flush();
@@ -219,4 +230,42 @@ public class TimeLineController {
 		return timeline;
 	}
 	
+	private void processNullValue(TimelineView tv,boolean isNext,String aid,String contextPath){
+		boolean isAllParamNull=tv.getTimeline()==null&&StringUtils.isEmpty(tv.getMaxTimeAid())&&StringUtils.isEmpty(tv.getMinTimeAid());
+		if(tv == null||isAllParamNull){
+			List<Dat> dts = new ArrayList<>();
+			Asset one = new Asset();
+			Dat dt = new Dat();
+			dt.setAsset(one);
+			dt.setHeadline("没有更多的文章了");
+			dt.setText("");
+			one.setMedia("http://www.cwillow.com/images/editor/p_100/20170729111418454997.jpg");
+			dt.setIsfirst("1");
+			dts.add(dt);
+			Asset ast = new Asset();
+			ast.setCaption("大国简史正史时间轴");
+			ast.setCredit("19世纪的百年资料");
+			ast.setMedia("http://img.taopic.com/uploads/allimg/140326/235113-1403260U22059.jpg");
+			ast.setStart("-1000");
+			Timeline timeline = new Timeline();
+			timeline.setAsset(ast);
+			timeline.setDate(dts);
+			timeline.setHeadline("大国简史正史时间轴");
+			timeline.setText("人文与情怀的一次共舞");
+			//如果是上翻到顶了
+			if(!isNext){
+				dt.setStartDate("-3000s");
+				timeline.setStartDate("-3000");
+				tv.setPosition(1);
+			}else{
+				dt.setStartDate("3000s");
+				timeline.setStartDate("3000");
+				tv.setPosition(2);
+			}
+			tv.setMaxTimeAid(aid);
+			tv.setMinTimeAid(aid);
+			tv.setIsHaveValue(0);
+			tv.setTimeline(timeline);
+		}
+	}
 }

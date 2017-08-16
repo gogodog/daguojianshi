@@ -243,7 +243,7 @@ public class Articlescrap {
                 	start_time_d=day;
                 }
 			}
-			start_time=st.toString();
+			start_time=st.length()==0?null:st.toString();
 		}
 		return start_time;
 	}

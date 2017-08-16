@@ -1,6 +1,5 @@
 package com.dgjs.model.dto.timeline;
 
-import com.dgjs.model.dto.BaseDto;
 
 public class TimelineView{
 	
@@ -9,6 +8,10 @@ public class TimelineView{
 	String maxTimeAid;
 	
 	String minTimeAid;
+	
+	int isHaveValue=1; //1:有值 
+	
+	int position=0;//1:到最早了，前面没有数据了 2:到最晚了，后面没有数据了
 
 	public Timeline getTimeline() {
 		return timeline;
@@ -33,6 +36,22 @@ public class TimelineView{
 	public void setMinTimeAid(String minTimeAid) {
 		this.minTimeAid = minTimeAid;
 	}
-	
+
+	public int getIsHaveValue() {
+		return isHaveValue;
+	}
+
+	public void setIsHaveValue(int isHaveValue) {
+		this.isHaveValue = isHaveValue;
+	}
+
+	public int getPosition() {
+		return position;
+	}
+
+	public void setPosition(int position) {
+		this.position = position;
+	}
+
 	
 }

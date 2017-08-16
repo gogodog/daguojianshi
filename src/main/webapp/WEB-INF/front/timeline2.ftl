@@ -24,8 +24,9 @@
       var type='${timeline.type}';
       var isNext='${isNext}';
       var isSlip='${isSlip}';
+      var isContain='${isContain}';
       $(document).ready(function() {
-    	  getData(contextPath+'/getstroies.json?articlescrapId='+aid+"&isNext="+isNext+"&isSlip="+isSlip+"&keyword="+keyword+"&type="+type);
+    	  getData(contextPath+'/getstroies.json?articlescrapId='+aid+"&isNext="+isNext+"&isSlip="+isSlip+"&keyword="+keyword+"&type="+type+"&isContain="+isContain);
       });
       
       function getData(url){
@@ -33,7 +34,8 @@
           	if(result!=null&&result!=''&&result.maxTimeAid!=''&&result.maxTimeAid!=null&&result.minTimeAid!=null&&result.minTimeAid!=''){
           		var hidden ="<input type=\"hidden\" id=\"maxTimeAid\" value=\""+result.maxTimeAid+"\"><input type=\"hidden\" id=\"minTimeAid\" value=\""+result.minTimeAid+"\">";
           		hidden+="<input type=\"hidden\" id=\"timelinetype\" value=\""+type+"\"><input type=\"hidden\" id=\"timelinekeyword\" value=\""+keyword+"\">"
-          		$("#timeline").append(hidden);
+          		hidden+="<input type=\"hidden\" id=\"isHaveValue\" value=\""+result.isHaveValue+"\"><input type=\"hidden\" id=\"position\" value=\""+result.position+"\">"
+          	    $("#timeline").append(hidden);
           	}
           	var h = $(document).outerHeight(true) - 60 - 20 + 16;
               createStoryJS({

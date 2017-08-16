@@ -46,15 +46,27 @@ function fp_10(){
 	var aid=$("#minTimeAid").val();
 	var type=$("#timelinetype").val();
 	var keyword=$("#timelinekeyword").val();
-	window.location.href=contextPath+'/timeline?articlescrapId='+aid+'&isNext=false&isSlip=true&keyword='+keyword+'&type='+type;
+	var isHaveValue=$("#isHaveValue").val();
+	var position=$("#position").val();
+	if(isHaveValue==0 && position==1){
+		return;
+	}else{
+		window.location.href=contextPath+'/timeline?articlescrapId='+aid+'&isNext=false&isSlip=true&keyword='+keyword+'&type='+type+'&isContain='+isHaveValue;
+	}
 //	alert("p10");
 }
 function fn_10(){
 	var aid=$("#maxTimeAid").val();
 	var type=$("#timelinetype").val();
 	var keyword=$("#timelinekeyword").val();
-	window.location.href=contextPath+'/timeline?articlescrapId='+aid+'&isNext=true&isSlip=true&keyword='+keyword+'&type='+type;
-//	alert("n10");
+	var isHaveValue=$("#isHaveValue").val();
+	var position=$("#position").val();
+	if(isHaveValue==0 && position==2){
+		return;
+	}else{
+		window.location.href=contextPath+'/timeline?articlescrapId='+aid+'&isNext=true&isSlip=true&keyword='+keyword+'&type='+type+'&isContain='+isHaveValue;
+	}
+	//	alert("n10");
 }
 var s = 2;
 function close_toolbar(){

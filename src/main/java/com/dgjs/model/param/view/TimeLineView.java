@@ -9,6 +9,7 @@ public class TimeLineView {
 	private String articlescrapId;
 	private Boolean isNext;
 	private Boolean isSlip;
+	private int isContain;//是否包含
 	
 	public Articlescrap_Type getType() {
 		return type;
@@ -39,6 +40,12 @@ public class TimeLineView {
 	}
 	public void setIsSlip(Boolean isSlip) {
 		this.isSlip = isSlip;
+	}
+	public int getIsContain() {
+		return isContain;
+	}
+	public void setIsContain(int isContain) {
+		this.isContain = isContain;
 	}
 	
 }
