@@ -6,7 +6,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -19,20 +18,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.dgjs.constants.Constants;
 import com.dgjs.constants.RETURN_STATUS;
-import com.dgjs.constants.Session_Keys;
 import com.dgjs.controller.admin.content.RecommedArticlescrapController;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.Judge_Level;
-import com.dgjs.model.persistence.FeedBack;
 import com.dgjs.model.persistence.Comments;
 import com.dgjs.model.result.view.BaseView;
 import com.dgjs.service.common.DataService;
 import com.dgjs.service.common.PictureService;
-import com.dgjs.service.content.FeedBackService;
 import com.dgjs.service.content.ArticlescrapService;
 import com.dgjs.service.content.CommentsService;
 import com.dgjs.utils.DateUtils;
@@ -55,7 +50,7 @@ public class ShowController {
 	
 	@RequestMapping("/show/{id}")
     public ModelAndView show(@PathVariable("id") String id, HttpServletRequest request, HttpServletResponse response) throws Exception {  
-		ModelAndView mv = new ModelAndView("front/show");
+		ModelAndView mv = new ModelAndView("front/common/show");
 		Articlescrap articlescrap=articlescrapService.selectById(id);
 		mv.addObject("articlescrap", articlescrap);
 		mv.addObject("imageContextPath", pictureService.getImageContextPath());

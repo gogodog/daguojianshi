@@ -41,7 +41,7 @@ public class DgjsController {
 	
 	@RequestMapping("/index")
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response,Articlescrap_Type type,String keyword) throws Exception {  
-		ModelAndView mv = new ModelAndView("front/dgjs");
+		ModelAndView mv = new ModelAndView("front/mobile/dgjs");
 		//加载轮播
 		Carousel c=new Carousel();
 		c.setStatus(UpDown_Status.UP);

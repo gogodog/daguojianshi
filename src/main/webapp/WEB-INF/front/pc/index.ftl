@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-    <#include "/front/common/header_static.ftl">
+    <#include "/front/common/pieces/header_static.ftl">
     <script>
 		//页面统计
 		var pageinfo_ = {};
@@ -21,28 +21,28 @@
 	<input type="hidden" id="contextPath" value="${contextPath}">
 	<#include "/front/pc/ad/t1.ftl">
 	<#assign page_name='index'>
-    <#include "/front/common/header.ftl">
+    <#include "/front/common/pieces/header.ftl">
     <section class="container">
   <div class="content-wrap">
     <div class="content" id="content_t">
-      <#include "/front/common/banner_index.ftl">
-      <#include "/front/common/recommend_index.ftl">
-      <#include "/front/common/list_title_ad.ftl">
-      <#include "/front/common/pageutils.ftl">
+      <#include "/front/common/pieces/banner_index.ftl">
+      <#include "/front/common/pieces/recommend_index.ftl">
+      <#include "/front/common/pieces/list_title_ad.ftl">
+      <#include "/front/common/pieces/pageutils.ftl">
     </div>
   </div>
   <aside class="sidebar">
     <div class="fixed">
-      <#include "/front/common/count_connect.ftl">
-      <#include "/front/common/search.ftl">
+      <#include "/front/common/pieces/count_connect.ftl">
+      <#include "/front/common/pieces/search.ftl">
     </div>
-     <#include "/front/common/newpl.ftl">
-     <#include "/front/common/ad.ftl">
-     <#include "/front/common/friendhref.ftl">
+     <#include "/front/common/pieces/newpl.ftl">
+     <#include "/front/common/pieces/ad.ftl">
+     <#include "/front/common/pieces/friendhref.ftl">
   </aside>
 </section>
-    <#include "/front/common/footer_title.ftl">
-    <#include "/front/common/footer_static.ftl">
+    <#include "/front/common/pieces/footer_title.ftl">
+    <#include "/front/common/pieces/footer_static.ftl">
     <script src="${contextPath}/common/page.js"></script>
     <script src="${contextPath}/common/keyword.js"></script>
 </body>

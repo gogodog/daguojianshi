@@ -43,7 +43,7 @@ public class TimeLineController {
 	
 	@RequestMapping("/timeline")
     public ModelAndView index(TimeLineView view) throws Exception {  
-		ModelAndView mv = new ModelAndView("front/timeline2");
+		ModelAndView mv = new ModelAndView("front/common/timeline2");
 		//加载分类
 		mv.addObject("types", Articlescrap_Type.values());
 		mv.addObject("isContain", view.getIsContain());

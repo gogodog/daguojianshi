@@ -2,7 +2,7 @@
 <html lang="en">
 
   <head>
-    <#include "/front/common/header_static.ftl">
+    <#include "/front/common/pieces/header_static.ftl">
     <!-- Style-->
     <style>
       <style>
@@ -57,9 +57,9 @@
   </head>
   <body>
   	<#assign page_name='timeline'>
-  	<#include "/front/common/timeline_header.ftl">
+  	<#include "/front/common/pieces/timeline_header.ftl">
   	<div id="timeline"></div>
-  	<#include "/front/common/footer_static.ftl">
+  	<#include "/front/common/pieces/footer_static.ftl">
   </body>
 </html>
 

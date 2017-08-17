@@ -60,7 +60,7 @@ public class IndexController {
 	
 	@RequestMapping("/index")
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response,Articlescrap_Type type,String keyword) throws Exception {  
-		ModelAndView mv = new ModelAndView("front/index");
+		ModelAndView mv = new ModelAndView("front/pc/index");
 		//加载轮播
 		Carousel c=new Carousel();
 		c.setStatus(UpDown_Status.UP);
@@ -144,7 +144,7 @@ public class IndexController {
 	
 	@RequestMapping("/error")
     public ModelAndView error(int e){  
-		ModelAndView mv = new ModelAndView("front/error");
+		ModelAndView mv = new ModelAndView("front/common/error");
         return mv;
     }
 	

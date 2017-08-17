@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-    <#include "/common/header_static.ftl"/>
+    <#include "/common/pieces/header_static.ftl"/>
 </head>
 <body class="user-select">
-    <#include "/common/header.ftl"/>
+    <#include "/common/pieces/header.ftl"/>
     <section class="container">
   <div class="content-wrap">
     <div class="content">
@@ -32,19 +32,19 @@
         </p>
         <p class="note">不用怀疑的是,一个国家在政治上的稳定和顺应时代发展的潮流对国家崛起产生着十分重大的作用.没有良好且稳定的政治,国家在其他各项事业上的发展就会承受着很大的压力和阻碍.在荷兰,市民自治,实现购买自治权,以及后期荷兰独立战争,废除国王,是荷兰统一,最终成立联合共和国.</p>
       </article>
-      <#include "/common/pageutils.ftl"/>
+      <#include "/common/pieces/pageutils.ftl"/>
     </div>
   </div>
   <aside class="sidebar">
     <div class="fixed">
-      <#include "/common/search.ftl"/>
-      <#include "/common/sentence.ftl"/>
+      <#include "/common/pieces/search.ftl"/>
+      <#include "/common/pieces/sentence.ftl"/>
     </div>
-    <#include "/common/newpl.ftl"/>
-	<#include "/common/ad.ftl"/>
+    <#include "/common/pieces/newpl.ftl"/>
+	<#include "/common/pieces/ad.ftl"/>
   </aside>
 </section>
-	<#include "/common/footer_title.ftl"/>
-	<#include "/common/footer_static.ftl"/>
+	<#include "/common/pieces/footer_title.ftl"/>
+	<#include "/common/pieces/footer_static.ftl"/>
 </body>
 </html>

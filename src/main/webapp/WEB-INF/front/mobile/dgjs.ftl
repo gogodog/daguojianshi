@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-    <#include "/front/common/header_static_mobile.ftl">
+    <#include "/front/common/pieces/header_static_mobile.ftl">
     <link rel="shortcut icon" href="http://photoswipe.com/dist/default-skin/default-skin.css?v=4.1.1-1.0.4">
     <link rel="shortcut icon" href="http://photoswipe.com/dist/photoswipe.css?v=4.1.1-1.0.4">
     <script>
@@ -23,25 +23,25 @@
 	<input type="hidden" id="doctype" value="${doctype}">
 	<input type="hidden" id="contextPath" value="${contextPath}">
 	<#assign page_name='index'>
-    <#include "/front/common/header.ftl">
+    <#include "/front/common/pieces/header.ftl">
     <section class="container">
 	  <div class="content-wrap">
 	    <div class="content" id="content_t">
-	      <#include "/front/common/banner_index.ftl">
-	      <#include "/front/common/recommend_index.ftl">
-	      <#include "/front/theme/mobile/total.ftl">
-	      <#include "/front/theme/mobile/shishi.ftl">
-	      <#include "/front/theme/mobile/zhengshi.ftl">
-	      <#include "/front/theme/mobile/dili.ftl">
-	      <#include "/front/theme/mobile/yeshi.ftl">
-	      <#include "/front/theme/mobile/renwu.ftl">
+	      <#include "/front/common/pieces/banner_index.ftl">
+	      <#include "/front/common/pieces/recommend_index.ftl">
+	      <#include "/front/mobile/pieces/total.ftl">
+	      <#include "/front/mobile/pieces/shishi.ftl">
+	      <#include "/front/mobile/pieces/zhengshi.ftl">
+	      <#include "/front/mobile/pieces/dili.ftl">
+	      <#include "/front/mobile/pieces/yeshi.ftl">
+	      <#include "/front/mobile/pieces/renwu.ftl">
 	    </div>
 	  </div>
 	  <!-- 防止移动端页面抖动 -->
 	  <aside class="sidebar"></aside>
 	</section>
-    <#include "/front/common/footer_title_mobile.ftl">
-    <#include "/front/common/footer_static.ftl">
+    <#include "/front/mobile/pieces/footer_title.ftl">
+    <#include "/front/common/pieces/footer_static.ftl">
    
     <script src="${contextPath}/front/js/jquery-1.11.1.min.js"></script>
     <script src="${contextPath}/front/js/business/m_index.js"></script>

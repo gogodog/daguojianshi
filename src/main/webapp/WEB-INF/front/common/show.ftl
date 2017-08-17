@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-    <#include "/front/common/header_static.ftl">
+    <#include "/front/common/pieces/header_static.ftl">
     <script>
 	    //页面统计
 	    var pageinfo_ = {};
@@ -16,7 +16,7 @@
 </head>
 <body class="user-select single">
     <#assign page_name='show'>
-    <#include "/front/common/header.ftl">
+    <#include "/front/common/pieces/header.ftl">
     <section class="container">
   <div class="content-wrap">
     <div class="content">
@@ -70,21 +70,21 @@
       	   <a href="javascript:void(0)" rel="tag" >${(keywords)!''}</a>
       	</#list>
         </div>
-      <#include "/front/common/recommend.ftl">
-      <#include "/front/common/response.ftl">
+      <#include "/front/common/pieces/recommend.ftl">
+      <#include "/front/common/pieces/response.ftl">
     </div>
   </div>
   <aside class="sidebar">
     <div class="fixed">
-      <#include "/front/common/count_connect.ftl">
-      <#include "/front/common/search.ftl">
+      <#include "/front/common/pieces/count_connect.ftl">
+      <#include "/front/common/pieces/search.ftl">
     </div>
-    <#include "/front/common/newpl.ftl">
-	<#include "/front/common/ad.ftl">
+    <#include "/front/common/pieces/newpl.ftl">
+	<#include "/front/common/pieces/ad.ftl">
   </aside>
 </section>
-    <#include "/front/common/footer_title.ftl">
-    <#include "/front/common/footer_static.ftl">
+    <#include "/front/common/pieces/footer_title.ftl">
+    <#include "/front/common/pieces/footer_static.ftl">
     <script src="${contextPath}/common/keyword.js"></script>
     <script src="${contextPath}/front/js/business/show.js"></script>
 </body>

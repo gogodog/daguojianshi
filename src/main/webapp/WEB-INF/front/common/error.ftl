@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <title>大国简史</title>
-    <#include "common/header_static.ftl">
+    <#include "common/pieces/header_static.ftl">
     <style type="text/css">
         .panel
         {
