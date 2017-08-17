@@ -5279,8 +5279,8 @@ typeof VMM.Timeline != "undefined" && typeof VMM.Timeline.TimeNav == "undefined"
             b.start_page && VMM.Lib.css(v, "top", 7);
             m = VMM.appendAndGetElement(v, "<div>", "zoom-in", "<div class='icon'></div>");
             g = VMM.appendAndGetElement(v, "<div>", "zoom-out", "<div class='icon'></div>");
-            p10 = VMM.appendAndGetElement(v, "<div>", "zoom-in", "<div class='icon'></div>");
-            n10 = VMM.appendAndGetElement(v, "<div>", "zoom-in", "<div class='icon'></div>");
+            p10 = VMM.appendAndGetElement(v, "<div>", "zoom-next", "<div class='icon'></div>");
+            n10 = VMM.appendAndGetElement(v, "<div>", "zoom-prev", "<div class='icon'></div>");
             VMM.Lib.attribute(p10, "rel", "timeline-tooltip")
             VMM.Lib.attribute(p10, "title", "上翻")
             VMM.Lib.attribute(n10, "rel", "timeline-tooltip")

@@ -2055,7 +2055,7 @@
 .vco-timeline .vco-navigation .vco-toolbar .zoom-next .icon {
     background-image: url(timeline.png?v4.4);
     background-repeat: no-repeat;
-    background-position: -256px 0;
+    background-position: -8px -205px;
     width: 24px;
     height: 24px
 }
@@ -2063,7 +2063,7 @@
 .vco-timeline .vco-navigation .vco-toolbar .zoom-prev .icon {
     background-image: url(timeline.png?v4.4);
     background-repeat: no-repeat;
-    background-position: -256px 0;
+    background-position: -32px -205px;
     width: 24px;
     height: 24px
 }
