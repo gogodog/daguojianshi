@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>大国简史-用户系统</title>
+    <title>简史-用户系统</title>
     <link href="/cps/css/bootstrap.css" rel="stylesheet" />
     <link href="/cps/css/font-awesome.css" rel="stylesheet" />
     <link href="/cps/css/basic.css" rel="stylesheet" />

@@ -40,7 +40,7 @@
 	  <!-- 防止移动端页面抖动 -->
 	  <aside class="sidebar"></aside>
 	</section>
-    <#include "/front/mobile/pieces/footer_title.ftl">
+    <#include "/front/common/pieces/footer_title.ftl">
     <#include "/front/common/pieces/footer_static.ftl">
    
     <script src="${contextPath}/front/js/jquery-1.11.1.min.js"></script>

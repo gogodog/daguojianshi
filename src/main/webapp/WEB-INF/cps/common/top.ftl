@@ -6,7 +6,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html">History Of Country <br> 大国简史</a>
+        <a class="navbar-brand" href="index.html">History Of Country <br> 简史</a>
     </div>
     <div class="header-right">
         <a href="message-task.html" class="btn btn-info" title="New Message"><b>30 </b><i class="fa fa-envelope-o fa-2x"></i></a>

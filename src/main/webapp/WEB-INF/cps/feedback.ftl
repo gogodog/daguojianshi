@@ -20,10 +20,10 @@
 	                   <div class="panel-body">
 	                       <form role="form">
 	                           <div class="form-group">
-	                               <label>Hi，大国简史！</label>
+	                               <label>Hi，简史！</label>
 	                               <textarea class="form-control" rows="4"></textarea>
 	                           </div>
-	                           <button type="submit" class="btn btn-info">点击发送 >> 大国简史官方客服 </button>
+	                           <button type="submit" class="btn btn-info">点击发送 >> 简史官方客服 </button>
 	                       </form>
 	                   </div>
 	                   </div>

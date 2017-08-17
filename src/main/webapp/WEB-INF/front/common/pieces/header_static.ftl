@@ -24,7 +24,7 @@
     
     
     
-    <title>大国简史</title>
+    <title>简史</title>
     <link rel="stylesheet" type="text/css" href="${contextPath}/front/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="${contextPath}/front/css/nprogress.css">
     <link rel="stylesheet" type="text/css" href="${contextPath}/front/css/style.css">
