@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -31,6 +30,7 @@ import com.dgjs.model.param.view.TimeLineView;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 import com.dgjs.service.common.PictureService;
 import com.dgjs.service.content.ArticlescrapService;
+import com.dgjs.utils.StringUtils;
 
 @Controller
 public class TimeLineController {
@@ -63,7 +63,7 @@ public class TimeLineController {
 		Map<String, SortOrder> sort = new HashMap<String, SortOrder>();
 		sort.put("start_time", SortOrder.ASC);
 		boolean isNext = view.getIsNext() == null ? true : view.getIsNext();
-		if(StringUtils.isEmpty(view.getArticlescrapId())){
+		if(StringUtils.isNullOrEmpty(view.getArticlescrapId())){
 			ArticlescrapCondtion contion = new ArticlescrapCondtion();
 	    	contion.setCurrentPage(1);
 	    	contion.setOnePageSize(1);
@@ -172,14 +172,14 @@ public class TimeLineController {
 		    	    }
 	    	    }
 	    	    //组装数据
-	    	    Timeline timeline = getTimeLine(list,contextPath,pictureService.getImageContextPath(),articlescrap);
+	    	    Timeline timeline = getTimeLine(list,contextPath,pictureService.getImageContextPath(),articlescrap,view.getType());
 	    		tv.setTimeline(timeline);
 	    		
 	    	}
 		}
 		PrintWriter pw = null;
 		try {
-			processNullValue(tv,isNext,articlescrap==null?null:articlescrap.getId(),contextPath);
+			processNullValue(tv,isNext,articlescrap==null?null:articlescrap.getId(),contextPath,view.getType());
 			response.setCharacterEncoding("utf-8");
     		response.setContentType("application/json; charset=utf-8"); 
 			pw = response.getWriter();
@@ -195,7 +195,7 @@ public class TimeLineController {
 		}
 	}
 	
-	private Timeline getTimeLine(List<Articlescrap> list,String contextPath,String imageContextPath,Articlescrap articlescrap){
+	private Timeline getTimeLine(List<Articlescrap> list,String contextPath,String imageContextPath,Articlescrap articlescrap,Articlescrap_Type type){
 		List<Dat> dts = new ArrayList<>();
     	for(Articlescrap a:list){
     		Asset one = new Asset();
@@ -217,21 +217,21 @@ public class TimeLineController {
 			dts.add(dt);
     	}
     	Asset ast = new Asset();
-		ast.setCaption("大国简史正史时间轴");
+		ast.setCaption(StringUtils.jointString("简史",type==null?"":type.getValue(),"时间轴"));
 		ast.setCredit("19世纪的百年资料");
 		ast.setMedia("http://img.taopic.com/uploads/allimg/140326/235113-1403260U22059.jpg");
 		ast.setStart("-1000");
 		Timeline timeline = new Timeline();
 		timeline.setAsset(ast);
 		timeline.setDate(dts);
-		timeline.setHeadline("大国简史正史时间轴");
+		timeline.setHeadline(ast.getCaption());
 		timeline.setStartDate(articlescrap.getYear()+"");
 		timeline.setText("人文与情怀的一次共舞");
 		return timeline;
 	}
 	
-	private void processNullValue(TimelineView tv,boolean isNext,String aid,String contextPath){
-		boolean isAllParamNull=tv.getTimeline()==null&&StringUtils.isEmpty(tv.getMaxTimeAid())&&StringUtils.isEmpty(tv.getMinTimeAid());
+	private void processNullValue(TimelineView tv,boolean isNext,String aid,String contextPath,Articlescrap_Type type){
+		boolean isAllParamNull=tv.getTimeline()==null&&StringUtils.isNullOrEmpty(tv.getMaxTimeAid())&&StringUtils.isNullOrEmpty(tv.getMinTimeAid());
 		if(tv == null||isAllParamNull){
 			List<Dat> dts = new ArrayList<>();
 			Asset one = new Asset();
@@ -243,14 +243,14 @@ public class TimeLineController {
 			dt.setIsfirst("1");
 			dts.add(dt);
 			Asset ast = new Asset();
-			ast.setCaption("大国简史正史时间轴");
+			ast.setCaption(StringUtils.jointString("简史",type==null?"":type.getValue(),"时间轴"));
 			ast.setCredit("19世纪的百年资料");
 			ast.setMedia("http://img.taopic.com/uploads/allimg/140326/235113-1403260U22059.jpg");
 			ast.setStart("-1000");
 			Timeline timeline = new Timeline();
 			timeline.setAsset(ast);
 			timeline.setDate(dts);
-			timeline.setHeadline("大国简史正史时间轴");
+			timeline.setHeadline(ast.getCaption());
 			timeline.setText("人文与情怀的一次共舞");
 			//如果是上翻到顶了
 			if(!isNext){
