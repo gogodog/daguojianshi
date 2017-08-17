@@ -149,7 +149,7 @@ public class DataInit {
 	 
 	 @Test
 	 public void testAudit() throws Exception{
-		 int flag = pendingMapper.audit("AV3ZuyQG76afZAVcqAsm", Pending_Status.PUBLISH_PENDING, 1, "重复内容");
+		 int flag = pendingMapper.audit("AV3wJ79y76afZAVcqAss", Pending_Status.PUBLISH_PENDING, 1, "重复内容");
 	     System.out.println(flag);
 	 }
 	 
@@ -158,7 +158,7 @@ public class DataInit {
 		 Date now = new Date();
 //		 Pending pending = pendingMapper.publish("AV3WCNPB76afZAVcqAsi", 1, now, 1001, now);
 //		 System.out.println(JSON.toJSONString(pending, true));
-		 int flag = pendingService.publish("AV3ZuyQG76afZAVcqAsm", 1, now, 1001, now);
+		 int flag = pendingService.publish("AV3wJ79y76afZAVcqAss", 1, now, 1001, now);
 		 System.out.println(flag);
 	 }
 	 
