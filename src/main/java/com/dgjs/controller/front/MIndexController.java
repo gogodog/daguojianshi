@@ -39,7 +39,7 @@ import com.dgjs.service.content.IndexConfigService;
 import com.mysql.jdbc.StringUtils;
 
 @Controller
-public class AjaxController {
+public class MIndexController {
 
 	@Autowired
 	ArticlescrapService articlescrapService;

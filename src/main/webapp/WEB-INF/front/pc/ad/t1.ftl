@@ -1,4 +1,4 @@
-<#if 1=1>
+<#if 1=2>
 <div class="t1" style="display:none">
 <a href="javascript:void(0);" onclick="hidet1()">关闭</a>
 <img src="http://img4.imgtn.bdimg.com/it/u=4220205916,2193830798&amp;fm=214&amp;gp=0.jpg">

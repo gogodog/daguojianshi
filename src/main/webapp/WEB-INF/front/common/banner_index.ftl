@@ -1,4 +1,5 @@
-		<div id="focusslide" class="carousel slide" data-ride="carousel">
+   <#if (carouselList?size > 0)>
+   <div id="focusslide" class="carousel slide" data-ride="carousel">
 	        <ol class="carousel-indicators">
 	          <li data-target="#focusslide" data-slide-to="0" class="active"></li>
 	          <li data-target="#focusslide" data-slide-to="1"></li>
@@ -36,3 +37,4 @@
 	            })
 	        })
 	  </script>
+   </#if>
