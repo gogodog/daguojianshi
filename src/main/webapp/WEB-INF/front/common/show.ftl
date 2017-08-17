@@ -85,7 +85,7 @@
 </section>
     <#include "/front/common/pieces/footer_title.ftl">
     <#include "/front/common/pieces/footer_static.ftl">
-    <script src="${contextPath}/common/keyword.js"></script>
+    <script src="${contextPath}/front/js/business/keyword.js"></script>
     <script src="${contextPath}/front/js/business/show.js"></script>
 </body>
 </html>

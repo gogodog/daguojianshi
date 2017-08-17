@@ -43,7 +43,7 @@
 </section>
     <#include "/front/common/pieces/footer_title.ftl">
     <#include "/front/common/pieces/footer_static.ftl">
-    <script src="${contextPath}/common/page.js"></script>
-    <script src="${contextPath}/common/keyword.js"></script>
+    <script src="${contextPath}/front/js/business/page.js"></script>
+    <script src="${contextPath}/front/js/business/keyword.js"></script>
 </body>
 </html>
