@@ -42,7 +42,7 @@ import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 import com.dgjs.utils.DateUtils;
 import com.dgjs.utils.StringUtils;
 
-@Service("articlescrapMapper")
+//@Service("articlescrapMapper")
 public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 
 	@Autowired

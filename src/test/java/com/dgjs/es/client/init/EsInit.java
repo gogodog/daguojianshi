@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
 import org.elasticsearch.action.admin.indices.mapping.put.PutMappingRequest;
 import org.elasticsearch.action.get.GetResponse;
@@ -41,12 +43,18 @@ import com.dgjs.service.content.ArticlescrapService;
 @ContextConfiguration(locations = "classpath:spring-*.xml") 
 public class EsInit {
 
-    final static String index = "dgjs_v2";
+    final static String index = "dgjs_v4";
 	
-	final static String type = "articlescrap_v2";
+	final static String type = "articlescrap_v4";
 	
-	@Autowired
-	ESTransportClient transportClient;
+	 @Resource(name="articlescrapMapper")
+	 ArticlescrapMapper articlescrapMapper;
+	 
+	 @Resource(name="nArticlescrapMapper")
+	 ArticlescrapMapper nArticlescrapMapper;
+	
+	 @Autowired
+	 ESTransportClient transportClient;
 	
 	
 	@Test
@@ -195,21 +203,29 @@ public class EsInit {
 	
 	@Test
 	public void testMoveData() throws Exception{
-		TransportClient client=transportClient.getObject();
-		String[] ids={"AVzZrZRC9b4MAjksb_WL","AVzZrY1I9b4MAjksb_WD","AVzZrYlm9b4MAjksb_WA","AVzZrZOM9b4MAjksb_WJ","AVzZrZMX9b4MAjksb_WI","AVzZrYoE9b4MAjksb_WB","AVzZrY769b4MAjksb_WG","AV0DmzcMqMQTX7aOp80m","AVzZrY6J9b4MAjksb_WF","AVzZrYyi9b4MAjksb_WC","AVzZrZPu9b4MAjksb_WK","AVzZrY-z9b4MAjksb_WH","AVzZrY3Z9b4MAjksb_WE"};
-		for(String id:ids){
-			GetResponse response = client.prepareGet(index, type , id).get();
-			ArticlescrapEs articlescrapEs=JSON.parseObject(response.getSourceAsString(), ArticlescrapEs.class);
-			
-		 	A a =  A.ConvertToVo(articlescrapEs);
-		 	if(a==null){
-		 		System.out.println(id+"是空");
-		 	}else{
-		 		a.setId(id);
-			 	IndexRequestBuilder indexRequestBuilder =client.prepareIndex("dgjs_v3", "articlescrap_v3",id);
-			    indexRequestBuilder.setSource(JSON.toJSONString(a)).execute().actionGet();
-		 	}
-		 	
+//		TransportClient client=transportClient.getObject();
+//		String[] ids={"AVzZrZRC9b4MAjksb_WL","AVzZrY1I9b4MAjksb_WD","AVzZrYlm9b4MAjksb_WA","AVzZrZOM9b4MAjksb_WJ","AVzZrZMX9b4MAjksb_WI","AVzZrYoE9b4MAjksb_WB","AVzZrY769b4MAjksb_WG","AV0DmzcMqMQTX7aOp80m","AVzZrY6J9b4MAjksb_WF","AVzZrYyi9b4MAjksb_WC","AVzZrZPu9b4MAjksb_WK","AVzZrY-z9b4MAjksb_WH","AVzZrY3Z9b4MAjksb_WE"};
+//		for(String id:ids){
+//			GetResponse response = client.prepareGet(index, type , id).get();
+//			ArticlescrapEs articlescrapEs=JSON.parseObject(response.getSourceAsString(), ArticlescrapEs.class);
+//			
+//		 	A a =  A.ConvertToVo(articlescrapEs);
+//		 	if(a==null){
+//		 		System.out.println(id+"是空");
+//		 	}else{
+//		 		a.setId(id);
+//			 	IndexRequestBuilder indexRequestBuilder =client.prepareIndex("dgjs_v3", "articlescrap_v3",id);
+//			    indexRequestBuilder.setSource(JSON.toJSONString(a)).execute().actionGet();
+//		 	}
+//		 	
+//		}
+		ArticlescrapCondtion condition = new ArticlescrapCondtion();
+		condition.setOnePageSize(50);
+		PageInfoDto<Articlescrap> pageinfo=articlescrapMapper.listArticlescrap(condition);
+		List<Articlescrap> list=pageinfo.getObjects();
+		for(Articlescrap articlescrap:list){
+		    articlescrap=articlescrapMapper.getArticlescrapIndex(articlescrap.getId());
+			nArticlescrapMapper.saveArticlescrap(articlescrap);
 		}
 	}
 }

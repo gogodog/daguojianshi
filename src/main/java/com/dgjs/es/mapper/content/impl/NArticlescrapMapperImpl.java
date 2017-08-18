@@ -39,7 +39,7 @@ import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 import com.dgjs.utils.DateUtils;
 import com.dgjs.utils.StringUtils;
 
-//@Service("articlescrapMapper")
+@Service("articlescrapMapper")
 public class NArticlescrapMapperImpl implements ArticlescrapMapper{
 
 
@@ -198,6 +198,7 @@ public class NArticlescrapMapperImpl implements ArticlescrapMapper{
 				String source = hits.getHits()[i].getSourceAsString();
 				ArticlescrapEs articlescrapEs = JSON.parseObject(source, ArticlescrapEs.class);
 				Articlescrap articlescrap = ArticlescrapEs.ConvertToVo(articlescrapEs);
+				articlescrap.setId(hits.getHits()[i].getId());
 				list.add(articlescrap);
 			}
 			return list;

@@ -22,7 +22,7 @@
 	<#include "/front/mobile/ad/t1.ftl">
 	<input type="hidden" id="doctype" value="${doctype}">
 	<input type="hidden" id="contextPath" value="${contextPath}">
-	<#assign page_name='index'>
+	<#assign page_name='dgjs'>
     <#include "/front/common/pieces/header.ftl">
     <section class="container">
 	  <div class="content-wrap">
@@ -45,5 +45,6 @@
    
     <script src="${contextPath}/front/js/jquery-1.11.1.min.js"></script>
     <script src="${contextPath}/front/js/business/m_index.js"></script>
+    <script src="${contextPath}/front/js/business/keyword.js"></script>
 </body>
 </html>

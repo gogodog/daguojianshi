@@ -23,15 +23,15 @@ import com.dgjs.es.client.ESTransportClient;
 @ContextConfiguration(locations = "classpath:spring-*.xml") 
 public class StructureInit {
 	
-	    final static String index = "dgjs_v4";
+	    final static String index = "dp_v4";
 		
 		@Autowired
 		ESTransportClient transportClient;
 		
 		@Test
 		public void testInitTable() throws Exception{
-			initDraft(transportClient.getObject());
-			initPending(transportClient.getObject());
+//			initDraft(transportClient.getObject());
+//			initPending(transportClient.getObject());
 			initNArticlescrap(transportClient.getObject());
 		}
 		
@@ -143,8 +143,9 @@ public class StructureInit {
 		}
 		
 		private void initNArticlescrap(TransportClient client) throws IOException {
+			String index = "dgjs_v4";
 			String type =  "articlescrap_v4";
-//			createIndex(client,index);
+			createIndex(client,index);
 			List<String> list = Arrays.asList("content");
 			XContentBuilder builder=XContentFactory.jsonBuilder()
 					.startObject()

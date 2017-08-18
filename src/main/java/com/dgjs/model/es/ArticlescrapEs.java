@@ -192,6 +192,7 @@ public class ArticlescrapEs implements java.io.Serializable{
 		articlescrap.setTime_degree(articlescrapEs.getTime_degree()==-1?null:TIME_DEGREE.valueOf(articlescrapEs.getTime_degree()));
 		articlescrap.setRecommend(articlescrapEs.getRecommend());
 		articlescrap.setPictures(articlescrapEs.getPictures());
+		articlescrap.setPic_num(articlescrapEs.getPic_num());
 		return articlescrap;
 	}
 	

@@ -37,7 +37,7 @@ public class DraftMapperImpl implements DraftMapper{
 	@Autowired
 	ESTransportClient transportClient;
 	
-	final static String index = "dgjs_v4";
+	final static String index = "dp_v4";
 	
 	final static String type = "draft_v4";
 	

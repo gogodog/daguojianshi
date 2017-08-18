@@ -28,7 +28,7 @@ import com.dgjs.service.content.PendingService;
 @ContextConfiguration(locations = "classpath:spring-*.xml") 
 public class DataInit {
 
-	 final static String index = "dgjs_v4";
+	 final static String index = "dp_v4";
 		
 	 @Autowired
 	 ESTransportClient transportClient;
@@ -37,7 +37,7 @@ public class DataInit {
 	 DraftMapper draftMapper;
 	 
 	 @Autowired
-	 ArticlescrapMapper articlescrapMapper;
+	 ArticlescrapMapper nArticlescrapMapper;
 	 
 	 @Autowired
 	 PendingMapper pendingMapper;
@@ -173,8 +173,7 @@ public class DataInit {
 	 
 	 @Test
 	 public void testDelete(){
-		 int flag=articlescrapMapper.deleteById("AV3XINsziB8TaXhbksdM");
+		 int flag=nArticlescrapMapper.deleteById("AV3XINsziB8TaXhbksdM");
 		 System.out.println(flag);
 	 }
-	 
 }
