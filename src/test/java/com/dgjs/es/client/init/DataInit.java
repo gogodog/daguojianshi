@@ -37,7 +37,7 @@ public class DataInit {
 	 DraftMapper draftMapper;
 	 
 	 @Autowired
-	 ArticlescrapMapper nArticlescrapMapper;
+	 ArticlescrapMapper articlescrapMapper;
 	 
 	 @Autowired
 	 PendingMapper pendingMapper;
@@ -173,7 +173,7 @@ public class DataInit {
 	 
 	 @Test
 	 public void testDelete(){
-		 int flag=nArticlescrapMapper.deleteById("AV3XINsziB8TaXhbksdM");
+		 int flag=articlescrapMapper.deleteById("AV3XINsziB8TaXhbksdM");
 		 System.out.println(flag);
 	 }
 }

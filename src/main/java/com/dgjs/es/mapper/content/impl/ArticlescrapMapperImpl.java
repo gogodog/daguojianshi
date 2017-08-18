@@ -1,6 +1,5 @@
 package com.dgjs.es.mapper.content.impl;
 
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -34,41 +33,40 @@ import com.dgjs.es.mapper.content.ArticlescrapMapper;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.dto.business.entity.Recommend;
-import com.dgjs.model.enums.Articlescrap_Type;
-import com.dgjs.model.enums.TIME_DEGREE;
 import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.es.ArticlescrapEs;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 import com.dgjs.utils.DateUtils;
 import com.dgjs.utils.StringUtils;
 
-//@Service("articlescrapMapper")
+@Service
 public class ArticlescrapMapperImpl implements ArticlescrapMapper{
+
 
 	@Autowired
 	ESTransportClient transportClient;
 	
-	final static String index = "dgjs_v3";
+	final static String index = "dgjs_v4";
 	
-	final static String type = "articlescrap_v3";
-	
+	final static String type = "articlescrap_v4";
 	
 	@Override
- 	public Articlescrap getArticlescrapIndex(String id){
+	public Articlescrap getArticlescrapIndex(String id) {
 		TransportClient client=transportClient.getClient();
  		GetResponse response = client.prepareGet(index, type , id).get();
  		ArticlescrapEs articlescrapEs=JSON.parseObject(response.getSourceAsString(), ArticlescrapEs.class);
+ 		articlescrapEs.setContent(getContent(id));
  		Articlescrap articlescrap =  ArticlescrapEs.ConvertToVo(articlescrapEs);
  		articlescrap.setId(id);
  		return articlescrap;
- 	}
+	}
 
 	@Override
-	public PageInfoDto<Articlescrap> listArticlescrap(ArticlescrapCondtion condition){
+	public PageInfoDto<Articlescrap> listArticlescrap(
+			ArticlescrapCondtion condition) {
 		BoolQueryBuilder boolBuilder = getListQueryBuilder(condition);
 		TransportClient client=transportClient.getClient();
 		SearchRequestBuilder responsebuilder = client.prepareSearch(index).setTypes(type);
-		String[] fields={"title","show_time","status","type","author","create_time","update_time","sub_content","show_picture","start_time","time_degree","pictures"};
 		responsebuilder.setQuery(boolBuilder);
 		Map<String, SortOrder> sort = condition.getSort();
 		if(sort!=null&&!sort.isEmpty()){
@@ -76,7 +74,6 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 				responsebuilder.addSort(key,sort.get(key));
 			}
 		}
-		responsebuilder.storedFields(fields);
 		condition.setBeginNum((condition.getCurrentPage()-1)*condition.getOnePageSize());
 		SearchResponse myresponse = responsebuilder.setFrom(condition.getBeginNum()).
 				setSize(condition.getOnePageSize()).setExplain(true).execute().actionGet();
@@ -84,12 +81,143 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 		if(hits.getTotalHits()>0){
 			List<Articlescrap> list = new ArrayList<Articlescrap>();
 			for (int i = 0; i < hits.getHits().length; i++) {
-				Map<String,SearchHitField> map=hits.getHits()[i].getFields();
-				Articlescrap articlescrap=getArticlescrap(map);
+				String source = hits.getHits()[i].getSourceAsString();
+				ArticlescrapEs articlescrapEs = JSON.parseObject(source, ArticlescrapEs.class);
+				Articlescrap articlescrap = ArticlescrapEs.ConvertToVo(articlescrapEs);
 				articlescrap.setId(hits.getHits()[i].getId());
 				list.add(articlescrap);
 			}
 		    return PageInfoDto.getPageInfo(condition.getCurrentPage(), condition.getOnePageSize(), hits.getTotalHits(), list);
+		}
+		return null;
+	}
+
+	@Override
+	public int deleteById(String id) {
+		TransportClient client=transportClient.getClient();
+		DeleteResponse response=client.prepareDelete(index, type, id).execute().actionGet();
+		return StringUtils.isNullOrEmpty(response.getId())?0:1;
+	}
+
+	@Override
+	public int updateArticlescrapRecommend(String id, Integer sort,
+			UpDown_Status status) {
+		TransportClient client=transportClient.getClient();
+		Recommend recommend = new Recommend();
+		if(sort!=null){
+			recommend.setSort(sort);
+		}
+		recommend.setStatus(status.getKey());
+	    Map<String,Object> map = new HashMap<String,Object>();
+	    map.put("recommend", JSON.toJSON(recommend));
+	    StringBuilder str=new StringBuilder("ctx._source.recommend=params.recommend;");
+	    Script script = new Script(ScriptType.INLINE,"painless",str.toString(),map);
+	    UpdateResponse response=client.prepareUpdate(index, type, id).setScript(script).execute().actionGet();
+	    return StringUtils.isNullOrEmpty(response.getId())?0:1;
+	}
+
+	@Override
+	public List<Articlescrap> listRecommend(UpDown_Status status) {
+		transportClient.refreshIndex(index);
+		TransportClient client=transportClient.getClient();
+	    SearchRequestBuilder responsebuilder = client.prepareSearch(index).setTypes(type);
+	    BoolQueryBuilder boolBuilder = new BoolQueryBuilder();
+	    BoolQueryBuilder innerBoolBuilder = null;
+	    if(status == null){
+	    	 innerBoolBuilder = QueryBuilders.boolQuery().
+	    			must(QueryBuilders.rangeQuery("recommend.status").gt(-1));
+	    }else{
+	    	 innerBoolBuilder = QueryBuilders.boolQuery().
+	    				must(QueryBuilders.termQuery("recommend.status", status.getKey()));
+	    }
+	    NestedQueryBuilder nestedQuery = new NestedQueryBuilder("recommend",innerBoolBuilder ,ScoreMode.Min); 
+	    boolBuilder.filter(nestedQuery);
+	    responsebuilder.setQuery(boolBuilder); //设置查询条件
+	    responsebuilder.addSort("recommend.sort", SortOrder.ASC);
+	    SearchResponse myresponse = responsebuilder.execute().actionGet();
+	    SearchHits hits = myresponse.getHits();
+	    if(hits.getTotalHits()>0){
+	    	List<Articlescrap> list = new ArrayList<Articlescrap>();
+	    	for (int i = 0; i < hits.getHits().length; i++) {
+	    		String value=hits.getHits()[i].getSourceAsString();
+	    		Articlescrap articlescrap=ArticlescrapEs.ConvertToVo(JSON.parseObject(value, ArticlescrapEs.class));
+	    		articlescrap.setId(hits.getHits()[i].getId());
+	    		list.add(articlescrap);
+	    	}
+	    	return list;
+	    }		
+		return null;
+	}
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public int saveArticlescrap(Articlescrap articlescrap) {
+		TransportClient client=transportClient.getClient();
+	    if(articlescrap == null)
+			return 0;
+	    Date date = null;
+	    if(articlescrap.getUpdate_time()==null){
+	    	articlescrap.setUpdate_time(date==null?date=new Date():date);
+	    }
+	    if(articlescrap.getCreate_time()==null){
+	    	 articlescrap.setCreate_time(date==null?date=new Date():date);
+	    }
+	    if(articlescrap.getRecommend()==null){
+	    	Recommend recommend = new Recommend();
+	    	recommend.setSort(-1);
+	    	recommend.setStatus(-1);
+	    	articlescrap.setRecommend(recommend);
+	    }
+	    IndexRequestBuilder indexRequestBuilder =client.prepareIndex(index, type);
+	    IndexResponse response = indexRequestBuilder.setSource(ArticlescrapEs.ConvertToEs(articlescrap).toString()).execute().actionGet();
+	    return StringUtils.isNullOrEmpty(response.getId())?0:1;
+	}
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public int updateArticlescrap(Articlescrap articlescrap) throws Exception {
+		TransportClient client=transportClient.getClient();
+		 UpdateRequest updateRequest = new UpdateRequest(index, type,articlescrap.getId());
+		 if(articlescrap.getUpdate_time()==null){
+		     articlescrap.setUpdate_time(new Date());
+		 }
+		 updateRequest.doc(ArticlescrapEs.ConvertToEs(articlescrap).toString());
+		 client.update(updateRequest).get();
+		 return 1;
+	}
+
+	@Override
+	public List<Articlescrap> getArticlescrapByIds(String[] ids) {
+		TransportClient client=transportClient.getClient();
+		SearchRequestBuilder responsebuilder = client.prepareSearch(index).setTypes(type).setQuery(QueryBuilders.idsQuery().addIds(ids));
+		SearchResponse myresponse = responsebuilder.execute().actionGet();		
+		SearchHits hits = myresponse.getHits();
+		if(hits.getTotalHits()>0){
+			List<Articlescrap> list = new ArrayList<Articlescrap>();
+			for (int i = 0; i < hits.getHits().length; i++) {
+				String source = hits.getHits()[i].getSourceAsString();
+				ArticlescrapEs articlescrapEs = JSON.parseObject(source, ArticlescrapEs.class);
+				Articlescrap articlescrap = ArticlescrapEs.ConvertToVo(articlescrapEs);
+				articlescrap.setId(hits.getHits()[i].getId());
+				list.add(articlescrap);
+			}
+			return list;
+		}
+		return null;
+	}
+
+	private  String getContent(String id) {
+		TransportClient client=transportClient.getClient();
+		SearchRequestBuilder responsebuilder = client.prepareSearch(index).setTypes(type);
+		responsebuilder.setQuery(QueryBuilders.idsQuery().addIds(id));
+		String[] fields= {"content"};
+		responsebuilder.storedFields(fields);
+		SearchResponse myresponse = responsebuilder.setExplain(true).execute().actionGet();
+		SearchHits hits = myresponse.getHits();
+		if(hits.getTotalHits()>0){
+		    Map<String,SearchHitField> map=hits.getHits()[0].getFields();
+		    SearchHitField sf = map.get("content");
+		    return sf==null?null:sf.getValue();
 		}
 		return null;
 	}
@@ -140,146 +268,4 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 		}
 		return boolBuilder;
 	}
-	
-	private Articlescrap getArticlescrap(Map<String,SearchHitField> map){
-		Articlescrap articlescrap = new Articlescrap();
-		articlescrap.setAuthor(map.get("author").value());
-		articlescrap.setCreate_time(DateUtils.parseDateFromString(map.get("create_time").value()));
-//		articlescrap.setShow_picture(map.get("show_picture").value());
-		articlescrap.setShow_time(DateUtils.parseDateFromString(map.get("show_time").value()));
-		articlescrap.setSub_content(map.get("sub_content").value());
-		articlescrap.setUpdate_time(DateUtils.parseDateFromString(map.get("update_time").value()));
-		articlescrap.setTitle(map.get("title").value());
-		Integer status =map.get("status").value();
-		articlescrap.setStatus(UpDown_Status.valueOf(status));
-		Integer type = map.get("type").value();
-		articlescrap.setType(Articlescrap_Type.transFrom(type));
-		if(map.get("start_time")!=null){
-			Integer start_time=map.get("start_time").value();
-			articlescrap.setBegin_time(start_time);
-			Integer time_degree=map.get("time_degree").value();
-			articlescrap.setTime_degree(TIME_DEGREE.valueOf(time_degree));
-		}
-		if(map.get("pictures")!=null){
-			List<Object> pictures = map.get("pictures").values();
-			articlescrap.setPictures(StringUtils.parseListToArray(pictures));
-		}
-		return articlescrap;
-	}
-
-	@Override
-	public int deleteById(String id){
-		TransportClient client=transportClient.getClient();
-		DeleteResponse response=client.prepareDelete(index, type, id).execute().actionGet();
-		return StringUtils.isNullOrEmpty(response.getId())?0:1;
-	}
-
-	@Override
-	public int updateArticlescrapRecommend(String id, Integer sort, UpDown_Status status){
-		TransportClient client=transportClient.getClient();
-		Recommend recommend = new Recommend();
-		if(sort!=null){
-			recommend.setSort(sort);
-		}
-		recommend.setStatus(status.getKey());
-	    Map<String,Object> map = new HashMap<String,Object>();
-	    map.put("recommend", JSON.toJSON(recommend));
-	    StringBuilder str=new StringBuilder("ctx._source.recommend=params.recommend;");
-	    Script script = new Script(ScriptType.INLINE,"painless",str.toString(),map);
-	    UpdateResponse response=client.prepareUpdate(index, type, id).setScript(script).execute().actionGet();
-	    return StringUtils.isNullOrEmpty(response.getId())?0:1;
-	}
-
-	@Override
-	public List<Articlescrap> listRecommend(UpDown_Status status){
-		transportClient.refreshIndex(index);
-		TransportClient client=transportClient.getClient();
-	    SearchRequestBuilder responsebuilder = client.prepareSearch(index).setTypes(type);
-	    BoolQueryBuilder boolBuilder = new BoolQueryBuilder();
-	    BoolQueryBuilder innerBoolBuilder = null;
-	    if(status == null){
-	    	 innerBoolBuilder = QueryBuilders.boolQuery().
-	    			must(QueryBuilders.rangeQuery("recommend.status").gt(-1));
-	    }else{
-	    	 innerBoolBuilder = QueryBuilders.boolQuery().
-	    				must(QueryBuilders.termQuery("recommend.status", status.getKey()));
-	    }
-	    NestedQueryBuilder nestedQuery = new NestedQueryBuilder("recommend",innerBoolBuilder ,ScoreMode.Min); 
-	    boolBuilder.filter(nestedQuery);
-	    responsebuilder.setQuery(boolBuilder); //设置查询条件
-	    responsebuilder.addSort("recommend.sort", SortOrder.ASC);
-	    SearchResponse myresponse = responsebuilder.execute().actionGet();
-	    SearchHits hits = myresponse.getHits();
-	    if(hits.getTotalHits()>0){
-	    	List<Articlescrap> list = new ArrayList<Articlescrap>();
-	    	for (int i = 0; i < hits.getHits().length; i++) {
-	    		String value=hits.getHits()[i].getSourceAsString();
-	    		Articlescrap articlescrap=ArticlescrapEs.ConvertToVo(JSON.parseObject(value, ArticlescrapEs.class));
-	    		articlescrap.setId(hits.getHits()[i].getId());
-	    		list.add(articlescrap);
-	    	}
-	    	return list;
-	    }		
-		return null;
-	}
-
-	@SuppressWarnings("deprecation")
-	@Override
-	public int saveArticlescrap(Articlescrap articlescrap){
-		TransportClient client=transportClient.getClient();
-	    if(articlescrap == null)
-			return 0;
-	    Date date = null;
-	    if(articlescrap.getUpdate_time()==null){
-	    	articlescrap.setUpdate_time(date==null?date=new Date():date);
-	    }
-	    if(articlescrap.getCreate_time()==null){
-	    	 articlescrap.setCreate_time(date==null?date=new Date():date);
-	    }
-	    if(articlescrap.getRecommend()==null){
-	    	Recommend recommend = new Recommend();
-	    	recommend.setSort(-1);
-	    	recommend.setStatus(-1);
-	    	articlescrap.setRecommend(recommend);
-	    }
-	    IndexRequestBuilder indexRequestBuilder =client.prepareIndex(index, type);
-	    IndexResponse response = indexRequestBuilder.setSource(ArticlescrapEs.ConvertToEs(articlescrap).toString()).execute().actionGet();
-	    return StringUtils.isNullOrEmpty(response.getId())?0:1;
-	}
-
-	@SuppressWarnings("deprecation")
-	@Override
-	public int updateArticlescrap(Articlescrap articlescrap) throws Exception {
-		 TransportClient client=transportClient.getClient();
-		 UpdateRequest updateRequest = new UpdateRequest(index, type,articlescrap.getId());
-		 if(articlescrap.getUpdate_time()==null){
-		     articlescrap.setUpdate_time(new Date());
-		 }
-		 updateRequest.doc(ArticlescrapEs.ConvertToEs(articlescrap).toString());
-		 client.update(updateRequest).get();
-		 return 1;
-	}
-
-	@Override
-	public List<Articlescrap> getArticlescrapByIds(String[] ids) {
-		TransportClient client=transportClient.getClient();
-		SearchRequestBuilder responsebuilder = client.prepareSearch(index).setTypes(type).setQuery(QueryBuilders.idsQuery().addIds(ids));
-		String[] fields={"title","show_time","status","type","author","create_time","update_time","sub_content","show_picture","start_time","time_degree","pictures"};
-		responsebuilder.storedFields(fields);
-		SearchResponse myresponse = responsebuilder.execute().actionGet();		
-		SearchHits hits = myresponse.getHits();
-		if(hits.getTotalHits()>0){
-			List<Articlescrap> list = new ArrayList<Articlescrap>();
-			for (int i = 0; i < hits.getHits().length; i++) {
-				Map<String,SearchHitField> map=hits.getHits()[i].getFields();
-				Articlescrap articlescrap=getArticlescrap(map);
-				articlescrap.setId(hits.getHits()[i].getId());
-				list.add(articlescrap);
-			}
-			return list;
-		}
-		return null;
-	}
-
-	
 }

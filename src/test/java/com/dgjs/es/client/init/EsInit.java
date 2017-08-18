@@ -50,9 +50,6 @@ public class EsInit {
 	 @Resource(name="articlescrapMapper")
 	 ArticlescrapMapper articlescrapMapper;
 	 
-	 @Resource(name="nArticlescrapMapper")
-	 ArticlescrapMapper nArticlescrapMapper;
-	
 	 @Autowired
 	 ESTransportClient transportClient;
 	
@@ -219,13 +216,13 @@ public class EsInit {
 //		 	}
 //		 	
 //		}
-		ArticlescrapCondtion condition = new ArticlescrapCondtion();
-		condition.setOnePageSize(50);
-		PageInfoDto<Articlescrap> pageinfo=articlescrapMapper.listArticlescrap(condition);
-		List<Articlescrap> list=pageinfo.getObjects();
-		for(Articlescrap articlescrap:list){
-		    articlescrap=articlescrapMapper.getArticlescrapIndex(articlescrap.getId());
-			nArticlescrapMapper.saveArticlescrap(articlescrap);
-		}
+//		ArticlescrapCondtion condition = new ArticlescrapCondtion();
+//		condition.setOnePageSize(50);
+//		PageInfoDto<Articlescrap> pageinfo=articlescrapMapper.listArticlescrap(condition);
+//		List<Articlescrap> list=pageinfo.getObjects();
+//		for(Articlescrap articlescrap:list){
+//		    articlescrap=articlescrapMapper.getArticlescrapIndex(articlescrap.getId());
+//			nArticlescrapMapper.saveArticlescrap(articlescrap);
+//		}
 	}
 }
