@@ -9,7 +9,8 @@
 		pageinfo_['pagetype'] = 'list';//list or detail or other
 		pageinfo_['pagedocids'] = '${pagedocids}';//文章id
 		pageinfo_['pageadids'] = "${(pageadids)!''}";//广告id
-		pageinfo_['pageid'] = '10336266';
+		pageinfo_['pageid'] = '${pageid}';
+		pageinfo_['channel'] = '${doctype.key}';
 		window['pageinfo'] = pageinfo_;
 		//
 		var contextPath='${contextPath}';

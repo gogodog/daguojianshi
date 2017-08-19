@@ -7,7 +7,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
 <link href="${contextPath}/front/css/feedback.css" rel="stylesheet" type="text/css" media="all" />
 <script>
-	var contextPath='${contextPath}';
+    //页面统计
+    var pageinfo_ = {};
+    pageinfo_['page'] = 'feedback';
+    pageinfo_['pagetype'] = 'other';//list or detail or other
+    pageinfo_['pagedocids'] = '${pagedocids}';//文章id
+    pageinfo_['pageadids'] = "${(pageadids)!''}";//广告id
+    pageinfo_['pageid'] = '${pageid}';
+    window['pageinfo'] = pageinfo_;
+    //
+    var contextPath='${contextPath}';
+    var keyword="${(keyword)!''}";
 	function GetQueryString(name){
 	     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
 	     var r = window.location.search.substr(1).match(reg);
@@ -64,5 +74,6 @@
 </div>
 <script src="${contextPath}/front/js/jquery-2.1.4.min.js"></script>
 <script src="${contextPath}/front/js/business/feedback.js"></script>
+<script src="${contextPath}/front/js/business/dadian.js"></script>
 </body>
 </html>

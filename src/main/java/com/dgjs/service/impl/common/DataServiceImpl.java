@@ -61,6 +61,7 @@ public class DataServiceImpl implements DataService{
 			dadianView.setIpprovince(location.getRegion());
 			dadianView.setIpcountry(location.getCountry());
 		}
+		dadianView.setTraceid(session.getId());
 		log.info("插入打点数据：" + JSON.toJSONString(dadianView));
 		boolean isSuccess=DadianThread.QUEUE.offer(dadianView);
 		return isSuccess;

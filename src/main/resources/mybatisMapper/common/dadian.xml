@@ -24,7 +24,8 @@
 				ipprovince,
 				ipcountry,
 				uuid,
-				width
+				width,
+				traceid
 			)
 			VALUES
 			(
@@ -49,7 +50,8 @@
 			   #{ipprovince},
 			   #{ipcountry},
                #{uuid},
-               #{width}
+               #{width},
+               #{traceid}
 			)
 	</insert>
 	

@@ -7,11 +7,11 @@
     <script>
 		//页面统计
 		var pageinfo_ = {};
-		pageinfo_['page'] = 'index';
+		pageinfo_['page'] = 'dgjs';
 		pageinfo_['pagetype'] = 'list';//list or detail or other
 		pageinfo_['pagedocids'] = '${pagedocids}';//文章id
 		pageinfo_['pageadids'] = "${(pageadids)!''}";//广告id
-		pageinfo_['pageid'] = '10336266';
+		pageinfo_['pageid'] = '${pageid}';
 		window['pageinfo'] = pageinfo_;
 		//
 		var contextPath='${contextPath}';
@@ -35,6 +35,7 @@
 	      <#include "/front/mobile/pieces/dili.ftl">
 	      <#include "/front/mobile/pieces/yeshi.ftl">
 	      <#include "/front/mobile/pieces/renwu.ftl">
+	      <#include "/front/mobile/pieces/test.ftl">
 	    </div>
 	  </div>
 	  <!-- 防止移动端页面抖动 -->

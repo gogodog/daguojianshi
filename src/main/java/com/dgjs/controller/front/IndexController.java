@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
+import com.dgjs.constants.Constants;
 import com.dgjs.model.dto.ChannelArticlescrapDto;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Articlescrap;
@@ -101,6 +102,7 @@ public class IndexController {
 		totalAd.addAll(adBelowList);
 		String pageadids=advertisementService.getDadianAdvertisementIds(totalAd);
 		mv.addObject("pageadids", pageadids); 
+		mv.addObject("pageid", Constants.DD_INDEX_ID);
 		//加载最新评论文章
 		List<Articlescrap> commentsArticlescrapList=articlescrapService.getArticlescrapByComments(2);
 		mv.addObject("commentsArticlescrapList", commentsArticlescrapList);

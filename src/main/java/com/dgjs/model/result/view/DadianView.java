@@ -25,6 +25,7 @@ public class DadianView {
 	private String ipcountry = "";
 	private String ipprovince = "";
 	private String ipcity = "";
+	private String traceid="";
 	
 	public String getUa() {
 		return ua;
@@ -158,4 +159,11 @@ public class DadianView {
 	public void setIpcity(String ipcity) {
 		this.ipcity = ipcity;
 	}
+	public String getTraceid() {
+		return traceid;
+	}
+	public void setTraceid(String traceid) {
+		this.traceid = traceid;
+	}
+	
 }

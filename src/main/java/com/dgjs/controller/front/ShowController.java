@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dgjs.constants.Constants;
 import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.controller.admin.content.RecommedArticlescrapController;
 import com.dgjs.model.dto.PageInfoDto;
@@ -55,7 +56,6 @@ public class ShowController {
 		mv.addObject("articlescrap", articlescrap);
 		mv.addObject("imageContextPath", pictureService.getImageContextPath());
 		//文章阅读量
-		mv.addObject("pagedocids",id);
 		Map<String,Integer> map=dataSerivce.getDocShowCounts(String.valueOf(id));
 		mv.addObject("visits", map.get(String.valueOf(id)));
 		//加载分类
@@ -68,6 +68,9 @@ public class ShowController {
 		//首页访问量
 		int indexVisitCount = dataSerivce.getPageTotalVisits("10336266");
 		mv.addObject("indexVisitCount",indexVisitCount);
+		//打点数据
+		mv.addObject("pagedocids", articlescrap.getId()); 
+		mv.addObject("pageid", Constants.DD_SHOW_ID);
 		return mv;
     }
 	

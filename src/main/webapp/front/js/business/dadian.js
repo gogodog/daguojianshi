@@ -25,7 +25,7 @@
     var pagetype = pageinfo.pagetype;
     var pagedocids = pageinfo.pagedocids;
     var pageadids = pageinfo.pageadids;
-    var channel="todo";
+    var channel=pageinfo.channel;
     var browseversion = function (){
     	    var userAgent = ua;
     	    var isOpera = userAgent.indexOf("opera") > -1;

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dgjs.constants.Constants;
 import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.constants.Session_Keys;
 import com.dgjs.model.dto.business.Articlescrap;
@@ -37,11 +38,13 @@ public class FeedBackController {
 	ArticlescrapService articlescrapService;
 	
 	@RequestMapping(value = "/{docid}")
-	public ModelAndView ajaxJudge(Model model, @PathVariable("docid")String docid, String title){
+	public ModelAndView judge(Model model, @PathVariable("docid")String docid, String title){
 		ModelAndView mv = new ModelAndView("front/common/feedback");
 		mv.addObject("docid", docid);
 		mv.addObject("title", title);
 		mv.addObject("judgeLevels", Judge_Level.values());
+		//打点数据
+		mv.addObject("pageid", Constants.DD_FEEDBACK_ID);
 		return mv;
 	}
 	

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dgjs.constants.Constants;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.enums.Ad_Position;
@@ -67,6 +68,10 @@ public class DgjsController {
 		mv.addObject("doctype",type);
 		//加载搜索条件
 		mv.addObject("keyword", keyword);
+		//打点信息
+		String pageadids=advertisementService.getDadianAdvertisementIds(adList);
+		mv.addObject("pageadids", pageadids); 
+		mv.addObject("pageid", Constants.DD_DGJS_ID); 
 		return mv;
     }
 }

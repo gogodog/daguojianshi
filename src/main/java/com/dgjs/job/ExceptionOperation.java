@@ -16,7 +16,7 @@ public class ExceptionOperation implements HandlerExceptionResolver{
 	
 	@Override
 	public ModelAndView resolveException(HttpServletRequest r, HttpServletResponse p, Object o, Exception ex) {
-		ModelAndView mv = new ModelAndView("front/error");
+		ModelAndView mv = new ModelAndView("front/common/error");
         mv.addObject("ex", ex);
         ErrorView ev = new ErrorView();
         log.error("异常 信息：" ,ex);

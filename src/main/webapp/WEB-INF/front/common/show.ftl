@@ -9,7 +9,7 @@
 	    pageinfo_['pagetype'] = 'detail';//list or detail or other
 	    pageinfo_['pagedocids'] = '${pagedocids}';//文章id
 	    pageinfo_['pageadids'] = '${pageadids}';//广告id
-	    pageinfo_['pageid'] = '10336267';
+	    pageinfo_['pageid'] = '${pageid}';
 	    window['pageinfo'] = pageinfo_;
 	    var contextPath='${contextPath}'
     </script>

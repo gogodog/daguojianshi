@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
+import com.dgjs.constants.Constants;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.dto.timeline.Asset;
@@ -50,6 +51,8 @@ public class TimeLineController {
 		mv.addObject("isNext", String.valueOf(view.getIsNext()==null?true:view.getIsNext()));
 		mv.addObject("isSlip", String.valueOf(view.getIsSlip()==null?false:view.getIsSlip()));
 		mv.addObject("timeline",view);
+		//打点数据
+		mv.addObject("pageid", Constants.DD_TIMELINE_ID);
 		return mv;
     }
 	
@@ -174,7 +177,6 @@ public class TimeLineController {
 	    	    //组装数据
 	    	    Timeline timeline = getTimeLine(list,contextPath,pictureService.getImageContextPath(),articlescrap,view.getType());
 	    		tv.setTimeline(timeline);
-	    		
 	    	}
 		}
 		PrintWriter pw = null;
