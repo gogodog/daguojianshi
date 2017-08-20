@@ -38,6 +38,8 @@
 			    </div>
 			    <div class="form-group">
 				    <label for="">展示图片</label>
+				    <input style="margin-top:9px" type="radio" value="1" name="picm" checked>本地上传
+				    <input style="margin-top:9px" type="radio" value="2" name="picm">已有图片链接
 				    <div id="showImage">
 				      <#if articlescrap.pictures??>
 				        <#list  articlescrap.pictures as url>
@@ -48,6 +50,10 @@
 				    <div class="file"><input type="file" class="form-input-file" id="uploadImage" name="uploadImage" multiple/>选择文件</div>
 				    <div class="file"><input type="button" class="form-input-file" id="buttonUpload" onClick="return ajaxFileUpload();">上传</div>
 			    </div>
+			    <div class="form-group" style="display:none">
+			        <label for=""></label>
+			        <textarea style="margin: 0px; width: 690px; height: 125px;" maxlength="500" id="piclinkVal"></textarea>
+		        </div>
 				<div class="form-group">
 					<label for="">文章展示时间</label>
 					<input type="text" name="showTime" value="<#if articlescrap.show_time??>${articlescrap.show_time?datetime}</#if>" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});" class="Wdate" style="width:150px"/>
@@ -213,6 +219,16 @@
 	           var content=$("#editor_id").val();
 	           var start_time_m=$("input[name='start_time_m']").val();
 	           var start_time_d=$("input[name='start_time_d']").val();
+	           var picm=$("input[name='picm']:checked").val();
+	           if(picm==2){
+	        	  var pictures='';
+	        	  var piclinkVal=$("#piclinkVal").val();
+	        	  var picUrl=piclinkVal.split("\n");
+	        	  for(var i=0;i<picUrl.length;i++){
+	        		  pictures+="<input type=\"hidden\" name=\"pictures\" value=\""+picUrl[i]+"\">";
+	        	  }
+	        	  $("#pictures").html(pictures);
+	           }
 	           if(content ==''){
 	        	   alert("请输入文章内容")
 	           }else if(start_time_m!=''&&start_time_m!=null&&parseInt(start_time_m)>12){
@@ -229,6 +245,19 @@
 	function preview(id){
 		window.location.href=contextPath+"/admin/previewArticlescrap?articlescrapId="+id
 	}
+	
+    $("input[name='picm']").change(function(){
+    	var checkeVal=$(this).val();
+    	if(checkeVal=='2'){
+    		$("#piclinkVal").parent().show();
+    		$("#uploadImage").parent().hide();
+    		$("#buttonUpload").parent().hide();
+    	}else if(checkeVal=='1'){
+    		$("#piclinkVal").parent().hide();
+    		$("#uploadImage").parent().show();
+    		$("#buttonUpload").parent().show();
+    	}
+    })
 	</script>
 	<script src="${contextPath}/admin/js/kingediter/kindeditor-all.js"></script>
 	<script>

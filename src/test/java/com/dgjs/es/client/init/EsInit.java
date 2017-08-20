@@ -47,7 +47,7 @@ public class EsInit {
 	
 	final static String type = "articlescrap_v4";
 	
-	 @Resource(name="articlescrapMapper")
+	 @Autowired
 	 ArticlescrapMapper articlescrapMapper;
 	 
 	 @Autowired
@@ -224,5 +224,8 @@ public class EsInit {
 //		    articlescrap=articlescrapMapper.getArticlescrapIndex(articlescrap.getId());
 //			nArticlescrapMapper.saveArticlescrap(articlescrap);
 //		}
+		Articlescrap articlescrap=articlescrapMapper.getArticlescrapIndex("AV2L5pR9iB8TaXhbkscg");
+		articlescrap.setPic_num(1);
+		articlescrapMapper.updateArticlescrap(articlescrap);
 	}
 }

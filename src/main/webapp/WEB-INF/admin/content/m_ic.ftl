@@ -44,6 +44,8 @@
 			    </div>
 			    <div class="form-group">
 			        <label for="">展示图片</label>
+			        <input style="margin-top:9px" type="radio" value="1" name="picm" checked>本地上传
+				    <input style="margin-top:9px" type="radio" value="2" name="picm">已有图片链接
 			        <div id="showImage">
 			           <#if config.pics??>
 			             <#list  config.pics as url>
@@ -54,6 +56,10 @@
 			        <div class="file"><input type="file" class="form-input-file" id="uploadImage" name="uploadImage" multiple/>选择文件</div>
 			        <div class="file"><input type="button" class="form-input-file" id="buttonUpload" onClick="return ajaxFileUpload();">上传</div>
 		        </div>
+		        <div class="form-group" style="display:none">
+		            <label for=""></label>
+		            <textarea style="margin: 0px; width: 690px; height: 125px;" maxlength="500" id="piclinkVal"></textarea>
+	            </div>
 				<div class="form-group">
 		            <label for="">类型</label>
 		            <select name="type">
@@ -136,6 +142,19 @@ function ajaxFileUpload()
     )
 }
 
+$("input[name='picm']").change(function(){
+	var checkeVal=$(this).val();
+	if(checkeVal=='2'){
+		$("#piclinkVal").parent().show();
+		$("#uploadImage").parent().hide();
+		$("#buttonUpload").parent().hide();
+	}else if(checkeVal=='1'){
+		$("#piclinkVal").parent().hide();
+		$("#uploadImage").parent().show();
+		$("#buttonUpload").parent().show();
+	}
+})
+
 $().ready(function() {
 	// 在键盘按下并释放及提交后验证提交表单
 	  $("#indexConfigForm").validate({
@@ -158,6 +177,16 @@ $().ready(function() {
 	      }
 	    },
 	    submitHandler:function(form){
+	    	var picm=$("input[name='picm']:checked").val();
+	           if(picm==2){
+	        	  var pictures='';
+	        	  var piclinkVal=$("#piclinkVal").val();
+	        	  var picUrl=piclinkVal.split("\n");
+	        	  for(var i=0;i<picUrl.length;i++){
+	        		  pictures+="<input type=\"hidden\" name=\"pics\" value=\""+picUrl[i]+"\">";
+	        	  }
+	        	  $("#pictures").html(pictures);
+	        }
             form.submit();
         }    
 	});
