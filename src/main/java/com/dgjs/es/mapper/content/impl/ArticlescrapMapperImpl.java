@@ -18,6 +18,7 @@ import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.NestedQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.script.Script;
 import org.elasticsearch.script.ScriptType;
@@ -64,12 +65,12 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 	@Override
 	public PageInfoDto<Articlescrap> listArticlescrap(
 			ArticlescrapCondtion condition) {
-		BoolQueryBuilder boolBuilder = getListQueryBuilder(condition);
+		QueryBuilder boolBuilder = getListQueryBuilder(condition);
 		TransportClient client=transportClient.getClient();
 		SearchRequestBuilder responsebuilder = client.prepareSearch(index).setTypes(type);
 		responsebuilder.setQuery(boolBuilder);
 		Map<String, SortOrder> sort = condition.getSort();
-		if(sort!=null&&!sort.isEmpty()){
+		if(sort!=null&&!sort.isEmpty()&&StringUtils.isNullOrEmpty(condition.getKeyword())){
 		   for(String key:sort.keySet()){
 				responsebuilder.addSort(key,sort.get(key));
 			}
@@ -222,9 +223,17 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 		return null;
 	}
 	
-	private BoolQueryBuilder getListQueryBuilder(ArticlescrapCondtion condition){
-		BoolQueryBuilder boolBuilder = new BoolQueryBuilder();
+	private QueryBuilder getListQueryBuilder(ArticlescrapCondtion condition){
 		if(condition!=null){
+			if(!StringUtils.isNullOrEmpty(condition.getKeyword())){
+		    	QueryBuilder builder=QueryBuilders.disMaxQuery()
+		    	.add(QueryBuilders.termQuery("title", condition.getKeyword()).boost(100f)) 
+		    	.add(QueryBuilders.termQuery("keywords", condition.getKeyword()).boost(50f))
+		    	.add(QueryBuilders.termQuery("sub_content", condition.getKeyword()).boost(10f))
+		    	.add(QueryBuilders.termQuery("content", condition.getKeyword()).boost(1f));
+		    	return builder;
+		    }
+			BoolQueryBuilder boolBuilder = new BoolQueryBuilder();
 			if(!StringUtils.isNullOrEmpty(condition.getTitle())){
 				boolBuilder.must(QueryBuilders.matchQuery("title", condition.getTitle()));
 			}
@@ -261,11 +270,8 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 			if(condition.getWithoutIds()!=null && condition.getWithoutIds().length>0){
 				boolBuilder.mustNot(QueryBuilders.idsQuery().addIds(condition.getWithoutIds()));
 			}
-		    if(!StringUtils.isNullOrEmpty(condition.getKeyword())){
-		    	String[] matchFields={"title","sub_content","keywords","content"};
-		    	boolBuilder.must(QueryBuilders.multiMatchQuery(condition.getKeyword(),matchFields));
-		    }
+			return boolBuilder;
 		}
-		return boolBuilder;
+		return null;
 	}
 }
