@@ -3,10 +3,10 @@
 </div><!--demo end-->
 <button class="btn btn-danger" onclick="saveEditor(1)"><i class="fa fa-toggle-on"></i>保存编辑</button>
 <button class="btn btn-danger"><i class="fa fa-bug "></i></i>保存退出</button>
-<script type="text/javascript" src='/cps/plugin/editor/jquery.js'></script>
-<script type="text/javascript" src='/cps/plugin/editor/bootstrap.min.js'></script>
-<script type="text/javascript" src='/cps/plugin/editor/editor.min.js'></script>
-<script type="text/javascript" src="/cps/plugin/editor/index.js"></script>
+<script type="text/javascript" src='${contextPath}/cps/plugin/editor/jquery.js'></script>
+<script type="text/javascript" src='${contextPath}/cps/plugin/editor/bootstrap.min.js'></script>
+<script type="text/javascript" src='${contextPath}/cps/plugin/editor/editor.min.js'></script>
+<script type="text/javascript" src="${contextPath}/cps/plugin/editor/index.js"></script>
 <script>
 function saveEditor(isBack){
 	var title = $('#title').val();
