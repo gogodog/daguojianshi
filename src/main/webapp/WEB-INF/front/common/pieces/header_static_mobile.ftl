@@ -4,11 +4,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="x5-fullscreen" content="true">
 	<meta name="full-screen" content="yes">
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    
-    
-    <meta name="keywords" content="历史,手机万柳网,手机大国简史,历史资料,大国简史无线">
+    <meta name="description" content="历史,手机简史,简史无线,简史网,简史,手机万柳网,手机大国简史,历史资料,大国简史无线">
+    <meta name="keywords" content="历史,手机简史,简史无线,简史网,简史,手机万柳网,手机大国简史,历史资料,大国简史无线">
 	<meta name="description" content="cwillow.com">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 	<meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT">
@@ -21,8 +18,6 @@
 	<meta name="googlebot" content="index, follow">
 	<meta name="author" content="dgjs_mobile">
 	<meta name="baidu-site-verification" content="rTnMzcp5WP">
-    
-    
     
     <title>简史</title>
     <link rel="stylesheet" type="text/css" href="${contextPath}/front/css/bootstrap.min.css">
