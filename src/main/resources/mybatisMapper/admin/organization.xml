@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgjs.mapper.admin.OrganizationMapper">
+  
+  	<insert id="save" parameterType="organization" keyProperty="id" useGeneratedKeys="true">
+	       insert into organization
+	       (
+               oname,
+               number,
+               summary,
+               status,
+               create_time,
+               update_time
+	       )
+	       values
+	       (
+               #{oname},
+               #{number},
+               #{summary},
+               #{status},
+               now(),
+               now()
+	       )
+	</insert>
+	
+	<select id="selectById" resultType="organization">
+	      select id,oname,number,summary,status,create_time,update_time from organization where id=#{id}
+	</select>
+	
+	<update id="update">
+	      update organization
+	         set 
+	         <if test="oname!=null and oname!=''">
+				oname=#{oname},
+		     </if>
+	         <if test="number!=null and number!=''">
+				number=#{number},
+		     </if>
+		     <if test="summary!=null and summary!=''">
+				summary=#{summary},
+		     </if>
+		     <if test="status!=null and status!=''">
+				status=#{status},
+		     </if>
+		     update_time=now() where id=#{id}
+	</update>
+	
+	<select id="list" resultType="organization">
+	   select id,oname,number,summary,status,create_time,update_time from organization
+	   where 1=1
+	         <if test="oname!=null and oname!=''">
+				and oname=#{oname}
+		     </if>
+	         <if test="number!=null and number!=''">
+				and number=#{number}
+		     </if>
+		     <if test="summary!=null and summary!=''">
+				and summary=#{summary}
+		     </if>
+		     <if test="status!=null and status!=''">
+				and status=#{status}
+		     </if>
+		order by update_time desc
+		limit #{beginNum},#{onePageSize}
+	</select>
+	
+</mapper>

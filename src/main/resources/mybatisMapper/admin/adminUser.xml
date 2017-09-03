@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgjs.mapper.admin.AdminUserMapper">
+  
+  <insert id="batchSave" useGeneratedKeys="true" parameterType="java.util.List">
+   
+    insert into admin_user 
+          (
+           username,
+           password,
+           status,
+           source,
+           role_id,
+           create_time,
+           update_time
+          )  
+    values 
+    <foreach collection="list" item="item" index="index" separator=",">
+          (
+           #{item.username},
+           #{item.password},
+           #{item.status},
+           #{item.source},
+           #{item.role_id},
+           #{item.create_time},
+           #{item.update_time}
+          ) 
+    </foreach> 
+  </insert>
+  
+  	<insert id="save" parameterType="adminUser" keyProperty="id" useGeneratedKeys="true">
+	       insert into admin_user
+	       (
+               username,
+               password,
+               status,
+               source,
+               role_id,
+               create_time,
+               update_time
+	       )
+	       values
+	       (
+               #{username},
+               #{password},
+               #{status},
+               #{source},
+               #{role_id},
+               now(),
+               now()
+	       )
+	</insert>
+	
+	<select id="selectById" resultType="adminUser">
+	      select id,username,password,status,source,role_id,create_time,update_time from admin_user where id=#{id}
+	</select>
+	
+	<update id="update">
+	      update admin_user
+	         set 
+	         <if test="status!=null and status!=''">
+				status=#{status},
+		     </if>
+		     <if test="role_id!=null and role_id!=''">
+				role_id=#{role_id},
+		     </if>
+		     update_time = now()
+		     where id=#{id}
+	</update>
+	
+	<select id="list" resultType="adminUser">
+	   select id,username,password,status,source,role_id,create_time,update_time from admin_user
+	   where source=#{source}
+	         <if test="username!=null and username!=''">
+				and username=#{username}
+		     </if>
+	         <if test="status!=null and status!=''">
+				and status=#{status}
+		     </if>
+		     <if test="role_id!=null and role_id!=''">
+				and role_id=#{role_id}
+		     </if>
+		order by update_time desc
+		limit #{beginNum},#{onePageSize}
+	</select>
+	
+</mapper>
