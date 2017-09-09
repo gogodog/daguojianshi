@@ -38,6 +38,7 @@
 	</div>
 </div>
 <div id="yeshi">
+<!-- 
 <article class="excerpt listtxt" onclick="location.href=&quot;/show/AV0DmzcMqMQTX7aOp80m&quot;">
 	<header>
 		<a class="cat" href="javascript:void(0)">新加坡<i></i></a>
@@ -84,5 +85,6 @@
 		</a>
 	</div>
 </article>
+-->
 </div>
 <div class="title showmore" style='border-top: solid 1px #EAEAEA;'><a href="javascript:void(0);" id="yeshimore">点击查看更多>></a></div>

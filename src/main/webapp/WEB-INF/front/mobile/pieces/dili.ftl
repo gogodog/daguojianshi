@@ -7,6 +7,7 @@
 </div>
 
 <div id="dili">
+<!-- 
 <article class="excerpt threeimg" onclick="location.href=&quot;/show/AV0DmzcMqMQTX7aOp80m&quot;">
 <div class='diliimg'>
 	<img class="itemimg" src="http://www.cwillow.com/images/carousel/p_100/20170702054527046417.jpg">
@@ -93,6 +94,7 @@
 	<span class="views" id="new_visit_AV0DmzcMqMQTX7aOp80m"><i class="glyphicon glyphicon-eye-open"></i> 40</span>
 </p>
 </article>
+-->
 </div>
 <!-- 查看更多 -->
 <div class="title showmore" style='border-top: solid 1px #EAEAEA;'><a href="javascript:void(0);" id="dilimore">点击查看更多>></a></div>

@@ -7,6 +7,7 @@
 </div>
 
 <div id="total">
+<!-- 
 <article class="excerpt listright" onclick="location.href=&quot;/show/AV0DmzcMqMQTX7aOp80m&quot;">
 <a class="focus" href="/show/AV0DmzcMqMQTX7aOp80m">
 	<img class="thumb" data-original="/front/images/list/timg3.jpeg" src="http://www.cwillow.com//images/articlescrap/p_100/20170702095122629561.jpg" style="display:inline;">
@@ -68,6 +69,7 @@
 	</h2>
 </header>
 </article>
+-->
 </div>
 
 <div class="title showmore"><a href="javascript:void(0);" id="totalmore">点击查看更多>></a></div>
