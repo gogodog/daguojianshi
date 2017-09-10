@@ -11,4 +11,7 @@ public interface Constants {
 	public static final int DD_SHOW_ID = 10336267;
 	public static final int DD_TIMELINE_ID = 10336268;
 	public static final int DD_FEEDBACK_ID = 10336269;
+	
+	/*用户id*/
+	public static final int USER_ID = 1;
 }

@@ -10,6 +10,7 @@ import com.dgjs.model.enums.Articlescrap_Type;
 
 public class DraftCondition {
 
+	private Integer user_id;//用户id
 	private String author;
 	private String title;
 	private Articlescrap_Type type;//类型
@@ -88,6 +89,11 @@ public class DraftCondition {
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
 	}
-	
+	public Integer getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(Integer user_id) {
+		this.user_id = user_id;
+	}
 	
 }

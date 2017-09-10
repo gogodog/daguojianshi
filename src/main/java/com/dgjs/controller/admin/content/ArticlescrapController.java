@@ -86,7 +86,7 @@ public class ArticlescrapController {
 	@RequestMapping("/previewArticlescrap")
 	public ModelAndView previewArticlescrap(String articlescrapId)  throws Exception{
 		ModelAndView mv = articlescrap(articlescrapId);
-		mv.setViewName("front/show");
+		mv.setViewName("front/common/show");
 		return mv;
 	}
 }

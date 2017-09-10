@@ -66,6 +66,10 @@ public enum Articlescrap_Type {
         	return UNOFFICIAL;
         case 70:
         	return MYTH_LEGEND;
+        case 80:
+        	return WAR;
+        case 90:
+        	return SCIENCE;
         default:
             return null;
 	  }

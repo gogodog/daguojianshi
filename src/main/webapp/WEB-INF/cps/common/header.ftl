@@ -9,4 +9,5 @@
     <link href="${contextPath}/cps/css/basic.css" rel="stylesheet" />
     <link href="${contextPath}/cps/css/custom.css" rel="stylesheet" />
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" type="text/css" href="${contextPath}/admin/css/xcConfirm.css"/>
 </head>

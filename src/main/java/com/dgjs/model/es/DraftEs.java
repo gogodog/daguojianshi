@@ -148,6 +148,7 @@ public class DraftEs implements java.io.Serializable{
 		draft.setTime_degree(draftEs.getTime_degree()==-1?null:TIME_DEGREE.valueOf(draftEs.getTime_degree()));
 		draft.setPictures(draftEs.getPictures());
 		draft.setUser_id(draftEs.getUser_id());
+		draft.setId(draftEs.getId());
 		return draft;
 	}
 

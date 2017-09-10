@@ -67,7 +67,7 @@ public class AdminUserMapperTest {
 		 adminUser1.setRole_id(1);
 		 adminUser1.setSource(1);
 		 adminUser1.setStatus(UpDown_Status.UP);
-		 adminUser1.setUsername("gy");
+		 adminUser1.setUsername("gy1");
 		 adminUser1.setCreate_time(now);
 		 adminUser1.setUpdate_time(now);
 		 
@@ -76,7 +76,7 @@ public class AdminUserMapperTest {
 		 adminUser2.setRole_id(1);
 		 adminUser2.setSource(1);
 		 adminUser2.setStatus(UpDown_Status.UP);
-		 adminUser2.setUsername("wjd");
+		 adminUser2.setUsername("wjd1");
 		 adminUser2.setCreate_time(now);
 		 adminUser2.setUpdate_time(now);
 		 
@@ -86,4 +86,6 @@ public class AdminUserMapperTest {
 		 int flag = mapper.batchSave(list);
 		 System.out.println(flag);
 	 }
+	 
+	 
 }

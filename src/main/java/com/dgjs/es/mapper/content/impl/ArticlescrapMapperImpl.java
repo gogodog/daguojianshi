@@ -56,7 +56,8 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 		TransportClient client=transportClient.getClient();
  		GetResponse response = client.prepareGet(index, type , id).get();
  		ArticlescrapEs articlescrapEs=JSON.parseObject(response.getSourceAsString(), ArticlescrapEs.class);
- 		articlescrapEs.setContent(getContent(id));
+ 		if(articlescrapEs!=null)
+ 		   articlescrapEs.setContent(getContent(id));
  		Articlescrap articlescrap =  ArticlescrapEs.ConvertToVo(articlescrapEs);
  		articlescrap.setId(id);
  		return articlescrap;

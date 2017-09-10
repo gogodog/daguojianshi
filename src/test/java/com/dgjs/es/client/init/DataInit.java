@@ -69,7 +69,8 @@ public class DataInit {
 	 
 	 @Test
 	 public void testSelectById(){
-		 Draft draft = draftMapper.selectById("AV23cJS0iB8TaXhbksdI");
+		 Draft draft = draftMapper.selectById("AV5q8Chr6vR7T-0BUwjI");
+		 draft.setContent(draftMapper.getContent("AV5q8Chr6vR7T-0BUwjI")); 
 		 System.out.println(JSON.toJSONString(draft, true));
 	 }
 	 

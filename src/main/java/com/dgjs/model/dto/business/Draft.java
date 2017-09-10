@@ -91,5 +91,28 @@ public class Draft extends StartTime{
 	public void setUser_id(Integer user_id) {
 		this.user_id = user_id;
 	}
-    
+	public void setKeywordsValue(String keywordsValue) {
+		if(keywordsValue != null){
+			String[] values =keywordsValue.split("#");
+			keywords = values;
+		}
+	}
+	public String getKeywordsValue() {
+		if(keywords!=null&&keywords.length>0){
+			StringBuilder str = new StringBuilder();
+			for(int i=0;i<keywords.length;i++){
+				str.append(keywords[i]);
+				if(i!=keywords.length-1)
+				  str.append("#");
+			}
+			return str.toString();
+		}
+		return null;
+	}
+	public void setTypeValue(Articlescrap_Type type) {
+		this.type = type;
+	}
+	public String getTypeValue() {
+		return type==null?null:type.getValue();
+	}
 }

@@ -243,7 +243,7 @@
 	});
 	
 	function preview(id){
-		window.location.href=contextPath+"/admin/previewArticlescrap?articlescrapId="+id
+		window.location.href=contextPath+"/admin/atcp/previewArticlescrap?articlescrapId="+id
 	}
 	
     $("input[name='picm']").change(function(){

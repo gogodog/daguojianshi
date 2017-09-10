@@ -20,25 +20,25 @@
                         <table class="table table-striped table-bordered table-hover">
 		                    <thead>
 		                        <tr>
-		                            <th>序号</th>
-		                            <th>名称</th>
+		                            <th>类型</th>
+		                            <th>作者</th>
+		                            <th>标题</th>
 		                            <th>最后一次保存时间</th>
 		                            <th>操作</th>
 		                        </tr>
 		                    </thead>
 		                    <tbody>
+		                        <#list pageinfo.objects as object>
 		                        <tr>
-		                            <td>1</td>
-		                            <td>IS在中东大势已去 库尔德人或成新“以色列”</td>
-		                            <td>2017:01:01 18:00:00</td>
-		                            <td></i>继续编辑</td>
-		                        </tr>
-		                        <#list list as i>
-		                        <tr>
-		                            <td>${i_index+1}</td>
-		                            <td>${i.name}</td>
-		                            <td>${i.last?string("yyyy-MM-dd HH:mm:ss")}</td>
-		                            <td></i>继续编辑</td>
+		                            <td>${object.type.value}</td>
+		                            <td>${object.author}</td>
+		                            <td>${object.title}</td>
+		                            <td>${object.update_time?string("yyyy-MM-dd HH:mm:ss")}</td>
+		                            <td>
+		                              <a href="${contextPath}/cps/wdoc?aid=${object.id}">继续编辑</a>&nbsp;&nbsp;
+		                              <a href="${contextPath}/cps/previewDraft?aid=${object.id}">预览</a>&nbsp;&nbsp;
+		                              <a href="javascript:void(0)" onclick="deleteA('${object.id}');">删除</a>
+		                            </td>
 		                        </tr>
 								</#list>
 		                    </tbody>
@@ -52,5 +52,15 @@
         </div>
     </div>
     <#include "/cps/common/f-static.ftl">
+    <script src="${contextPath}/admin/js/confirm/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+    var contextPath="${contextPath}";
+    function deleteA(aid){
+    	var txt = "您确定要删除这条数据吗？";
+    	window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.confirm,{onOk:function(){
+    		window.location.href=contextPath+"/cps/dltdft?aid="+aid;
+    	}})
+    }
+    </script>
 </body>
 </html>

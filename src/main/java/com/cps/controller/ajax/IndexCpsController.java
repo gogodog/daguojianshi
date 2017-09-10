@@ -56,28 +56,6 @@ public class IndexCpsController {
 		return "/cps/docms";
     }
 	
-	@RequestMapping("/wdoc")
-    public String wdoc(HttpServletRequest request) throws Exception {  
-		return "/cps/wdoc";
-    }
-	
-	@RequestMapping("/draft")
-    public String draft(Model model, PageBean pageBean) throws Exception {
-		//TODO
-		List<DraftView> list = new ArrayList<DraftView>();
-		for(int i = 0 ; i<10 ; i++){
-			DraftView es = new DraftView();
-			es.setId("dgjs"+i);
-			es.setName("IS在中东大势已去 库尔德人或成新“以色列”");
-			es.setLast(new Date());
-			list.add(es);
-		}
-		pageBean.setRowsCount(21);
-		model.addAttribute("pageBean", pageBean);
-		model.addAttribute("list", list);
-		return "/cps/draft";
-    }
-	
 	@RequestMapping("/chart")
     public String chart(HttpServletRequest request) throws Exception {  
 		return "/cps/index";

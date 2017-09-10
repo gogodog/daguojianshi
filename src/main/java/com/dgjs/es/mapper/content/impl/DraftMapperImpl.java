@@ -46,6 +46,13 @@ public class DraftMapperImpl implements DraftMapper{
 	public int saveDraft(Draft draft) {
 		TransportClient client=transportClient.getClient();
 		IndexRequestBuilder indexRequestBuilder =client.prepareIndex(index, type);
+		Date now = new Date();
+		if(draft.getCreate_time()==null){
+			draft.setCreate_time(now);
+		}
+		if(draft.getUpdate_time()==null){
+			draft.setUpdate_time(now);
+		}
 	    IndexResponse response = indexRequestBuilder.setSource(DraftEs.ConvertToEs(draft).toString()).execute().actionGet();
 	    return StringUtils.isNullOrEmpty(response.getId())?0:1;
 	}
@@ -55,6 +62,7 @@ public class DraftMapperImpl implements DraftMapper{
 		TransportClient client=transportClient.getClient();
 		GetResponse response = client.prepareGet(index, type, id).get();
 		DraftEs draftEs = JSON.parseObject(response.getSourceAsString(), DraftEs.class);
+		draftEs.setId(id);
 		Draft draft = DraftEs.ConvertToVo(draftEs);
 		return draft;
 	}
@@ -80,6 +88,7 @@ public class DraftMapperImpl implements DraftMapper{
 			for (int i = 0; i < hits.getHits().length; i++) {
 				String source = hits.getHits()[i].getSourceAsString();
 				DraftEs draftEs = JSON.parseObject(source, DraftEs.class);
+				draftEs.setId(hits.getHits()[i].getId());
 				Draft draft = DraftEs.ConvertToVo(draftEs);
 				list.add(draft);
 			}
