@@ -86,6 +86,27 @@ public class Pending extends Draft{
 		this.id = id;
 	}
 	
+	public static Pending transFromDraft(Draft draft){
+		if(draft == null){
+			return null;
+		}
+		Date now = new Date();
+		Pending pending = new Pending();
+		pending.setTitle(draft.getTitle());
+		pending.setType(draft.getType());
+		pending.setAuthor(draft.getAuthor());
+		pending.setCreate_time(now);
+		pending.setUpdate_time(now);
+		pending.setSub_content(draft.getSub_content());
+		pending.setContent(draft.getContent());
+		pending.setKeywords(draft.getKeywords());
+		pending.setPictures(draft.getPictures());
+		pending.setPic_num(draft.getPic_num());
+		pending.setUser_id(draft.getUser_id());
+		pending.setStatus(Pending_Status.AUDIT_PENDING);
+		return pending;
+	}
+	
 	public static Articlescrap transToArticlescrap(Pending pending){
 		if(pending == null){
 			return null;

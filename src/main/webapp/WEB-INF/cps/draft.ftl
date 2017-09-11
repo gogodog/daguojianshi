@@ -10,7 +10,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h1 class="page-head-line">草稿箱</h1>
-                        <h1 class="page-subhead-line">[温馨提示]提审时间一般为1-3个工作日请耐心等候. </h1>
+                        <h1 class="page-subhead-line">[温馨提示]提审之后请到文章管理查看已提审的文章，审核时间一般为1-3个工作日请耐心等候. </h1>
                     </div>
                 </div>
                 <!-- page begin-->
@@ -38,6 +38,7 @@
 		                              <a href="${contextPath}/cps/wdoc?aid=${object.id}">继续编辑</a>&nbsp;&nbsp;
 		                              <a href="${contextPath}/cps/previewDraft?aid=${object.id}">预览</a>&nbsp;&nbsp;
 		                              <a href="javascript:void(0)" onclick="deleteA('${object.id}');">删除</a>
+		                              <a href="javascript:void(0)" onclick="submitAudit('${object.id}');">提审</a>
 		                            </td>
 		                        </tr>
 								</#list>
@@ -60,6 +61,25 @@
     	window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.confirm,{onOk:function(){
     		window.location.href=contextPath+"/cps/dltdft?aid="+aid;
     	}})
+    }
+    function submitAudit(aid){
+    	$.ajax({
+ 		   async:false,
+ 		   data:{aid:aid},
+ 		   dataType: "json",
+ 		   url:contextPath+"/cps/submitAudit",
+ 		   type:"POST",
+ 		   success:function(data) {
+                if(data.error){
+             	    alert(data.errorMessage);
+                }else{
+                	alert('提审成功');
+                }
+            }, 
+            error:function(){
+                console.log("服务器繁忙...");
+            }
+        })
     }
     </script>
 </body>

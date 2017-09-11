@@ -1,8 +1,5 @@
 package com.cps.controller;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +18,7 @@ import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.persistence.condition.DraftCondition;
 import com.dgjs.model.result.view.BaseView;
 import com.dgjs.service.content.DraftService;
+import com.dgjs.service.content.PendingService;
 import com.dgjs.utils.PictureUtils;
 import com.mysql.jdbc.StringUtils;
 
@@ -30,6 +28,9 @@ public class DraftController {
 
 	@Autowired
 	DraftService draftService;
+	
+	@Autowired
+	PendingService pendingService;
 	
 	@RequestMapping("/draft")
 	public ModelAndView list(DraftCondition condtion){
@@ -127,6 +128,27 @@ public class DraftController {
 		ModelAndView mv = new ModelAndView("front/common/show");
 		Draft draft=draftService.selectByIdAll(aid);
 		mv.addObject("articlescrap", draft);
+		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/submitAudit")
+	public BaseView submitAudit(String aid){
+		BaseView mv = new BaseView();
+		if(StringUtils.isNullOrEmpty(aid)){
+			mv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
+			return mv;
+		}
+		Draft draft = draftService.selectById(aid);
+		if(draft==null){
+			mv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
+			return mv;
+		}
+		int flag=pendingService.savePending(aid);
+		if(flag < 1){
+			mv.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
+			return mv;
+		}
 		return mv;
 	}
 }

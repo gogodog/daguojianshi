@@ -6,12 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dgjs.es.mapper.content.ArticlescrapMapper;
+import com.dgjs.es.mapper.content.DraftMapper;
 import com.dgjs.es.mapper.content.PendingMapper;
 import com.dgjs.model.dto.PageInfoDto;
+import com.dgjs.model.dto.business.Draft;
 import com.dgjs.model.dto.business.Pending;
 import com.dgjs.model.enums.Pending_Status;
 import com.dgjs.model.persistence.condition.PendingCondition;
 import com.dgjs.service.content.PendingService;
+import com.dgjs.utils.StringUtils;
 
 @Service
 public class PendingServiceImpl implements PendingService{
@@ -21,9 +24,24 @@ public class PendingServiceImpl implements PendingService{
 	
 	@Autowired
 	ArticlescrapMapper articlescrapMapper;
+	
+	@Autowired
+	DraftMapper draftMapper;
 
 	@Override
-	public int savePending(Pending pending) {
+	public int savePending(String id) {
+		if(StringUtils.isNullOrEmpty(id)){
+			return 0;
+		}
+		Draft draft = draftMapper.selectById(id);
+		if(draft==null){
+			return 0;
+		}
+		draft.setContent(draftMapper.getContent(id));
+		Pending pending=Pending.transFromDraft(draft);
+		if(pending==null){
+			return 0;
+		}
 		return pendingMapper.savePending(pending);
 	}
 
