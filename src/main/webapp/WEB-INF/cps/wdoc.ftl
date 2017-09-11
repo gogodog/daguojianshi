@@ -24,7 +24,17 @@
 						      >${type.value}
 						    </#list>
 			        </div>
-					<div class="col-md-12" style="float:none;margin:2px">
+			        <div class="col-md-12" style="float:none;margin:2px">
+			          &nbsp;文章内容起始时间:&nbsp;
+			          <select name="start_time_c" class="form-select" style="width: 7%;">
+					     <option value="公元" <#if draft.start_time_c == "公元">selected</#if>>公元</option>
+					     <option value="公元前" <#if draft.start_time_c == "公元前">selected</#if>>公元前</option>
+				      </select>
+				      <input class="form-input-txt" style="width:5%;" type="text" name="start_time_y" value="${(draft.start_time_y)!''}" maxlength="5" onkeyup="this.value=this.value.replace(/\D/g,'')"/>年
+				      <input class="form-input-txt" style="width:5%;" type="text" name="start_time_m" value="${(draft.start_time_m)!''}" maxlength="2" onkeyup="this.value=this.value.replace(/\D/g,'')"/>月
+				      <input class="form-input-txt" style="width:5%;" type="text" name="start_time_d" value="${(draft.start_time_d)!''}" maxlength="2" onkeyup="this.value=this.value.replace(/\D/g,'')"/>日
+		            </div>
+				 	<div class="col-md-12" style="float:none;margin:2px">
 						<textarea name="sub_content" id="sub_content" class="form-control" style="margin-bottom:10px" placeholder="内容摘要" rows="4">
 						   ${(draft.sub_content)!''}
 						</textarea>

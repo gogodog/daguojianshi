@@ -95,6 +95,7 @@ public class DraftController {
 			mv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR.name(),"正文长度需在150-10000之间");
 			return mv;
 		}
+		draft.setBeginTime();
 		draft.setUser_id(Constants.USER_ID);
 		Set<String> set = PictureUtils.getImgStr(draft.getContent());
 		String[] pics = (String[])set.toArray(new String[set.size()]);

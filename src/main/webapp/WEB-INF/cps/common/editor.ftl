@@ -18,16 +18,24 @@ function saveEditor(isBack){
 	var type=$("input[name='type']:checked").val();
 	var sub_content=$("#sub_content").val();
 	var id=$("input[name='aid']").val();
+	var start_time_c=$("select[name='start_time_c']").find("option:selected").val();
+	var start_time_y=$("input[name='start_time_y']").val();
+	var start_time_m=$("input[name='start_time_m']").val();
+	var start_time_d=$("input[name='start_time_d']").val();
 	editor.sync();
     var content=$("#editor_id").val();
-	if(check(title,sub_content,content,author,keywordsValue,type) == 0){
-		var jso = {};
-		jso["title"]=$.trim(title);
-		jso["sub_content"]=$.trim(sub_content);
-		jso["content"]=$.trim(content);
-		jso["author"]=$.trim(author);
-		jso["keywordsValue"]=$.trim(keywordsValue);
-		jso["type"]=$.trim(type);
+    var jso = {};
+	jso["title"]=$.trim(title);
+	jso["sub_content"]=$.trim(sub_content);
+	jso["content"]=$.trim(content);
+	jso["author"]=$.trim(author);
+	jso["keywordsValue"]=$.trim(keywordsValue);
+	jso["type"]=$.trim(type);
+	jso["start_time_c"]=$.trim(start_time_c);
+	jso["start_time_y"]=$.trim(start_time_y);
+	jso["start_time_m"]=$.trim(start_time_m);
+	jso["start_time_d"]=$.trim(start_time_d);
+	if(check(jso) == 0){
 		if($.trim(id).length>0){
 			jso["id"]=$.trim(id);
 		}
@@ -42,29 +50,29 @@ function saveEditor(isBack){
 	  	});
   	}
 }
-function check(t,s,c,a,k,y){
+function check(jso){
 	 //length
-	if(t.length <2 || t.length >50){
+	if(jso.title.length <2 || jso.title.length >50){
 		alert("标题长度不得小于2个字符，大于50个字符");
 		return 1;
 	}
-	if(s.length <20 || s.length >700){
+	if(jso.sub_content.length <20 || jso.sub_content.length >700){
 		alert("摘要长度不得小于20个字符，大于700个字符");
 		return 1;
 	}
-	if(c.length <150 || c.length >10000){
+	if(jso.content.length <150 || jso.content.length >10000){
 		alert("内容文本长度不得小于150个字符，大于10000个字符");
 		return 1;
 	}
-	if(a.length <2 || a.length >20){
+	if(jso.author.length <2 || jso.author.length >20){
 		alert("作者长度不得小于2个字符，大于20个字符");
 		return 1;
 	}
-	if(k==null||k==''){
+	if(jso.keywordsValue==null||jso.keywordsValue==''){
 		alert("关键词不能为空");
 		return 1;
 	}
-	if(y==null||y==''){
+	if(jso.type==null||jso.type==''){
 		alert("类型不能为空");
 		return 1;
 	}

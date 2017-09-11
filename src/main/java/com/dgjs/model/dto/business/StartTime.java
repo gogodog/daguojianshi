@@ -63,7 +63,7 @@ public class StartTime {
 					start_time_c="公元";
 				}
 				st.append(year.replaceAll("-", "")+"年");
-				start_time_y=year;
+				start_time_y=year.replaceAll("-", "");
                 if(time_degree==TIME_DEGREE.MONTH){				
                 	st.append(month+"月");
                 	start_time_m=month;
