@@ -37,7 +37,7 @@
 		                            <td>
 		                              <a href="${contextPath}/cps/wdoc?aid=${object.id}">继续编辑</a>&nbsp;&nbsp;
 		                              <a href="${contextPath}/cps/previewDraft?aid=${object.id}">预览</a>&nbsp;&nbsp;
-		                              <a href="javascript:void(0)" onclick="deleteA('${object.id}');">删除</a>
+		                              <a href="javascript:void(0)" onclick="deleteA('${object.id}');">删除</a>&nbsp;&nbsp;
 		                              <a href="javascript:void(0)" onclick="submitAudit('${object.id}');">提审</a>
 		                            </td>
 		                        </tr>

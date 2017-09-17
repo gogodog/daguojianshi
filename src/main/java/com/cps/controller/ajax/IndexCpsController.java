@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.cps.model.DocView;
-import com.cps.model.DraftView;
 import com.dgjs.model.common.PageBean;
 
 import freemarker.log.Logger;
@@ -32,9 +31,8 @@ public class IndexCpsController {
 		return "/cps/index";
     }
 	
-	@RequestMapping("/docms")
+//	@RequestMapping("/docms")
     public String docms(Model model, PageBean pageBean) throws Exception {
-		
 		//TODO
 		List<DocView> list = new ArrayList<DocView>();
 		for(int i = 0 ; i<10 ; i++){

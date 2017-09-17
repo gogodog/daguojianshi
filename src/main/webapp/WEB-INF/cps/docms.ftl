@@ -18,23 +18,27 @@
 		                    <thead>
 		                        <tr>
 		                            <th>序号</th>
-		                            <th>名称</th>
+		                            <th>标题</th>
 		                            <th>状态</th>
 		                            <th>类型</th>
-		                            <th>类别</th>
-		                            <th>创建时间</th>
+		                            <th>作者</th>
+		                            <th>时间</th>
 		                            <th>操作</th>
 		                        </tr>
 		                    </thead>
 		                    <tbody>
-		                    <#list list as i>
+		                    <#list pageinfo.objects as object>
 		                        <tr>
 		                            <td>${i_index+1}</td>
-		                            <td>${i.name}</td>
-		                            <td>${i.status}</td>
-		                            <td>${i.srctype}</td>
-		                            <td>${i.category}</td>
-		                            <td>提审：${i.ts?string("yyyy-MM-dd HH:mm:ss")}<br>审核：${i.sh?string("yyyy-MM-dd HH:mm:ss")}</td>
+		                            <td>${object.title}</td>
+		                            <td>${object.status.value}</td>
+		                            <td>${object.type.value}</td>
+		                            <td>${object.author}</td>
+		                            <td>
+		                               提审时间：${object.create_time?string("yyyy-MM-dd HH:mm:ss")}<br>
+		                               审核时间：${object.audit_time?string("yyyy-MM-dd HH:mm:ss")}<br>
+		                               发布时间：${object.publish_time?string("yyyy-MM-dd HH:mm:ss")}<br>
+		                            </td>
 		                            <td></i>查看          </i>提审</td>
 		                        </tr>
 							</#list>
