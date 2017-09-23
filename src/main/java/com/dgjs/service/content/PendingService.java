@@ -19,4 +19,6 @@ public interface PendingService {
 	
 	public PageInfoDto<Pending> listPending(PendingCondition condition);
 	
+	public Pending selectByIdAll(String id);
+	
 }

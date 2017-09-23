@@ -72,4 +72,9 @@ public class PendingServiceImpl implements PendingService{
 		return pendingMapper.listPending(condition);
 	}
 
+	@Override
+	public Pending selectByIdAll(String id) {
+		return pendingMapper.selectByIdAll(id);
+	}
+
 }

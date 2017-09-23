@@ -27,4 +27,12 @@ public class PendingController {
 		mv.addObject("pageinfo", pageinfo);
 		return mv;
 	}
+	
+	@RequestMapping("/previewPending")
+	public ModelAndView previewDraft(String aid)  throws Exception{
+		ModelAndView mv = new ModelAndView("front/common/show");
+		Pending pending=pendingService.selectByIdAll(aid);
+		mv.addObject("articlescrap", pending);
+		return mv;
+	}
 }

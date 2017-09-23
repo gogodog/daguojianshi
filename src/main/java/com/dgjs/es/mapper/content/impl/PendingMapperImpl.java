@@ -79,6 +79,7 @@ public class PendingMapperImpl implements PendingMapper{
 		TransportClient client=transportClient.getClient();
 		GetResponse response = client.prepareGet(index, type, id).get();
 		PendingEs pendingEs = JSON.parseObject(response.getSourceAsString(), PendingEs.class);
+		pendingEs.setId(id);
 		Pending pending = PendingEs.ConvertToVo(pendingEs);
 		return pending;
 	}
@@ -129,6 +130,7 @@ public class PendingMapperImpl implements PendingMapper{
 			for (int i = 0; i < hits.getHits().length; i++) {
 				String source = hits.getHits()[i].getSourceAsString();
 				PendingEs pendingEs = JSON.parseObject(source, PendingEs.class);
+				pendingEs.setId(hits.getHits()[i].getId());
 				Pending pending = PendingEs.ConvertToVo(pendingEs);
 				list.add(pending);
 			}

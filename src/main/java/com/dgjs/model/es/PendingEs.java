@@ -141,6 +141,7 @@ public class PendingEs extends DraftEs{
     	pending.setUpdate_time(DateUtils.parseDateFromString(pendingEs.getUpdate_time()));
     	pending.setUser_id(pendingEs.getUser_id());
     	pending.setVisits(pendingEs.getVisits());
+    	pending.setId(pendingEs.getId());
     	return pending;
     }
     

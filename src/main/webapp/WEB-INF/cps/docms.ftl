@@ -39,7 +39,10 @@
 		                               审核时间：${object.audit_time?string("yyyy-MM-dd HH:mm:ss")}<br>
 		                               发布时间：${object.publish_time?string("yyyy-MM-dd HH:mm:ss")}<br>
 		                            </td>
-		                            <td></i>查看          </i>提审</td>
+		                            <td>
+		                               </i><a href="${contextPath}/cps/previewPending?aid=${object.id}">查看</a>         
+		                               </i>提审
+		                            </td>
 		                        </tr>
 							</#list>
 		                    </tbody>
