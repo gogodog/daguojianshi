@@ -70,10 +70,13 @@
             </div>
         </div>
     </div>
+    
     <#include "/cps/common/f-static.ftl">
     <script src="${contextPath}/admin/js/confirm/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
     <script language="javascript" src="${contextPath}/admin/js/My97DatePicker/wdatePicker.js"></script>
     <script src="${contextPath}/cps/js/business/condition.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="${contextPath}/cps/css/alertify.css">
+    <script src="${contextPath}/cps/js/alertify.js" type="text/javascript" charset="utf-8"></script>
     <script>
        var contextPath="${contextPath}";
        function changeDescShow(item){
@@ -85,65 +88,131 @@
            }
        }
        function showAudit(aid){
-    	   var txt = "审核:<select id='auditStatus' onchange='changeDescShow(this)'><option value='PUBLISH_PENDING'>通过</option><option value='Audit_FAIL'>不通过</option></select>";
-    	   txt+="<span style='display:none;' id='audit_desc'><br>描述：<input maxlength='200' style='width:200px;' name='audit_desc'/></div>"
-    	   window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.confirm,{onOk:function(){
-    		   var status = $("#auditStatus").val();
-    		   var audit_desc='';
-    		   if(status == 'Audit_FAIL'){
-    			   audit_desc = $("input[name='audit_desc']").val();
-    			   if(audit_desc == null || audit_desc.length < 1){
-    				   alert('不通过需要给一定的理由');
-    				   return;
-    			   }
-    		   }
+    	   var message = "<h4>审核不通过需要给出不通过的原因</h4><p style='float:left'>审核&nbsp;:&nbsp<select id='auditStatus' onchange='changeDescShow(this)'><option value='PUBLISH_PENDING'>通过</option><option value='Audit_FAIL'>不通过</option></select></p><br/>";  
+           alertify.prompt(message, function (val, e) {  
+               if(e) {  
+            	   var status = $("#auditStatus").val();
+        		   if(status == 'Audit_FAIL'){
+        			    if(val==null||val.length<2){
+        			    	alertify.error("审核不通过需要给出不通过的原因");  
+            				return;
+        			    }
+        		   }
+        		   $.ajax({
+        	 		   async:false,
+        	 		   data:{aid:aid,status:status,audit_desc:val},
+        	 		   dataType: "json",
+        	 		   url:contextPath+"/cps/audit",
+        	 		   type:"POST",
+        	 		   success:function(data) {
+        	                if(data.error){
+        	                	alertify.error(data.errorMessage);
+        	                }else{
+        	                	alert("操作成功");      
+        	                	location.reload();
+        	                }
+        	            }, 
+        	            error:function(){
+        	                alertify.error("服务器繁忙...");  
+        	            }
+        	        })
+               } else {  
+                   alertify.error("审核不通过需要给出不通过的原因");  
+               }  
+           }, "Enter a value");  
+    	   
+//    	   var txt = "审核:<select id='auditStatus' onchange='changeDescShow(this)'><option value='PUBLISH_PENDING'>通过</option><option value='Audit_FAIL'>不通过</option></select>";
+//    	   txt+="<span style='display:none;' id='audit_desc'><br>描述：<input maxlength='200' style='width:200px;' name='audit_desc'/></div>"
+//    	   window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.confirm,{onOk:function(){
+//    		   var status = $("#auditStatus").val();
+//    		   var audit_desc='';
+//    		   if(status == 'Audit_FAIL'){
+//    			   audit_desc = $("input[name='audit_desc']").val();
+//    			   if(audit_desc == null || audit_desc.length < 1){
+//    				   alert('不通过需要给一定的理由');
+//    				   return;
+//    			   }
+//    		   }
+//    		   $.ajax({
+//    	 		   async:false,
+//    	 		   data:{aid:aid,status:status,audit_desc:audit_desc},
+//    	 		   dataType: "json",
+//    	 		   url:contextPath+"/cps/audit",
+//    	 		   type:"POST",
+//    	 		   success:function(data) {
+//    	                if(data.error){
+//    	             	    alert(data.errorMessage);
+//    	                }else{
+//    	                	alert('操作成功');
+//    	                	location.reload();
+//    	                }
+//    	            }, 
+//    	            error:function(){
+//    	                console.log("服务器繁忙...");
+//    	            }
+//    	        })
+//           }})
+       }
+       
+       function showPublish(aid){
+    	   var txt='展示时间&nbsp;:&nbsp;<input type="text" name="show_time" onClick="WdatePicker({dateFmt:\'yyyy-MM-dd HH:mm:ss\'});" class="Wdate" style="width:200px"><br>';
+    	   txt+='访问量基数&nbsp;:&nbsp;<input type="text" name="visits" style="width:200px;height:20px"><br>'
+    	   alertify.confirm(txt, function () {
+    		   var show_time = $("input[name='show_time']").val();
+    		   var visits = $("input[name='visits']").val();
     		   $.ajax({
     	 		   async:false,
-    	 		   data:{aid:aid,status:status,audit_desc:audit_desc},
+    	 		   data:{aid:aid,show_time:show_time,visits:visits},
     	 		   dataType: "json",
-    	 		   url:contextPath+"/cps/audit",
+    	 		   url:contextPath+"/cps/publish",
     	 		   type:"POST",
     	 		   success:function(data) {
     	                if(data.error){
-    	             	    alert(data.errorMessage);
+    	                	alertify.error(data.errorMessage);
     	                }else{
     	                	alert('操作成功');
     	                	location.reload();
     	                }
     	            }, 
     	            error:function(){
-    	                console.log("服务器繁忙...");
+    	            	alertify.error("服务器繁忙...");
     	            }
     	        })
-           }})
-       }
-       
-       function showPublish(aid){
-    	   $.ajax({
-	 		   async:false,
-	 		   data:{aid:aid},
-	 		   dataType: "json",
-	 		   url:contextPath+"/cps/publish",
-	 		   type:"POST",
-	 		   success:function(data) {
-	                if(data.error){
-	             	    alert(data.errorMessage);
-	                }else{
-	                	alert('操作成功');
-	                	location.reload();
-	                }
-	            }, 
-	            error:function(){
-	                console.log("服务器繁忙...");
-	            }
-	        })
+    	   }, function() {
+//    		   alertify.error("cancel");
+    	       // user clicked "cancel"
+    	   });
+//    	   $.ajax({
+//	 		   async:false,
+//	 		   data:{aid:aid},
+//	 		   dataType: "json",
+//	 		   url:contextPath+"/cps/publish",
+//	 		   type:"POST",
+//	 		   success:function(data) {
+//	                if(data.error){
+//	             	    alert(data.errorMessage);
+//	                }else{
+//	                	alert('操作成功');
+//	                	location.reload();
+//	                }
+//	            }, 
+//	            error:function(){
+//	                console.log("服务器繁忙...");
+//	            }
+//	        })
        }
        
        function showAuditFailDesc(audit_desc){
-    	   var txt = audit_desc;
-    	   window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.confirm,{onOk:function(){
-           }})
+    	   
+//    	   var txt = audit_desc;
+//    	   window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.confirm,{onOk:function(){
+//           }})
+    	   
+    	   var message = "<h3>拒绝原因</h3><p><strong>"+audit_desc+"</strong></p><br/>";  
+           alertify.alert(message);  
        }
+       
     </script>
+    
 </body>
 </html>
