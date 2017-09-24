@@ -3,9 +3,9 @@ package com.dgjs.model.dto.business;
 import java.util.Date;
 
 import com.dgjs.model.enums.Articlescrap_Type;
+import com.dgjs.model.enums.Draft_Status;
 
 public class Draft extends StartTime{
-
 	private String id;//id
 	private String title;//标题
 	private Articlescrap_Type type;//文章类型
@@ -18,7 +18,7 @@ public class Draft extends StartTime{
 	private String[] pictures;//图片
     private int pic_num;//图片数量
 	private Integer user_id;//用户id
-	
+	private Draft_Status draft_status;//状态	
 	public String getId() {
 		return id;
 	}
@@ -90,6 +90,13 @@ public class Draft extends StartTime{
 	}
 	public void setUser_id(Integer user_id) {
 		this.user_id = user_id;
+	}
+	
+	public Draft_Status getDraft_status() {
+		return draft_status;
+	}
+	public void setDraft_status(Draft_Status draft_status) {
+		this.draft_status = draft_status;
 	}
 	public void setKeywordsValue(String keywordsValue) {
 		if(keywordsValue != null){

@@ -15,6 +15,7 @@ import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Draft;
 import com.dgjs.model.enums.Articlescrap_Type;
+import com.dgjs.model.enums.Draft_Status;
 import com.dgjs.model.persistence.condition.DraftCondition;
 import com.dgjs.model.result.view.BaseView;
 import com.dgjs.service.content.DraftService;
@@ -101,6 +102,7 @@ public class DraftController {
 		String[] pics = (String[])set.toArray(new String[set.size()]);
 		draft.setPictures(pics);
 		draft.setPic_num(set.size());
+		draft.setDraft_status(Draft_Status.NORMAL);
 		int isSuccess = 0;
 		if(StringUtils.isNullOrEmpty(draft.getId())){
 			 isSuccess=draftService.saveDraft(draft);
@@ -126,7 +128,7 @@ public class DraftController {
 	
 	@RequestMapping("/previewDraft")
 	public ModelAndView previewDraft(String aid)  throws Exception{
-		ModelAndView mv = new ModelAndView("front/common/show");
+		ModelAndView mv = new ModelAndView("front/admin/show");
 		Draft draft=draftService.selectByIdAll(aid);
 		mv.addObject("articlescrap", draft);
 		return mv;
@@ -134,7 +136,7 @@ public class DraftController {
 	
 	@ResponseBody
 	@RequestMapping("/submitAudit")
-	public BaseView submitAudit(String aid){
+	public BaseView submitAudit(String aid) throws Exception{
 		BaseView mv = new BaseView();
 		if(StringUtils.isNullOrEmpty(aid)){
 			mv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);

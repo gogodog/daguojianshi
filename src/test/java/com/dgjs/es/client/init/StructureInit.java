@@ -30,9 +30,9 @@ public class StructureInit {
 		
 		@Test
 		public void testInitTable() throws Exception{
-//			initDraft(transportClient.getObject());
-//			initPending(transportClient.getObject());
-			initNArticlescrap(transportClient.getObject());
+			initDraft(transportClient.getObject());
+			initPending(transportClient.getObject());
+//			initNArticlescrap(transportClient.getObject());
 		}
 		
 		private void createIndex(TransportClient client,String index) {
@@ -98,6 +98,7 @@ public class StructureInit {
 					.startObject("pictures").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
 					.startObject("pic_num").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
 					.startObject("user_id").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
+					.startObject("draft_status").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
 					.endObject()
 					.endObject()
 					.endObject();

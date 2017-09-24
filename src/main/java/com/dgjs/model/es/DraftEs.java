@@ -3,6 +3,7 @@ package com.dgjs.model.es;
 import com.alibaba.fastjson.JSON;
 import com.dgjs.model.dto.business.Draft;
 import com.dgjs.model.enums.Articlescrap_Type;
+import com.dgjs.model.enums.Draft_Status;
 import com.dgjs.model.enums.TIME_DEGREE;
 import com.dgjs.utils.DateUtils;
 
@@ -24,6 +25,7 @@ public class DraftEs implements java.io.Serializable{
 	private String[] pictures;//图片
     private int pic_num;//图片数量
     private Integer user_id;//用户id
+    private int draft_status;//状态
     
 	public String getId() {
 		return id;
@@ -110,6 +112,13 @@ public class DraftEs implements java.io.Serializable{
 	public void setUser_id(Integer user_id) {
 		this.user_id = user_id;
 	}
+	
+	public int getDraft_status() {
+		return draft_status;
+	}
+	public void setDraft_status(int draft_status) {
+		this.draft_status = draft_status;
+	}
 	public static DraftEs ConvertToEs(Draft draft){
 		if(draft == null){
 			return null;
@@ -128,6 +137,7 @@ public class DraftEs implements java.io.Serializable{
 		draftEs.setType(Articlescrap_Type.transTo(draft.getType()));
 		draftEs.setUpdate_time(DateUtils.parseStringFromDate(draft.getUpdate_time()));
 		draftEs.setUser_id(draft.getUser_id());
+		draftEs.setDraft_status(Draft_Status.transTo(draft.getDraft_status()));
 		return draftEs;
 	}
 	
@@ -149,6 +159,7 @@ public class DraftEs implements java.io.Serializable{
 		draft.setPictures(draftEs.getPictures());
 		draft.setUser_id(draftEs.getUser_id());
 		draft.setId(draftEs.getId());
+		draft.setDraft_status(Draft_Status.transFrom(draftEs.getDraft_status()));
 		return draft;
 	}
 

@@ -11,7 +11,14 @@
                     <div class="col-md-12">
                         <h1 class="page-head-line">文章管理</h1>
                         <h1 class="page-subhead-line">[温馨提示]提审时间一般为1-3个工作日请耐心等候. </h1>
-                    </div>
+                        <form action="${contextPath}/cps/docms" method="post" id="form1">
+                           <label>分类:</label><select name="type"><option value="">全部</option><#list typeList as type><option value="${type}" <#if condition.type.key=="${type.key}">selected</#if>>${type.value}</option></#list></select>&nbsp;&nbsp;
+    			           <label>状态:</label><select name="status"><option value="">全部</option><#list statusList as status><option value="${status}" <#if condition.status.key=="${status.key}">selected</#if>>${status.value}</option></#list></select>&nbsp;&nbsp;
+                           <label>标题:<input type="text" name="title" value="${condition.title}"></label>
+                           <label><input type="button" value="查询" name="conditionButton"/></label>
+                        </form>
+                        <h1 class="page-head-line"></h1>
+    			    </div>
          			<div class="col-lg-12 col-md-12 col-sm-12">
 						<div class="table-responsive">
                         <table class="table table-striped table-bordered table-hover">
@@ -36,8 +43,8 @@
 		                            <td>${object.author}</td>
 		                            <td>
 		                               提审时间：${object.create_time?string("yyyy-MM-dd HH:mm:ss")}<br>
-		                               审核时间：<#if object.audit_time??>${object.audit_time?string("yyyy-MM-dd HH:mm:ss")}</#if><br>
-		                               发布时间：<#if object.publish_time??>${object.publish_time?string("yyyy-MM-dd HH:mm:ss")}</#if><br>
+		                               <#if object.audit_time??>审核时间：${object.audit_time?string("yyyy-MM-dd HH:mm:ss")}<br></#if>
+		                               <#if object.publish_time??>发布时间：${object.publish_time?string("yyyy-MM-dd HH:mm:ss")}<br></#if>
 		                            </td>
 		                            <td>
 		                               </i><a href="${contextPath}/cps/previewPending?aid=${object.id}">查看</a>     
@@ -46,6 +53,9 @@
 		                               </#if>
 		                               <#if object.status == 'PUBLISH_PENDING'>
 		                                 </i><a href="javascript:void(0)" onclick="showPublish('${object.id}');">发布</a>  
+		                               </#if>
+		                               <#if object.status == 'Audit_FAIL'>
+		                                 </i><a href="javascript:void(0)" onclick="showAuditFailDesc('${object.audit_desc}');">拒绝原因</a>  
 		                               </#if>
 		                            </td>
 		                        </tr>
@@ -63,6 +73,7 @@
     <#include "/cps/common/f-static.ftl">
     <script src="${contextPath}/admin/js/confirm/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
     <script language="javascript" src="${contextPath}/admin/js/My97DatePicker/wdatePicker.js"></script>
+    <script src="${contextPath}/cps/js/business/condition.js" type="text/javascript" charset="utf-8"></script>
     <script>
        var contextPath="${contextPath}";
        function changeDescShow(item){
@@ -126,6 +137,12 @@
 	                console.log("服务器繁忙...");
 	            }
 	        })
+       }
+       
+       function showAuditFailDesc(audit_desc){
+    	   var txt = audit_desc;
+    	   window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.confirm,{onOk:function(){
+           }})
        }
     </script>
 </body>

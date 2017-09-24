@@ -9,7 +9,7 @@ import com.dgjs.model.persistence.condition.PendingCondition;
 
 public interface PendingService {
 
-    public int savePending(String id);
+    public int savePending(String id)  throws Exception ;
 	
 	public int audit(String id,Pending_Status status,Integer audit_user_id,String audit_desc) throws Exception;
 	

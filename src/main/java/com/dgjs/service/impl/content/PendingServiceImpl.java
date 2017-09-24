@@ -11,6 +11,7 @@ import com.dgjs.es.mapper.content.PendingMapper;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Draft;
 import com.dgjs.model.dto.business.Pending;
+import com.dgjs.model.enums.Draft_Status;
 import com.dgjs.model.enums.Pending_Status;
 import com.dgjs.model.persistence.condition.PendingCondition;
 import com.dgjs.service.content.PendingService;
@@ -29,7 +30,7 @@ public class PendingServiceImpl implements PendingService{
 	DraftMapper draftMapper;
 
 	@Override
-	public int savePending(String id) {
+	public int savePending(String id)  throws Exception {
 		if(StringUtils.isNullOrEmpty(id)){
 			return 0;
 		}
@@ -42,7 +43,12 @@ public class PendingServiceImpl implements PendingService{
 		if(pending==null){
 			return 0;
 		}
-		return pendingMapper.savePending(pending);
+		int flag = pendingMapper.savePending(pending);
+		if(flag>0){
+			draft.setDraft_status(Draft_Status.SUBMIT);
+			draftMapper.updateDraft(draft);
+		}
+		return flag;
 	}
 
 	@Override
