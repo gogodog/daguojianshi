@@ -4,7 +4,7 @@
 </textarea> 
 </div><!--demo end-->
 <button class="btn btn-danger" onclick="saveEditor(1)"><i class="fa fa-toggle-on"></i>保存编辑</button>
-<button class="btn btn-danger"><i class="fa fa-bug "></i></i>保存退出</button>
+<button class="btn btn-danger" onclick="preview();"><i class="fa fa-bug "></i></i>预览</button>
 <script src="${contextPath}/admin/js/jquery-1.11.1.min.js"></script>
 <script src="${contextPath}/admin/js/support-fileupload.js"></script>
 <script src="${contextPath}/admin/js/ajaxfileupload.js"></script>
@@ -77,6 +77,11 @@ function check(jso){
 		return 1;
 	}
 	return 0;
+}
+
+function preview(){
+	var aid=$("input[name='aid']").val();
+	window.location.href = contextPath+"/cps/previewDraft?aid="+aid;
 }
 </script>
 <script src="${contextPath}/admin/js/kingediter/kindeditor-all.js"></script>
