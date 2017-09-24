@@ -57,10 +57,11 @@ public class PendingServiceImpl implements PendingService{
 	}
 
 	@Override
-	public int publish(String id, Integer publish_user_id, Date publish_time,
+	public int publish(String id, Integer publish_user_id, 
 			int visits, Date show_time) throws Exception {
 		int flag = 0;
-		Pending pending= pendingMapper.publish(id, publish_user_id, publish_time, visits, show_time);
+		Date now = new Date();
+		Pending pending= pendingMapper.publish(id, publish_user_id, now, visits, show_time);
 		if(pending!=null){
 			flag=articlescrapMapper.saveArticlescrap(Pending.transToArticlescrap(pending));
 		}

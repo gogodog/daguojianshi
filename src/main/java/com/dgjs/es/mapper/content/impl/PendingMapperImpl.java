@@ -56,11 +56,12 @@ public class PendingMapperImpl implements PendingMapper{
 			String audit_desc) throws Exception{
 		TransportClient client=transportClient.getClient();
 		PendingEs pendingEs=selectWithContent(id);
-		Date now = new Date();
-		String datenow = DateUtils.parseStringFromDate(now);
-		if(pendingEs.getStatus()!=Pending_Status.AUDIT_PENDING.getKey()){
+		
+		if(pendingEs==null||pendingEs.getStatus()!=Pending_Status.AUDIT_PENDING.getKey()){
 			return 0;
 		}
+		Date now = new Date();
+		String datenow = DateUtils.parseStringFromDate(now);
 		pendingEs.setUpdate_time(datenow);
 		pendingEs.setAudit_time(datenow);
 		pendingEs.setStatus(status.getKey());
@@ -190,8 +191,10 @@ public class PendingMapperImpl implements PendingMapper{
 		TransportClient client=transportClient.getClient();
 		GetResponse response = client.prepareGet(index, type, id).get();
 		PendingEs pendingEs = JSON.parseObject(response.getSourceAsString(), PendingEs.class);
-		String content = getContent(id);
-		pendingEs.setContent(content);
+		if(pendingEs!=null){
+			String content = getContent(id);
+			pendingEs.setContent(content);
+		}
 		return pendingEs;
 	}
 
