@@ -14,6 +14,7 @@ public class AdminUser {
     private Integer role_id;//角色id
 	private Date create_time;//创建时间
 	private Date update_time;//修改时间
+	private String user_code;//
 	
 	public Long getId() {
 		return id;
@@ -62,6 +63,12 @@ public class AdminUser {
 	}
 	public void setRole_id(Integer role_id) {
 		this.role_id = role_id;
+	}
+	public String getUser_code() {
+		return user_code;
+	}
+	public void setUser_code(String user_code) {
+		this.user_code = user_code;
 	}
     
 }

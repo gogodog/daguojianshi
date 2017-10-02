@@ -11,6 +11,7 @@
            status,
            source,
            role_id,
+           user_code,
            create_time,
            update_time
           )  
@@ -22,6 +23,7 @@
            #{item.status},
            #{item.source},
            #{item.role_id},
+           #{user_code},
            #{item.create_time},
            #{item.update_time}
           ) 
@@ -36,6 +38,7 @@
                status,
                source,
                role_id,
+               user_code,
                create_time,
                update_time
 	       )
@@ -46,13 +49,14 @@
                #{status},
                #{source},
                #{role_id},
+               #{user_code},
                now(),
                now()
 	       )
 	</insert>
 	
 	<select id="selectById" resultType="adminUser">
-	      select id,username,password,status,source,role_id,create_time,update_time from admin_user where id=#{id}
+	      select id,username,user_code,password,status,source,role_id,create_time,update_time from admin_user where id=#{id}
 	</select>
 	
 	<update id="update">
@@ -69,7 +73,7 @@
 	</update>
 	
 	<select id="list" resultType="adminUser">
-	   select id,username,password,status,source,role_id,create_time,update_time from admin_user
+	   select id,username,user_code,password,status,source,role_id,create_time,update_time from admin_user
 	   where source=#{source}
 	         <if test="username!=null and username!=''">
 				and username=#{username}

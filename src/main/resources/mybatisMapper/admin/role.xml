@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgjs.mapper.admin.RoleMapper">
+  
+  
+  	<insert id="save" parameterType="role" keyProperty="id" useGeneratedKeys="true">
+	       insert into role
+	       (
+               role_name,
+               create_time,
+               update_time
+	       )
+	       values
+	       (
+               #{role_name},
+               now(),
+               now()
+	       )
+	</insert>
+	
+	<select id="selectById" resultType="role">
+	      select id,role_name,create_time,update_time from role where id=#{id}
+	</select>
+	
+	<update id="update">
+	      update role set
+	         role_name = #{role_name}
+		     update_time = now()
+		     where id=#{id}
+	</update>
+	
+	<select id="list" resultType="role">
+	   select id,role_name,create_time,update_time from role order by update_time desc
+	</select>
+	
+	<insert id="saveRoleAuthority" parameterType="roleAuthority" keyProperty="id" useGeneratedKeys="true">
+	    insert into role_authority 
+	       (
+               role_id,
+               authority_id
+	       )
+	       values
+	       (
+               #{role_id},
+               authority_id
+	       )
+	</insert>
+	
+	<delete id="deleteRole">
+	   delete from role where id = #{id}
+	</delete>
+	
+	<delete id="deleteRoleAuthority">
+	   delete from role_authority where id = #{id}
+	</delete>
+</mapper>
