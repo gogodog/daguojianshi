@@ -25,4 +25,14 @@ public class AuthorityServiceImpl implements AuthorityService{
 		return authorityMapper.list();
 	}
 
+	@Override
+	public int deleteById(Integer id) {
+		return authorityMapper.deleteById(id);
+	}
+
+	@Override
+	public int update(Authority authority) {
+		return authorityMapper.update(authority);
+	}
+
 }

@@ -34,7 +34,7 @@
 					     <td>${authority.update_time?datetime}</td>	
 					     <td>
 					     	<div class="table-fun">
-					     		<a href="javascript:void(0)">修改</a>
+					     		<a href="javascript:void(0)" dataId="${authority.id}" onclick="updateAuthority(this);">修改</a>
 					     		<a href="javascript:void(0)" onclick="deleteAuthority('${authority.id}');">删除</a>
 					     	</div>
 					     </td>
@@ -50,10 +50,27 @@
 <script language="javascript" src="${contextPath}/admin/js/My97DatePicker/wdatePicker.js"></script>
 <script>
 var contextPath="${contextPath}";
-function deleteAuthority(adId){
+function deleteAuthority(aId){
 	var txt = "您确定要删除这条数据吗？";
 	window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.confirm,{onOk:function(){
-		window.location.href=contextPath+"/admin/ad/deleteAdvertisement?adId="+adId;
+		$.ajax({
+			async:false,
+			data:{id:aId},
+			dataType: "json",
+			url:contextPath+"/admin/admin/deleteAthrty",
+			type:"POST",
+			success:function(data) {
+	            if(data.error){
+	            	alert(data.errorMessage);
+	            }else{
+	            	alert('删除成功');
+	            	window.location.href=contextPath+"/admin/admin/athrtyList";
+	            }
+	        }, 
+	        error:function(){
+	            console.log("服务器繁忙...");
+	        }
+		});
 	}})
 }
 
@@ -93,6 +110,38 @@ function showAuthorityPop(channelId){
 		});
 	}})
 }
+
+function updateAuthority(item){
+	var authority_name=$(item).parent().parent().parent().find("td").eq(1);
+	var html = authority_name.html();
+	var id = $(item).attr('dataId');
+	authority_name.html("<input type='text' name='authority_name' onblur='updateAuthority2(this,"+id+");' value='"+html+"'>");
+}
+
+function updateAuthority2(item,id){
+	debugger;
+	var value=$(item).val();
+	$.ajax({
+		async:false,
+		data:{authority_name:value,id:id},
+		dataType: "json",
+		url:contextPath+"/admin/admin/updateAthrty",
+		type:"POST",
+		success:function(data) {
+            if(data.error){
+            	if(data.errorCode!='SUCCESS'){
+            		alert('服务器繁忙...');
+            	}
+            }else{
+            	window.location.href=contextPath+"/admin/admin/athrtyList";
+            }
+        }, 
+        error:function(){
+            console.log("服务器繁忙...");
+        }
+	});
+}
+
 </script>
 </body>
 </html>

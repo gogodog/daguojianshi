@@ -10,4 +10,7 @@ public interface AuthorityService {
 	
 	public List<Authority> list();
 	
+	public int deleteById(Integer id);
+	
+	public int update(Authority authority);
 }

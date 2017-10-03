@@ -21,4 +21,6 @@ public interface RoleMapper {
 	
 	public int deleteRoleAuthority(Integer id);
 	
+	public List<RoleAuthority> selectRoleAuthority(RoleAuthority roleAuthority);
+	
 }

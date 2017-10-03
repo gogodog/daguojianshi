@@ -27,7 +27,6 @@
 	<update id="update">
 	      update authority set
 	         authority_name = #{authority_name},
-	         authority_url = #{authority_url},
 		     update_time = now()
 		     where id=#{id}
 	</update>
