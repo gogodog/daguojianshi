@@ -24,7 +24,7 @@
 	
 	<update id="update">
 	      update role set
-	         role_name = #{role_name}
+	         role_name = #{role_name},
 		     update_time = now()
 		     where id=#{id}
 	</update>
@@ -33,30 +33,38 @@
 	   select id,role_name,create_time,update_time from role order by update_time desc
 	</select>
 	
-	<insert id="saveRoleAuthority" parameterType="roleAuthority" keyProperty="id" useGeneratedKeys="true">
-	    insert into role_authority 
+	<insert id="saveRoleAuthority" useGeneratedKeys="true" parameterType="java.util.List">
+    insert into role_authority 
 	       (
                role_id,
                authority_id
 	       )
-	       values
-	       (
-               #{role_id},
-               authority_id
-	       )
-	</insert>
+    values 
+    <foreach collection="list" item="item" index="index" separator=",">
+          (
+           #{item.role_id},
+           #{item.authority_id}
+          ) 
+    </foreach> 
+    </insert>
 	
 	<delete id="deleteRole">
 	   delete from role where id = #{id}
 	</delete>
 	
 	<delete id="deleteRoleAuthority">
-	   delete from role_authority where id = #{id}
+	   delete from role_authority where role_id = #{role_id}
 	</delete>
 	
-	<select id="selectRoleAuthority" resultType="roleAuthority">
+	<select id="isExistRelated" resultType="roleAuthority">
 	    select id,role_id,authority_id from role_authority where 1=1 
 	    <if test="role_id!=null">and role_id = #{role_id}</if>
 	    <if test="authority_id!=null">and authority_id = #{authority_id}</if>
+	</select>
+	
+	<select id="getAuthoritysByRoleId" resultType="Authority">
+	    select id,authority_name,authority_url,create_time,update_time from authority where id 
+	    in
+	    (select authority_id from role_authority where role_id = #{role_id})
 	</select>
 </mapper>

@@ -2,6 +2,7 @@ package com.dgjs.mapper.admin;
 
 import java.util.List;
 
+import com.dgjs.model.persistence.Authority;
 import com.dgjs.model.persistence.Role;
 import com.dgjs.model.persistence.RoleAuthority;
 
@@ -15,12 +16,13 @@ public interface RoleMapper {
 	
 	public List<Role> list();
 	
-	public int saveRoleAuthority(RoleAuthority roleAuthority);
+	public int saveRoleAuthority(List<RoleAuthority> list);
 	
 	public int deleteRole(Integer id);
 	
-	public int deleteRoleAuthority(Integer id);
+	public int deleteRoleAuthority(Integer role_id);
 	
-	public List<RoleAuthority> selectRoleAuthority(RoleAuthority roleAuthority);
+	public List<RoleAuthority> isExistRelated(RoleAuthority roleAuthority);
 	
+	public List<Authority> getAuthoritysByRoleId(Integer role_id);
 }

@@ -37,7 +37,8 @@
 		            <a href="javascript:;">后台用户管理</a>
 		            <div class="ifame-item-sub">
 			            <ul>
-			                 <li class="active"><a href="${contextPath}/admin/admin/athrtyList" target="content">后台用户管理</a></li>
+			                 <li class="active"><a href="${contextPath}/admin/admin/athrtyList" target="content">权限管理</a></li>
+			                 <li><a href="${contextPath}/admin/admin/roleList" target="content">角色管理</a></li>
 			            </ul>   
 		            </div>
 	            </li>

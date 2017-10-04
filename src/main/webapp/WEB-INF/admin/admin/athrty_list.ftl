@@ -116,10 +116,10 @@ function updateAuthority(item){
 	var html = authority_name.html();
 	var id = $(item).attr('dataId');
 	authority_name.html("<input type='text' name='authority_name' onblur='updateAuthority2(this,"+id+");' value='"+html+"'>");
+	$(item).removeAttr("onclick");
 }
 
 function updateAuthority2(item,id){
-	debugger;
 	var value=$(item).val();
 	$.ajax({
 		async:false,
