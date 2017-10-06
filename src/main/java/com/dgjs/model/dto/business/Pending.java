@@ -104,6 +104,8 @@ public class Pending extends Draft{
 		pending.setPic_num(draft.getPic_num());
 		pending.setUser_id(draft.getUser_id());
 		pending.setStatus(Pending_Status.AUDIT_PENDING);
+		pending.setBegin_time(draft.getBegin_time());
+		pending.setTime_degree(draft.getTime_degree());
 		return pending;
 	}
 	

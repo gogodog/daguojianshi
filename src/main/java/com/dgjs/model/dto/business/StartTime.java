@@ -123,7 +123,7 @@ public class StartTime {
 	}
 
 	public String getStart_time() {
-		return start_time;
+		return getBeginTime();
 	}
 
 	public void setStart_time(String start_time) {

@@ -14,6 +14,7 @@
 							<li><a href="${contextPath}/admin/rcma/recommedArticlescrapList" target="content">推荐管理</a></li>
 							<li><a href="${contextPath}/admin/channel/list" target="content">频道管理</a></li>
 							<li><a href="${contextPath}/admin/idxcfg/list" target="content">首页配置管理</a></li>
+							<li><a href="${contextPath}/admin/pding/docms" target="content">文章审核管理</a></li>
 						</ul>
 					</div>
 				</li>
