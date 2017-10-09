@@ -1,4 +1,4 @@
-<form id="page" action="${contextPath}/cps/draft" method="post" style="display:none">
+<form id="page" action="${contextPath}/cps/${page_name}" method="post" style="display:none">
 	<input type="hidden" id="currentPage" name="currentPage" value="${pageinfo.currentPage}">
 </form>
 <script>

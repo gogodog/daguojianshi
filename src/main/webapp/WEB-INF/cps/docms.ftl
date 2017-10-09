@@ -48,12 +48,6 @@
 		                            </td>
 		                            <td>
 		                               </i><a href="${contextPath}/cps/previewPending?aid=${object.id}">查看</a>     
-		                               <#if object.status == 'AUDIT_PENDING'>
-		                                 </i><a href="javascript:void(0)" onclick="showAudit('${object.id}');">审核</a>  
-		                               </#if>
-		                               <#if object.status == 'PUBLISH_PENDING'>
-		                                 </i><a href="javascript:void(0)" onclick="showPublish('${object.id}');">发布</a>  
-		                               </#if>
 		                               <#if object.status == 'Audit_FAIL'>
 		                                 </i><a href="javascript:void(0)" onclick="showAuditFailDesc('${object.audit_desc}');">拒绝原因</a>  
 		                               </#if>
