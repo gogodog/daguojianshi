@@ -23,7 +23,7 @@
 	                               <label>Hi，简史！</label>
 	                               <textarea class="form-control" rows="4"></textarea>
 	                           </div>
-	                           <button type="submit" class="btn btn-info">点击发送 >> 简史官方客服 </button>
+	                           <button type="button" class="btn btn-info">点击发送 >> 简史官方客服 </button>
 	                       </form>
 	                   </div>
 	                   </div>
@@ -34,5 +34,32 @@
         <!-- /. PAGE WRAPPER  -->
     </div>
    <#include "/cps/common/f-static.ftl">
+   <script>
+      var contextPath = '${contextPath}';
+      $("button[type='button']").click(function(){
+    	  var judge_message = $(".form-control").val();
+    	  if(judge_message == null || judge_message.length == 0){
+    		  alert('反馈信息不能为空');
+    		  return;
+    	  }
+    	  $.ajax({
+    		   async:false,
+    		   data:{judge_message:judge_message},
+    		   dataType: "json",
+    		   url:contextPath+"/cps/saveFeedback",
+    		   type:"POST",
+    		   success:function(data) {
+                   if(data.error){
+                	    alert(data.errorMessage);
+                   }else{
+                    	alert('提交成功');
+                   }
+               }, 
+               error:function(){
+                   console.log("服务器繁忙...");
+               }
+           })
+      })
+   </script>
 </body>
 </html>

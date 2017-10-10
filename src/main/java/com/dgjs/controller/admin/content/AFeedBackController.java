@@ -7,6 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.dgjs.model.dto.FeedBackDto;
 import com.dgjs.model.dto.PageInfoDto;
+import com.dgjs.model.enums.Feedback_Type;
 import com.dgjs.model.persistence.condition.FeedBackCondition;
 import com.dgjs.service.content.FeedBackService;
 
@@ -24,6 +25,7 @@ public class AFeedBackController {
 		PageInfoDto<FeedBackDto> pageInfo=feedBackService.listFeedBack(condition);
 		mv.addObject("pageInfo",pageInfo);
 		mv.addObject("condition",condition);
+		mv.addObject("types", Feedback_Type.values());
 		return mv;
 	}
 }

@@ -5,6 +5,7 @@ import java.util.Date;
 import org.springframework.util.StringUtils;
 
 import com.dgjs.constants.Constants;
+import com.dgjs.model.enums.Feedback_Type;
 import com.dgjs.utils.DateUtils;
 
 public class FeedBackCondition {
@@ -16,6 +17,7 @@ public class FeedBackCondition {
 	private int onePageSize=Constants.DEFAULT_ONEPAGESIZE;
 	private int currentPage=1;
 	private boolean needTotalResults;
+	private Feedback_Type feedback_type = Feedback_Type.FRONT;
 	
 	
 	public boolean isNeedTotalResults() {
@@ -70,4 +72,11 @@ public class FeedBackCondition {
 			this.timeTo = DateUtils.parseDateFromString(time_to, DateUtils.DAY);
 		}
 	}
+	public Feedback_Type getFeedback_type() {
+		return feedback_type;
+	}
+	public void setFeedback_type(Feedback_Type feedback_type) {
+		this.feedback_type = feedback_type;
+	}
+	
 }

@@ -3,6 +3,7 @@ package com.dgjs.model.persistence;
 import java.util.Date;
 
 import com.dgjs.model.enums.Judge_Level;
+import com.dgjs.model.enums.Feedback_Type;
 
 public class FeedBack {
 
@@ -16,6 +17,7 @@ public class FeedBack {
 	private String uname;//用户姓名
 	private String email;//邮箱
 	private Integer doubt_level;//疑问程度（当judge_level是DOUBT时有）
+	private Feedback_Type feedback_type = Feedback_Type.FRONT;//反馈类型 1：前台反馈 2：后台反馈
 	
 	public Long getId() {
 		return id;
@@ -70,6 +72,12 @@ public class FeedBack {
 	}
 	public void setDoubt_level(Integer doubt_level) {
 		this.doubt_level = doubt_level;
+	}
+	public Feedback_Type getFeedback_type() {
+		return feedback_type;
+	}
+	public void setFeedback_type(Feedback_Type feedback_type) {
+		this.feedback_type = feedback_type;
 	}
     	
 }

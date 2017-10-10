@@ -12,6 +12,7 @@
 	           uname,
 	           email,
 	           doubt_level,
+	           feedback_type,
 	           create_time
 	       )
 	       values
@@ -23,6 +24,7 @@
 	           #{uname},
 	           #{email},
 	           #{doubt_level},
+	           #{feedback_type},
 	           now()
 	       )
 	</insert>
@@ -42,10 +44,12 @@
 	           uname,
 	           email,
 	           doubt_level,
+	           feedback_type,
 	           create_time
 	    from feedback 
       <where>
          <if test="articlescrap_id!=null and articlescrap_id!=''">and articlescrap_id=#{articlescrap_id}</if>
+         <if test="feedback_type!=null"> <![CDATA[ and feedback_type = #{feedback_type} ]]></if>
          <if test="timeFrom!=null"> <![CDATA[ and create_time >= #{timeFrom} ]]></if>
          <if test="timeTo!=null"> <![CDATA[ and create_time <= #{timeTo} ]]></if>
       </where>
@@ -58,6 +62,7 @@
 	    from feedback 
       <where>
          <if test="articlescrap_id!=null and articlescrap_id!=''">and articlescrap_id=#{articlescrap_id}</if>
+         <if test="feedback_type!=null"> <![CDATA[ and feedback_type = #{feedback_type} ]]></if>
          <if test="timeFrom!=null"> <![CDATA[ and create_time >= #{timeFrom} ]]></if>
          <if test="timeTo!=null"> <![CDATA[ and create_time <= #{timeTo} ]]></if>
       </where>

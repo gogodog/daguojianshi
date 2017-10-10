@@ -18,6 +18,7 @@ import com.dgjs.constants.Constants;
 import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.constants.Session_Keys;
 import com.dgjs.model.dto.business.Articlescrap;
+import com.dgjs.model.enums.Feedback_Type;
 import com.dgjs.model.enums.Judge_Level;
 import com.dgjs.model.persistence.FeedBack;
 import com.dgjs.model.result.view.BaseView;
@@ -76,6 +77,7 @@ public class FeedBackController {
 					aJudge.setIp(IPUtils.getIpAddr3(request));
 				}
 				session.setAttribute(Session_Keys.ip, aJudge.getIp());
+				aJudge.setFeedback_type(Feedback_Type.FRONT);
 				int flag=feedBackService.save(aJudge);
 				if(flag < 1){
 					view.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);

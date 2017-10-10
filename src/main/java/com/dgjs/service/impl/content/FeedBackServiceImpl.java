@@ -53,23 +53,29 @@ public class FeedBackServiceImpl implements FeedBackService{
 		if(list!=null&&list.size()>0){
 			Set<String> aids = new HashSet<String>();
 			for(FeedBack feedBack:list){
-				aids.add(feedBack.getArticlescrap_id());
+				if(feedBack.getArticlescrap_id()!=null){
+					aids.add(feedBack.getArticlescrap_id());
+				}
 			}
-			String[] ids = new String[aids.size()];
-			int index = 0;
-			for(String aid:aids){
-				ids[index++] = aid;
-			}
-			List<Articlescrap> articlescrapList=articlescrapMapper.getArticlescrapByIds(ids);
-			Map<String,String> map = new HashMap<String,String>();
-			for(Articlescrap articlescrap:articlescrapList){
-				map.put(articlescrap.getId(), articlescrap.getTitle());
+			Map<String,String> map = null;
+			if(aids.size()>0){
+				String[] ids = new String[aids.size()];
+				int index = 0;
+				for(String aid:aids){
+					ids[index++] = aid;
+				}
+				List<Articlescrap> articlescrapList=articlescrapMapper.getArticlescrapByIds(ids);
+			    map = new HashMap<String,String>();
+				for(Articlescrap articlescrap:articlescrapList){
+					map.put(articlescrap.getId(), articlescrap.getTitle());
+				}
 			}
 			resultList = new ArrayList<FeedBackDto>();
 			for(FeedBack feedBack:list){
 				FeedBackDto dto = new FeedBackDto();
 				dto.setFeedBack(feedBack);
-				dto.setTitle(map.get(feedBack.getArticlescrap_id()));
+				if(map!=null)
+				   dto.setTitle(map.get(feedBack.getArticlescrap_id()));
 				resultList.add(dto);
 			}
 		}

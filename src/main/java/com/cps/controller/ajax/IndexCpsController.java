@@ -69,8 +69,4 @@ public class IndexCpsController {
 		return "/cps/psoninf";
     }
 	
-	@RequestMapping("/feedback")
-    public String feedback(HttpServletRequest request) throws Exception {  
-		return "/cps/feedback";
-    }
 }

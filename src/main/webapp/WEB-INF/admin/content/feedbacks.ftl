@@ -18,6 +18,11 @@
 			<input type="hidden" name="currentPage">
 		    <p style="margin-bottom:10px">
 		        <label>文章id:</label><input type="text" name="articlescrap_id" value="${(condition.articlescrap_id)!''}"/>&nbsp;&nbsp;
+		        <label>反馈类型:</label><select name="feedback_type">
+		                                 <#list types as feedback_type> 
+		                                   <option value="${feedback_type}" <#if condition.feedback_type.key == feedback_type.key>selected</#if>>${feedback_type.value}</option>
+		                                 </#list>  
+		                              </select>&nbsp;&nbsp;
 		        <label>反馈时间:</label><input type="text" name="time_from" value="<#if condition.timeFrom??>${condition.timeFrom?date}</#if>"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd'});" class="Wdate" style="width:100px"/> 
 		        - <input type="text" value="<#if condition.timeTo??>${condition.timeTo?date}</#if>" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'});" class="Wdate" style="width:100px" name="time_to"/>&nbsp;&nbsp;
 		        <input type="button" value="查询" name="conditionButton" class="select-btn"/>
