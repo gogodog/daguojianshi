@@ -25,7 +25,6 @@ public class AdminUserMapperTest {
 	 @Test
 	 public void testSave(){
 		 AdminUser adminUser = new AdminUser();
-		 adminUser.setPassword("123456");
 		 adminUser.setRole_id(1);
 		 adminUser.setSource(1);
 		 adminUser.setStatus(UpDown_Status.UP);
@@ -63,7 +62,6 @@ public class AdminUserMapperTest {
 	 public void testBatchSave(){
 		 Date now = new Date();
 		 AdminUser adminUser1 = new AdminUser();
-		 adminUser1.setPassword("123456");
 		 adminUser1.setRole_id(1);
 		 adminUser1.setSource(1);
 		 adminUser1.setStatus(UpDown_Status.UP);
@@ -72,7 +70,6 @@ public class AdminUserMapperTest {
 		 adminUser1.setUpdate_time(now);
 		 
 		 AdminUser adminUser2 = new AdminUser();
-		 adminUser2.setPassword("123456");
 		 adminUser2.setRole_id(1);
 		 adminUser2.setSource(1);
 		 adminUser2.setStatus(UpDown_Status.UP);

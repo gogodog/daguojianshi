@@ -7,14 +7,14 @@ import com.dgjs.model.enums.UpDown_Status;
 public class AdminUser {
 
 	private Long id;//id
-	private String username;//用户名
-	private String password;//密码
+	private String username;//用户名（目前是微信号）
+	private String user_code;//用户code
 	private UpDown_Status status;//状态
     private Integer source;//来源
     private Integer role_id;//角色id
 	private Date create_time;//创建时间
 	private Date update_time;//修改时间
-	private String user_code;//
+	
 	
 	public Long getId() {
 		return id;
@@ -27,12 +27,6 @@ public class AdminUser {
 	}
 	public void setUsername(String username) {
 		this.username = username;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
 	}
 	public Date getCreate_time() {
 		return create_time;

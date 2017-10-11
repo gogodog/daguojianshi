@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgjs.mapper.admin.AdminUserInfoMapper">
+  
+  	<insert id="save" parameterType="adminUserInfo" keyProperty="id" useGeneratedKeys="false">
+	       insert into admin_user_info
+	       (
+               id,
+               real_name,
+               sex,
+               age,
+               organization,
+               email,
+               mobile,
+               address,
+               create_time,
+               update_time
+	       )
+	       values
+	       (
+               #{id},
+               #{real_name},
+               #{sex},
+               #{age},
+               #{organization},
+               #{email},
+               #{mobile},
+               #{address},
+               now(),
+               now()
+	       )
+	</insert>
+	
+	<select id="selectById" resultType="adminUser">
+	      select id,real_name,sex,age,organization,email,mobile,address,create_time,update_time from admin_user_info where id=#{id}
+	</select>
+	
+	<update id="update">
+	      update admin_user_infos
+	         set 
+	         <if test="real_name!=null and real_name!=''">
+				real_name=#{real_name},
+		     </if>
+		     <if test="sex!=null and sex!=''">
+				sex=#{sex},
+		     </if>
+		     <if test="age!=null and age!=''">
+				age=#{age},
+		     </if>
+		     <if test="organization!=null and organization!=''">
+				organization=#{organization},
+		     </if>
+		     <if test="email!=null and email!=''">
+				email=#{email},
+		     </if>
+		     <if test="mobile!=null and mobile!=''">
+				mobile=#{mobile},
+		     </if>
+		     <if test="address!=null and address!=''">
+				address=#{address},
+		     </if>
+		     update_time = now()
+		     where id=#{id}
+	</update>
+	
+</mapper>
