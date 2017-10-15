@@ -24,7 +24,7 @@ import com.dgjs.utils.PictureUtils;
 import com.mysql.jdbc.StringUtils;
 
 @Controller
-@RequestMapping("/cps")
+@RequestMapping("/cps/dft")
 public class DraftController {
 
 	@Autowired

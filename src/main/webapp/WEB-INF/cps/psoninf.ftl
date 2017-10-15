@@ -106,7 +106,7 @@
    		   async:false,
    		   data:{sex:sex,real_name:real_name,age:age,organization:organization,source:1},
    		   dataType: "json",
-   		   url:contextPath+"/cps/editUserInfo",
+   		   url:contextPath+"/cps/user/editUserInfo",
    		   type:"POST",
    		   success:function(data) {
                   if(data.error){
@@ -148,7 +148,7 @@
      		   async:false,
      		   data:{email:email,mobile:mobile,address:address,source:2},
      		   dataType: "json",
-     		   url:contextPath+"/cps/editUserInfo",
+     		   url:contextPath+"/cps/user/editUserInfo",
      		   type:"POST",
      		   success:function(data) {
                     if(data.error){

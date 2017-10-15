@@ -35,8 +35,8 @@
 		                            <td>${object.title}</td>
 		                            <td>${object.update_time?string("yyyy-MM-dd HH:mm:ss")}</td>
 		                            <td>
-		                              <a href="${contextPath}/cps/wdoc?aid=${object.id}">继续编辑</a>&nbsp;&nbsp;
-		                              <a href="${contextPath}/cps/previewDraft?aid=${object.id}">预览</a>&nbsp;&nbsp;
+		                              <a href="${contextPath}/cps/dft/wdoc?aid=${object.id}">继续编辑</a>&nbsp;&nbsp;
+		                              <a href="${contextPath}/cps/dft/previewDraft?aid=${object.id}">预览</a>&nbsp;&nbsp;
 		                              <a href="javascript:void(0)" onclick="deleteA('${object.id}');">删除</a>&nbsp;&nbsp;
 		                              <#if object.draft_status == 'NORMAL'>
 		                                <a href="javascript:void(0)" onclick="submitAudit('${object.id}');">提审</a>
@@ -61,7 +61,7 @@
     function deleteA(aid){
     	var txt = "您确定要删除这条数据吗？";
     	window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.confirm,{onOk:function(){
-    		window.location.href=contextPath+"/cps/dltdft?aid="+aid;
+    		window.location.href=contextPath+"/cps/dft/dltdft?aid="+aid;
     	}})
     }
     function submitAudit(aid){
@@ -69,7 +69,7 @@
  		   async:false,
  		   data:{aid:aid},
  		   dataType: "json",
- 		   url:contextPath+"/cps/submitAudit",
+ 		   url:contextPath+"/cps/dft/submitAudit",
  		   type:"POST",
  		   success:function(data) {
                 if(data.error){

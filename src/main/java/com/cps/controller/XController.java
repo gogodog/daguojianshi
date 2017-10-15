@@ -34,11 +34,14 @@ public class XController {
 	            for(RequestMappingInfo rmi : handlerMethods.keySet()) {  
 	                PatternsRequestCondition prc = rmi.getPatternsCondition();  
 	                Set<String> patterns = prc.getPatterns();  
-	                for (String uStr : patterns)  
-	                    uList.add(uStr);  
+	                for (String uStr : patterns)  {
+	                	 uList.add(uStr);  
+	                	 System.out.println(uStr);
+	                }
+	                   
 	            }  
 	        }  
 	    }  
-	    System.out.println(uList);
+//	    System.out.println(uList);
 	}  
 }

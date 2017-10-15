@@ -18,7 +18,7 @@ import com.dgjs.model.persistence.condition.PendingCondition;
 import com.dgjs.service.content.PendingService;
 
 @Controller
-@RequestMapping("/cps")
+@RequestMapping("/cps/pding")
 public class PendingController {
 
 	@Autowired

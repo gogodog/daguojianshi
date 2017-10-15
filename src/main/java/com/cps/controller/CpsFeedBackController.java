@@ -16,7 +16,7 @@ import com.dgjs.service.content.FeedBackService;
 import com.dgjs.utils.StringUtils;
 
 @Controller
-@RequestMapping("/cps")
+@RequestMapping("/cps/fb")
 public class CpsFeedBackController {
 
 	@Autowired

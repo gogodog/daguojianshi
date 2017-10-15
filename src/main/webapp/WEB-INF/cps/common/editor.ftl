@@ -39,7 +39,7 @@ function saveEditor(isBack){
 		if($.trim(id).length>0){
 			jso["id"]=$.trim(id);
 		}
-		$.post(contextPath+"/cps/savedraft",jso,function(result){
+		$.post(contextPath+"/cps/dft/savedraft",jso,function(result){
 			if(result.error){
 				alert(errorMessage);
 			}else{
@@ -81,7 +81,7 @@ function check(jso){
 
 function preview(){
 	var aid=$("input[name='aid']").val();
-	window.location.href = contextPath+"/cps/previewDraft?aid="+aid;
+	window.location.href = contextPath+"/cps/dft/previewDraft?aid="+aid;
 }
 </script>
 <script src="${contextPath}/admin/js/kingediter/kindeditor-all.js"></script>

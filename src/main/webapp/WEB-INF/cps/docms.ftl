@@ -11,7 +11,7 @@
                     <div class="col-md-12">
                         <h1 class="page-head-line">文章管理</h1>
                         <h1 class="page-subhead-line">[温馨提示]提审时间一般为1-3个工作日请耐心等候. </h1>
-                        <form action="${contextPath}/cps/docms" method="post" id="form1">
+                        <form action="${contextPath}/cps/pding/docms" method="post" id="form1">
                            <label>分类:</label><select name="type"><option value="">全部</option><#list typeList as type><option value="${type}" <#if condition.type.key=="${type.key}">selected</#if>>${type.value}</option></#list></select>&nbsp;&nbsp;
     			           <label>状态:</label><select name="status"><option value="">全部</option><#list statusList as status><option value="${status}" <#if condition.status.key=="${status.key}">selected</#if>>${status.value}</option></#list></select>&nbsp;&nbsp;
                            <label>标题:<input type="text" name="title" value="${condition.title}"></label>
@@ -47,7 +47,7 @@
 		                               <#if object.publish_time??>发布时间：${object.publish_time?string("yyyy-MM-dd HH:mm:ss")}<br></#if>
 		                            </td>
 		                            <td>
-		                               </i><a href="${contextPath}/cps/previewPending?aid=${object.id}">查看</a>     
+		                               </i><a href="${contextPath}/cps/pding/previewPending?aid=${object.id}">查看</a>     
 		                               <#if object.status == 'Audit_FAIL'>
 		                                 </i><a href="javascript:void(0)" onclick="showAuditFailDesc('${object.audit_desc}');">拒绝原因</a>  
 		                               </#if>

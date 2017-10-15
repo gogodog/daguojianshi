@@ -46,7 +46,7 @@
     		   async:false,
     		   data:{judge_message:judge_message},
     		   dataType: "json",
-    		   url:contextPath+"/cps/saveFeedback",
+    		   url:contextPath+"/cps/fb/saveFeedback",
     		   type:"POST",
     		   success:function(data) {
                    if(data.error){

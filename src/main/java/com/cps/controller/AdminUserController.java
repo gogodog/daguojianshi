@@ -14,7 +14,7 @@ import com.dgjs.service.admin.AdminUserService;
 import com.dgjs.utils.StringUtils;
 
 @Controller
-@RequestMapping("/cps")
+@RequestMapping("/cps/user")
 public class AdminUserController {
 
 	@Autowired
