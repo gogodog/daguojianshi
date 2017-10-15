@@ -11,7 +11,7 @@ public interface AdminUserMapper {
 	
 	public int save(AdminUser adminUser);
 	
-	public AdminUser selectById(Long id);
+	public AdminUser selectById(Integer id);
 	
 	public int update(AdminUser adminUser);
 	

@@ -6,7 +6,7 @@ import com.dgjs.model.enums.UpDown_Status;
 
 public class AdminUser {
 
-	private Long id;//id
+	private Integer id;//id
 	private String username;//用户名（目前是微信号）
 	private String user_code;//用户code
 	private UpDown_Status status;//状态
@@ -15,13 +15,6 @@ public class AdminUser {
 	private Date create_time;//创建时间
 	private Date update_time;//修改时间
 	
-	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
 	public String getUsername() {
 		return username;
 	}
@@ -63,6 +56,12 @@ public class AdminUser {
 	}
 	public void setUser_code(String user_code) {
 		this.user_code = user_code;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
 	}
     
 }

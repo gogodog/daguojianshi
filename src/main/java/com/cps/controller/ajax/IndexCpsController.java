@@ -64,9 +64,9 @@ public class IndexCpsController {
 		return "/cps/source";
     }
 	
-	@RequestMapping("/psoninf")
-    public String psoninf(HttpServletRequest request) throws Exception {  
-		return "/cps/psoninf";
-    }
+//	@RequestMapping("/psoninf")
+//    public String psoninf(HttpServletRequest request) throws Exception {  
+//		return "/cps/psoninf";
+//    }
 	
 }

@@ -35,7 +35,7 @@ public class AdminUserMapperTest {
 	 
 	 @Test
 	 public void testSelectById(){
-		 AdminUser adminUser = mapper.selectById(1l);
+		 AdminUser adminUser = mapper.selectById(1);
 		 System.out.println(JSON.toJSONString(adminUser, true));
 	 }
 	 
@@ -44,7 +44,7 @@ public class AdminUserMapperTest {
 		 AdminUser adminUser = new AdminUser();
 		 adminUser.setUsername("dgjs");
 		 adminUser.setStatus(UpDown_Status.DOWN);
-		 adminUser.setId(1l);
+		 adminUser.setId(1);
 		 int flag = mapper.update(adminUser);
 		 System.out.println(flag);
 	 }

@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class AdminUserInfo {
 
-	private Long id;//id同AdminUser
+	private Integer id;//id同AdminUser
 	private String real_name;//姓名
 	private int sex;//性别  1:男 2:女
 	private int age;//年龄
@@ -15,12 +15,6 @@ public class AdminUserInfo {
 	private Date create_time;//创建时间
 	private Date update_time;//修改时间
 	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
 	public String getReal_name() {
 		return real_name;
 	}
@@ -74,6 +68,12 @@ public class AdminUserInfo {
 	}
 	public void setUpdate_time(Date update_time) {
 		this.update_time = update_time;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	
 }

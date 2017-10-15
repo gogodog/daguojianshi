@@ -31,12 +31,12 @@
 	       )
 	</insert>
 	
-	<select id="selectById" resultType="adminUser">
+	<select id="selectById" resultType="adminUserInfo">
 	      select id,real_name,sex,age,organization,email,mobile,address,create_time,update_time from admin_user_info where id=#{id}
 	</select>
 	
 	<update id="update">
-	      update admin_user_infos
+	      update admin_user_info
 	         set 
 	         <if test="real_name!=null and real_name!=''">
 				real_name=#{real_name},

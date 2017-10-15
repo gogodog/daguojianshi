@@ -6,7 +6,7 @@ public interface AdminUserInfoMapper {
 
 	public int save(AdminUserInfo adminUserInfo);
 	
-	public AdminUserInfo selectById(Long id);
+	public AdminUserInfo selectById(Integer id);
 	
 	public int update(AdminUserInfo adminUserInfo);
 	
