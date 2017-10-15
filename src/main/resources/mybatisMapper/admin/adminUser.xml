@@ -68,20 +68,54 @@
 		     where id=#{id}
 	</update>
 	
-	<select id="list" resultType="adminUser">
-	   select id,username,user_code,status,source,role_id,create_time,update_time from admin_user
-	   where source=#{source}
+	<select id="list" resultType="adminUserResult">
+	   select au.id,au.username,au.user_code,au.status,au.source,au.role_id, 
+	   aui.real_name,aui.sex,aui.age,aui.organization,aui.email,aui.mobile,aui.address,au.create_time,aui.update_time
+	   from admin_user au
+	   left join admin_user_info aui on au.id=aui.id where 1=1
 	         <if test="username!=null and username!=''">
-				and username=#{username}
+				and au.username=#{username}
 		     </if>
 	         <if test="status!=null and status!=''">
-				and status=#{status}
+				and au.status=#{status}
 		     </if>
 		     <if test="role_id!=null and role_id!=''">
-				and role_id=#{role_id}
+				and au.role_id=#{role_id}
 		     </if>
-		order by update_time desc
+		     <if test="real_name!=null and real_name!=''">
+				and au.role_id=#{role_id}
+		     </if>
+		     <if test="email!=null and email!=''">
+				and aui.email=#{email}
+		     </if>
+		     <if test="mobile!=null and mobile!=''">
+				and aui.mobile=#{mobile}
+		     </if>
+		order by aui.update_time desc
 		limit #{beginNum},#{onePageSize}
 	</select>
 	
+	<select id="count" resultType="int">
+	   select count(1)
+	   from admin_user au
+	   left join admin_user_info aui on au.id=aui.id where 1=1
+	         <if test="username!=null and username!=''">
+				and au.username=#{username}
+		     </if>
+	         <if test="status!=null and status!=''">
+				and au.status=#{status}
+		     </if>
+		     <if test="role_id!=null and role_id!=''">
+				and au.role_id=#{role_id}
+		     </if>
+		     <if test="real_name!=null and real_name!=''">
+				and au.role_id=#{role_id}
+		     </if>
+		     <if test="email!=null and email!=''">
+				and aui.email=#{email}
+		     </if>
+		     <if test="mobile!=null and mobile!=''">
+				and aui.mobile=#{mobile}
+		     </if>
+	</select>
 </mapper>

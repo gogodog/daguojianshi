@@ -8,6 +8,9 @@ public class AdminUserCondition extends AdminUser{
 	private int currentPage=1;//当前页
 	private boolean needTotalResults;//是否需要查询总数
 	private int beginNum;
+	private String real_name;//姓名
+	private String email;//邮箱
+	private String mobile;//电话
 	public int getOnePageSize() {
 		return onePageSize;
 	}
@@ -31,6 +34,24 @@ public class AdminUserCondition extends AdminUser{
 	}
 	public void setBeginNum(int beginNum) {
 		this.beginNum = beginNum;
+	}
+	public String getReal_name() {
+		return real_name;
+	}
+	public void setReal_name(String real_name) {
+		this.real_name = real_name;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getMobile() {
+		return mobile;
+	}
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
 	}
 	
 }

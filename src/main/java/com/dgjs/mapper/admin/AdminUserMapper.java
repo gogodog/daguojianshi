@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.dgjs.model.persistence.AdminUser;
 import com.dgjs.model.persistence.condition.AdminUserCondition;
+import com.dgjs.model.persistence.result.AdminUserResult;
 
 public interface AdminUserMapper {
 
@@ -15,5 +16,7 @@ public interface AdminUserMapper {
 	
 	public int update(AdminUser adminUser);
 	
-	public List<AdminUser> list(AdminUserCondition condition);
+	public List<AdminUserResult> list(AdminUserCondition condition);
+	
+	public int count(AdminUserCondition condition);
 }

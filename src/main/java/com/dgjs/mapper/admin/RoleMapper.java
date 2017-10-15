@@ -12,6 +12,8 @@ public interface RoleMapper {
 	
 	public Role selectById(Integer id);
 	
+	public List<Role> selectByIds(List<Integer> list);
+	
 	public int update(Role role);
 	
 	public List<Role> list();
@@ -25,4 +27,5 @@ public interface RoleMapper {
 	public List<RoleAuthority> isExistRelated(RoleAuthority roleAuthority);
 	
 	public List<Authority> getAuthoritysByRoleId(Integer role_id);
+	
 }

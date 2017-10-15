@@ -14,6 +14,7 @@ import com.alibaba.fastjson.JSON;
 import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.persistence.AdminUser;
 import com.dgjs.model.persistence.condition.AdminUserCondition;
+import com.dgjs.model.persistence.result.AdminUserResult;
 
 @RunWith(SpringJUnit4ClassRunner.class)  
 @ContextConfiguration(locations = "classpath:spring-*.xml") 
@@ -53,8 +54,8 @@ public class AdminUserMapperTest {
 	 public void testList(){
 		 AdminUserCondition condition = new AdminUserCondition();
 //		 condition.setStatus(UpDown_Status.DOWN);
-		 condition.setSource(1);
-		 List<AdminUser> list=mapper.list(condition);
+//		 condition.setSource(1);
+		 List<AdminUserResult> list=mapper.list(condition);
 		 System.out.println(JSON.toJSONString(list, true));
 	 }
 	 
