@@ -14,6 +14,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.dgjs.constants.Constants;
 import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.model.dto.PictureDto;
 import com.dgjs.model.dto.ThumbnailatorDto;
@@ -63,7 +64,7 @@ public class PictureServiceImpl implements PictureService{
 		 PictureDto dto=new PictureDto();
 		 try{
 			 InputStream inputStream= file.getInputStream();
-		        if(file.getSize()==0||inputStream==null||StringUtils.isEmpty(imagePath)){
+		        if(file.getSize()==0||inputStream==null||StringUtils.isEmpty(imagePath)||!file.getContentType().equals("image/jpeg")){
 		        	dto.setErrorInfo(RETURN_STATUS.PARAM_ERROR.getValue(), "请传入图片");
 		        }else{
 		 	        String imageName=PictureUtils.generateImageName();
@@ -81,6 +82,11 @@ public class PictureServiceImpl implements PictureService{
 		 	        }
 		 	        inputStream.close();
 		 	        outputStream.close();
+		 	        //已经超过了上传最大尺寸
+		 	        if(Constants.MAX_FILE_SIZE * 1024 * 1024 < index * buffSize){
+		 	        	dto.setErrorInfo(RETURN_STATUS.PARAM_ERROR.getValue(),file.getName()+"超过"+Constants.MAX_FILE_SIZE+"M");
+		 	        	return dto;
+		 	        }
 		 	        if(thumbnailator.isAdapt()){
 		 	        	thumbnailator.calScale(index*buffSize);
 		 	        }

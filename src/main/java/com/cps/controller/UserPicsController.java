@@ -1,18 +1,14 @@
 package com.cps.controller;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -46,6 +42,8 @@ public class UserPicsController {
 		mv.addObject("userPics", userPics);
 		mv.addObject("imageContextPath", pictureService.getImageContextPath());
 		mv.addObject("container", Constants.MAX_CONTAINER);
+		mv.addObject("fileSize", Constants.MAX_FILE_SIZE);
+		mv.addObject("onceContainer", Constants.ONECE_MAX_CONTAINER);
 		return mv;
 	}
 	
@@ -67,7 +65,7 @@ public class UserPicsController {
 	 	    		UserPicsDto userPicsDto = new UserPicsDto();
 	 	    		UserPics upic = new UserPics();
 	 	    		userPicsDto.setUserPics(upic);
-	 	    		userPicsDto.setPics(getPics(list));
+	 	    		getPics(view,userPicsDto,list);
 	 	    		upic.setId(Constants.USER_ID);
 	 	    		int flag = userPicsService.save(userPicsDto);
 	 	    		if(flag < 1){
@@ -80,9 +78,9 @@ public class UserPicsController {
 		    		 }else{
 		    			 //上传
 		    			 List<PictureDto> list = pictureService.uploadPic(request, imagePath,"uploadImage",thumbnailator);
-		    			 int flag = userPicsService.update(Constants.USER_ID, 1, getPics(list));
+		    			 int flag = userPicsService.update(Constants.USER_ID, 1,getPics(view,null,list));
 		    			 if(flag < 1){
-			 	    			view.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
+			 	    		view.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
 			 	    	 }
 		    		 }
 		    	 }
@@ -93,16 +91,25 @@ public class UserPicsController {
 	    return JSON.toJSONString(view);
 	}
 	
-	private List<String> getPics(List<PictureDto> list){
+	private List<String> getPics(UploadPictureView view,UserPicsDto userPicsDto,List<PictureDto> list){
 		if(list == null || list.isEmpty()){
 			return null;
 		}
 		List<String> l = new ArrayList<String>();
 		for(PictureDto dto:list){
-			l.add(dto.getMinImageUrl());
+			if(dto.getIsSuccess()){
+				l.add(dto.getMinImageUrl());
+			}
+		}
+		if(userPicsDto!=null){
+			userPicsDto.setPics(l);
+		}
+		if(l.size()==0){
+			view.setBaseViewValue(RETURN_STATUS.PARAM_ERROR.getValue(),"请上传图片格式，尺寸不得超过"+Constants.ONECE_MAX_CONTAINER);
 		}
 		return l;
 	}
+	
 	
 	@ResponseBody
 	@RequestMapping(value = "/remove")

@@ -12,7 +12,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h1 class="page-head-line">素材管理</h1>
-                        <h1 class="page-subhead-line">系统至多保存70张素材展示.</h1>
+                        <h1 class="page-subhead-line">系统至多保存${container}张素材展示.素材尺寸最大为${fileSize}M,系统支持多图上传，一次最多可上传${onceContainer}张</h1>
                 </div>
                 <div id="port-folio">
                           <ul id="filters" style="display:none">
@@ -81,10 +81,8 @@
   	                    if(result.error != '')
   	                    {
   	                        alert(result.errorMessage);//如有错误则弹出错误
-  	                    }else
-  	                    {
-  	                    	window.location.reload();
   	                    }
+  	                    window.location.reload();
   	                }
   	            },
   	            error: function (result, status, e)

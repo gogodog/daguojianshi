@@ -17,5 +17,6 @@ public interface Constants {
 	
 	/*用户上传素材库容量*/
 	public static final int MAX_CONTAINER = 50;
-	public static final int ONECE_MAX_CONTAINER = 2;//用户一次最多可上传几张图片
+	public static final int ONECE_MAX_CONTAINER = 5;//用户一次最多可上传几张图片
+	public static final int MAX_FILE_SIZE = 2;//上传图片最大不能超过多少兆
 }
