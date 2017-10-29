@@ -30,8 +30,8 @@ public class XController {
 	    for(HandlerMapping handlerMapping : requestMappings.values()) {  
 	        if(handlerMapping instanceof RequestMappingHandlerMapping) {  
 	            RequestMappingHandlerMapping rmhm = (RequestMappingHandlerMapping) handlerMapping;  
-	            Map<RequestMappingInfo, HandlerMethod> handlerMethods = rmhm.getHandlerMethods();  
-	            for(RequestMappingInfo rmi : handlerMethods.keySet()) {  
+	            Map<RequestMappingInfo, HandlerMethod> handlerMethods = rmhm.getHandlerMethods(); 
+	            for(RequestMappingInfo rmi : handlerMethods.keySet()) { 
 	                PatternsRequestCondition prc = rmi.getPatternsCondition();  
 	                Set<String> patterns = prc.getPatterns();  
 	                for (String uStr : patterns)  {

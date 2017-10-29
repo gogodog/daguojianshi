@@ -18,7 +18,7 @@
                 <a href="${contextPath}/cps/dft/draft"><i class="fa fa-yelp "></i>流量统计</a>
             </li>
             <li>
-                <a <#if page_name='source'>class="active-menu"</#if> href="${contextPath}/cps/source"><i class="fa fa-flash "></i>素材管理</a>
+                <a <#if page_name='source'>class="active-menu"</#if> href="${contextPath}/cps/userPics/list"><i class="fa fa-flash "></i>素材管理</a>
                 
             </li>
             <li>

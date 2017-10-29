@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgjs.mapper.content.UserPicsMapper">
+  
+  	<insert id="save" parameterType="UserPics" keyProperty="id" useGeneratedKeys="false">
+	       insert into user_pics
+	       (
+	           id,
+               pictures,
+               create_time,
+               update_time
+	       )
+	       values
+	       (
+               #{id},
+               #{pictures},
+               now(),
+               now()
+	       )
+	</insert>
+	
+	<update id="update">
+	      update user_pics set 
+	          pictures=#{pictures},
+	          update_time=now() 
+	      where id=#{id}
+	</update>
+	
+	<select id="selectById" resultType="UserPics">
+	       select id,pictures,create_time,update_time from user_pics
+	</select>
+</mapper>

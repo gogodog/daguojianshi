@@ -89,10 +89,10 @@ public class ThumbnailatorDto {
 		//当在1m和0.5m之间，则按1：1压缩
 		if(1024*1024>size){
 			this.setScale(1f);
-		}else if(1024*1024*2>size&&size>1024*1024){
+		}else if(1024*1024*2>=size&&size>=1024*1024){
 			this.setScale(0.5f);
 		}else{
-			this.setScale(0.1f);
+			this.setScale(0.3f);
 		}
 	}
 }
