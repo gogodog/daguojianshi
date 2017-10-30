@@ -10,4 +10,6 @@
     <link href="${contextPath}/cps/css/custom.css" rel="stylesheet" />
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
     <link rel="stylesheet" type="text/css" href="${contextPath}/admin/css/xcConfirm.css"/>
+    <script src="${contextPath}/admin/js/jquery-1.11.1.min.js"></script>
+    <script src="${contextPath}/cps/js/tools.js"></script>
 </head>
