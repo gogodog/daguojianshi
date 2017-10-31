@@ -30,25 +30,29 @@ public class SourceMaterialController {
 	 */
 	@ResponseBody
 	@RequestMapping("/sc")
-    public JSONArray sc(HttpServletRequest request,String tokken) throws Exception {
+    public String sc(HttpServletRequest request,String tokken) throws Exception {
 		/**
 		 * select sc list by userId
 		 * UserId form cookie
 		 */
 		JSONArray jsa = new JSONArray();
 		JSONObject jso1 = new JSONObject();
-		jso1.put("address", "");
-		jso1.put("name", "");
+		jso1.put("address", "http://img03.sogoucdn.com/app/a/100520024/94cd9e93e48645c63a27da66a21d892c");
+		jso1.put("name", "MM-1");
 		jsa.add(jso1);
 		JSONObject jso2 = new JSONObject();
-		jso2.put("address", "");
-		jso2.put("name", "");
+		jso2.put("address", "http://img3.imgtn.bdimg.com/it/u=1417849734,4110330925&fm=27&gp=0.jpg");
+		jso2.put("name", "MM-2");
 		jsa.add(jso2);
 		JSONObject jso3 = new JSONObject();
-		jso3.put("address", "");
-		jso3.put("name", "");
+		jso3.put("address", "http://img01.sogoucdn.com/app/a/100520024/eafa42fcf0ad208708365fdbaafb0f17");
+		jso3.put("name", "MM-3");
 		jsa.add(jso3);
+		JSONObject jso4 = new JSONObject();
+		jso4.put("address", "http://img01.sogoucdn.com/app/a/100520024/eafa42fcf0ad208708365fdbaafb0f17");
+		jso4.put("name", "MM-4");
+		jsa.add(jso4);
 		
-		return jsa;
+		return jsa.toJSONString();
     }
 }

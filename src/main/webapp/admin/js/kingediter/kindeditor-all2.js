@@ -7230,12 +7230,13 @@ KindEditor.plugin('image', function(K) {
 		        type : "GET",
 		        dataType : "json",
 		        success : function(result) {
+		        	console.log("success::" + JSON.stringify(result));
 		            for(var r=0  ; r<result.length ; r++){
 		            	re += "<option value=\""+result[r].address+"\">"+result[r].name+"</option>";
 		            }	
 		        },
 		        error : function(e){
-		        	console.log(JSON.stringify(e));
+		        	console.log("error:::" + JSON.stringify(e));
 		        }
 		    });
 			return re;
@@ -7243,9 +7244,11 @@ KindEditor.plugin('image', function(K) {
 		var getOptionHtml = function(){
 			var scs = getSrc();
 			if(scs.indexOf("option") < 0){
+				//如果没有素材，进入对话框之前主动保存一次
+				self.scListPageCallBack();
 				shtml = [
 						'<div class="ke-dialog-row" style="text-align:center;height:100%;padding-top:10%;">',
-						'<a href="'+self.scListPage+'" style="font-size: medium;color: currentColor;">素材库为空，点击前往素材库上传<a><br>',
+						'<a href="'+self.scListPage+'" style="font-size: medium;color: currentColor;">素材库为空，系统已经为你保存文章，点击直接前往素材库上传<a><br>',
 						'<a href="'+self.scListPage+'" style="font-size: medium;color: currentColor;">>>>>>><a>',
 						'</div>'
 				        ].join('');

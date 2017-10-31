@@ -91,8 +91,11 @@ KindEditor.ready(function(K) {
 		allowPreviewEmoticons : false,
 		allowImageUpload : false,
 		allowImageRemote : true,
-		dataUrl:"/sapi/cs",
-		scListPage:"http://www.baidu.com",
+		dataUrl:"/sapi/sc",
+		scListPage:"/cps/userPics/list",
+		scListPageCallBack:function(){
+			alert("callback...");
+		},
 		items : [
 			'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
 			'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
