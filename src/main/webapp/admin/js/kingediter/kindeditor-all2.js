@@ -7248,8 +7248,8 @@ KindEditor.plugin('image', function(K) {
 				self.scListPageCallBack();
 				shtml = [
 						'<div class="ke-dialog-row" style="text-align:center;height:100%;padding-top:10%;">',
-						'<a href="'+self.scListPage+'" style="font-size: medium;color: currentColor;">素材库为空，系统已经为你保存文章，点击直接前往素材库上传<a><br>',
-						'<a href="'+self.scListPage+'" style="font-size: medium;color: currentColor;">>>>>>><a>',
+						'<a href="#" style="font-size: medium;color: currentColor;">素材库为空，系统已经为你保存文章，<a><br>',
+						'<a href="'+self.scListPage+'" style="font-size: medium;">点击直接前往素材库上传 >>><a>',
 						'</div>'
 				        ].join('');
 				return shtml;
