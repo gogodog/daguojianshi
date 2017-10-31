@@ -6074,7 +6074,7 @@ KindEditor.lang({
 	underline : '下划线(Ctrl+U)',
 	strikethrough : '删除线',
 	removeformat : '删除格式',
-	image : '图片',
+	image : '添加素材',//'图片',
 	multiimage : '批量图片上传',
 	flash : 'Flash',
 	media : '视音频',
@@ -7188,7 +7188,7 @@ KindEditor.plugin('image', function(K) {
 			'<div class="ke-dialog-row">',
 			'<label for="remoteUrl" style="width:60px;">请选择素材</label>',
 			'<select id="remoteUrlsel" class="ke-input-text" name="url" style="width:200px;" onchange="$(\'#remoteUrl\').val(this.options[this.options.selectedIndex].value)"><option value="http://" selected>请选择</option>',
-			'<option value="http://img0.imgtn.bdimg.com/it/u=38591822,3103715740&fm=213&gp=0.jpg">name1</option><option value="url2">name2</option>',
+			/*'<option value="http://img0.imgtn.bdimg.com/it/u=38591822,3103715740&fm=213&gp=0.jpg">name1</option><option value="url2">name2</option>',*/
 			'optiondesss',
 			'</select>',
 			'</div>',
@@ -7241,7 +7241,17 @@ KindEditor.plugin('image', function(K) {
 			return re;
 		}
 		var getOptionHtml = function(){
-			return html.replace('optiondesss',getSrc());
+			var scs = getSrc();
+			if(scs.indexOf("option") < 0){
+				shtml = [
+						'<div class="ke-dialog-row" style="text-align:center;height:100%;padding-top:10%;">',
+						'<a href="'+self.scListPage+'" style="font-size: medium;color: currentColor;">素材库为空，点击前往素材库上传<a><br>',
+						'<a href="'+self.scListPage+'" style="font-size: medium;color: currentColor;">>>>>>><a>',
+						'</div>'
+				        ].join('');
+				return shtml;
+			}
+			return html.replace('optiondesss',scs);
 		}
 		var dialogWidth = showLocal || allowFileManager ? 450 : 400,
 			dialogHeight = showLocal && showRemote ? 300 : 250;

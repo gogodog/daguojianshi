@@ -92,6 +92,7 @@ KindEditor.ready(function(K) {
 		allowImageUpload : false,
 		allowImageRemote : true,
 		dataUrl:"/sapi/cs",
+		scListPage:"http://www.baidu.com",
 		items : [
 			'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
 			'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
