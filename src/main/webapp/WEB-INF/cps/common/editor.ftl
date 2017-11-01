@@ -44,7 +44,7 @@ function saveEditor(isBack){
 				alert(errorMessage);
 			}else{
 				if(isBack == '1'){
-					location.href=contextPath+"/cps/draft";
+					location.href=contextPath+"/cps/dft/draft";
 				}
 			}
 	  	});

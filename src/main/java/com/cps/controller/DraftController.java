@@ -121,7 +121,7 @@ public class DraftController {
 	
 	@RequestMapping("/dltdft")
     public ModelAndView deleteDraft(HttpServletRequest request,String aid) throws Exception {  
-		ModelAndView mv = new ModelAndView("redirect:/cps/draft"); 
+		ModelAndView mv = new ModelAndView("redirect:/cps/dft/draft"); 
 		draftService.deleteDraft(aid);
 		return mv;
     }
