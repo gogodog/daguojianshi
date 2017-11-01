@@ -21,17 +21,13 @@
 			        </div>
 			        <div class="col-md-12" style="float:none;margin:2px;">
 			          <label>文章内容起始时间:</label>
-				      <div class="btn-group">
-                        <button style="width:100%;" data-toggle="dropdown" class="btn btn-warning dropdown-toggle"><span id="start_time_c_show" >${draft.start_time_c!'公元'}</span><span class="caret"></span></button>
-                        <ul class="dropdown-menu">
-                        	<li><a href="#" tosl="公元" onmouseup="changeSelect(this,$('#start_time_c'),$('#start_time_c_show'))">公元</a></li>
-                        	<li><a href="#" tosl="公元前" onmouseup="changeSelect(this,$('#start_time_c'),$('#start_time_c_show'))">公元前</a></li>
-                        </ul>
-                       </div>
-                    <input type="hidden" value="${draft.start_time_c!'公元'}" id="start_time_c" name="start_time_c"/>
-				      <input class="form-control" style="display: inline;width: 10%;" placeholder="年" type="text" name="start_time_y" value="${(draft.start_time_y)!''}" maxlength="5" onkeyup="this.value=this.value.replace(/\D/g,'');if($('#start_time_c').val() == '公元'){if(this.value>new Date().getFullYear()||this.value<0){this.value='';return;}}else{if(this.value<0||this.value>=10000){this.value='';return;}}">
-					  <input class="form-control" style="display: inline;width: 10%;" placeholder="月" type="text" name="start_time_m" value="${(draft.start_time_m)!''}" maxlength="2" onkeyup="this.value=this.value.replace(/\D/g,'');if(this.value<=0||this.value>12){this.value=''}">
-					  <input class="form-control" style="display: inline;width: 10%;" placeholder="日" type="text"name="start_time_d" value="${(draft.start_time_d)!''}" maxlength="2" onkeyup="this.value=this.value.replace(/\D/g,'');if(this.value<=0||this.value>31){this.value=''}">
+				      <select id="start_time_c" name="start_time_c" class="form-control" style="display: inline;width: 7%;">
+  					     <option value="公元" <#if draft.start_time_c == "公元">selected</#if>>公元</option>
+  					     <option value="公元前" <#if draft.start_time_c == "公元前">selected</#if>>公元前</option>
+  				      </select>
+				      <input class="form-control" style="display: inline;width: 7%;" placeholder="年" type="text" name="start_time_y" value="${(draft.start_time_y)!''}" maxlength="5" onkeyup="this.value=this.value.replace(/\D/g,'');if($('#start_time_c').val() == '公元'){if(this.value>new Date().getFullYear()||this.value<0){this.value='';return;}}else{if(this.value<0||this.value>=10000){this.value='';return;}}">
+					  <input class="form-control" style="display: inline;width: 7%;" placeholder="月" type="text" name="start_time_m" value="${(draft.start_time_m)!''}" maxlength="2" onkeyup="this.value=this.value.replace(/\D/g,'');if(this.value<=0||this.value>12){this.value=''}">
+					  <input class="form-control" style="display: inline;width: 7%;" placeholder="日" type="text"name="start_time_d" value="${(draft.start_time_d)!''}" maxlength="2" onkeyup="this.value=this.value.replace(/\D/g,'');if(this.value<=0||this.value>31){this.value=''}">
 		            </div>
 				 	<div class="col-md-12" style="float:none;margin:2px">
 						<textarea name="sub_content" id="sub_content" class="form-control" style="margin-bottom:10px;text-indent:25px;" placeholder="内容摘要" rows="4">${(draft.sub_content)!''}</textarea>
