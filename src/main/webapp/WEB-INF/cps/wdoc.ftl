@@ -39,11 +39,5 @@
                 </div>
     </div>
 <#include "/cps/common/f-static.ftl">
-<script>
-function changeSelect(that,hidName,showName){
-	hidName.val($(that).attr('tosl'));
-	showName.text($(that).text());
-}
-</script>
 </body>
 </html>
