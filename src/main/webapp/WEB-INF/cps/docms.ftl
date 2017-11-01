@@ -12,10 +12,30 @@
                         <h1 class="page-head-line">文章管理</h1>
                         <h1 class="page-subhead-line">[温馨提示]提审时间一般为1-3个工作日请耐心等候. </h1>
                         <form action="${contextPath}/cps/pding/docms" method="post" id="form1">
-                           <label>分类:</label><select name="type"><option value="">全部</option><#list typeList as type><option value="${type}" <#if condition.type.key=="${type.key}">selected</#if>>${type.value}</option></#list></select>&nbsp;&nbsp;
-    			           <label>状态:</label><select name="status"><option value="">全部</option><#list statusList as status><option value="${status}" <#if condition.status.key=="${status.key}">selected</#if>>${status.value}</option></#list></select>&nbsp;&nbsp;
-                           <label>标题:<input type="text" name="title" value="${condition.title}"></label>
-                           <label><input type="button" value="查询" name="conditionButton"/></label>
+                           <label>分类:</label>
+                           <div class="btn-group">
+		                        <button style="width:100px;" data-toggle="dropdown" class="btn btn-warning dropdown-toggle"><span id="type_show" >${condition.type.value!'全部'}</span><span class="caret"></span></button>
+		                        <ul class="dropdown-menu">
+		                        	<li><a href="#" tosl="" onmouseup="changeSelect(this,$('#type'),$('#type_show'))">全部</a></li>
+		                            <#list typeList as type>
+		                            	<li><a href="#" tosl="${type}" onmouseup="changeSelect(this,$('#type'),$('#type_show'))">${type.value}</a></li>
+		                            </#list>
+		                        </ul>
+		                    </div>
+    			           <label>状态:</label>
+                           <div class="btn-group">
+		                        <button style="width:100px;" data-toggle="dropdown" class="btn btn-warning dropdown-toggle"><span id="status_show" >${condition.status.value!'全部'}</span><span class="caret"></span></button>
+		                        <ul class="dropdown-menu">
+		                        	<li><a href="#" tosl="" onmouseup="changeSelect(this,$('#status'),$('#status_show'))">全部</a></li>
+		                            <#list statusList as status>
+		                            	<li><a href="#" tosl="${status}" onmouseup="changeSelect(this,$('#status'),$('#status_show'))">${status.value}</a></li>
+		                            </#list>
+		                        </ul>
+		                    </div>
+		                    <input type="hidden" value="${condition.status}" id="status" name="status"/>
+		                    <input type="hidden" value="${condition.type}" id="type" name="type"/>
+                            <label>标题:<input class="form-control" style="display: inline;width: auto;" placeholder="输入标题" type="text" name="title" value="${condition.title}"></label>
+                            <label><button class="btn btn-primary" name="conditionButton"><i class="glyphicon glyphicon-search"></i>查询</button></label>
                         </form>
                         <h1 class="page-head-line"></h1>
     			    </div>
@@ -72,6 +92,10 @@
     <link rel="stylesheet" type="text/css" href="${contextPath}/cps/css/alertify.css">
     <script src="${contextPath}/cps/js/alertify.js" type="text/javascript" charset="utf-8"></script>
     <script>
+    	function changeSelect(that,hidName,showName){
+    		hidName.val($(that).attr('tosl'));
+    		showName.text($(that).text());
+    	}
        var contextPath="${contextPath}";
        function changeDescShow(item){
     	   var value = $(item).val();
@@ -207,6 +231,5 @@
        }
        
     </script>
-    
 </body>
 </html>

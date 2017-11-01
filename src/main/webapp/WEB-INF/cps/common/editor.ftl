@@ -2,10 +2,9 @@
 <textarea id="editor_id" name="content"  class="form-input-textara" style="width:100%;height:300px;">
   ${(draft.content)!''}
 </textarea> 
-</div><!--demo end-->
+</div>
 <button class="btn btn-danger" onclick="saveEditor(1)"><i class="fa fa-toggle-on"></i>保存编辑</button>
 <button class="btn btn-danger" onclick="preview();"><i class="fa fa-bug "></i></i>预览</button>
-<script src="${contextPath}/admin/js/jquery-1.11.1.min.js"></script>
 <script src="${contextPath}/admin/js/support-fileupload.js"></script>
 <script src="${contextPath}/admin/js/ajaxfileupload.js"></script>
 <script>
@@ -84,14 +83,19 @@ function preview(){
 	window.location.href = contextPath+"/cps/dft/previewDraft?aid="+aid;
 }
 </script>
-<script src="${contextPath}/admin/js/kingediter/kindeditor-all.js"></script>
+<script src="${contextPath}/admin/js/kingediter/kindeditor-all2.js"></script>
 <script>
 KindEditor.ready(function(K) {
     window.editor = K.create('#editor_id', {
 		resizeType : 1,
 		allowPreviewEmoticons : false,
-		allowImageUpload : true,
-		allowImageRemote : false,
+		allowImageUpload : false,
+		allowImageRemote : true,
+		dataUrl:"/sapi/sc",
+		scListPage:"/cps/userPics/list",
+		scListPageCallBack:function(){
+			alert("callback...");
+		},
 		items : [
 			'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
 			'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
