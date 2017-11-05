@@ -182,4 +182,5 @@ public class DataInit {
 		 int flag=articlescrapMapper.deleteById("AV3XINsziB8TaXhbksdM");
 		 System.out.println(flag);
 	 }
+	 
 }

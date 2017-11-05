@@ -21,6 +21,7 @@ import org.elasticsearch.search.sort.SortOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
@@ -82,9 +83,9 @@ public class PendingMapperImpl implements PendingMapper{
 			//此处建议用消息队列或者定时任务处理
 			movePic(pendingEs);
 		}
-		UpdateRequest updateRequest = new UpdateRequest(index, type,id);
-		updateRequest.doc(pendingEs.toString());
-		client.update(updateRequest).get();
+//		UpdateRequest updateRequest = new UpdateRequest(index, type,id);
+//		updateRequest.doc(pendingEs.toString());
+//		client.update(updateRequest).get();
 		return 1;
 	}
 
@@ -222,6 +223,7 @@ public class PendingMapperImpl implements PendingMapper{
 		}
 		String[] fastfdsPics = new String[pics.length];
 		int progress=pending.getProgress();
+		String content = pending.getContent();
 		try {
 			for(int i=0;i<pics.length;i++){
 				String pic=pics[i];
@@ -232,6 +234,7 @@ public class PendingMapperImpl implements PendingMapper{
 					}else{
 						fastfdsPics[progress]=uploadFile[1];
 						progress++;
+						content=content.replaceAll(pic, uploadFile[1]);
 					}
 				}
 			}
@@ -239,13 +242,18 @@ public class PendingMapperImpl implements PendingMapper{
 		 catch (Exception e) {
 				logger.error("uploadFile to fastfds exception,param="+JSON.toJSONString(pending), e);
 		 } 
-		 if(progress > 0 && progress < pics.length - 1){
+		 if(progress > 0 && progress < pics.length){
 			  pending.setProgress(progress);
-			  pending.setStatus(Pic_Sync_Status.SYNCHING.getKey());
-	     }else if(progress == pics.length - 1){
+			  pending.setPic_sync_Status(Pic_Sync_Status.SYNCHING.getKey());
+	     }else if(progress == pics.length){
 	    	  pending.setProgress(progress);
-	    	  pending.setStatus(Pic_Sync_Status.SYNCHRONIZED.getKey());
+	    	  pending.setPic_sync_Status(Pic_Sync_Status.SYNCHRONIZED.getKey());
 	     }
+		 for(int i=0;i<progress;i++){
+			 pics[i]=fastfdsPics[i];
+		 }
+		 pending.setPictures(pics);
+		 pending.setContent(content);
 	}
 
 	@Override

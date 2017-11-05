@@ -11,10 +11,17 @@ import org.csource.fastdfs.TrackerServer;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Value;
 
 public class FastFDSClient implements FactoryBean<StorageClient>, InitializingBean, DisposableBean{
 
 	private StorageClient client;
+	
+	@Value("${saveRealBasePath}")
+	private String saveRealBasePath;
+	
+	@Value("${webBasePath}")
+	private String webBasePath;
 	
 	@Override
 	public void destroy() throws Exception {
@@ -54,6 +61,8 @@ public class FastFDSClient implements FactoryBean<StorageClient>, InitializingBe
 	 * 上传文件
 	 */
 	public String[] uploadFile(String filePath) throws IOException, MyException{
+		String[] paths= filePath.split(webBasePath);
+		filePath = saveRealBasePath+paths[1];
 		//直接调用StorageClient对象方法上传文件即可。
 		String[] values = client.upload_file(filePath,"jpg", null);
         return values;

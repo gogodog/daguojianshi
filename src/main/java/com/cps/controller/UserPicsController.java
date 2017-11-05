@@ -1,9 +1,7 @@
 package com.cps.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +15,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.dgjs.constants.Constants;
 import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.model.dto.PictureDto;
@@ -52,14 +52,18 @@ public class UserPicsController {
 	
 	@ResponseBody
 	@RequestMapping("/ajaxList")
-	public BaseView ajaxList(){
-		BaseView bv = new BaseView();
+	public String ajaxList(){
+		JSONArray jsa = new JSONArray();
 		UserPicsDto userPics=userPicsService.selectById(Constants.USER_ID);
-		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("userPics", userPics);
-		map.put("imageContextPath", pictureService.getImageContextPath());
-		bv.setObjects(map);
-		return bv;
+		if(userPics!=null&&userPics.getPics()!=null&&!userPics.getPics().isEmpty()){
+			for(String userPic:userPics.getPics()){
+				JSONObject jso1 = new JSONObject();
+				jso1.put("address", pictureService.getImageContextPath()+userPic);
+				jso1.put("name", userPic);
+				jsa.add(jso1);
+			}
+		}
+		return jsa.toJSONString();
 	}
 	
 	@ResponseBody
