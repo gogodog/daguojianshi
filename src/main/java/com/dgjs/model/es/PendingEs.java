@@ -136,6 +136,7 @@ public class PendingEs extends DraftEs{
     	pendingEs.setVisits(pending.getVisits());
     	pendingEs.setPic_sync_Status(Pic_Sync_Status.transTo(pending.getPic_sync_Status()));
     	pendingEs.setProgress(pending.getProgress());
+    	pendingEs.setDraft_id(pending.getDraft_id());
     	return pendingEs;
     }
     
@@ -169,6 +170,8 @@ public class PendingEs extends DraftEs{
     	pending.setId(pendingEs.getId());
     	pending.setPic_num(pendingEs.getPic_num());
     	pending.setPic_sync_Status(Pic_Sync_Status.transFrom(pendingEs.getPic_sync_Status()));
+    	pending.setDraft_id(pendingEs.getDraft_id());
+    	pending.setProgress(pendingEs.getProgress());
     	return pending;
     }
     

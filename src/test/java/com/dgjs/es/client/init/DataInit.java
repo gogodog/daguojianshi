@@ -108,7 +108,12 @@ public class DataInit {
 	 
 	 @Test
 	 public void testDeleteDraft(){
-		 draftMapper.deleteDraft("AV23fYIv76afZAVcqApY");
+		 draftMapper.deleteDraft("AV-LH2ur0krBohREc-hA");
+	 }
+	 
+	 @Test
+	 public void testDeletePending(){
+		 pendingMapper.deletePending("AV-LKSIHg7WNAX0sqvvL");
 	 }
 	 
 	 @Test

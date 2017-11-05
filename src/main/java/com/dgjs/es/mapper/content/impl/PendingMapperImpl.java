@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.action.index.IndexResponse;
@@ -46,9 +47,9 @@ public class PendingMapperImpl implements PendingMapper{
 	@Autowired
 	FastFDSClient fastFDSClient;
 	
-	final static String index = "dp_v4";
+	final static String index = "dp_v5";
 	
-	final static String type = "pending_v4";
+	final static String type = "pending_v5";
 	
 	@SuppressWarnings("deprecation")
 	@Override
@@ -216,6 +217,7 @@ public class PendingMapperImpl implements PendingMapper{
 	private void movePic(PendingEs pending){
 		String[] pics = pending.getPictures();
 		if(pics==null||pics.length==0){
+			pending.setPic_sync_Status(Pic_Sync_Status.SYNCHRONIZED.getKey());
 			return;
 		}
 		String[] fastfdsPics = new String[pics.length];
@@ -244,5 +246,12 @@ public class PendingMapperImpl implements PendingMapper{
 	    	  pending.setProgress(progress);
 	    	  pending.setStatus(Pic_Sync_Status.SYNCHRONIZED.getKey());
 	     }
+	}
+
+	@Override
+	public int deletePending(String id) {
+		TransportClient client=transportClient.getClient();
+		DeleteResponse response=client.prepareDelete(index, type, id).execute().actionGet();
+		return StringUtils.isNullOrEmpty(response.getId())?0:1;
 	}
 }

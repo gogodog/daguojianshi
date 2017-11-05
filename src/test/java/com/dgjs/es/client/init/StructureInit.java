@@ -23,7 +23,7 @@ import com.dgjs.es.client.ESTransportClient;
 @ContextConfiguration(locations = "classpath:spring-*.xml") 
 public class StructureInit {
 	
-	    final static String index = "dp_v4";
+	    final static String index = "dp_v5";
 		
 		@Autowired
 		ESTransportClient transportClient;
@@ -77,7 +77,7 @@ public class StructureInit {
 		}
 		
 		private void initDraft(TransportClient client) throws IOException {
-			String type =  "draft_v4";
+			String type =  "draft_v5";
 			createIndex(client,index);
 			List<String> list = Arrays.asList("content");
 			XContentBuilder builder=XContentFactory.jsonBuilder()
@@ -107,7 +107,7 @@ public class StructureInit {
 		}
 		
 		private void initPending(TransportClient client) throws IOException {
-			String type =  "pending_v4";
+			String type =  "pending_v5";
 //			createIndex(client,index);
 			List<String> list = Arrays.asList("content");
 			XContentBuilder builder=XContentFactory.jsonBuilder()
@@ -136,6 +136,9 @@ public class StructureInit {
 					.startObject("publish_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "false").field("index", "not_analyzed").endObject()
 					.startObject("visits").field("type", "long").field("store", "false").field("index", "not_analyzed").endObject()
 					.startObject("show_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "false").field("index", "not_analyzed").endObject()
+					.startObject("draft_id").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
+					.startObject("pic_sync_Status").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
+					.startObject("progress").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
 					.endObject()
 					.endObject()
 					.endObject();
