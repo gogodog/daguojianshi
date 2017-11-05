@@ -91,8 +91,8 @@ KindEditor.ready(function(K) {
 		allowPreviewEmoticons : false,
 		allowImageUpload : false,
 		allowImageRemote : true,
-		dataUrl:"/sapi/sc",
-		scListPage:"/cps/userPics/list",
+		dataUrl:contextPath+"/sapi/sc",
+		scListPage:contextPath+"/cps/userPics/list",
 		scListPageCallBack:function(){
 			alert("callback...");
 		},

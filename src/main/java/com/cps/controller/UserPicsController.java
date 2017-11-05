@@ -1,11 +1,15 @@
 package com.cps.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.csource.common.MyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSON;
 import com.dgjs.constants.Constants;
 import com.dgjs.constants.RETURN_STATUS;
+import com.dgjs.es.client.FastFDSClient;
 import com.dgjs.model.dto.PictureDto;
 import com.dgjs.model.dto.ThumbnailatorDto;
 import com.dgjs.model.dto.UserPicsDto;
@@ -44,7 +49,20 @@ public class UserPicsController {
 		mv.addObject("container", Constants.MAX_CONTAINER);
 		mv.addObject("fileSize", Constants.MAX_FILE_SIZE);
 		mv.addObject("onceContainer", Constants.ONECE_MAX_CONTAINER);
+		mv.addObject("userId", Constants.USER_ID);
 		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/ajaxList")
+	public BaseView ajaxList(){
+		BaseView bv = new BaseView();
+		UserPicsDto userPics=userPicsService.selectById(Constants.USER_ID);
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("userPics", userPics);
+		map.put("imageContextPath", pictureService.getImageContextPath());
+		bv.setObjects(map);
+		return bv;
 	}
 	
 	@ResponseBody

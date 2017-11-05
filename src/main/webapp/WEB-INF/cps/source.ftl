@@ -53,7 +53,8 @@
     <script src="${contextPath}/cps/js/bootstrap-fileupload.js"></script>
     <script src="${contextPath}/cps/js/ajaxfileupload.js"></script>
     <script>
-      var contextPath="${contextPath}"
+      var contextPath="${contextPath}";
+      var userId="${userId}";
       function uploadFile(item){
           $(item).unbind("click");
           $("#uploadImage").click();
@@ -65,7 +66,7 @@
       function ajaxFileUpload()
   	 {
   	    var imageContextPath="";
-  	    var uploadFileName="userPics";
+  	    var uploadFileName="userPics/"+userId;
   	    $.ajaxFileUpload
   	    (
   	        {

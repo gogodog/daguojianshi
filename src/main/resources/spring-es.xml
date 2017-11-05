@@ -17,4 +17,7 @@
         <property name="clientPingTimeout" value="${clientPingTimeout}" />
         <property name="clientNodesSamplerInterval" value="${clientNodesSamplerInterval}" />
     </bean>
+    
+    <bean id="fastFDSClient" class="com.dgjs.es.client.FastFDSClient">
+    </bean>
 </beans>

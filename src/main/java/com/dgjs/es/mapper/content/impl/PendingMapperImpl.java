@@ -17,15 +17,19 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHitField;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.sort.SortOrder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
 import com.dgjs.es.client.ESTransportClient;
+import com.dgjs.es.client.FastFDSClient;
 import com.dgjs.es.mapper.content.PendingMapper;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Pending;
 import com.dgjs.model.enums.Pending_Status;
+import com.dgjs.model.enums.Pic_Sync_Status;
 import com.dgjs.model.es.PendingEs;
 import com.dgjs.model.persistence.condition.PendingCondition;
 import com.dgjs.utils.DateUtils;
@@ -33,9 +37,14 @@ import com.dgjs.utils.StringUtils;
 
 @Service
 public class PendingMapperImpl implements PendingMapper{
-
+	
+	private static final Logger logger = LoggerFactory.getLogger(PendingMapperImpl.class);
+	
 	@Autowired
 	ESTransportClient transportClient;
+	
+	@Autowired
+	FastFDSClient fastFDSClient;
 	
 	final static String index = "dp_v4";
 	
@@ -68,6 +77,9 @@ public class PendingMapperImpl implements PendingMapper{
 		pendingEs.setAudit_user_id(audit_user_id);
 		if(status==Pending_Status.Audit_FAIL){
 			pendingEs.setAudit_desc(audit_desc);
+		}else{
+			//此处建议用消息队列或者定时任务处理
+			movePic(pendingEs);
 		}
 		UpdateRequest updateRequest = new UpdateRequest(index, type,id);
 		updateRequest.doc(pendingEs.toString());
@@ -92,6 +104,9 @@ public class PendingMapperImpl implements PendingMapper{
 		TransportClient client=transportClient.getClient();
 		PendingEs pendingEs=selectWithContent(id);
 		if(pendingEs.getStatus()!=Pending_Status.PUBLISH_PENDING.getKey()){
+			return null;
+		}
+		if(pendingEs.getPic_sync_Status()!=Pic_Sync_Status.SYNCHRONIZED.getKey()){
 			return null;
 		}
 		Date now = new Date();
@@ -198,4 +213,36 @@ public class PendingMapperImpl implements PendingMapper{
 		return pendingEs;
 	}
 
+	private void movePic(PendingEs pending){
+		String[] pics = pending.getPictures();
+		if(pics==null||pics.length==0){
+			return;
+		}
+		String[] fastfdsPics = new String[pics.length];
+		int progress=pending.getProgress();
+		try {
+			for(int i=0;i<pics.length;i++){
+				String pic=pics[i];
+				if(progress == i){
+					String[] uploadFile = fastFDSClient.uploadFile(pic);//fastfds上传
+					if(uploadFile==null||uploadFile.length!=2){
+						break;
+					}else{
+						fastfdsPics[progress]=uploadFile[1];
+						progress++;
+					}
+				}
+			}
+		 }
+		 catch (Exception e) {
+				logger.error("uploadFile to fastfds exception,param="+JSON.toJSONString(pending), e);
+		 } 
+		 if(progress > 0 && progress < pics.length - 1){
+			  pending.setProgress(progress);
+			  pending.setStatus(Pic_Sync_Status.SYNCHING.getKey());
+	     }else if(progress == pics.length - 1){
+	    	  pending.setProgress(progress);
+	    	  pending.setStatus(Pic_Sync_Status.SYNCHRONIZED.getKey());
+	     }
+	}
 }
