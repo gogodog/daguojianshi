@@ -1,5 +1,6 @@
 package com.dgjs.service.impl.content;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSON;
 import com.dgjs.mapper.content.UserPicsMapper;
 import com.dgjs.model.dto.UserPicsDto;
+import com.dgjs.model.dto.business.entity.Pics;
 import com.dgjs.model.persistence.UserPics;
 import com.dgjs.service.content.UserPicsService;
 import com.dgjs.utils.StringUtils;
@@ -33,7 +35,7 @@ public class UserPicsServiceImpl implements UserPicsService{
 			 dto = new UserPicsDto();
 			 dto.setUserPics(userPics);
 			 if(!StringUtils.isNullOrEmpty(userPics.getPictures())){
-				 List<String> pics=JSON.parseArray(userPics.getPictures(), String.class);
+				 List<Pics> pics=JSON.parseArray(userPics.getPictures(), Pics.class);
 				 dto.setPics(pics);
 			 }
 		}
@@ -41,15 +43,35 @@ public class UserPicsServiceImpl implements UserPicsService{
 	}
 
 	@Override
-	public int update(Integer id,int operate, List<String> pics) {
+	public int savePics(Integer id, List<Pics> pics) {
 		UserPics userPics=userPicsMapper.selectById(id);
-		List<String> pictures=JSON.parseArray(userPics.getPictures(), String.class);
-		if(operate==1){
-			 pictures.addAll(pics);
-		}else if(operate==2){
-			 pictures.removeAll(pics);
+		List<Pics> pictures=JSON.parseArray(userPics.getPictures(), Pics.class);
+		pictures.addAll(pics);
+		userPics.setPictures(JSON.toJSONString(pictures));
+		return userPicsMapper.update(userPics);
+	}
+
+	@Override
+	public int removePics(Integer id, List<String> picUrls) {
+		UserPics userPics=userPicsMapper.selectById(id);
+		List<Pics> pictures=JSON.parseArray(userPics.getPictures(), Pics.class);
+		if(pictures!=null && !pictures.isEmpty()){
+			Iterator<Pics> iterator=pictures.iterator();
+			while(iterator.hasNext()){
+				Pics pics = iterator.next();
+				if(picUrls.contains(pics.getUrl())){
+					iterator.remove();
+				}
+			}
 		}
 		userPics.setPictures(JSON.toJSONString(pictures));
+		return userPicsMapper.update(userPics);
+	}
+
+	@Override
+	public int update(UserPicsDto userPicsDto) {
+		UserPics userPics = userPicsDto.getUserPics();
+		userPics.setPictures(JSON.toJSONString(userPicsDto.getPics()));
 		return userPicsMapper.update(userPics);
 	}
 

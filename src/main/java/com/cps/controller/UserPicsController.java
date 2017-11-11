@@ -22,6 +22,7 @@ import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.model.dto.PictureDto;
 import com.dgjs.model.dto.ThumbnailatorDto;
 import com.dgjs.model.dto.UserPicsDto;
+import com.dgjs.model.dto.business.entity.Pics;
 import com.dgjs.model.persistence.UserPics;
 import com.dgjs.model.result.view.BaseView;
 import com.dgjs.model.result.view.UploadPictureView;
@@ -56,10 +57,10 @@ public class UserPicsController {
 		JSONArray jsa = new JSONArray();
 		UserPicsDto userPics=userPicsService.selectById(Constants.USER_ID);
 		if(userPics!=null&&userPics.getPics()!=null&&!userPics.getPics().isEmpty()){
-			for(String userPic:userPics.getPics()){
+			for(Pics userPic:userPics.getPics()){
 				JSONObject jso1 = new JSONObject();
-				jso1.put("address", pictureService.getImageContextPath()+userPic);
-				jso1.put("name", userPic);
+				jso1.put("address", pictureService.getImageContextPath()+userPic.getUrl());
+				jso1.put("name", userPic.getName());
 				jsa.add(jso1);
 			}
 		}
@@ -97,7 +98,7 @@ public class UserPicsController {
 		    		 }else{
 		    			 //上传
 		    			 List<PictureDto> list = pictureService.uploadPic(request, imagePath,"uploadImage",thumbnailator);
-		    			 int flag = userPicsService.update(Constants.USER_ID, 1,getPics(view,null,list));
+		    			 int flag = userPicsService.savePics(Constants.USER_ID, getPics(view,null,list));
 		    			 if(flag < 1){
 			 	    		view.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
 			 	    	 }
@@ -110,14 +111,17 @@ public class UserPicsController {
 	    return JSON.toJSONString(view);
 	}
 	
-	private List<String> getPics(UploadPictureView view,UserPicsDto userPicsDto,List<PictureDto> list){
+	private List<Pics> getPics(UploadPictureView view,UserPicsDto userPicsDto,List<PictureDto> list){
 		if(list == null || list.isEmpty()){
 			return null;
 		}
-		List<String> l = new ArrayList<String>();
+		List<Pics> l = new ArrayList<Pics>();
 		for(PictureDto dto:list){
 			if(dto.getIsSuccess()){
-				l.add(dto.getMinImageUrl());
+				Pics pics = new Pics();
+				pics.setUrl(dto.getMinImageUrl());
+				pics.setName(dto.getOriginName());
+				l.add(pics);
 			}
 		}
 		if(userPicsDto!=null){
@@ -135,7 +139,24 @@ public class UserPicsController {
 	public BaseView remove(String pics){
 		BaseView bv = new BaseView();
 		List<String> list= JSON.parseArray(pics, String.class);
-		int flag = userPicsService.update(Constants.USER_ID, 2, list);
+		int flag = userPicsService.removePics(Constants.USER_ID, list);
+		if(flag<1){
+			bv.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
+		}
+		return bv;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/updatePicName")
+	public BaseView updatePicName(String picsJson){
+		BaseView bv = new BaseView();
+		List<Pics> pics= JSON.parseArray(picsJson, Pics.class);
+		UserPicsDto userPicsDto = new UserPicsDto();
+		userPicsDto.setPics(pics);
+		UserPics userPics = new UserPics();
+		userPics.setId(Constants.USER_ID);
+		userPicsDto.setUserPics(userPics);
+		int flag = userPicsService.update(userPicsDto);
 		if(flag<1){
 			bv.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
 		}

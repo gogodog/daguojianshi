@@ -2,13 +2,14 @@ package com.dgjs.model.dto;
 
 import java.util.List;
 
+import com.dgjs.model.dto.business.entity.Pics;
 import com.dgjs.model.persistence.UserPics;
 
 public class UserPicsDto {
 
 	private UserPics userPics;
 	
-	private List<String> pics;
+	private List<Pics> pics;
 
 	public UserPics getUserPics() {
 		return userPics;
@@ -18,13 +19,12 @@ public class UserPicsDto {
 		this.userPics = userPics;
 	}
 
-	public List<String> getPics() {
+	public List<Pics> getPics() {
 		return pics;
 	}
 
-	public void setPics(List<String> pics) {
+	public void setPics(List<Pics> pics) {
 		this.pics = pics;
 	}
-	
-	
+
 }

@@ -3,6 +3,7 @@ package com.dgjs.service.content;
 import java.util.List;
 
 import com.dgjs.model.dto.UserPicsDto;
+import com.dgjs.model.dto.business.entity.Pics;
 
 public interface UserPicsService {
 
@@ -10,11 +11,9 @@ public interface UserPicsService {
 	
 	public UserPicsDto selectById(Integer id);
 	
-	/**
-	 * @param operate 1：新增 2：删除
-	 * @param pics 更改的图片
-	 * @param id 用户id
-	 * @return
-	 */
-	public int update(Integer id,int operate,List<String> pics);
+	public int update(UserPicsDto userPicsDto);
+	
+	public int savePics(Integer id,List<Pics> pics);
+	
+	public int removePics(Integer id,List<String> picUrls);
 }

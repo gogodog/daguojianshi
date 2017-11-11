@@ -6,6 +6,7 @@ public class PictureDto extends BaseDto{
 	private String minImageUrl;//1：1缩略图
 	private String tailorImageUrl;//宽高裁剪图
 	private String watermarkImageUrl;//带水印图
+	private String originName;//原图名
 
 	public String getImageUrl() {
 		return imageUrl;
@@ -37,6 +38,14 @@ public class PictureDto extends BaseDto{
 
 	public void setWatermarkImageUrl(String watermarkImageUrl) {
 		this.watermarkImageUrl = watermarkImageUrl;
+	}
+
+	public String getOriginName() {
+		return originName;
+	}
+
+	public void setOriginName(String originName) {
+		this.originName = originName;
 	}
 	
 }

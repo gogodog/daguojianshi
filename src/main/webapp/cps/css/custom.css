@@ -189,16 +189,16 @@ background-color: #929292;
     margin:3px;
 }
     .portfolio-item p {
-        padding:12px;
+        padding:5px;
         color:#fff;
-        line-height:25px;
+        line-height:15px;
     }
 
 .portfolio-item .overlay {
    
   background-color: #000;
   text-align: center;
-  padding-bottom:30px;
+  padding-bottom:1px;
   
 }
 

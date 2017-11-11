@@ -27,9 +27,14 @@
 						   <#list userPics.pics as pic>
 						   <div class="col-md-2">
 		                     <div class="portfolio-item ys mix_all" data-cat="ys" >
-		                        <img src="${imageContextPath}${pic}" class="img-responsive" style="width:100%;height:145px;" />
-		                        <input type="checkbox" name="pics" value="${pic}" style="display:none">
-		                     </div>
+		                        <img src="${imageContextPath}${pic.url}" class="img-responsive" style="width:100%;height:145px;" />
+		                        <div class="overlay">
+	                              <p>
+	                                  <span dataVal="${pic.url}" dataId="editName">${pic.name}</span>
+	                              </p>
+	                              <input type="checkbox" name="pics" value="${pic.url}" style="display:none">
+	                          </div>
+		                   </div>
 		                   </div>
 						   </#list>
 						   <#if (userPics.pics?size<container) >  
@@ -42,6 +47,7 @@
 			                <div class="col-md-2 ">
 		                      <a class="preview btn btn-info" onclick="removeFile(this);" href="javascrpt:void(0)"><i class="fa fa-minus fa-2x"></i></a>
 		                    </div>
+		                    <button class="btn btn-primary" id="editName"><i class="glyphicon glyphicon-search"></i>Edit</button>
 		                   </#if> 
 		                </div>
 			   </div>
@@ -132,6 +138,49 @@
     	            }
     	    })
     	}
+    }
+    
+    $("#editName").click(function(){
+        var index = 0;
+        $("#editName").unbind("click");
+    	$("span[dataId='editName']").each(function(){
+    		$(this).parent().hide();
+        	var name = $(this).html();
+        	$(this).parent().before("<input type='text' value='"+name+"'>");
+    	});
+    	
+    	$("#editName").click(function(){
+    		var picInfoArray = [];
+    		var index = 0;
+    		$("span[dataId='editName']").each(function(){
+    			var picName = $(this).parent().parent().children("input:eq(0)").val();
+    			var picUrl = $(this).attr('dataVal');
+    			var picInfo = {name:picName,url:picUrl};
+    			picInfoArray[index++] = picInfo;
+    		});
+    		ajaxUpdatePicName(JSON.stringify(picInfoArray));
+//    		alert(JSON.stringify(picInfoArray));
+        });
+    })
+    
+    function ajaxUpdatePicName(jsonVal){
+    	$.ajax({
+	 		   async:false,
+	 		   data:{picsJson:jsonVal},
+	 		   dataType:"json",
+	 		   url:contextPath+"/cps/userPics/updatePicName",
+	 		   type:"POST",
+	 		   success:function(data) {
+	                if(data.error){
+	             	    alert(data.errorMessage);
+	                }else{
+	                	window.location.reload();
+	                }
+	            }, 
+	            error:function(){
+	                console.log("服务器繁忙...");
+	            }
+	    })
     }
     </script>
 </body>
