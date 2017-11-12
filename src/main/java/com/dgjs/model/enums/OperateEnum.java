@@ -4,29 +4,45 @@ public enum OperateEnum {
 
 	Add(1, "新增操作"), Delete(2, "删除操作"), Browse(3, "浏览操作"), Update(4, "更新操作");
 
-	private OperateEnum(int code, String message) {
-		this.code = code;
-		this.message = message;
+	private OperateEnum(int key, String value) {
+		this.key = key;
+		this.value = value;
 	}
 
-	private int code;
+	private int key;
 
-	private String message;
+	private String value;
 
-	public int getCode() {
-		return this.code;
+	
+	public int getKey() {
+		return key;
 	}
 
-	public void setCode(int code) {
-		this.code = code;
+	public void setKey(int key) {
+		this.key = key;
 	}
 
-	public String getMessage() {
-		return this.message;
+	public String getValue() {
+		return value;
 	}
 
-	public void setMessage(String message) {
-		this.message = message;
+	public void setValue(String value) {
+		this.value = value;
 	}
 
+	public static OperateEnum valueOf(int key){
+		switch (key) {
+		case 1:
+           return Add;
+		case 2:
+	       return Delete;
+		case 3:
+	       return Browse;
+		case 4:
+	       return Update;
+		default:
+			break;
+		}
+		return null;
+	}
 }

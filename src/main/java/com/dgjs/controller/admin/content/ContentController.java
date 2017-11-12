@@ -10,9 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dgjs.annotation.LogRecord;
 import com.dgjs.es.mapper.content.ArticlescrapMapper;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Articlescrap;
+import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 import com.dgjs.service.content.ArticlescrapService;
 
@@ -27,6 +29,7 @@ public class ContentController {
 	ArticlescrapMapper articlescrapMapper;
 	
 	@RequestMapping("/contentList")
+	@LogRecord(operate=OperateEnum.Browse,remark="admin首页展示")
     public ModelAndView helloWord(HttpServletRequest request, HttpServletResponse response) throws Exception {  
 		ModelAndView mv = new ModelAndView("admin/content/index");  
         mv.addObject("title", "Spring MVC And Freemarker");  

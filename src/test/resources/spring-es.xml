@@ -17,6 +17,13 @@
         <property name="clientPingTimeout" value="${clientPingTimeout}" />
         <property name="clientNodesSamplerInterval" value="${clientNodesSamplerInterval}" />
     </bean>
+    
     <bean id="fastFDSClient" class="com.dgjs.es.client.FastFDSClient">
     </bean>
+    
+    <!-- 线程 -->
+	<bean id="logTaskExecutor" class="java.util.concurrent.Executors"
+		factory-method="newFixedThreadPool" destroy-method="shutdown">
+		<constructor-arg value="1" />
+	</bean>
 </beans>

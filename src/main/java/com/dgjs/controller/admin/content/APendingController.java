@@ -12,11 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dgjs.annotation.LogRecord;
 import com.dgjs.constants.Constants;
+import com.dgjs.constants.EventCode;
 import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Pending;
 import com.dgjs.model.enums.Articlescrap_Type;
+import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.enums.Pending_Status;
 import com.dgjs.model.persistence.condition.PendingCondition;
 import com.dgjs.model.result.view.BaseView;
@@ -55,6 +58,7 @@ public class APendingController {
 	
 	@RequestMapping("/audit")
 	@ResponseBody
+	@LogRecord(operate=OperateEnum.Update,remark="审核文章",event=EventCode.AUDIT_NOTICE)
 	public BaseView audit(String aid,Pending_Status status,String audit_desc) throws Exception{
 		BaseView mv = new BaseView();
 		if(StringUtils.isEmpty(aid)||status == null){
@@ -79,6 +83,7 @@ public class APendingController {
 	
 	@RequestMapping("/publish")
 	@ResponseBody
+	@LogRecord(operate=OperateEnum.Update,remark="审核文章",event=EventCode.PUBLISH_NOTICE)
 	public BaseView publish(String aid,Integer visits,String show_time) throws Exception{
 		BaseView mv = new BaseView();
 		Date showTime = null;

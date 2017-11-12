@@ -12,6 +12,9 @@ public class OperateLog {
 	private String operate_desc;//操作描述
 	private Date operate_time;//操作时间
 	private String ip;//ip
+	private String param;//入参
+	private int isSuccess;//操作是否执行成功 1:成功 0:失败
+	private String errorMessage;//如果出错了，错误信息
 	
 	public Long getId() {
 		return id;
@@ -48,6 +51,24 @@ public class OperateLog {
 	}
 	public void setIp(String ip) {
 		this.ip = ip;
+	}
+	public String getParam() {
+		return param;
+	}
+	public void setParam(String param) {
+		this.param = param;
+	}
+	public int getIsSuccess() {
+		return isSuccess;
+	}
+	public void setIsSuccess(int isSuccess) {
+		this.isSuccess = isSuccess;
+	}
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
 	}
 	
 }
