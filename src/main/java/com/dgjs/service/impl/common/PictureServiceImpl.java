@@ -67,7 +67,7 @@ public class PictureServiceImpl implements PictureService{
 		        if(file.getSize()==0||inputStream==null||StringUtils.isEmpty(imagePath)||!file.getContentType().equals("image/jpeg")){
 		        	dto.setErrorInfo(RETURN_STATUS.PARAM_ERROR.getValue(), "请传入图片");
 		        }else{
-		        	dto.setOriginName(file.getOriginalFilename().split("\\.")[0]);
+		        	dto.setOriginName(getOriginFileName(file.getOriginalFilename()));
 		 	        String imageName=PictureUtils.generateImageName();
 		 	        String saveImagePath=PictureUtils.getImageSavePath(saveRealBasePath,imagePath,imageName);
 					int flag;
@@ -126,5 +126,10 @@ public class PictureServiceImpl implements PictureService{
 		 }
 		 return dto;
 	}
-       
+	
+	private String getOriginFileName(String fileName){
+		int pos=fileName.lastIndexOf(".");
+		return fileName.substring(0, pos);
+	}
+      
 }

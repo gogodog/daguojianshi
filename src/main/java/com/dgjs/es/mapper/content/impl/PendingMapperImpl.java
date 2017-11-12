@@ -21,7 +21,6 @@ import org.elasticsearch.search.sort.SortOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
@@ -217,6 +216,7 @@ public class PendingMapperImpl implements PendingMapper{
 
 	private void movePic(PendingEs pending){
 		String[] pics = pending.getPictures();
+		//如果没有图片，设置为同步完成
 		if(pics==null||pics.length==0){
 			pending.setPic_sync_Status(Pic_Sync_Status.SYNCHRONIZED.getKey());
 			return;

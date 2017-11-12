@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.csource.common.MyException;
 import org.csource.fastdfs.ClientGlobal;
+import org.csource.fastdfs.ProtoCommon;
 import org.csource.fastdfs.StorageClient;
 import org.csource.fastdfs.StorageServer;
 import org.csource.fastdfs.TrackerClient;
@@ -39,7 +40,7 @@ public class FastFDSClient implements FactoryBean<StorageClient>, InitializingBe
 	     StorageServer storageServer = null;
 	     // 4、获得StorageClient对象。
 	     client = new StorageClient(trackerServer, storageServer);
-		
+	     ProtoCommon.activeTest(trackerServer.getSocket());
 	}
 
 	@Override
