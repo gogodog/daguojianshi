@@ -22,7 +22,9 @@ import com.alibaba.fastjson.JSON;
 import com.dgjs.annotation.LogRecord;
 import com.dgjs.constants.Constants;
 import com.dgjs.constants.EventCode;
+import com.dgjs.model.persistence.NoticeMessage;
 import com.dgjs.model.persistence.OperateLog;
+import com.dgjs.service.admin.NoticeMessageService;
 import com.dgjs.service.admin.OperateLogService;
 import com.dgjs.utils.IPUtils;
 
@@ -47,6 +49,9 @@ public class SystemLogAspect {
 	
 	@Autowired
 	private OperateLogService operateLogService;
+	
+	@Autowired
+	private NoticeMessageService noticeMessageService;
 	
 	@Around(ANNOTATION+"("+ADMIN_AOP_URL + "||" + CPS_AOP_URL+")" )
 	public Object operateLogRecord(ProceedingJoinPoint point) throws Throwable{
@@ -81,7 +86,8 @@ public class SystemLogAspect {
 		try{
 			//后置操作
 			if(event == EventCode.AUDIT_NOTICE || event == EventCode.PUBLISH_NOTICE){
-				
+				NoticeMessage noticeMessage = new NoticeMessage();
+				noticeMessageService.save(noticeMessage);
 			}
 		}catch(Exception e){
 			log.error("eventHandler exception,with event = "+event, e);
