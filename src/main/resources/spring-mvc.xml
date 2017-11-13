@@ -104,6 +104,7 @@
     <mvc:interceptors>  
       <bean class="com.dgjs.interceptors.BaseInterceptor"/>  
      <!--  <bean class="com.dgjs.interceptors.LoginInterceptor"/>   -->
+      <bean class="com.dgjs.interceptors.CpsInterceptor"/>  
     </mvc:interceptors>  
     <bean id="exceptionHandler" class="com.dgjs.job.ExceptionOperation"/>
     

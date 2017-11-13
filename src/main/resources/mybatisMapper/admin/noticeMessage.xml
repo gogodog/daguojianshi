@@ -37,6 +37,9 @@
 	<select id="getByAdminIdCount" resultType="int">
 	      select count(1) from notice_message
 	      where admin_id=#{adminId}
+	      <if test="status!=null">
+	          and status = #{status}
+	      </if>
 	</select>
 	
 	<update id="readMessage">
@@ -48,4 +51,5 @@
              </foreach>
         </if>
 	</update>
+	
 </mapper>

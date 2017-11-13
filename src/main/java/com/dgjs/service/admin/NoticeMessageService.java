@@ -13,4 +13,6 @@ public interface NoticeMessageService {
 	public PageInfoDto<NoticeMessage> list(NoticeMessageCondition condtion);
 	
 	public int readMessage(List<Long> ids);
+	
+	public int getUnReadCount(Integer adminId);
 }

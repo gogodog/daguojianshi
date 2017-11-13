@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.dgjs.mapper.admin.NoticeMessageMapper;
 import com.dgjs.model.dto.PageInfoDto;
+import com.dgjs.model.enums.Read_Status;
 import com.dgjs.model.persistence.NoticeMessage;
 import com.dgjs.model.persistence.condition.NoticeMessageCondition;
 import com.dgjs.service.admin.NoticeMessageService;
@@ -36,6 +37,14 @@ public class NoticeMessageServiceImpl implements NoticeMessageService{
 	@Override
 	public int readMessage(List<Long> ids) {
 		return mapper.readMessage(ids);
+	}
+
+	@Override
+	public int getUnReadCount(Integer adminId) {
+		NoticeMessageCondition condition = new NoticeMessageCondition();
+		condition.setAdminId(adminId);
+		condition.setStatus(Read_Status.UNREAD);
+		return mapper.getByAdminIdCount(condition);
 	}
 
 }

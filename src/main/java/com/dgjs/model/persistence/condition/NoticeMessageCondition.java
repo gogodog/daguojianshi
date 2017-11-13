@@ -1,6 +1,7 @@
 package com.dgjs.model.persistence.condition;
 
 import com.dgjs.constants.Constants;
+import com.dgjs.model.enums.Read_Status;
 
 public class NoticeMessageCondition {
 
@@ -9,6 +10,7 @@ public class NoticeMessageCondition {
 	private int onePageSize=Constants.DEFAULT_ONEPAGESIZE;
 	private int currentPage=1;//当前页
 	private boolean needTotalResults;//是否需要查询总数
+	private Read_Status status;//状态
 	
 	public Integer getAdminId() {
 		return adminId;
@@ -39,6 +41,12 @@ public class NoticeMessageCondition {
 	}
 	public void setNeedTotalResults(boolean needTotalResults) {
 		this.needTotalResults = needTotalResults;
+	}
+	public Read_Status getStatus() {
+		return status;
+	}
+	public void setStatus(Read_Status status) {
+		this.status = status;
 	}
 	
 }
