@@ -6,7 +6,7 @@
 	<display-name>daguojianshi</display-name>
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>WEB-INF/classes/spring-mybatis.xml,WEB-INF/classes/spring-es.xml,WEB-INF/classes/spring-freemaker.xml</param-value>
+		<param-value>WEB-INF/classes/spring-mybatis.xml,WEB-INF/classes/spring-application.xml,WEB-INF/classes/spring-freemaker.xml</param-value>
 	</context-param>
 	<context-param>
 		<param-name>log4jConfigLocation</param-name>

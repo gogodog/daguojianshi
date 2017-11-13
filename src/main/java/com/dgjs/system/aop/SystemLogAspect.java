@@ -21,11 +21,9 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import com.alibaba.fastjson.JSON;
 import com.dgjs.annotation.LogRecord;
 import com.dgjs.constants.Constants;
-import com.dgjs.constants.EventCode;
-import com.dgjs.model.persistence.NoticeMessage;
 import com.dgjs.model.persistence.OperateLog;
-import com.dgjs.service.admin.NoticeMessageService;
 import com.dgjs.service.admin.OperateLogService;
+import com.dgjs.service.common.EventService;
 import com.dgjs.utils.IPUtils;
 
 import freemarker.log.Logger;
@@ -51,7 +49,7 @@ public class SystemLogAspect {
 	private OperateLogService operateLogService;
 	
 	@Autowired
-	private NoticeMessageService noticeMessageService;
+    private EventService eventService;
 	
 	@Around(ANNOTATION+"("+ADMIN_AOP_URL + "||" + CPS_AOP_URL+")" )
 	public Object operateLogRecord(ProceedingJoinPoint point) throws Throwable{
@@ -70,28 +68,12 @@ public class SystemLogAspect {
 		    //保存操作日志
 		    saveOperateLog(args,ip,logRecord);
 		    //处理事件
-		    eventHandler(event);
+		    eventService.eventHandler(event,args);
 		}catch(Exception e){
 			saveOperateLog(args,ip,logRecord,0,e.getMessage());
 			throw e;
 		}
 		return obj;
-	}
-	
-	private void eventHandler(int event){
-		//不需要处理
-		if(event == -1){
-			return; 
-		}
-		try{
-			//后置操作
-			if(event == EventCode.AUDIT_NOTICE || event == EventCode.PUBLISH_NOTICE){
-				NoticeMessage noticeMessage = new NoticeMessage();
-				noticeMessageService.save(noticeMessage);
-			}
-		}catch(Exception e){
-			log.error("eventHandler exception,with event = "+event, e);
-		}
 	}
 	
 	private void saveOperateLog(Object[] args,String ip,LogRecord logRecord){

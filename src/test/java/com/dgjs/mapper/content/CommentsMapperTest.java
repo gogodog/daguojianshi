@@ -1,7 +1,6 @@
 package com.dgjs.mapper.content;
 
 import java.util.Date;
-import java.util.UUID;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
