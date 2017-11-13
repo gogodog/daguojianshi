@@ -45,6 +45,7 @@ public class DraftController {
 	}
 	
 	@RequestMapping("/wdoc")
+	@LogRecord(operate=OperateEnum.Browse,remark="进入写文章页")
     public ModelAndView wdoc(HttpServletRequest request,String aid) throws Exception {  
 		ModelAndView mv = new ModelAndView("/cps/wdoc");
 		mv.addObject("types", Articlescrap_Type.values());
@@ -57,6 +58,7 @@ public class DraftController {
 	
 	@ResponseBody
 	@RequestMapping("/savedraft")
+	@LogRecord(operate=OperateEnum.Add,remark="保存草稿箱")
 	public BaseView savedraft(Draft draft){
 		BaseView mv = new BaseView();
 		if(draft==null){
@@ -123,6 +125,7 @@ public class DraftController {
 	}
 	
 	@RequestMapping("/dltdft")
+	@LogRecord(operate=OperateEnum.Delete,remark="删除草稿")
     public ModelAndView deleteDraft(HttpServletRequest request,String aid) throws Exception {  
 		ModelAndView mv = new ModelAndView("redirect:/cps/dft/draft"); 
 		draftService.deleteDraft(aid);
@@ -130,6 +133,7 @@ public class DraftController {
     }
 	
 	@RequestMapping("/previewDraft")
+	@LogRecord(operate=OperateEnum.Browse,remark="预览草稿")
 	public ModelAndView previewDraft(String aid)  throws Exception{
 		ModelAndView mv = new ModelAndView("front/admin/show");
 		Draft draft=draftService.selectByIdAll(aid);
@@ -139,6 +143,7 @@ public class DraftController {
 	
 	@ResponseBody
 	@RequestMapping("/submitAudit")
+	@LogRecord(operate=OperateEnum.Update,remark="提审")
 	public BaseView submitAudit(String aid) throws Exception{
 		BaseView mv = new BaseView();
 		if(StringUtils.isNullOrEmpty(aid)){

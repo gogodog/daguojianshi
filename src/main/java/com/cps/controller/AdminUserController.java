@@ -6,8 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dgjs.annotation.LogRecord;
 import com.dgjs.constants.Constants;
 import com.dgjs.constants.RETURN_STATUS;
+import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.persistence.AdminUserInfo;
 import com.dgjs.model.result.view.BaseView;
 import com.dgjs.service.admin.AdminUserService;
@@ -21,6 +23,7 @@ public class AdminUserController {
 	AdminUserService adminUserService;
 	
 	@RequestMapping("/psoninf")
+	@LogRecord(operate=OperateEnum.Browse,remark="查询个人信息")
 	public ModelAndView userInfo(){
 		ModelAndView mv = new ModelAndView("/cps/psoninf");
 		AdminUserInfo adminUserInfo = adminUserService.getAdminUserInfo(Constants.USER_ID);
@@ -30,6 +33,7 @@ public class AdminUserController {
 	
 	@ResponseBody
 	@RequestMapping("/editUserInfo")
+	@LogRecord(operate=OperateEnum.Update,remark="修改个人信息")
 	public BaseView editUserInfo(AdminUserInfo adminUserInfo,Integer source){
 		BaseView bv = new BaseView();
 		adminUserInfo.setId(Constants.USER_ID);

@@ -17,12 +17,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.dgjs.annotation.LogRecord;
 import com.dgjs.constants.Constants;
 import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.model.dto.PictureDto;
 import com.dgjs.model.dto.ThumbnailatorDto;
 import com.dgjs.model.dto.UserPicsDto;
 import com.dgjs.model.dto.business.entity.Pics;
+import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.persistence.UserPics;
 import com.dgjs.model.result.view.BaseView;
 import com.dgjs.model.result.view.UploadPictureView;
@@ -39,6 +41,7 @@ public class UserPicsController {
 	PictureService pictureService;
 	
 	@RequestMapping("/list")
+	@LogRecord(operate=OperateEnum.Browse,remark="浏览素材库")
 	public ModelAndView list(){
 		ModelAndView mv = new ModelAndView("/cps/source");
 		UserPicsDto userPics=userPicsService.selectById(Constants.USER_ID);
@@ -53,6 +56,7 @@ public class UserPicsController {
 	
 	@ResponseBody
 	@RequestMapping("/ajaxList")
+	@LogRecord(operate=OperateEnum.Browse,remark="浏览素材库（草稿箱浏览）")
 	public String ajaxList(){
 		JSONArray jsa = new JSONArray();
 		UserPicsDto userPics=userPicsService.selectById(Constants.USER_ID);
@@ -69,6 +73,7 @@ public class UserPicsController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/ajaxUpload")
+	@LogRecord(operate=OperateEnum.Add,remark="素材上传")
 	public String ajaxUpload(HttpServletRequest request, HttpServletResponse response,String imagePath,ThumbnailatorDto thumbnailator){
 		 UploadPictureView view=new UploadPictureView();
 	     try {
@@ -136,6 +141,7 @@ public class UserPicsController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/remove")
+	@LogRecord(operate=OperateEnum.Delete,remark="删除素材")
 	public BaseView remove(String pics){
 		BaseView bv = new BaseView();
 		List<String> list= JSON.parseArray(pics, String.class);
@@ -148,6 +154,7 @@ public class UserPicsController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/updatePicName")
+	@LogRecord(operate=OperateEnum.Update,remark="修改素材名称")
 	public BaseView updatePicName(String picsJson){
 		BaseView bv = new BaseView();
 		List<Pics> pics= JSON.parseArray(picsJson, Pics.class);
