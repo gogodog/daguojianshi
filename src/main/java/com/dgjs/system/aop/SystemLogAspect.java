@@ -15,6 +15,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -51,7 +52,7 @@ public class SystemLogAspect {
 	@Autowired
     private EventService eventService;
 	
-	@Around(ANNOTATION+"("+ADMIN_AOP_URL + "||" + CPS_AOP_URL+")" )
+	@Around(ANNOTATION +" && ("+ADMIN_AOP_URL + "||" + CPS_AOP_URL+")" )
 	public Object operateLogRecord(ProceedingJoinPoint point) throws Throwable{
 		Object obj = null;
 		//前置操作
@@ -110,6 +111,9 @@ public class SystemLogAspect {
 					continue;
 				}
 				if(arg instanceof HttpServletResponse){
+					continue;
+				}
+				if(arg instanceof Model){
 					continue;
 				}
 				list.add(arg);

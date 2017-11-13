@@ -32,11 +32,6 @@ public class ContentController {
 	@LogRecord(operate=OperateEnum.Browse,remark="admin首页展示")
     public ModelAndView helloWord(HttpServletRequest request, HttpServletResponse response) throws Exception {  
 		ModelAndView mv = new ModelAndView("admin/content/index");  
-        mv.addObject("title", "Spring MVC And Freemarker");  
-        mv.addObject("content", " Hello world ， test my first spring mvc ! ");  
-        
-        
-        
         ArticlescrapCondtion condition = new ArticlescrapCondtion();
         condition.setOnePageSize(40);
         PageInfoDto<Articlescrap> page=articlescrapSerivce.listArticlescrap(condition);
@@ -45,8 +40,7 @@ public class ContentController {
         for(Articlescrap a:list){
         	str.append("\""+a.getId()+"\",");
         }
-        System.out.println(str);
-        
+//        System.out.println(str);
 //        ArticlescrapCondtion condtion = new ArticlescrapCondtion();
 //        condtion.setOnePageSize(30);
 //        List<Articlescrap> list=articlescrapMapper.listArticlescrap(condtion);
