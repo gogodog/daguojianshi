@@ -2,7 +2,7 @@
 <body>
     <div id="wrapper">
     	<#include "/cps/common/top.ftl">
-        <#assign page_name='draft'>
+        <#assign page_name='dft/draft'>
         <#include "/cps/common/menu.ftl">
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper">

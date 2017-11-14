@@ -9,7 +9,7 @@ public class NoticeMessageCondition {
 	private int beginNum=0;//从哪条开始查
 	private int onePageSize=Constants.DEFAULT_ONEPAGESIZE;
 	private int currentPage=1;//当前页
-	private boolean needTotalResults;//是否需要查询总数
+	private boolean needTotalResults=true;//是否需要查询总数
 	private Read_Status status;//状态
 	
 	public Integer getAdminId() {
