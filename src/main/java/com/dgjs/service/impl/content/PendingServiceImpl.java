@@ -91,4 +91,9 @@ public class PendingServiceImpl implements PendingService{
 		return pendingMapper.selectByIdAll(id);
 	}
 
+	@Override
+	public int movePic(String aid) throws Exception {
+		return pendingMapper.movePic(aid);
+	}
+
 }

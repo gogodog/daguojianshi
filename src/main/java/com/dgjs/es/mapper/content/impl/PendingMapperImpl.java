@@ -175,6 +175,14 @@ public class PendingMapperImpl implements PendingMapper{
 		    	String[] matchFields={"title","sub_content","keywords","content"};
 		    	boolBuilder.must(QueryBuilders.multiMatchQuery(condition.getKeyword(),matchFields));
 		    }
+		    List<Pic_Sync_Status> picSyncStatusList= condition.getPicSyncStatus();
+		    if(picSyncStatusList!=null&&picSyncStatusList.size()>0){
+		    	List<Integer> picSyncStatus = new ArrayList<Integer>();
+		    	for(Pic_Sync_Status status : picSyncStatusList){
+		    		 picSyncStatus.add(status.getKey());
+		    	}
+		    	boolBuilder.must(QueryBuilders.termsQuery("pic_sync_Status", picSyncStatus));
+		    }
 		}
 		return boolBuilder;
 	}
@@ -261,5 +269,18 @@ public class PendingMapperImpl implements PendingMapper{
 		TransportClient client=transportClient.getClient();
 		DeleteResponse response=client.prepareDelete(index, type, id).execute().actionGet();
 		return StringUtils.isNullOrEmpty(response.getId())?0:1;
+	}
+
+	@Override
+	public int movePic(String aid) throws Exception{
+		TransportClient client=transportClient.getClient();
+		PendingEs pendingEs=selectWithContent(aid);
+		movePic(pendingEs);
+		String datenow = DateUtils.parseStringFromDate(new Date());
+		pendingEs.setUpdate_time(datenow);
+		UpdateRequest updateRequest = new UpdateRequest(index, type,aid);
+		updateRequest.doc(pendingEs.toString());
+		client.update(updateRequest).get();
+		return 1;
 	}
 }

@@ -225,7 +225,6 @@
 		    <artifactId>thumbnailator</artifactId>
 		    <version>0.4.8</version>
 		</dependency>
-		
 		<!-- es begin -->
 		<dependency>
             <groupId>org.elasticsearch</groupId>
@@ -238,12 +237,12 @@
             <version>5.3.0</version>
         </dependency>
 		<!-- es end -->
-		
+		<!-- fastdfs begin -->
         <dependency>
           <groupId>net.arccode</groupId>
           <artifactId>fastdfs-client-java</artifactId>
           <version>1.27.0</version>
         </dependency>
-        
+        <!-- fastdfs end -->
 	</dependencies>
 </project>

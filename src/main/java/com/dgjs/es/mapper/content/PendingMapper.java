@@ -22,4 +22,6 @@ public interface PendingMapper {
 	public Pending selectByIdAll(String id);
 	
 	public int deletePending(String id);
+	
+	public int movePic(String aid) throws Exception;
 }

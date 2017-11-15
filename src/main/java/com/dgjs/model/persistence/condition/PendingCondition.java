@@ -1,5 +1,6 @@
 package com.dgjs.model.persistence.condition;
 
+import java.util.List;
 import java.util.Map;
 
 import org.elasticsearch.search.sort.SortOrder;
@@ -7,6 +8,7 @@ import org.elasticsearch.search.sort.SortOrder;
 import com.dgjs.constants.Constants;
 import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.Pending_Status;
+import com.dgjs.model.enums.Pic_Sync_Status;
 
 public class PendingCondition {
 
@@ -20,6 +22,8 @@ public class PendingCondition {
 	private int onePageSize=Constants.DEFAULT_ONEPAGESIZE;
 	private int currentPage=1;//当前页
 	private boolean needTotalResults;//是否需要查询总数
+	private List<Pic_Sync_Status> picSyncStatus;//图片同步状态
+	
 	public Pending_Status getStatus() {
 		return status;
 	}
@@ -79,6 +83,12 @@ public class PendingCondition {
 	}
 	public void setSort(Map<String, SortOrder> sort) {
 		this.sort = sort;
+	}
+	public List<Pic_Sync_Status> getPicSyncStatus() {
+		return picSyncStatus;
+	}
+	public void setPicSyncStatus(List<Pic_Sync_Status> picSyncStatus) {
+		this.picSyncStatus = picSyncStatus;
 	}
 	
 }
