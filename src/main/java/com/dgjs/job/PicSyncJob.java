@@ -90,6 +90,26 @@ public class PicSyncJob {
 					drafts = pageinfo.getObjects();
 				}
 			}
+			
+			PendingCondition pdcondition  = new PendingCondition();
+			pdcondition.setUserId(adminId);
+			pdcondition.setStatus(Pending_Status.Audit_FAIL);
+			PageInfoDto<Pending> pdPageInfo= pendingService.listPending(pdcondition);
+			List<Pending> pdList= pdPageInfo.getObjects();
+			while(pdList!=null && pdList.size()>0){
+				for(Pending pd:pdList){
+					String[] pictures=pd.getPictures();
+					picsList.addAll(Arrays.asList(pictures));
+				}
+				if(pdList.size()<pdPageInfo.getOnePageSize()){
+					break;
+				}else{
+					pdcondition.setCurrentPage(pageinfo.getCurrentPage()+1);
+					pdPageInfo=pendingService.listPending(pdcondition);
+					pdList=pdPageInfo.getObjects();
+				}
+			}
+			
 			UserPicsDto userPicsDto = userPicsService.selectById(adminId);
 			List<Pics> dtoPics= userPicsDto.getPics();
 			if(dtoPics!=null && dtoPics.size()>0){
