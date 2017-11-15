@@ -13,7 +13,7 @@
                         http://www.springframework.org/schema/mvc    
                         http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">  
                         
-                        <!-- elasticsearch配置 -->
+    <!-- elasticsearch配置 -->
     <bean id="esTransportClient" class="com.dgjs.es.client.ESTransportClient">
         <property name="clusterNodes" value="${clusterNodes}" />
         <property name="clusterName" value="${clusterName}" />
@@ -21,6 +21,7 @@
         <property name="clientNodesSamplerInterval" value="${clientNodesSamplerInterval}" />
     </bean>
     
+    <!-- fastFDS配置 -->
     <bean id="fastFDSClient" class="com.dgjs.es.client.FastFDSClient">
     </bean>
     
