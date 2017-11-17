@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.action.index.IndexResponse;
@@ -17,15 +18,19 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHitField;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.sort.SortOrder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
 import com.dgjs.es.client.ESTransportClient;
+import com.dgjs.es.client.FastFDSClient;
 import com.dgjs.es.mapper.content.PendingMapper;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Pending;
 import com.dgjs.model.enums.Pending_Status;
+import com.dgjs.model.enums.Pic_Sync_Status;
 import com.dgjs.model.es.PendingEs;
 import com.dgjs.model.persistence.condition.PendingCondition;
 import com.dgjs.utils.DateUtils;
@@ -33,13 +38,18 @@ import com.dgjs.utils.StringUtils;
 
 @Service
 public class PendingMapperImpl implements PendingMapper{
-
+	
+	private static final Logger logger = LoggerFactory.getLogger(PendingMapperImpl.class);
+	
 	@Autowired
 	ESTransportClient transportClient;
 	
-	final static String index = "dp_v4";
+	@Autowired
+	FastFDSClient fastFDSClient;
 	
-	final static String type = "pending_v4";
+	final static String index = "dp_v5";
+	
+	final static String type = "pending_v5";
 	
 	@SuppressWarnings("deprecation")
 	@Override
@@ -68,10 +78,13 @@ public class PendingMapperImpl implements PendingMapper{
 		pendingEs.setAudit_user_id(audit_user_id);
 		if(status==Pending_Status.Audit_FAIL){
 			pendingEs.setAudit_desc(audit_desc);
+		}else{
+			//此处建议用消息队列或者定时任务处理
+			movePic(pendingEs);
 		}
-		UpdateRequest updateRequest = new UpdateRequest(index, type,id);
-		updateRequest.doc(pendingEs.toString());
-		client.update(updateRequest).get();
+//		UpdateRequest updateRequest = new UpdateRequest(index, type,id);
+//		updateRequest.doc(pendingEs.toString());
+//		client.update(updateRequest).get();
 		return 1;
 	}
 
@@ -92,6 +105,9 @@ public class PendingMapperImpl implements PendingMapper{
 		TransportClient client=transportClient.getClient();
 		PendingEs pendingEs=selectWithContent(id);
 		if(pendingEs.getStatus()!=Pending_Status.PUBLISH_PENDING.getKey()){
+			return null;
+		}
+		if(pendingEs.getPic_sync_Status()!=Pic_Sync_Status.SYNCHRONIZED.getKey()){
 			return null;
 		}
 		Date now = new Date();
@@ -159,6 +175,14 @@ public class PendingMapperImpl implements PendingMapper{
 		    	String[] matchFields={"title","sub_content","keywords","content"};
 		    	boolBuilder.must(QueryBuilders.multiMatchQuery(condition.getKeyword(),matchFields));
 		    }
+		    List<Pic_Sync_Status> picSyncStatusList= condition.getPicSyncStatus();
+		    if(picSyncStatusList!=null&&picSyncStatusList.size()>0){
+		    	List<Integer> picSyncStatus = new ArrayList<Integer>();
+		    	for(Pic_Sync_Status status : picSyncStatusList){
+		    		 picSyncStatus.add(status.getKey());
+		    	}
+		    	boolBuilder.must(QueryBuilders.termsQuery("pic_sync_Status", picSyncStatus));
+		    }
 		}
 		return boolBuilder;
 	}
@@ -198,4 +222,65 @@ public class PendingMapperImpl implements PendingMapper{
 		return pendingEs;
 	}
 
+	private void movePic(PendingEs pending){
+		String[] pics = pending.getPictures();
+		//如果没有图片，设置为同步完成
+		if(pics==null||pics.length==0){
+			pending.setPic_sync_Status(Pic_Sync_Status.SYNCHRONIZED.getKey());
+			return;
+		}
+		String[] fastfdsPics = new String[pics.length];
+		int progress=pending.getProgress();
+		String content = pending.getContent();
+		try {
+			for(int i=0;i<pics.length;i++){
+				String pic=pics[i];
+				if(progress == i){
+					String[] uploadFile = fastFDSClient.uploadFile(pic);//fastfds上传
+					if(uploadFile==null||uploadFile.length!=2){
+						break;
+					}else{
+						fastfdsPics[progress]=uploadFile[1];
+						progress++;
+						content=content.replaceAll(pic, uploadFile[1]);
+					}
+				}
+			}
+		 }
+		 catch (Exception e) {
+				logger.error("uploadFile to fastfds exception,param="+JSON.toJSONString(pending), e);
+		 } 
+		 if(progress > 0 && progress < pics.length){
+			  pending.setProgress(progress);
+			  pending.setPic_sync_Status(Pic_Sync_Status.SYNCHING.getKey());
+	     }else if(progress == pics.length){
+	    	  pending.setProgress(progress);
+	    	  pending.setPic_sync_Status(Pic_Sync_Status.SYNCHRONIZED.getKey());
+	     }
+		 for(int i=0;i<progress;i++){
+			 pics[i]=fastfdsPics[i];
+		 }
+		 pending.setPictures(pics);
+		 pending.setContent(content);
+	}
+
+	@Override
+	public int deletePending(String id) {
+		TransportClient client=transportClient.getClient();
+		DeleteResponse response=client.prepareDelete(index, type, id).execute().actionGet();
+		return StringUtils.isNullOrEmpty(response.getId())?0:1;
+	}
+
+	@Override
+	public int movePic(String aid) throws Exception{
+		TransportClient client=transportClient.getClient();
+		PendingEs pendingEs=selectWithContent(aid);
+		movePic(pendingEs);
+		String datenow = DateUtils.parseStringFromDate(new Date());
+		pendingEs.setUpdate_time(datenow);
+		UpdateRequest updateRequest = new UpdateRequest(index, type,aid);
+		updateRequest.doc(pendingEs.toString());
+		client.update(updateRequest).get();
+		return 1;
+	}
 }

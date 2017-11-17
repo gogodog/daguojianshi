@@ -54,7 +54,14 @@ public class PendingServiceImpl implements PendingService{
 	@Override
 	public int audit(String id, Pending_Status status, Integer audit_user_id,
 			String audit_desc) throws Exception {
-		return pendingMapper.audit(id, status, audit_user_id, audit_desc);
+		int flag = pendingMapper.audit(id, status, audit_user_id, audit_desc);
+		if(status == Pending_Status.Audit_FAIL){
+			Pending pending=pendingMapper.selectById(id);
+			Draft draft = draftMapper.selectById(pending.getDraft_id());
+			draft.setDraft_status(Draft_Status.NORMAL);
+			flag = draftMapper.updateDraft(draft);
+		}
+		return flag;
 	}
 
 	@Override
@@ -82,6 +89,11 @@ public class PendingServiceImpl implements PendingService{
 	@Override
 	public Pending selectByIdAll(String id) {
 		return pendingMapper.selectByIdAll(id);
+	}
+
+	@Override
+	public int movePic(String aid) throws Exception {
+		return pendingMapper.movePic(aid);
 	}
 
 }

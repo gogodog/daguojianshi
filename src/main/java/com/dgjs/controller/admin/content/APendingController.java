@@ -12,12 +12,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dgjs.annotation.LogRecord;
 import com.dgjs.constants.Constants;
+import com.dgjs.constants.EventCode;
 import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Pending;
 import com.dgjs.model.enums.Articlescrap_Type;
+import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.enums.Pending_Status;
+import com.dgjs.model.param.view.ArticleAudit;
+import com.dgjs.model.param.view.ArticlePublish;
 import com.dgjs.model.persistence.condition.PendingCondition;
 import com.dgjs.model.result.view.BaseView;
 import com.dgjs.service.content.PendingService;
@@ -55,8 +60,12 @@ public class APendingController {
 	
 	@RequestMapping("/audit")
 	@ResponseBody
-	public BaseView audit(String aid,Pending_Status status,String audit_desc) throws Exception{
+	@LogRecord(operate=OperateEnum.Update,remark="审核文章",event=EventCode.AUDIT_NOTICE)
+	public BaseView audit(ArticleAudit articleAudit) throws Exception{
 		BaseView mv = new BaseView();
+		String aid = articleAudit.getAid();
+		Pending_Status status = articleAudit.getStatus();
+		String audit_desc = articleAudit.getAudit_desc();
 		if(StringUtils.isEmpty(aid)||status == null){
 			mv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
 			return mv;
@@ -79,9 +88,13 @@ public class APendingController {
 	
 	@RequestMapping("/publish")
 	@ResponseBody
-	public BaseView publish(String aid,Integer visits,String show_time) throws Exception{
+	@LogRecord(operate=OperateEnum.Update,remark="发布文章")
+	public BaseView publish(ArticlePublish articlePublish) throws Exception{
 		BaseView mv = new BaseView();
 		Date showTime = null;
+		String aid = articlePublish.getAid();
+		String show_time = articlePublish.getShow_time();
+		Integer visits = articlePublish.getVisits();
 		if(StringUtils.isEmpty(aid)){
 			mv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
 			return mv;

@@ -2,7 +2,7 @@
 <body>
     <div id="wrapper">
     	<#include "/cps/common/top.ftl">
-        <#assign page_name='draft'>
+        <#assign page_name='dft/draft'>
         <#include "/cps/common/menu.ftl">
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper">
@@ -35,10 +35,10 @@
 		                            <td>${object.title}</td>
 		                            <td>${object.update_time?string("yyyy-MM-dd HH:mm:ss")}</td>
 		                            <td>
-		                              <a href="${contextPath}/cps/dft/wdoc?aid=${object.id}">继续编辑</a>&nbsp;&nbsp;
 		                              <a href="${contextPath}/cps/dft/previewDraft?aid=${object.id}">预览</a>&nbsp;&nbsp;
-		                              <a href="javascript:void(0)" onclick="deleteA('${object.id}');">删除</a>&nbsp;&nbsp;
 		                              <#if object.draft_status == 'NORMAL'>
+		                                <a href="${contextPath}/cps/dft/wdoc?aid=${object.id}">继续编辑</a>&nbsp;&nbsp;
+		                                <a href="javascript:void(0)" onclick="deleteA('${object.id}');">删除</a>&nbsp;&nbsp;
 		                                <a href="javascript:void(0)" onclick="submitAudit('${object.id}');">提审</a>
 		                              </#if>  
 		                            </td>

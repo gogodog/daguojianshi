@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgjs.mapper.admin.NoticeMessageMapper">
+  
+  	<insert id="save" parameterType="noticeMessage" keyProperty="id" useGeneratedKeys="true">
+	       insert into notice_message
+	       (
+               admin_id,
+               message,
+               status,
+               create_time,
+               update_time
+	       )
+	       values
+	       (
+              #{admin_id},
+              #{message},
+              #{status},
+              now(),
+              now()
+	       )
+	</insert>
+	
+	<select id="getByAdminId" resultType="noticeMessage">
+	     select id,
+	           admin_id,
+               message,
+               status,
+               create_time,
+               update_time
+         from notice_message 
+         where admin_id=#{adminId}
+         order by create_time desc
+         limit #{beginNum},#{onePageSize}
+	</select>
+	
+	<select id="getByAdminIdCount" resultType="int">
+	      select count(1) from notice_message
+	      where admin_id=#{adminId}
+	      <if test="status!=null">
+	          and status = #{status}
+	      </if>
+	</select>
+	
+	<update id="readMessage">
+	    update notice_message set status = 1,update_time=now()
+	    <if test="list!=null and list.size()>0">
+		      where id in 
+		     <foreach collection="list" index="index" item="item" open="(" separator="," close=")">  
+              #{item}  
+             </foreach>
+        </if>
+	</update>
+	
+</mapper>

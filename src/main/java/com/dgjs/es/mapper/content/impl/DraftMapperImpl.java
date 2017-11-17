@@ -37,9 +37,9 @@ public class DraftMapperImpl implements DraftMapper{
 	@Autowired
 	ESTransportClient transportClient;
 	
-	final static String index = "dp_v4";
+	final static String index = "dp_v5";
 	
-	final static String type = "draft_v4";
+	final static String type = "draft_v5";
 	
 	@SuppressWarnings("deprecation")
 	@Override

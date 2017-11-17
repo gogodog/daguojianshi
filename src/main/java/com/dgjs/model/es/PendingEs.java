@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.dgjs.model.dto.business.Pending;
 import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.Pending_Status;
+import com.dgjs.model.enums.Pic_Sync_Status;
 import com.dgjs.model.enums.TIME_DEGREE;
 import com.dgjs.utils.DateUtils;
 
@@ -21,6 +22,10 @@ public class PendingEs extends DraftEs{
     private Integer visits;//访问量基数
     private String show_time;//显示时间
     private int status;//审核状态
+    
+    private String draft_id;//草稿id
+    private Integer pic_sync_Status;//图片同步状态
+    private int progress;//图片同步进度
     
 	public Integer getAudit_user_id() {
 		return audit_user_id;
@@ -83,8 +88,26 @@ public class PendingEs extends DraftEs{
 	public void setStatus(int status) {
 		this.status = status;
 	}
-    
-    public static PendingEs ConvertToEs(Pending pending){
+	
+	public String getDraft_id() {
+		return draft_id;
+	}
+	public void setDraft_id(String draft_id) {
+		this.draft_id = draft_id;
+	}
+	public Integer getPic_sync_Status() {
+		return pic_sync_Status;
+	}
+	public void setPic_sync_Status(Integer pic_sync_Status) {
+		this.pic_sync_Status = pic_sync_Status;
+	}
+	public int getProgress() {
+		return progress;
+	}
+	public void setProgress(int progress) {
+		this.progress = progress;
+	}
+	public static PendingEs ConvertToEs(Pending pending){
     	if(pending==null){
     		return null;
     	}
@@ -111,6 +134,9 @@ public class PendingEs extends DraftEs{
     	pendingEs.setUpdate_time(DateUtils.parseStringFromDate(pending.getUpdate_time()));
     	pendingEs.setUser_id(pending.getUser_id());
     	pendingEs.setVisits(pending.getVisits());
+    	pendingEs.setPic_sync_Status(Pic_Sync_Status.transTo(pending.getPic_sync_Status()));
+    	pendingEs.setProgress(pending.getProgress());
+    	pendingEs.setDraft_id(pending.getDraft_id());
     	return pendingEs;
     }
     
@@ -142,6 +168,10 @@ public class PendingEs extends DraftEs{
     	pending.setUser_id(pendingEs.getUser_id());
     	pending.setVisits(pendingEs.getVisits());
     	pending.setId(pendingEs.getId());
+    	pending.setPic_num(pendingEs.getPic_num());
+    	pending.setPic_sync_Status(Pic_Sync_Status.transFrom(pendingEs.getPic_sync_Status()));
+    	pending.setDraft_id(pendingEs.getDraft_id());
+    	pending.setProgress(pendingEs.getProgress());
     	return pending;
     }
     

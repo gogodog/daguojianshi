@@ -10,9 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dgjs.annotation.LogRecord;
 import com.dgjs.es.mapper.content.ArticlescrapMapper;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Articlescrap;
+import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 import com.dgjs.service.content.ArticlescrapService;
 
@@ -27,13 +29,9 @@ public class ContentController {
 	ArticlescrapMapper articlescrapMapper;
 	
 	@RequestMapping("/contentList")
+	@LogRecord(operate=OperateEnum.Browse,remark="admin首页展示")
     public ModelAndView helloWord(HttpServletRequest request, HttpServletResponse response) throws Exception {  
 		ModelAndView mv = new ModelAndView("admin/content/index");  
-        mv.addObject("title", "Spring MVC And Freemarker");  
-        mv.addObject("content", " Hello world ， test my first spring mvc ! ");  
-        
-        
-        
         ArticlescrapCondtion condition = new ArticlescrapCondtion();
         condition.setOnePageSize(40);
         PageInfoDto<Articlescrap> page=articlescrapSerivce.listArticlescrap(condition);
@@ -42,8 +40,7 @@ public class ContentController {
         for(Articlescrap a:list){
         	str.append("\""+a.getId()+"\",");
         }
-        System.out.println(str);
-        
+//        System.out.println(str);
 //        ArticlescrapCondtion condtion = new ArticlescrapCondtion();
 //        condtion.setOnePageSize(30);
 //        List<Articlescrap> list=articlescrapMapper.listArticlescrap(condtion);

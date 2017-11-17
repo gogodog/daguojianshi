@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dgjs.annotation.LogRecord;
 import com.dgjs.constants.Constants;
 import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Draft;
 import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.Draft_Status;
+import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.persistence.condition.DraftCondition;
 import com.dgjs.model.result.view.BaseView;
 import com.dgjs.service.content.DraftService;
@@ -34,7 +36,8 @@ public class DraftController {
 	PendingService pendingService;
 	
 	@RequestMapping("/draft")
-	public ModelAndView list(DraftCondition condtion){
+	@LogRecord(operate=OperateEnum.Browse,remark="浏览草稿箱")
+	public ModelAndView list(HttpServletRequest request,DraftCondition condtion){
 		ModelAndView mv = new ModelAndView("/cps/draft");
 		PageInfoDto<Draft> pageinfo=draftService.listDrafts(condtion);
 		mv.addObject("pageinfo", pageinfo);
@@ -42,6 +45,7 @@ public class DraftController {
 	}
 	
 	@RequestMapping("/wdoc")
+	@LogRecord(operate=OperateEnum.Browse,remark="进入写文章页")
     public ModelAndView wdoc(HttpServletRequest request,String aid) throws Exception {  
 		ModelAndView mv = new ModelAndView("/cps/wdoc");
 		mv.addObject("types", Articlescrap_Type.values());
@@ -54,6 +58,7 @@ public class DraftController {
 	
 	@ResponseBody
 	@RequestMapping("/savedraft")
+	@LogRecord(operate=OperateEnum.Add,remark="保存草稿箱")
 	public BaseView savedraft(Draft draft){
 		BaseView mv = new BaseView();
 		if(draft==null){
@@ -120,13 +125,15 @@ public class DraftController {
 	}
 	
 	@RequestMapping("/dltdft")
+	@LogRecord(operate=OperateEnum.Delete,remark="删除草稿")
     public ModelAndView deleteDraft(HttpServletRequest request,String aid) throws Exception {  
-		ModelAndView mv = new ModelAndView("redirect:/cps/draft"); 
+		ModelAndView mv = new ModelAndView("redirect:/cps/dft/draft"); 
 		draftService.deleteDraft(aid);
 		return mv;
     }
 	
 	@RequestMapping("/previewDraft")
+	@LogRecord(operate=OperateEnum.Browse,remark="预览草稿")
 	public ModelAndView previewDraft(String aid)  throws Exception{
 		ModelAndView mv = new ModelAndView("front/admin/show");
 		Draft draft=draftService.selectByIdAll(aid);
@@ -136,6 +143,7 @@ public class DraftController {
 	
 	@ResponseBody
 	@RequestMapping("/submitAudit")
+	@LogRecord(operate=OperateEnum.Update,remark="提审")
 	public BaseView submitAudit(String aid) throws Exception{
 		BaseView mv = new BaseView();
 		if(StringUtils.isNullOrEmpty(aid)){

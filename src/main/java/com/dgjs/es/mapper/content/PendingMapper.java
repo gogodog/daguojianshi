@@ -20,4 +20,8 @@ public interface PendingMapper {
 	public PageInfoDto<Pending> listPending(PendingCondition condition);
 	
 	public Pending selectByIdAll(String id);
+	
+	public int deletePending(String id);
+	
+	public int movePic(String aid) throws Exception;
 }

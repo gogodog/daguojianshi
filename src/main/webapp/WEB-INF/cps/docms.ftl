@@ -2,7 +2,7 @@
 <body>
     <div id="wrapper">
     	<#include "/cps/common/top.ftl">
-        <#assign page_name='docms'>
+        <#assign page_name='pding/docms'>
         <#include "/cps/common/menu.ftl">
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper">
@@ -44,7 +44,6 @@
                         <table class="table table-striped table-bordered table-hover">
 		                    <thead>
 		                        <tr>
-		                            <th>序号</th>
 		                            <th>标题</th>
 		                            <th>状态</th>
 		                            <th>类型</th>
@@ -56,7 +55,6 @@
 		                    <tbody>
 		                    <#list pageinfo.objects as object>
 		                        <tr>
-		                            <td>${i_index+1}</td>
 		                            <td>${object.title}</td>
 		                            <td>${object.status.value}</td>
 		                            <td>${object.type.value}</td>

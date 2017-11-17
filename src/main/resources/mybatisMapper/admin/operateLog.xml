@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgjs.mapper.admin.OperateLogMapper">
+  
+  	<insert id="save" parameterType="operateLog" keyProperty="id" useGeneratedKeys="true">
+	       insert into operate_log
+	       (
+               admin_id,
+               operate_type,
+               operate_desc,
+               ip,
+               param,
+               operate_time
+	       )
+	       values
+	       (
+               #{admin_id},
+               #{operate_type},
+               #{operate_desc},
+               #{ip},
+               #{param},
+               now()
+	       )
+	</insert>
+	
+	<select id="list" resultType="operateLog">
+	     select id,
+	           admin_id,
+               operate_type,
+               operate_desc,
+               ip,
+               param,
+               operate_time
+         from operate_log 
+         where 1=1 
+         <include refid="listSql" />
+         limit #{beginNum},#{onePageSize}
+	</select>
+	
+	<select id="count" resultType="int">
+	      select count(1) from operate_log
+	      where 1=1 
+         <include refid="listSql" />
+	</select>
+	
+	<sql id="listSql">
+	      <if test="adminId!=null">
+				and admin_id=#{adminId}
+		  </if>
+		  <if test="operateTypes!=null and operateTypes.size()>0">
+		        and operate_type in
+		        <foreach collection="operateTypes" index="index" item="item" open="(" separator="," close=")">  
+                 #{item}  
+                </foreach>
+          </if>
+          <if test="createTimeFrom!=null">
+                <![CDATA[and operate_time > #{createTimeFrom} ]]>
+          </if>
+          <if test="createTimeTo!=null">
+                <![CDATA[and operate_time < #{createTimeTo}]]>
+          </if>
+	</sql>
+	
+</mapper>

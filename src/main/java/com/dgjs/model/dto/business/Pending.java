@@ -3,6 +3,7 @@ package com.dgjs.model.dto.business;
 import java.util.Date;
 
 import com.dgjs.model.enums.Pending_Status;
+import com.dgjs.model.enums.Pic_Sync_Status;
 import com.dgjs.model.enums.UpDown_Status;
 
 public class Pending extends Draft{
@@ -18,6 +19,9 @@ public class Pending extends Draft{
 	private Integer visits;//访问基数
 	private Date show_time;//显示时间
 	private Pending_Status status;//审核状态
+	private Pic_Sync_Status pic_sync_Status;//状态
+	private int progress;//同步进度
+	private String draft_id;//草稿id
 	
 	public Integer getAudit_user_id() {
 		return audit_user_id;
@@ -85,7 +89,24 @@ public class Pending extends Draft{
 	public void setId(String id) {
 		this.id = id;
 	}
-	
+	public Pic_Sync_Status getPic_sync_Status() {
+		return pic_sync_Status;
+	}
+	public void setPic_sync_Status(Pic_Sync_Status pic_sync_Status) {
+		this.pic_sync_Status = pic_sync_Status;
+	}
+	public int getProgress() {
+		return progress;
+	}
+	public void setProgress(int progress) {
+		this.progress = progress;
+	}
+	public String getDraft_id() {
+		return draft_id;
+	}
+	public void setDraft_id(String draft_id) {
+		this.draft_id = draft_id;
+	}
 	public static Pending transFromDraft(Draft draft){
 		if(draft == null){
 			return null;
@@ -106,6 +127,9 @@ public class Pending extends Draft{
 		pending.setStatus(Pending_Status.AUDIT_PENDING);
 		pending.setBegin_time(draft.getBegin_time());
 		pending.setTime_degree(draft.getTime_degree());
+		pending.setProgress(0);
+		pending.setPic_sync_Status(Pic_Sync_Status.UNSYNC);
+		pending.setDraft_id(draft.getId());
 		return pending;
 	}
 	

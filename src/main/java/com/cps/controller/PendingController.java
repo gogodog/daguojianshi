@@ -9,10 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dgjs.annotation.LogRecord;
 import com.dgjs.constants.Constants;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Pending;
 import com.dgjs.model.enums.Articlescrap_Type;
+import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.enums.Pending_Status;
 import com.dgjs.model.persistence.condition.PendingCondition;
 import com.dgjs.service.content.PendingService;
@@ -25,6 +27,7 @@ public class PendingController {
 	PendingService pendingService;
 	
 	@RequestMapping("/docms")
+	@LogRecord(operate=OperateEnum.Browse,remark="查询文章管理列表")
 	public ModelAndView docms(PendingCondition condition){
 		ModelAndView mv = new ModelAndView("/cps/docms");
 		condition.setUserId(Constants.USER_ID);
@@ -40,6 +43,7 @@ public class PendingController {
 	}
 	
 	@RequestMapping("/previewPending")
+	@LogRecord(operate=OperateEnum.Browse,remark="预览文章管理")
 	public ModelAndView previewDraft(String aid)  throws Exception{
 		ModelAndView mv = new ModelAndView("front/admin/show");
 		Pending pending=pendingService.selectByIdAll(aid);

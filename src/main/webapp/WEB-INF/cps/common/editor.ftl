@@ -43,7 +43,7 @@ function saveEditor(isBack){
 				alert(errorMessage);
 			}else{
 				if(isBack == '1'){
-					location.href=contextPath+"/cps/draft";
+					location.href=contextPath+"/cps/dft/draft";
 				}
 			}
 	  	});
@@ -91,8 +91,8 @@ KindEditor.ready(function(K) {
 		allowPreviewEmoticons : false,
 		allowImageUpload : false,
 		allowImageRemote : true,
-		dataUrl:"/sapi/sc",
-		scListPage:"/cps/userPics/list",
+		dataUrl:contextPath+"/cps/userPics/ajaxList",
+		scListPage:contextPath+"/cps/userPics/list",
 		scListPageCallBack:function(){
 			alert("callback...");
 		},

@@ -21,4 +21,5 @@ public interface PendingService {
 	
 	public Pending selectByIdAll(String id);
 	
+	public int movePic(String aid) throws Exception;
 }
