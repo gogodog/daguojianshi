@@ -30,7 +30,7 @@
 		                    <tbody>
 		                        <#list pageinfo.objects as object>
 		                        <tr>
-		                            <td>${object.type.value}</td>
+		                            <td><span class="label label-info">${object.type.value}</span></td>
 		                            <td>${object.author}</td>
 		                            <td>${object.title}</td>
 		                            <td>${object.update_time?string("yyyy-MM-dd HH:mm:ss")}</td>
