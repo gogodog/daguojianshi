@@ -15,13 +15,14 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.dgjs.constants.Session_Keys;
+import com.dgjs.es.mapper.common.DadianMapper;
 import com.dgjs.job.DadianThread;
-import com.dgjs.mapper.common.DadianMapper;
 import com.dgjs.model.persistence.result.PagedocidsCountResult;
 import com.dgjs.model.result.view.DadianView;
 import com.dgjs.model.result.view.IpHttpResponse;
 import com.dgjs.model.result.view.IpHttpResponse.IpAliData;
 import com.dgjs.service.common.DataService;
+import com.dgjs.utils.DateUtils;
 import com.dgjs.utils.HttpClientUtils;
 import com.dgjs.utils.IPUtils;
 import com.dgjs.utils.IdsUtils;
@@ -71,7 +72,7 @@ public class DataServiceImpl implements DataService{
 	@Override
 	public int insertDaDian(DadianView view) {
 		if(view.getCtime() == null){
-			view.setCtime(new Date());
+			view.setCtime(DateUtils.parseStringFromDate(new Date()));
 		}
 		if(StringUtils.isNullOrEmpty(view.getNote())){
 			view.setNote("dgjs-system");
@@ -90,7 +91,7 @@ public class DataServiceImpl implements DataService{
 
 	@Override
 	public int getPageTotalVisits(String pageId) {
-		return dadianMapper.pageIdCount(pageId);
+		return (int) dadianMapper.pageIdCount(pageId);
 	}
 
 	@Override

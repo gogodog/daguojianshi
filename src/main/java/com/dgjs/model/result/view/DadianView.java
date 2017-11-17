@@ -1,12 +1,12 @@
 package com.dgjs.model.result.view;
 
-import java.util.Date;
+import com.alibaba.fastjson.JSON;
 
 public class DadianView {
 	private String id;
 	private String uuid;
 	private String note;
-	private Date ctime;
+	private String ctime;
 	private String ua = "";
 	private String width = "";
 	private String height = "";
@@ -135,10 +135,11 @@ public class DadianView {
 	public void setNote(String note) {
 		this.note = note;
 	}
-	public Date getCtime() {
+	
+	public String getCtime() {
 		return ctime;
 	}
-	public void setCtime(Date ctime) {
+	public void setCtime(String ctime) {
 		this.ctime = ctime;
 	}
 	public String getIpcountry() {
@@ -164,6 +165,11 @@ public class DadianView {
 	}
 	public void setTraceid(String traceid) {
 		this.traceid = traceid;
+	}
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return JSON.toJSONString(this);
 	}
 	
 }

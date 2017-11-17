@@ -24,15 +24,18 @@ import com.dgjs.es.client.ESTransportClient;
 public class StructureInit {
 	
 	    final static String index = "dp_v5";
+	    
+	    final static String log_index = "dgjs_log_v1";
 		
 		@Autowired
 		ESTransportClient transportClient;
 		
 		@Test
 		public void testInitTable() throws Exception{
-			initDraft(transportClient.getObject());
-			initPending(transportClient.getObject());
+//			initDraft(transportClient.getObject());
+//			initPending(transportClient.getObject());
 //			initNArticlescrap(transportClient.getObject());
+			initLogIndex(transportClient.getObject());
 		}
 		
 		private void createIndex(TransportClient client,String index) {
@@ -181,6 +184,24 @@ public class StructureInit {
 					.endObject()
 					.endObject();
 		   PutMappingRequest mapping = Requests.putMappingRequest(index).type(type).source(builder); 
+		   client.admin().indices().putMapping(mapping).actionGet();
+		}
+		
+		private void initLogIndex(TransportClient client) throws IOException {
+			String type =  "dadian";
+			List<String> list = Arrays.asList("pagedocids");
+			createIndex(client,log_index);
+			XContentBuilder builder=XContentFactory.jsonBuilder()
+					.startObject()
+					.startObject(type)
+					.startObject("_source").endObject()
+					.startObject("properties")
+					.startObject("pagedocids").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
+					.startObject("pageid").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
+					.endObject()
+					.endObject()
+					.endObject();
+		   PutMappingRequest mapping = Requests.putMappingRequest(log_index).type(type).source(builder); 
 		   client.admin().indices().putMapping(mapping).actionGet();
 		}
 		
