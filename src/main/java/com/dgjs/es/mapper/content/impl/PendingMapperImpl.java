@@ -82,9 +82,9 @@ public class PendingMapperImpl implements PendingMapper{
 			//此处建议用消息队列或者定时任务处理
 			movePic(pendingEs);
 		}
-//		UpdateRequest updateRequest = new UpdateRequest(index, type,id);
-//		updateRequest.doc(pendingEs.toString());
-//		client.update(updateRequest).get();
+		UpdateRequest updateRequest = new UpdateRequest(index, type,id);
+		updateRequest.doc(pendingEs.toString());
+		client.update(updateRequest).get();
 		return 1;
 	}
 

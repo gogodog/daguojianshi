@@ -44,12 +44,12 @@
                         <table class="table table-striped table-bordered table-hover">
 		                    <thead>
 		                        <tr>
-		                            <th>标题</th>
-		                            <th>状态</th>
-		                            <th>类型</th>
-		                            <th>作者</th>
-		                            <th>时间</th>
-		                            <th>操作</th>
+		                            <th style="width:30%">标题</th>
+		                            <th style="width:10%">状态</th>
+		                            <th style="width:10%">类型</th>
+		                            <th style="width:10%">作者</th>
+		                            <th style="width:25%">时间</th>
+		                            <th style="width:15%">操作</th>
 		                        </tr>
 		                    </thead>
 		                    <tbody>
@@ -65,9 +65,10 @@
 		                               <#if object.publish_time??>发布时间：${object.publish_time?string("yyyy-MM-dd HH:mm:ss")}<br></#if>
 		                            </td>
 		                            <td>
-		                               </i><a href="${contextPath}/cps/pding/previewPending?aid=${object.id}">查看</a>     
+		                               <button type="button" class="btn btn-xs btn-primary" onclick="location.href='${contextPath}/cps/pding/previewPending?aid=${object.id}'">查看</button>
 		                               <#if object.status == 'Audit_FAIL'>
-		                                 </i><a href="javascript:void(0)" onclick="showAuditFailDesc('${object.audit_desc}');">拒绝原因</a>  
+		                                 <button type="button" class="btn btn-xs btn-primary" onclick="showAuditFailDesc('${object.audit_desc}');">拒绝原因</button>
+		                                <!-- </i><a href="javascript:void(0)" onclick="showAuditFailDesc('${object.audit_desc}');">拒绝原因</a>  -->
 		                               </#if>
 		                            </td>
 		                        </tr>

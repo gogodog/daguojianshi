@@ -39,7 +39,7 @@ public class PicSyncJob {
 	@Autowired
 	UserPicsService userPicsService;
 
-	@Scheduled(cron = "0 */5 * * * ?")
+//	@Scheduled(cron = "0 */5 * * * ?")
     public void picSyncJob() {
 		PendingCondition condition = new PendingCondition();
 		condition.setStatus(Pending_Status.PUBLISH_PENDING);
@@ -64,7 +64,7 @@ public class PicSyncJob {
 		}
 	}
 	
-	@Scheduled(cron = "0 0 2 * * ?")
+//	@Scheduled(cron = "0 0 2 * * ?")
 	public void syncServerPic(){
 		String filePath = "/usr/image/userPics";
 		filePath="/Users/user/Documents/pic";
