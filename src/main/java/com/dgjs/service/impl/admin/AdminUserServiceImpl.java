@@ -84,4 +84,9 @@ public class AdminUserServiceImpl implements AdminUserService{
 		return adminUserMapper.update(adminUser);
 	}
 
+	@Override
+	public AdminUser getByUserCode(String userCode) {
+		return adminUserMapper.getByUserCode(userCode);
+	}
+
 }

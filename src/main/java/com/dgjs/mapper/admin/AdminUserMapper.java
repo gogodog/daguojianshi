@@ -21,4 +21,6 @@ public interface AdminUserMapper {
 	public int count(AdminUserCondition condition);
 	
 	public List<Integer> getListIds(AdminUserCondition condition);
+	
+	public AdminUser getByUserCode(String userCode);
 }

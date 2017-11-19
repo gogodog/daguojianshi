@@ -17,4 +17,6 @@ public interface AdminUserService {
 	public PageInfoDto<AdminUserResult> list(AdminUserCondition condition);
 	
 	public int updateAdminUser(AdminUser adminUser);
+	
+	public AdminUser getByUserCode(String userCode);
 }

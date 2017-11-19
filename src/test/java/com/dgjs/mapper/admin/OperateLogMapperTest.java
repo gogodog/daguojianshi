@@ -13,7 +13,6 @@ import com.alibaba.fastjson.JSON;
 import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.persistence.OperateLog;
 import com.dgjs.model.persistence.condition.OperateLogCondition;
-import com.dgjs.utils.DateUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)  
 @ContextConfiguration(locations = "classpath:spring-*.xml") 
@@ -40,9 +39,9 @@ public class OperateLogMapperTest {
 	public void testList(){
 		OperateLogCondition condition = new OperateLogCondition();
 		condition.setOperateTypes(Arrays.asList(OperateEnum.Add,OperateEnum.Update));
-		condition.setAdminId(1);
-		condition.setCreateTimeFrom(DateUtils.parseDateFromString("2017-11-12 00:00:00"));
-		condition.setCreateTimeTo(DateUtils.parseDateFromString("2017-11-13 11:00:00"));
+		condition.setAdminIds((Arrays.asList(1)));
+		condition.setCreateTimeFrom("2017-11-12 00:00:00");
+		condition.setCreateTimeTo("2017-11-13 11:00:00");
 		List<OperateLog> list = mapper.list(condition);
 		System.out.println(JSON.toJSONString(list, true));
 	}

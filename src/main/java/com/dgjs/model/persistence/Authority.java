@@ -41,5 +41,4 @@ public class Authority {
 		this.update_time = update_time;
 	}
 	
-	
 }

@@ -118,4 +118,8 @@
                 </foreach>
           </if>
 	</sql>
+	
+	<select id="getByUserCode" resultType="adminUser">
+	  select id,username,user_code,status,source,role_id,create_time,update_time from admin_user where user_code=#{userCode}
+	</select>
 </mapper>

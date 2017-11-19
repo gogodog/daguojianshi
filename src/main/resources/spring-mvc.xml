@@ -102,9 +102,16 @@
         <property name="maxInMemorySize" value="40960" />  
     </bean>
     <mvc:interceptors>  
-      <bean class="com.dgjs.interceptors.BaseInterceptor"/>  
-     <!--  <bean class="com.dgjs.interceptors.LoginInterceptor"/>   -->
-      <bean class="com.dgjs.interceptors.CpsInterceptor"/>  
+      <bean class="com.dgjs.interceptors.BaseInterceptor"/> 
+      <mvc:interceptor> 
+           <mvc:mapping path="/admin/**" />
+           <mvc:mapping path="/cps/**" />
+           <bean class="com.dgjs.interceptors.LoginInterceptor"/>  
+      </mvc:interceptor>
+      <mvc:interceptor> 
+           <mvc:mapping path="/cps/**" />
+           <bean class="com.dgjs.interceptors.CpsInterceptor"/> 
+      </mvc:interceptor>
     </mvc:interceptors>  
     <bean id="exceptionHandler" class="com.dgjs.job.ExceptionOperation"/>
     
