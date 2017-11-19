@@ -19,4 +19,6 @@ public interface AdminUserMapper {
 	public List<AdminUserResult> list(AdminUserCondition condition);
 	
 	public int count(AdminUserCondition condition);
+	
+	public List<Integer> getListIds(AdminUserCondition condition);
 }

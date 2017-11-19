@@ -41,6 +41,7 @@
 			                 <li class="active"><a href="${contextPath}/admin/admin/athrtyList" target="content">权限管理</a></li>
 			                 <li><a href="${contextPath}/admin/admin/roleList" target="content">角色管理</a></li>
 			                 <li><a href="${contextPath}/admin/adnur/adminList" target="content">用户管理</a></li>
+			                 <li><a href="${contextPath}/admin/oprtlg/list" target="content">操作日志</a></li>
 			            </ul>   
 		            </div>
 	            </li>

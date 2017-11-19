@@ -1,5 +1,7 @@
 package com.dgjs.model.persistence.condition;
 
+import java.util.List;
+
 import com.dgjs.constants.Constants;
 import com.dgjs.model.persistence.AdminUser;
 
@@ -11,6 +13,7 @@ public class AdminUserCondition extends AdminUser{
 	private String real_name;//姓名
 	private String email;//邮箱
 	private String mobile;//电话
+	private List<Integer> adminIds;
 	public int getOnePageSize() {
 		return onePageSize;
 	}
@@ -52,6 +55,12 @@ public class AdminUserCondition extends AdminUser{
 	}
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
+	}
+	public List<Integer> getAdminIds() {
+		return adminIds;
+	}
+	public void setAdminIds(List<Integer> adminIds) {
+		this.adminIds = adminIds;
 	}
 	
 }

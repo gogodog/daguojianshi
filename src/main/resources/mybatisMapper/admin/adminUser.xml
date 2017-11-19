@@ -73,24 +73,7 @@
 	   aui.real_name,aui.sex,aui.age,aui.organization,aui.email,aui.mobile,aui.address,au.create_time,aui.update_time
 	   from admin_user au
 	   left join admin_user_info aui on au.id=aui.id where 1=1
-	         <if test="username!=null and username!=''">
-				and au.username=#{username}
-		     </if>
-	         <if test="status!=null and status!=''">
-				and au.status=#{status}
-		     </if>
-		     <if test="role_id!=null and role_id!=''">
-				and au.role_id=#{role_id}
-		     </if>
-		     <if test="real_name!=null and real_name!=''">
-				and au.role_id=#{role_id}
-		     </if>
-		     <if test="email!=null and email!=''">
-				and aui.email=#{email}
-		     </if>
-		     <if test="mobile!=null and mobile!=''">
-				and aui.mobile=#{mobile}
-		     </if>
+	         <include refid="listsql"></include>
 		order by aui.update_time desc
 		limit #{beginNum},#{onePageSize}
 	</select>
@@ -99,23 +82,40 @@
 	   select count(1)
 	   from admin_user au
 	   left join admin_user_info aui on au.id=aui.id where 1=1
-	         <if test="username!=null and username!=''">
-				and au.username=#{username}
-		     </if>
-	         <if test="status!=null and status!=''">
-				and au.status=#{status}
-		     </if>
-		     <if test="role_id!=null and role_id!=''">
-				and au.role_id=#{role_id}
-		     </if>
-		     <if test="real_name!=null and real_name!=''">
-				and au.role_id=#{role_id}
-		     </if>
-		     <if test="email!=null and email!=''">
-				and aui.email=#{email}
-		     </if>
-		     <if test="mobile!=null and mobile!=''">
-				and aui.mobile=#{mobile}
-		     </if>
+	         <include refid="listsql"></include>
 	</select>
+	
+	<select id="getListIds" resultType="int">
+	   select au.id
+	   from admin_user au
+	   left join admin_user_info aui on au.id=aui.id where 1=1
+	         <include refid="listsql"></include>
+	</select>
+	
+	<sql id="listsql">
+	      <if test="username!=null and username!=''">
+			and au.username=#{username}
+		  </if>
+	      <if test="status!=null and status!=''">
+			and au.status=#{status}
+		  </if>
+		  <if test="role_id!=null and role_id!=''">
+			and au.role_id=#{role_id}
+		  </if>
+		  <if test="real_name!=null and real_name!=''">
+			and au.role_id=#{role_id}
+		  </if>
+		  <if test="email!=null and email!=''">
+			and aui.email=#{email}
+		  </if>
+		  <if test="mobile!=null and mobile!=''">
+			and aui.mobile=#{mobile}
+		  </if>
+		  <if test="adminIds!=null and adminIds.size()>0">
+		        and au.id in
+		        <foreach collection="adminIds" index="index" item="item" open="(" separator="," close=")">  
+                 #{item}  
+                </foreach>
+          </if>
+	</sql>
 </mapper>

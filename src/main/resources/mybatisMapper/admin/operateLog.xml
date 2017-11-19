@@ -10,6 +10,8 @@
                operate_desc,
                ip,
                param,
+               isSuccess,
+               errorMessage,
                operate_time
 	       )
 	       values
@@ -19,6 +21,8 @@
                #{operate_desc},
                #{ip},
                #{param},
+               #{isSuccess},
+               #{errorMessage},
                now()
 	       )
 	</insert>
@@ -30,10 +34,13 @@
                operate_desc,
                ip,
                param,
+               isSuccess,
+               errorMessage,
                operate_time
          from operate_log 
          where 1=1 
          <include refid="listSql" />
+         order by operate_time desc
          limit #{beginNum},#{onePageSize}
 	</select>
 	
@@ -44,9 +51,15 @@
 	</select>
 	
 	<sql id="listSql">
-	      <if test="adminId!=null">
-				and admin_id=#{adminId}
-		  </if>
+	      <if test="isSuccess!=-1">
+                and isSuccess = #{isSuccess}
+          </if>
+	      <if test="adminIds!=null and adminIds.size()>0">
+		        and admin_id in
+		        <foreach collection="adminIds" index="index" item="item" open="(" separator="," close=")">  
+                  #{item}  
+                </foreach>
+          </if>
 		  <if test="operateTypes!=null and operateTypes.size()>0">
 		        and operate_type in
 		        <foreach collection="operateTypes" index="index" item="item" open="(" separator="," close=")">  
@@ -61,4 +74,16 @@
           </if>
 	</sql>
 	
+	<select id="selectById" resultType="operateLog">
+	     select 
+	           admin_id,
+               operate_type,
+               operate_desc,
+               ip,
+               param,
+               isSuccess,
+               errorMessage,
+               operate_time
+         from operate_log where id=#{id}
+	</select>
 </mapper>

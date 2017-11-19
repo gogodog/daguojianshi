@@ -13,4 +13,6 @@ public interface OperateLogMapper {
 	
 	public int count(OperateLogCondition condition);
 	
+	public OperateLog selectById(Long id);
+	
 }
