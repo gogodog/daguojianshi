@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.dgjs.es.mapper.content.ArticlescrapMapper;
@@ -15,6 +16,7 @@ import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 import com.dgjs.service.content.ArticlescrapService;
+import com.dgjs.utils.PictureUtils;
 
 @Service
 public class ArticlescrapServiceImpl implements ArticlescrapService{
@@ -24,6 +26,9 @@ public class ArticlescrapServiceImpl implements ArticlescrapService{
 	
 	@Autowired
 	CommentsMapper commentsMapper;
+	
+	@Value("${fastFDSContextPath}")
+	private String fastFDSContextPath;
 	
 	@Override
 	public int saveArticlescrap(Articlescrap articlescrap){
@@ -37,6 +42,10 @@ public class ArticlescrapServiceImpl implements ArticlescrapService{
 
 	@Override
 	public Articlescrap selectById(String id) {
+		Articlescrap articlescrap = articlescrapMapper.getArticlescrapIndex(id);
+		if(articlescrap!=null){
+			articlescrap.setContent(PictureUtils.render(articlescrap.getPictures(), articlescrap.getContent(), fastFDSContextPath));
+		}
 		return articlescrapMapper.getArticlescrapIndex(id);
 	}
 

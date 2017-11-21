@@ -2,8 +2,11 @@ package com.dgjs.utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -129,12 +132,11 @@ public class PictureUtils {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		PictureUtils.thumbnailatorImage("/Users/user/Documents/pic/led/f02.jpg", "/Users/user/Documents/pic/led/f00201.jpg", 0.1f);
-//		PictureUtils.thumbnailatorImage("/Users/user/Documents/pic/led/f02.jpg", "/Users/user/Documents/pic/led/f00210.jpg", 1f);
+//		PictureUtils.thumbnailatorImage("/Users/user/Documents/pic/led/f02.jpg", "/Users/user/Documents/pic/led/f00201.jpg", 0.1f);
 	}
 	
-	public static Set<String> getImgStr(String htmlStr) {
-        Set<String> pics = new HashSet<>();
+	public static List<String> getImgStr(String htmlStr) {
+		List<String> pics = new ArrayList<>();
         String img = "";
         Pattern p_image;
         Matcher m_image;
@@ -154,4 +156,32 @@ public class PictureUtils {
         }
         return pics;
     }
+	
+	public static String replaceHtml(List<String> pics,String originHtml,String regex){ 
+		//将文章图片替换为占位符
+        if(pics.size()>0){
+        	for(int i=0;i<pics.size();i++){
+        		String pic = pics.get(i);
+        		originHtml = originHtml.replaceFirst(pic, "{"+i+"}");
+        		pics.set(i, pic.split(regex)[1]);
+        	}
+        }
+        return originHtml;
+	}
+	
+	public static String render(String[] pics,String content,String accessBasePath){
+		if(pics == null || pics.length == 0){
+			return content;
+		}else{
+			for(int i=0;i<pics.length;i++){
+				StringBuilder str = new StringBuilder();
+				if(!StringUtils.isNullOrEmpty(accessBasePath)){
+					str.append(accessBasePath);
+				}
+				str.append(pics[i]);
+				pics[i]=str.toString();
+			}
+			return MessageFormat.format(content, pics);
+		}
+	}
 }

@@ -1,6 +1,6 @@
 package com.cps.controller;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,6 +20,7 @@ import com.dgjs.model.enums.Draft_Status;
 import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.persistence.condition.DraftCondition;
 import com.dgjs.model.result.view.BaseView;
+import com.dgjs.service.common.PictureService;
 import com.dgjs.service.content.DraftService;
 import com.dgjs.service.content.PendingService;
 import com.dgjs.utils.PictureUtils;
@@ -34,6 +35,9 @@ public class DraftController {
 	
 	@Autowired
 	PendingService pendingService;
+	
+	@Autowired
+	PictureService pictureService;
 	
 	@RequestMapping("/draft")
 	@LogRecord(operate=OperateEnum.Browse,remark="浏览草稿箱")
@@ -103,10 +107,11 @@ public class DraftController {
 		}
 		draft.setBeginTime();
 		draft.setUser_id(Constants.USER_ID);
-		Set<String> set = PictureUtils.getImgStr(draft.getContent());
-		String[] pics = (String[])set.toArray(new String[set.size()]);
+		List<String> list = PictureUtils.getImgStr(draft.getContent());
+		draft.setContent(PictureUtils.replaceHtml(list,draft.getContent(),pictureService.getWebContextPath()));//将图片设置为占位符
+		String[] pics = (String[])list.toArray(new String[list.size()]);
 		draft.setPictures(pics);
-		draft.setPic_num(set.size());
+		draft.setPic_num(list.size());
 		draft.setDraft_status(Draft_Status.NORMAL);
 		int isSuccess = 0;
 		if(StringUtils.isNullOrEmpty(draft.getId())){

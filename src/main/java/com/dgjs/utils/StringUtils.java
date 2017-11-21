@@ -1,6 +1,8 @@
 package com.dgjs.utils;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 public class StringUtils extends com.mysql.jdbc.StringUtils{
 
@@ -14,6 +16,22 @@ public class StringUtils extends com.mysql.jdbc.StringUtils{
 			if(i!=strs.length-1&&blank!=null){
 				sb.append(blank);
 			}
+		}
+		return sb.toString();
+	}
+	
+	public static String combineStr(Collection<String> strs,String blank){
+		if(strs==null||strs.size()==0){
+			return null;
+		}
+		StringBuilder sb=new StringBuilder();
+		int index = 0;
+		for(String str:strs){
+			sb.append(str);
+			if(index!=strs.size()-1&&blank!=null){
+				sb.append(blank);
+			}
+			index++;
 		}
 		return sb.toString();
 	}

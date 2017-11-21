@@ -66,7 +66,6 @@ public class PendingMapperImpl implements PendingMapper{
 			String audit_desc) throws Exception{
 		TransportClient client=transportClient.getClient();
 		PendingEs pendingEs=selectWithContent(id);
-		
 		if(pendingEs==null||pendingEs.getStatus()!=Pending_Status.AUDIT_PENDING.getKey()){
 			return 0;
 		}
@@ -231,7 +230,6 @@ public class PendingMapperImpl implements PendingMapper{
 		}
 		String[] fastfdsPics = new String[pics.length];
 		int progress=pending.getProgress();
-		String content = pending.getContent();
 		try {
 			for(int i=0;i<pics.length;i++){
 				String pic=pics[i];
@@ -242,7 +240,6 @@ public class PendingMapperImpl implements PendingMapper{
 					}else{
 						fastfdsPics[progress]=uploadFile[1];
 						progress++;
-						content=content.replaceAll(pic, uploadFile[1]);
 					}
 				}
 			}
@@ -261,7 +258,6 @@ public class PendingMapperImpl implements PendingMapper{
 			 pics[i]=fastfdsPics[i];
 		 }
 		 pending.setPictures(pics);
-		 pending.setContent(content);
 	}
 
 	@Override

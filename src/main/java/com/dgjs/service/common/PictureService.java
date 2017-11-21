@@ -14,4 +14,6 @@ public interface PictureService {
 	
 	public String getImageContextPath();
 	
+	public String getWebContextPath();
+	
 }

@@ -33,8 +33,14 @@ public class PictureServiceImpl implements PictureService{
 	@Value("${imageContextPath}")
 	private String imageContextPath;
 	
+	@Value("${fastFDSContextPath}")
+	private String fastFDSContextPath;
+	
 	@Value("${watermarker}")
 	private String watermarker;
+	
+	@Value("${imageContextPath}${webBasePath}")
+	private String webContextPath;
 	
 	private static String zipPath="/p_";//压缩图存放位置
 	
@@ -131,5 +137,11 @@ public class PictureServiceImpl implements PictureService{
 		int pos=fileName.lastIndexOf(".");
 		return fileName.substring(0, pos);
 	}
-      
+
+
+	@Override
+	public String getWebContextPath() {
+		return webContextPath;
+	}
+
 }

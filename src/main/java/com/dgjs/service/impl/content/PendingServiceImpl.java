@@ -3,6 +3,7 @@ package com.dgjs.service.impl.content;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.dgjs.es.mapper.content.ArticlescrapMapper;
@@ -15,6 +16,7 @@ import com.dgjs.model.enums.Draft_Status;
 import com.dgjs.model.enums.Pending_Status;
 import com.dgjs.model.persistence.condition.PendingCondition;
 import com.dgjs.service.content.PendingService;
+import com.dgjs.utils.PictureUtils;
 import com.dgjs.utils.StringUtils;
 
 @Service
@@ -28,6 +30,12 @@ public class PendingServiceImpl implements PendingService{
 	
 	@Autowired
 	DraftMapper draftMapper;
+	
+	@Value("${imageContextPath}${webBasePath}")
+	private String webContextPath;
+	
+	@Value("${fastFDSContextPath}")
+	private String fastFDSContextPath;
 
 	@Override
 	public int savePending(String id)  throws Exception {
@@ -88,7 +96,15 @@ public class PendingServiceImpl implements PendingService{
 
 	@Override
 	public Pending selectByIdAll(String id) {
-		return pendingMapper.selectByIdAll(id);
+		Pending pending = pendingMapper.selectByIdAll(id);
+		if(pending!=null){
+			if(pending.getStatus()==Pending_Status.PUBLISH_PENDING||pending.getStatus()==Pending_Status.PUBLISHED){
+				pending.setContent(PictureUtils.render(pending.getPictures(), pending.getContent(), fastFDSContextPath));
+			}else{
+				pending.setContent(PictureUtils.render(pending.getPictures(), pending.getContent(), webContextPath));
+			}
+		}
+		return pending;
 	}
 
 	@Override

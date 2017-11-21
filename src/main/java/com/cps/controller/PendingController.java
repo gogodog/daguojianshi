@@ -17,7 +17,9 @@ import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.enums.Pending_Status;
 import com.dgjs.model.persistence.condition.PendingCondition;
+import com.dgjs.service.common.PictureService;
 import com.dgjs.service.content.PendingService;
+import com.dgjs.utils.PictureUtils;
 
 @Controller
 @RequestMapping("/cps/pding")
@@ -25,6 +27,9 @@ public class PendingController {
 
 	@Autowired
 	PendingService pendingService;
+	
+	@Autowired
+	PictureService pictureService;
 	
 	@RequestMapping("/docms")
 	@LogRecord(operate=OperateEnum.Browse,remark="查询文章管理列表")
