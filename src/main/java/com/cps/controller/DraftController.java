@@ -24,6 +24,7 @@ import com.dgjs.service.common.PictureService;
 import com.dgjs.service.content.DraftService;
 import com.dgjs.service.content.PendingService;
 import com.dgjs.utils.PictureUtils;
+import com.dgjs.utils.WebContextHelper;
 import com.mysql.jdbc.StringUtils;
 
 @Controller
@@ -106,7 +107,7 @@ public class DraftController {
 			return mv;
 		}
 		draft.setBeginTime();
-		draft.setUser_id(Constants.USER_ID);
+		draft.setUser_id(WebContextHelper.getUserId());
 		List<String> list = PictureUtils.getImgStr(draft.getContent());
 		draft.setContent(PictureUtils.replaceHtml(list,draft.getContent(),pictureService.getWebContextPath()));//将图片设置为占位符
 		String[] pics = (String[])list.toArray(new String[list.size()]);

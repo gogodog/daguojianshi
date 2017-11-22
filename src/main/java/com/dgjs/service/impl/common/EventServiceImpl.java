@@ -16,6 +16,7 @@ import com.dgjs.model.persistence.NoticeMessage;
 import com.dgjs.service.admin.NoticeMessageService;
 import com.dgjs.service.common.EventService;
 import com.dgjs.service.content.PendingService;
+import com.dgjs.utils.WebContextHelper;
 
 import freemarker.log.Logger;
 
@@ -74,7 +75,7 @@ public class EventServiceImpl implements EventService{
 				 message = MessageFormat.format(EventCode.AUDIT_SUCCESS_TEMPLATE,title);
 			}
 			noticeMessage.setMessage(message);
-			noticeMessage.setAdmin_id(Constants.USER_ID);
+			noticeMessage.setAdmin_id(WebContextHelper.getUserId());
 			noticeMessage.setStatus(Read_Status.UNREAD);
 			noticeMessageService.save(noticeMessage);
 		}

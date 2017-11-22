@@ -14,6 +14,7 @@ import com.dgjs.model.persistence.AdminUserInfo;
 import com.dgjs.model.result.view.BaseView;
 import com.dgjs.service.admin.AdminUserService;
 import com.dgjs.utils.StringUtils;
+import com.dgjs.utils.WebContextHelper;
 
 @Controller
 @RequestMapping("/cps/user")
@@ -26,7 +27,7 @@ public class AdminUserController {
 	@LogRecord(operate=OperateEnum.Browse,remark="查询个人信息")
 	public ModelAndView userInfo(){
 		ModelAndView mv = new ModelAndView("/cps/psoninf");
-		AdminUserInfo adminUserInfo = adminUserService.getAdminUserInfo(Constants.USER_ID);
+		AdminUserInfo adminUserInfo = adminUserService.getAdminUserInfo(WebContextHelper.getUserId());
 		mv.addObject("adminUserInfo", adminUserInfo);
 		return mv;
 	}
@@ -36,7 +37,7 @@ public class AdminUserController {
 	@LogRecord(operate=OperateEnum.Update,remark="修改个人信息")
 	public BaseView editUserInfo(AdminUserInfo adminUserInfo,Integer source){
 		BaseView bv = new BaseView();
-		adminUserInfo.setId(Constants.USER_ID);
+		adminUserInfo.setId(WebContextHelper.getUserId());
 		//保存基本信息，需要校验参数
 		if(source==1){
 			if(StringUtils.isNullOrEmpty(adminUserInfo.getReal_name())||adminUserInfo.getAge()<1

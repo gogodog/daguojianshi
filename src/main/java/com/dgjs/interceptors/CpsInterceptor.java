@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.dgjs.constants.Constants;
 import com.dgjs.service.admin.NoticeMessageService;
+import com.dgjs.utils.WebContextHelper;
 
 public class CpsInterceptor implements HandlerInterceptor{
 	
@@ -18,7 +19,7 @@ public class CpsInterceptor implements HandlerInterceptor{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		int unreadCount = noticeMessageService.getUnReadCount(Constants.USER_ID);
+		int unreadCount = noticeMessageService.getUnReadCount(WebContextHelper.getUserId());
 		request.setAttribute("unreadCount", unreadCount);
 		return true;
 	}

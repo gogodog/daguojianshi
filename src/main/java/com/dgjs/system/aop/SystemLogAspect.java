@@ -26,6 +26,7 @@ import com.dgjs.model.persistence.OperateLog;
 import com.dgjs.service.admin.OperateLogService;
 import com.dgjs.service.common.EventService;
 import com.dgjs.utils.IPUtils;
+import com.dgjs.utils.WebContextHelper;
 
 import freemarker.log.Logger;
 
@@ -99,7 +100,7 @@ public class SystemLogAspect {
 	
 	private OperateLog combineOperateLog(Object[] args,String ip,LogRecord logRecord,int isSuccess,String errorMessage){
 		OperateLog log = new OperateLog();
-		log.setAdmin_id(Constants.USER_ID);
+		log.setAdmin_id(WebContextHelper.getUserId());
 		log.setOperate_type(logRecord.operate());
 		log.setOperate_desc(logRecord.remark());
 		log.setIp(ip);

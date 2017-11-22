@@ -30,6 +30,7 @@ import com.dgjs.model.result.view.BaseView;
 import com.dgjs.model.result.view.UploadPictureView;
 import com.dgjs.service.common.PictureService;
 import com.dgjs.service.content.UserPicsService;
+import com.dgjs.utils.WebContextHelper;
 
 @Controller
 @RequestMapping("/cps/userPics")
@@ -44,13 +45,13 @@ public class UserPicsController {
 	@LogRecord(operate=OperateEnum.Browse,remark="浏览素材库")
 	public ModelAndView list(){
 		ModelAndView mv = new ModelAndView("/cps/source");
-		UserPicsDto userPics=userPicsService.selectById(Constants.USER_ID);
+		UserPicsDto userPics=userPicsService.selectById(WebContextHelper.getUserId());
 		mv.addObject("userPics", userPics);
 		mv.addObject("imageContextPath", pictureService.getImageContextPath());
 		mv.addObject("container", Constants.MAX_CONTAINER);
 		mv.addObject("fileSize", Constants.MAX_FILE_SIZE);
 		mv.addObject("onceContainer", Constants.ONECE_MAX_CONTAINER);
-		mv.addObject("userId", Constants.USER_ID);
+		mv.addObject("userId", WebContextHelper.getUserId());
 		return mv;
 	}
 	
@@ -59,7 +60,7 @@ public class UserPicsController {
 	@LogRecord(operate=OperateEnum.Browse,remark="浏览素材库（草稿箱浏览）")
 	public String ajaxList(){
 		JSONArray jsa = new JSONArray();
-		UserPicsDto userPics=userPicsService.selectById(Constants.USER_ID);
+		UserPicsDto userPics=userPicsService.selectById(WebContextHelper.getUserId());
 		if(userPics!=null&&userPics.getPics()!=null&&!userPics.getPics().isEmpty()){
 			for(Pics userPic:userPics.getPics()){
 				JSONObject jso1 = new JSONObject();
@@ -78,12 +79,13 @@ public class UserPicsController {
 		 UploadPictureView view=new UploadPictureView();
 	     try {
 	    	 int capacity = 0;//还可上传多少张
-	    	 UserPicsDto userPics=userPicsService.selectById(Constants.USER_ID);
+	    	 UserPicsDto userPics=userPicsService.selectById(WebContextHelper.getUserId());
 	    	 MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;  
 	 	     List<MultipartFile> files=multipartRequest.getFiles("uploadImage");
 	 	     if(files.size() > Constants.ONECE_MAX_CONTAINER){
 	 	    	 view.setBaseViewValue(RETURN_STATUS.PARAM_ERROR.name(),"一次最多可上传"+Constants.ONECE_MAX_CONTAINER+"张图片");
 	 	     }else{
+	 	    	 //如果用户还没有图片信息
 	 	    	 if(userPics == null){
 	 	    		//上传
 	    			List<PictureDto> list = pictureService.uploadPic(request, imagePath,"uploadImage",thumbnailator);
@@ -91,19 +93,20 @@ public class UserPicsController {
 	 	    		UserPics upic = new UserPics();
 	 	    		userPicsDto.setUserPics(upic);
 	 	    		getPics(view,userPicsDto,list);
-	 	    		upic.setId(Constants.USER_ID);
+	 	    		upic.setId(WebContextHelper.getUserId());
 	 	    		int flag = userPicsService.save(userPicsDto);
 	 	    		if(flag < 1){
 	 	    			view.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
 	 	    		}
 		    	 }else{
+		    		 //算出还可上传多少张
 		    		 capacity = Constants.MAX_CONTAINER - (userPics.getPics()==null?0:userPics.getPics().size());
 		    		 if(capacity < files.size()){
 		    			 view.setBaseViewValue(RETURN_STATUS.PARAM_ERROR.name(),"每人素材库最多限"+Constants.MAX_CONTAINER +"张图片");
 		    		 }else{
 		    			 //上传
 		    			 List<PictureDto> list = pictureService.uploadPic(request, imagePath,"uploadImage",thumbnailator);
-		    			 int flag = userPicsService.savePics(Constants.USER_ID, getPics(view,null,list));
+		    			 int flag = userPicsService.savePics(WebContextHelper.getUserId(), getPics(view,null,list));
 		    			 if(flag < 1){
 			 	    		view.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
 			 	    	 }
@@ -145,7 +148,7 @@ public class UserPicsController {
 	public BaseView remove(String pics){
 		BaseView bv = new BaseView();
 		List<String> list= JSON.parseArray(pics, String.class);
-		int flag = userPicsService.removePics(Constants.USER_ID, list);
+		int flag = userPicsService.removePics(WebContextHelper.getUserId(), list);
 		if(flag<1){
 			bv.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
 		}
@@ -161,7 +164,7 @@ public class UserPicsController {
 		UserPicsDto userPicsDto = new UserPicsDto();
 		userPicsDto.setPics(pics);
 		UserPics userPics = new UserPics();
-		userPics.setId(Constants.USER_ID);
+		userPics.setId(WebContextHelper.getUserId());
 		userPicsDto.setUserPics(userPics);
 		int flag = userPicsService.update(userPicsDto);
 		if(flag<1){

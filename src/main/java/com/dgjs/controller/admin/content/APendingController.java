@@ -27,6 +27,7 @@ import com.dgjs.model.persistence.condition.PendingCondition;
 import com.dgjs.model.result.view.BaseView;
 import com.dgjs.service.content.PendingService;
 import com.dgjs.utils.DateUtils;
+import com.dgjs.utils.WebContextHelper;
 
 @Controller
 @RequestMapping("/admin/pding")
@@ -38,7 +39,7 @@ public class APendingController {
 	@RequestMapping("/docms")
 	public ModelAndView docms(PendingCondition condition){
 		ModelAndView mv = new ModelAndView("/admin/content/pending_list");
-		condition.setUserId(Constants.USER_ID);
+		condition.setUserId(WebContextHelper.getUserId());
 		Map<String, SortOrder> sort = new HashMap<String, SortOrder>();
 		sort.put("update_time", SortOrder.DESC);
 		condition.setSort(sort);
@@ -78,7 +79,7 @@ public class APendingController {
 			mv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
 			return mv;
 		}
-		int flag = pendingService.audit(aid, status, Constants.USER_ID, audit_desc);
+		int flag = pendingService.audit(aid, status, WebContextHelper.getUserId(), audit_desc);
 		if(flag<1){
 			mv.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
 			return mv;
@@ -104,7 +105,7 @@ public class APendingController {
 		if(showTime == null){
 			showTime = new Date();
 		}
-		int flag=pendingService.publish(aid, Constants.USER_ID, visits==null?0:visits, showTime,articlePublish.getShowNow()==0?false:true);
+		int flag=pendingService.publish(aid, WebContextHelper.getUserId(), visits==null?0:visits, showTime,articlePublish.getShowNow()==0?false:true);
 		if(flag < 1){
 			mv.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
 			return mv;

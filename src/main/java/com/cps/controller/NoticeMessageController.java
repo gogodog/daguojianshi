@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
-import com.dgjs.constants.Constants;
 import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.persistence.NoticeMessage;
 import com.dgjs.model.persistence.condition.NoticeMessageCondition;
 import com.dgjs.model.result.view.BaseView;
 import com.dgjs.service.admin.NoticeMessageService;
+import com.dgjs.utils.WebContextHelper;
 
 @Controller
 @RequestMapping("/cps/ntcmsg")
@@ -27,7 +27,7 @@ public class NoticeMessageController {
 	@RequestMapping("/list")
 	public ModelAndView list(NoticeMessageCondition condtion){
 		ModelAndView mv = new ModelAndView("/cps/ntcmsg_list");
-		condtion.setAdminId(Constants.USER_ID);
+		condtion.setAdminId(WebContextHelper.getUserId());
 		PageInfoDto<NoticeMessage> pageInfo = noticeMessageService.list(condtion);
 		mv.addObject("pageinfo", pageInfo);
 		return mv;

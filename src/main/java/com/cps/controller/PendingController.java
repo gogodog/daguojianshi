@@ -20,6 +20,7 @@ import com.dgjs.model.persistence.condition.PendingCondition;
 import com.dgjs.service.common.PictureService;
 import com.dgjs.service.content.PendingService;
 import com.dgjs.utils.PictureUtils;
+import com.dgjs.utils.WebContextHelper;
 
 @Controller
 @RequestMapping("/cps/pding")
@@ -35,7 +36,7 @@ public class PendingController {
 	@LogRecord(operate=OperateEnum.Browse,remark="查询文章管理列表")
 	public ModelAndView docms(PendingCondition condition){
 		ModelAndView mv = new ModelAndView("/cps/docms");
-		condition.setUserId(Constants.USER_ID);
+		condition.setUserId(WebContextHelper.getUserId());
 		Map<String, SortOrder> sort = new HashMap<String, SortOrder>();
 		sort.put("update_time", SortOrder.DESC);
 		condition.setSort(sort);

@@ -10,9 +10,9 @@ import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.dom4j.Document;
+import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +28,13 @@ import com.dgjs.model.result.view.AdminMenu;
 import com.dgjs.model.result.view.AdminMenu.Children;
 import com.dgjs.service.admin.AdminUserService;
 import com.dgjs.service.admin.RoleService;
+import com.dgjs.utils.WebContextHelper;
 
 public class LoginInterceptor implements HandlerInterceptor{
 	
+	/*
+	 * 所有菜单信息
+	 */
 	private static List<AdminMenu> adminMenuList;
 	
 	@Autowired
@@ -39,10 +43,80 @@ public class LoginInterceptor implements HandlerInterceptor{
 	@Autowired
 	AdminUserService adminUserService;
 
-	@SuppressWarnings("unchecked")
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
+		//初始化后台菜单（目前只有admin，没有cps）
+		initMenu();
+		//设置登录用户信息
+		AdminUser adminUser = WebContextHelper.getAdminUser();
+		if(adminUser==null){
+			String usercode=request.getParameter("usercode");
+			adminUser = adminUserService.getByUserCode(usercode);
+			if(adminUser == null){
+				throw new AuthorityException();
+			}
+			WebContextHelper.setSessionValue(Session_Keys.USER_INFO, adminUser);
+		}
+		//获取权限
+		RoleAuthorityDto dto = roleService.selectById(adminUser.getRole_id());
+		List<Authority> authorityList = dto.getAuthoritys();
+		List<String> authorityUrlList = new ArrayList<String>(authorityList.size());
+		for(Authority authority:authorityList){
+			authorityUrlList.add(authority.getAuthority_url());
+		}
+		//根据权限配置判断菜单展示
+		List<AdminMenu> showMenus = new ArrayList<AdminMenu>();
+		for(AdminMenu adminMenu:adminMenuList){
+			List<Children> childrenList = adminMenu.getChildren();
+			AdminMenu userMenu = null;
+			for(Children children:childrenList){
+				//显示菜单逻辑
+				if(isPattern(authorityUrlList,children.getUrl())){
+					if(userMenu==null){
+						userMenu = new AdminMenu();
+						userMenu.setName(adminMenu.getName());
+						List<Children> userChildrenList = new ArrayList<Children>();
+						userChildrenList.add(children);
+						userMenu.setChildren(userChildrenList);
+					}else{
+						List<Children> userChildrenList = userMenu.getChildren();
+						userChildrenList.add(children);
+					}
+				}
+			}
+			if(userMenu!=null){
+				showMenus.add(userMenu);
+			}
+		}
+		request.setAttribute("menus", showMenus);
+		//权限判断
+		String servletPath = request.getServletPath();
+		if(servletPath.startsWith("/admin")||servletPath.startsWith("/cps")){
+			if(!isPattern(authorityUrlList,servletPath)){
+				throw new AuthorityException();
+			}
+		}
+		return true;
+	}
+
+	private boolean isPattern(List<String> regexs,String url){
+		if(regexs == null || regexs.isEmpty()){
+			return true;
+		}
+		for(String regex:regexs){
+			Pattern pattern = Pattern.compile(regex);
+			Matcher matcher = pattern.matcher(url);
+			if(matcher.matches()){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void initMenu() throws DocumentException{
 		if(adminMenuList == null){
 			SAXReader reader = new SAXReader(); // 解析的xml文档
 			InputStream is = LoginInterceptor.class.getClassLoader().getResourceAsStream("menu.xml");
@@ -75,72 +149,6 @@ public class LoginInterceptor implements HandlerInterceptor{
 				}
 			}
 		}
-//		request.setAttribute("menus", adminMenuList);
-		HttpSession session=request.getSession();
-		AdminUser adminUser = (AdminUser) session.getAttribute(Session_Keys.USER_INFO);
-		if(adminUser==null){
-			String usercode=request.getParameter("usercode");
-			adminUser = adminUserService.getByUserCode(usercode);
-			if(adminUser == null){
-				throw new AuthorityException();
-			}
-			session.setAttribute(Session_Keys.USER_INFO, adminUser);
-		}
-		//获取权限
-		RoleAuthorityDto dto = roleService.selectById(adminUser.getRole_id());
-		List<Authority> authorityList = dto.getAuthoritys();
-		List<String> authorityUrlList = new ArrayList<String>(authorityList.size());
-		for(Authority authority:authorityList){
-			authorityUrlList.add(authority.getAuthority_url());
-		}
-		//菜单展示
-		List<AdminMenu> showMenus = new ArrayList<AdminMenu>();
-		for(AdminMenu adminMenu:adminMenuList){
-			List<Children> childrenList = adminMenu.getChildren();
-			AdminMenu userMenu = null;
-			for(Children children:childrenList){
-				//显示菜单逻辑
-				if(isPattern(authorityUrlList,children.getUrl())){
-					if(userMenu==null){
-						userMenu = new AdminMenu();
-						userMenu.setName(adminMenu.getName());
-						List<Children> userChildrenList = new ArrayList<Children>();
-						userChildrenList.add(children);
-						userMenu.setChildren(userChildrenList);
-					}else{
-						List<Children> userChildrenList = userMenu.getChildren();
-						userChildrenList.add(children);
-					}
-				}
-			}
-			if(userMenu!=null){
-				showMenus.add(userMenu);
-			}
-		}
-		request.setAttribute("menus", showMenus);
-		//权限
-		String servletPath = request.getServletPath();
-		if(servletPath.startsWith("/admin")||servletPath.startsWith("/cps")){
-			if(!isPattern(authorityUrlList,servletPath)){
-				throw new AuthorityException();
-			}
-		}
-		System.out.println(servletPath);
-		return true;
-	}
-
-	private boolean isPattern(List<String> regexs,String url){
-		if(regexs == null || regexs.isEmpty()){
-			return true;
-		}
-		for(String regex:regexs){
-			Pattern pattern = Pattern.compile(regex);
-			Matcher matcher = pattern.matcher(url);
-			if(matcher.matches()){
-				return true;
-			}
-		}
-		return false;
 	}
 	
 	@Override

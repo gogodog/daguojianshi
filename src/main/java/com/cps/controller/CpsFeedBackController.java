@@ -16,6 +16,7 @@ import com.dgjs.model.persistence.FeedBack;
 import com.dgjs.model.result.view.BaseView;
 import com.dgjs.service.content.FeedBackService;
 import com.dgjs.utils.StringUtils;
+import com.dgjs.utils.WebContextHelper;
 
 @Controller
 @RequestMapping("/cps/fb")
@@ -39,7 +40,7 @@ public class CpsFeedBackController {
 			bv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
 			return bv; 
 		}
-		feedBack.setUname(String.valueOf(Constants.USER_ID));
+		feedBack.setUname(WebContextHelper.getAdminUser().getUsername());
 		feedBack.setFeedback_type(Feedback_Type.ADMIN);
 		feedBackService.save(feedBack);
 		return bv;
