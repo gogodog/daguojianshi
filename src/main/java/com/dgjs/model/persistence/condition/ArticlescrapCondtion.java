@@ -7,13 +7,13 @@ import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.util.StringUtils;
 
 import com.dgjs.constants.Constants;
+import com.dgjs.model.enums.Articlescrap_Status;
 import com.dgjs.model.enums.Articlescrap_Type;
-import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.utils.DateUtils;
 
 public class ArticlescrapCondtion {
 
-	private UpDown_Status status;//状态
+	private Articlescrap_Status status;//状态
 	private Articlescrap_Type type;//类型
 	private String author;//作者
 	private String title;//标题
@@ -35,11 +35,12 @@ public class ArticlescrapCondtion {
 	private Integer startTimeTo;//startTime小于等于
 	private Integer greaterStartTime;//startTime要大于的时间
 	private Integer lessThanStartTime;//startTime要小于的时间
-    
-	public UpDown_Status getStatus() {
+    private boolean isNeedContent=false;//是否要包含content
+	
+	public Articlescrap_Status getStatus() {
 		return status;
 	}
-	public void setStatus(UpDown_Status status) {
+	public void setStatus(Articlescrap_Status status) {
 		this.status = status;
 	}
 	public Articlescrap_Type getType() {
@@ -172,6 +173,12 @@ public class ArticlescrapCondtion {
 	}
 	public void setLessThanStartTime(Integer lessThanStartTime) {
 		this.lessThanStartTime = lessThanStartTime;
+	}
+	public boolean isNeedContent() {
+		return isNeedContent;
+	}
+	public void setNeedContent(boolean isNeedContent) {
+		this.isNeedContent = isNeedContent;
 	}
 	
 }

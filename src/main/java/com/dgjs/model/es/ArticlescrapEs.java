@@ -3,9 +3,9 @@ package com.dgjs.model.es;
 import com.alibaba.fastjson.JSON;
 import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.dto.business.entity.Recommend;
+import com.dgjs.model.enums.Articlescrap_Status;
 import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.TIME_DEGREE;
-import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.utils.DateUtils;
 
 public class ArticlescrapEs implements java.io.Serializable{
@@ -181,7 +181,7 @@ public class ArticlescrapEs implements java.io.Serializable{
 		articlescrap.setShow_picture(articlescrapEs.getShow_picture());
 		articlescrap.setShow_time(DateUtils.parseDateFromString(articlescrapEs.getShow_time()));
 		articlescrap.setBegin_time(articlescrapEs.getStart_time());
-		articlescrap.setStatus(articlescrapEs.getStatus()==-1?null:UpDown_Status.valueOf(articlescrapEs.getStatus()));
+		articlescrap.setStatus(articlescrapEs.getStatus()==-1?null:Articlescrap_Status.valueOf(articlescrapEs.getStatus()));
 		articlescrap.setSub_content(articlescrapEs.getSub_content());
 		articlescrap.setTitle(articlescrapEs.getTitle());
 		articlescrap.setType(Articlescrap_Type.transFrom(articlescrapEs.getType()));

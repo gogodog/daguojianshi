@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.lucene.search.join.ScoreMode;
+import org.elasticsearch.action.bulk.BulkItemResponse;
+import org.elasticsearch.action.bulk.BulkRequestBuilder;
+import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexRequestBuilder;
@@ -34,6 +37,7 @@ import com.dgjs.es.mapper.content.ArticlescrapMapper;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.dto.business.entity.Recommend;
+import com.dgjs.model.enums.Articlescrap_Status;
 import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.es.ArticlescrapEs;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
@@ -86,6 +90,10 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 				String source = hits.getHits()[i].getSourceAsString();
 				ArticlescrapEs articlescrapEs = JSON.parseObject(source, ArticlescrapEs.class);
 				Articlescrap articlescrap = ArticlescrapEs.ConvertToVo(articlescrapEs);
+				if(condition.isNeedContent()){
+					String content = getContent(hits.getHits()[i].getId());
+					articlescrap.setContent(content);
+				}
 				articlescrap.setId(hits.getHits()[i].getId());
 				list.add(articlescrap);
 			}
@@ -275,4 +283,27 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 		}
 		return null;
 	}
+	
+	 @SuppressWarnings("deprecation")
+	 @Override
+	 public int bulkUpdateStatus(List<Articlescrap> list,Articlescrap_Status status){
+        	TransportClient client=transportClient.getClient();
+            BulkRequestBuilder bulkRequest = client.prepareBulk();
+            Date now = new Date();
+            for (Articlescrap articlescrap:list)
+            {
+            	articlescrap.setStatus(status);
+            	articlescrap.setUpdate_time(now);
+                bulkRequest.add(new UpdateRequest(index, type,articlescrap.getId()).doc(ArticlescrapEs.ConvertToEs(articlescrap).toString()));
+            }
+            BulkResponse bulkResponse = bulkRequest.execute().actionGet();
+            BulkItemResponse[] responses = bulkResponse.getItems();
+            int success = 0;
+            for(BulkItemResponse b:responses){
+            	if(!b.isFailed()){
+            		success++;
+            	}
+            }
+            return success;
+     }
 }

@@ -10,8 +10,10 @@ import com.dgjs.es.mapper.content.ArticlescrapMapper;
 import com.dgjs.es.mapper.content.DraftMapper;
 import com.dgjs.es.mapper.content.PendingMapper;
 import com.dgjs.model.dto.PageInfoDto;
+import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.dto.business.Draft;
 import com.dgjs.model.dto.business.Pending;
+import com.dgjs.model.enums.Articlescrap_Status;
 import com.dgjs.model.enums.Draft_Status;
 import com.dgjs.model.enums.Pending_Status;
 import com.dgjs.model.persistence.condition.PendingCondition;
@@ -79,12 +81,18 @@ public class PendingServiceImpl implements PendingService{
 
 	@Override
 	public int publish(String id, Integer publish_user_id, 
-			int visits, Date show_time) throws Exception {
+			int visits, Date show_time,boolean isShowNow) throws Exception {
 		int flag = 0;
 		Date now = new Date();
 		Pending pending= pendingMapper.publish(id, publish_user_id, now, visits, show_time);
 		if(pending!=null){
-			flag=articlescrapMapper.saveArticlescrap(Pending.transToArticlescrap(pending));
+			Articlescrap articlescrap = Pending.transToArticlescrap(pending);
+			//如果需要立刻展示
+			if(isShowNow){
+				articlescrap.setStatus(Articlescrap_Status.UP);
+				articlescrap.setShow_time(new Date());
+			}
+			flag=articlescrapMapper.saveArticlescrap(articlescrap);
 		}
 		return flag;
 	}

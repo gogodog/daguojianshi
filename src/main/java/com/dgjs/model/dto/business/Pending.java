@@ -2,6 +2,7 @@ package com.dgjs.model.dto.business;
 
 import java.util.Date;
 
+import com.dgjs.model.enums.Articlescrap_Status;
 import com.dgjs.model.enums.Pending_Status;
 import com.dgjs.model.enums.Pic_Sync_Status;
 import com.dgjs.model.enums.UpDown_Status;
@@ -146,7 +147,7 @@ public class Pending extends Draft{
 		articlescrap.setPic_num(pending.getPic_num());
 		articlescrap.setPictures(pending.getPictures());
 		articlescrap.setShow_time(pending.getShow_time());
-		articlescrap.setStatus(UpDown_Status.DOWN);
+		articlescrap.setStatus(Articlescrap_Status.INIT);
 		articlescrap.setSub_content(pending.getSub_content());
 		articlescrap.setTime_degree(pending.getTime_degree());
 		articlescrap.setTitle(pending.getTitle());

@@ -11,6 +11,7 @@
                         http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">  
                         
                         <!-- elasticsearch配置 -->
+    <!-- elasticsearch配置 -->
     <bean id="esTransportClient" class="com.dgjs.es.client.ESTransportClient">
         <property name="clusterNodes" value="${clusterNodes}" />
         <property name="clusterName" value="${clusterName}" />
@@ -18,11 +19,18 @@
         <property name="clientNodesSamplerInterval" value="${clientNodesSamplerInterval}" />
     </bean>
     
+    <!-- fastFDS配置 -->
     <bean id="fastFDSClient" class="com.dgjs.es.client.FastFDSClient">
     </bean>
     
-    <!-- 线程 -->
+    <!-- 线程池 -->
+    <!-- 操作日志 -->
 	<bean id="logTaskExecutor" class="java.util.concurrent.Executors"
+		factory-method="newFixedThreadPool" destroy-method="shutdown">
+		<constructor-arg value="1" />
+	</bean>
+	<!-- 事件处理 -->
+	<bean id="eventExecutor" class="java.util.concurrent.Executors"
 		factory-method="newFixedThreadPool" destroy-method="shutdown">
 		<constructor-arg value="1" />
 	</bean>

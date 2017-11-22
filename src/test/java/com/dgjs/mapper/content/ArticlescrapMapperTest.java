@@ -12,6 +12,7 @@ import com.alibaba.fastjson.JSON;
 import com.dgjs.es.mapper.content.ArticlescrapMapper;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Articlescrap;
+import com.dgjs.model.enums.Articlescrap_Status;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 
 @RunWith(SpringJUnit4ClassRunner.class)  
@@ -27,4 +28,14 @@ public class ArticlescrapMapperTest {
 		System.out.println(JSON.toJSONString(pageinfo, true));
 	}
 
+	@Test
+	public void testBulkUpdateStatus(){
+		String[] ids = {"AVzZrY1I9b4MAjksb_WD","AVzZrYlm9b4MAjksb_WA"};
+		List<Articlescrap> list=mapper.getArticlescrapByIds(ids);
+		for(Articlescrap articlescrap:list){
+			Articlescrap a = mapper.getArticlescrapIndex(articlescrap.getId());
+			articlescrap.setContent(a.getContent());
+		}
+		mapper.bulkUpdateStatus(list, Articlescrap_Status.INIT);
+	}
 }

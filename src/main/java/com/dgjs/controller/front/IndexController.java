@@ -22,6 +22,7 @@ import com.dgjs.model.dto.ChannelArticlescrapDto;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.enums.Ad_Position;
+import com.dgjs.model.enums.Articlescrap_Status;
 import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.Carousel_Position;
 import com.dgjs.model.enums.UpDown_Status;
@@ -119,7 +120,7 @@ public class IndexController {
 		//加载最新文章
 		ArticlescrapCondtion articlescrapCondtion = new ArticlescrapCondtion();
 		articlescrapCondtion.setNeedTotalResults(false);
-		articlescrapCondtion.setStatus(UpDown_Status.UP);
+		articlescrapCondtion.setStatus(Articlescrap_Status.UP);
 		articlescrapCondtion.setType(type);
 		articlescrapCondtion.setCurrentPage(currentpage);
 		articlescrapCondtion.setKeyword(keyword);

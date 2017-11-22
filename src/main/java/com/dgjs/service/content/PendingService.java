@@ -15,7 +15,7 @@ public interface PendingService {
 	
 	public Pending selectById(String id);
 	
-	public int publish(String id,Integer publish_user_id,int visits,Date show_time) throws Exception;
+	public int publish(String id,Integer publish_user_id,int visits,Date show_time,boolean isShowNow) throws Exception;
 	
 	public PageInfoDto<Pending> listPending(PendingCondition condition);
 	

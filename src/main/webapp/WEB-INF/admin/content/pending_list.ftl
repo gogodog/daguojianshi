@@ -110,18 +110,27 @@ function showAudit(aid){
    }; 
     
     function showPublish(aid){
- 	   var txt='展示时间&nbsp;:&nbsp;<input type="text" name="show_time" onClick="WdatePicker({dateFmt:\'yyyy-MM-dd HH:mm:ss\'});" class="Wdate" style="width:200px"><br>';
- 	   txt+='访问量基数&nbsp;:&nbsp;<input type="text" name="visits" style="width:200px;height:20px"><br>'
+       var txt='<span>是否立刻展示&nbsp;:&nbsp;<input type="checkbox" id="showNow" onclick="showtime(this);"/></span>';
+ 	   txt+='<span id="showTimeSpan">展示时间&nbsp;:&nbsp;<input type="text" name="show_time" onClick="WdatePicker({dateFmt:\'yyyy-MM-dd HH:mm:ss\'});" class="Wdate" style="width:200px"><br></span>';
+ 	   txt+='访问量基数&nbsp;:&nbsp;<input type="text" name="visits" style="width:200px;height:20px"><br>';
+ 	  
  	   alertify.confirm(txt, function () {
- 		   var show_time = $("input[name='show_time']").val();
+ 		   var showNow = 0;
+ 		   var show_time = null;
+ 		   if($("#showNow").is(':checked')){
+ 			  showNow = 1;
+ 		   }else{
+ 			  show_time = $("input[name='show_time']").val();
+ 		   }
  		   var visits = $("input[name='visits']").val();
  		   $.ajax({
  	 		   async:false,
- 	 		   data:{aid:aid,show_time:show_time,visits:visits},
+ 	 		   data:{aid:aid,show_time:show_time,visits:visits,showNow:showNow},
  	 		   dataType: "json",
  	 		   url:contextPath+"/admin/pding/publish",
  	 		   type:"POST",
  	 		   success:function(data) {
+ 	 			    debugger;
  	                if(data.error){
  	                	alertify.error(data.errorMessage);
  	                }else{
@@ -138,6 +147,15 @@ function showAudit(aid){
  	       // user clicked "cancel"
  	   });
     }
+    
+    function showtime(item){
+    	if($(item).is(':checked')) {
+			$("#showTimeSpan").hide();
+		}else{
+			$("#showTimeSpan").show();
+		}
+    }
+    
 </script>
 </body>
 </html>

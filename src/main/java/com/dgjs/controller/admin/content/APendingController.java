@@ -104,7 +104,7 @@ public class APendingController {
 		if(showTime == null){
 			showTime = new Date();
 		}
-		int flag=pendingService.publish(aid, Constants.USER_ID, visits==null?0:visits, showTime);
+		int flag=pendingService.publish(aid, Constants.USER_ID, visits==null?0:visits, showTime,articlePublish.getShowNow()==0?false:true);
 		if(flag < 1){
 			mv.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
 			return mv;

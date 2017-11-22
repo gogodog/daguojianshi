@@ -14,6 +14,7 @@ import com.dgjs.es.mapper.content.ArticlescrapMapper;
 import com.dgjs.mapper.content.CommentsMapper;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Articlescrap;
+import com.dgjs.model.enums.Articlescrap_Status;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 import com.dgjs.service.content.ArticlescrapService;
 import com.dgjs.utils.PictureUtils;
@@ -130,6 +131,11 @@ public class ArticlescrapServiceImpl implements ArticlescrapService{
 	public List<Articlescrap> getArticlescrapByIds(String[] ids) {
 		List<Articlescrap> list=articlescrapMapper.getArticlescrapByIds(ids);
 		return list;
+	}
+
+	@Override
+	public int bulkUpdateStatus(List<Articlescrap> list, Articlescrap_Status status) {
+		 return articlescrapMapper.bulkUpdateStatus(list, status);
 	}
 
 }

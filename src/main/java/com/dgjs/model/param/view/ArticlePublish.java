@@ -5,6 +5,7 @@ public class ArticlePublish {
 	private String aid;//文章id
 	private Integer visits;//访问量基数
 	private String show_time;//展示时间
+	private int showNow;//是否立刻展示
 	public String getAid() {
 		return aid;
 	}
@@ -22,6 +23,12 @@ public class ArticlePublish {
 	}
 	public void setShow_time(String show_time) {
 		this.show_time = show_time;
+	}
+	public int getShowNow() {
+		return showNow;
+	}
+	public void setShowNow(int showNow) {
+		this.showNow = showNow;
 	}
 	
 }
