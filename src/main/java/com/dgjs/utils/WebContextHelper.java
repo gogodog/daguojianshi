@@ -11,7 +11,9 @@ import com.dgjs.model.persistence.AdminUser;
 public class WebContextHelper {
 
 	private static HttpServletRequest getRequest() {
-        return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes(); 
+		HttpServletRequest request = attributes.getRequest();
+        return request;
     }
 
 	public static AdminUser getAdminUser(){
@@ -31,11 +33,4 @@ public class WebContextHelper {
 		return getAdminUser()==null?null:getAdminUser().getUser_code();
 	}
 	
-//	public static void setAttribute(String name,Object value){
-//		getRequest().setAttribute(name, value);
-//	}
-//	
-//	public static Object getParameter(String name){
-//		return getRequest().getParameter(name);
-//	}
 }

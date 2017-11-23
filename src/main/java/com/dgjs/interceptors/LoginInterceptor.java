@@ -57,7 +57,7 @@ public class LoginInterceptor implements HandlerInterceptor{
 			if(adminUser == null){
 				throw new AuthorityException();
 			}
-			WebContextHelper.setSessionValue(Session_Keys.USER_INFO, adminUser);
+			request.getSession().setAttribute(Session_Keys.USER_INFO, adminUser);
 		}
 		//获取权限
 		RoleAuthorityDto dto = roleService.selectById(adminUser.getRole_id());
@@ -95,6 +95,7 @@ public class LoginInterceptor implements HandlerInterceptor{
 		String servletPath = request.getServletPath();
 		if(servletPath.startsWith("/admin")||servletPath.startsWith("/cps")){
 			if(!isPattern(authorityUrlList,servletPath)){
+				System.out.println(servletPath);
 				throw new AuthorityException();
 			}
 		}
@@ -168,7 +169,7 @@ public class LoginInterceptor implements HandlerInterceptor{
 	public static void main(String[] args) {
 		LoginInterceptor l = new LoginInterceptor();
 		//全部 .*+
-		boolean flag = l.isPattern(Arrays.asList("/admin/atcp/.*"), "/admin/atcp/articlescrapList");
+		boolean flag = l.isPattern(Arrays.asList("/cps/.*/.*"), "/cps/dft/draft");
 		System.out.println(flag);
 	}
 }

@@ -29,6 +29,7 @@
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
 	<!-- Spring监听器 -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -37,6 +38,9 @@
 	<listener>
 		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
 	</listener>
+	<listener>
+      <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+    </listener>
 	<!-- Spring MVC servlet -->
 	<servlet>
 		<servlet-name>spring-servlet</servlet-name>

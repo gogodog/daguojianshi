@@ -17,7 +17,7 @@
 		 <#include "/admin/common/left_menu.ftl">
 		<!-- 右侧内容展示部分 -->
 		<div class="public-ifame-content">
-		<iframe name="content" src="${contextPath}/admin/atcp/articlescrapList" frameborder="0" id="mainframe" scrolling="yes" marginheight="0" marginwidth="0" width="100%" style="height: 700px;"></iframe>
+		<iframe name="content" src="${contextPath}${menus[0].children[0].url}" frameborder="0" id="mainframe" scrolling="yes" marginheight="0" marginwidth="0" width="100%" style="height: 700px;"></iframe>
 		</div>
 	</div>
 </div>

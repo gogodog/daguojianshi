@@ -21,7 +21,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.alibaba.fastjson.JSON;
 import com.dgjs.annotation.LogRecord;
-import com.dgjs.constants.Constants;
 import com.dgjs.model.persistence.OperateLog;
 import com.dgjs.service.admin.OperateLogService;
 import com.dgjs.service.common.EventService;
@@ -64,32 +63,33 @@ public class SystemLogAspect {
 		Object[] args = point.getArgs();
 		String ip = getIp();
 		int event = logRecord.event();
+		Integer userId = WebContextHelper.getUserId();
 		try{
 			//执行controller方法
 		    obj = point.proceed(args);
 		    //保存操作日志
-		    saveOperateLog(args,ip,logRecord);
+		    saveOperateLog(args,ip,logRecord,userId);
 		    //处理事件
 		    eventService.eventHandler(event,args);
 		}catch(Exception e){
-			saveOperateLog(args,ip,logRecord,0,e.getMessage());
+			saveOperateLog(args,ip,logRecord,0,e.getMessage(),userId);
 			throw e;
 		}
 		return obj;
 	}
 	
-	private void saveOperateLog(Object[] args,String ip,LogRecord logRecord){
-		saveOperateLog(args,ip,logRecord,1,null);
+	private void saveOperateLog(Object[] args,String ip,LogRecord logRecord,Integer userId){
+		saveOperateLog(args,ip,logRecord,1,null,userId);
 	}
 	
-	private void saveOperateLog(Object[] args,String ip,LogRecord logRecord,int isSuccess,String errorMessage){
+	private void saveOperateLog(Object[] args,String ip,LogRecord logRecord,int isSuccess,String errorMessage,Integer userId){
 		try{
              logTaskExecutor.execute(new Runnable() {
 				
 				@Override
 				public void run() {
 					//保存操作日志
-					OperateLog operateLog = combineOperateLog(args,ip,logRecord,isSuccess,errorMessage);
+					OperateLog operateLog = combineOperateLog(args,ip,logRecord,isSuccess,errorMessage,userId);
 					operateLogService.save(operateLog);
 				}
 			});
@@ -98,9 +98,9 @@ public class SystemLogAspect {
 		}
 	}
 	
-	private OperateLog combineOperateLog(Object[] args,String ip,LogRecord logRecord,int isSuccess,String errorMessage){
+	private OperateLog combineOperateLog(Object[] args,String ip,LogRecord logRecord,int isSuccess,String errorMessage,Integer userId){
 		OperateLog log = new OperateLog();
-		log.setAdmin_id(WebContextHelper.getUserId());
+		log.setAdmin_id(userId);
 		log.setOperate_type(logRecord.operate());
 		log.setOperate_desc(logRecord.remark());
 		log.setIp(ip);

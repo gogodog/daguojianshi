@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dgjs.annotation.LogRecord;
-import com.dgjs.constants.Constants;
 import com.dgjs.constants.EventCode;
 import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.model.dto.PageInfoDto;
@@ -39,7 +38,6 @@ public class APendingController {
 	@RequestMapping("/docms")
 	public ModelAndView docms(PendingCondition condition){
 		ModelAndView mv = new ModelAndView("/admin/content/pending_list");
-		condition.setUserId(WebContextHelper.getUserId());
 		Map<String, SortOrder> sort = new HashMap<String, SortOrder>();
 		sort.put("update_time", SortOrder.DESC);
 		condition.setSort(sort);
