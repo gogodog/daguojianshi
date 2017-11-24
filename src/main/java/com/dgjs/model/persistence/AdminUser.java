@@ -14,6 +14,7 @@ public class AdminUser {
     private Integer role_id;//角色id
 	private Date create_time;//创建时间
 	private Date update_time;//修改时间
+	private String headimgurl;//头像
 	
 	public String getUsername() {
 		return username;
@@ -62,6 +63,12 @@ public class AdminUser {
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public String getHeadimgurl() {
+		return headimgurl;
+	}
+	public void setHeadimgurl(String headimgurl) {
+		this.headimgurl = headimgurl;
 	}
     
 }

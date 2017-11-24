@@ -28,6 +28,7 @@ import com.dgjs.model.result.view.AdminMenu;
 import com.dgjs.model.result.view.AdminMenu.Children;
 import com.dgjs.service.admin.AdminUserService;
 import com.dgjs.service.admin.RoleService;
+import com.dgjs.utils.StringUtils;
 import com.dgjs.utils.WebContextHelper;
 
 public class LoginInterceptor implements HandlerInterceptor{
@@ -50,17 +51,26 @@ public class LoginInterceptor implements HandlerInterceptor{
 		//初始化后台菜单（目前只有admin，没有cps）
 		initMenu();
 		//设置登录用户信息
-		AdminUser adminUser = WebContextHelper.getAdminUser();
-		if(adminUser==null){
-			String usercode=request.getParameter("usercode");
+		AdminUser adminUser = null;
+		String usercode=request.getParameter("usercode");
+		if(StringUtils.isNullOrEmpty(usercode)){
+			//设置登录用户信息
+		    adminUser = WebContextHelper.getAdminUser();
+		    if(adminUser == null){
+				throw new AuthorityException();
+			}
+		    //设置用户ehcache缓存，目的是用户改了角色可在一分钟内同步权限信息
+		    AdminUser adminUserCache = adminUserService.getByUserCode(adminUser.getUser_code());
+		    adminUser = adminUserCache;
+		}else{
 			adminUser = adminUserService.getByUserCode(usercode);
 			if(adminUser == null){
 				throw new AuthorityException();
 			}
-			request.getSession().setAttribute(Session_Keys.USER_INFO, adminUser);
 		}
+		request.getSession().setAttribute(Session_Keys.USER_INFO, adminUser);
 		//获取权限
-		RoleAuthorityDto dto = roleService.selectById(adminUser.getRole_id());
+		RoleAuthorityDto dto = roleService.selectByIdMCache(adminUser.getRole_id());
 		List<Authority> authorityList = dto.getAuthoritys();
 		List<String> authorityUrlList = new ArrayList<String>(authorityList.size());
 		for(Authority authority:authorityList){
@@ -90,6 +100,7 @@ public class LoginInterceptor implements HandlerInterceptor{
 				showMenus.add(userMenu);
 			}
 		}
+		request.setAttribute("user", adminUser);
 		request.setAttribute("menus", showMenus);
 		//权限判断
 		String servletPath = request.getServletPath();

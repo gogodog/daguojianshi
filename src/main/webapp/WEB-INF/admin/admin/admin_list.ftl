@@ -24,28 +24,29 @@
 		        </form>
 			    <table class="public-cont-table">
 					<tr>
-					    <th style="width:10%">用户code</th>
+					    <th style="width:15%">用户code</th>
 						<th style="width:10%">用户名</th>
 						<th style="width:10%">来源</th>
-						<th style="width:15%">邮件</th>
+						<th style="width:10%">角色</th>
 						<th style="width:10%">电话</th>
-						<th style="width:10%">姓名</th>
+						<th style="width:12%">姓名</th>
 						<th style="width:15%">创建时间</th>
-						<th style="width:10%">操作</th>
+						<th style="width:18%">操作</th>
 					</tr>
 					<#list pageinfo.objects as result>
 					  <tr title="角色:${result.role_name},性别:<#if result.sex == 1>男<#elseif result.sex == 2>女</#if>,年龄:${result.age},地址:${result.address}">
 					     <td>${result.user_code}</td>			
 					     <td>${result.username}</td>
 					     <td>${result.organization}</td>	
-					     <td>${result.email}</td>	
+					     <td>${result.role_name}</td>	
 					     <td>${result.mobile}</td>	
 					     <td>${result.real_name}</td>	
 					     <td>${result.create_time?datetime}</td>	
 					     <td>
-					     	<div class="table-fun">
+					     	<div class="table-fun-1">
 					     		<a href="javascript:void(0)" onclick="updateStatus('${result.id}','${result.status.key}');"><#if result.status.key=="0">启用<#elseif result.status.key=="1">禁用</#if></a>
-					     	</div>
+					     		<a href="${contextPath}/admin/adnur/detail?uid=${result.id}">查看详情</a>
+					        </div>
 					     </td>
 				     </tr>
 				   </#list>

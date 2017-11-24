@@ -15,6 +15,7 @@ public class AdminUserInfo {
 	private Date create_time;//创建时间
 	private Date update_time;//修改时间
 	
+	
 	public String getReal_name() {
 		return real_name;
 	}

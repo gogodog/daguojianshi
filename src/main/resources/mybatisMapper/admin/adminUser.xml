@@ -11,6 +11,7 @@
            source,
            role_id,
            user_code,
+           headimgurl,
            create_time,
            update_time
           )  
@@ -21,7 +22,8 @@
            #{item.status},
            #{item.source},
            #{item.role_id},
-           #{user_code},
+           #{item.user_code},
+           #{item.headimgurl},
            #{item.create_time},
            #{item.update_time}
           ) 
@@ -36,6 +38,7 @@
                source,
                role_id,
                user_code,
+               headimgurl,
                create_time,
                update_time
 	       )
@@ -46,13 +49,14 @@
                #{source},
                #{role_id},
                #{user_code},
+               #{headimgurl},
                now(),
                now()
 	       )
 	</insert>
 	
 	<select id="selectById" resultType="adminUser">
-	      select id,username,user_code,status,source,role_id,create_time,update_time from admin_user where id=#{id}
+	      select id,username,user_code,status,source,role_id,headimgurl,create_time,update_time from admin_user where id=#{id}
 	</select>
 	
 	<update id="update">
@@ -69,7 +73,7 @@
 	</update>
 	
 	<select id="list" resultType="adminUserResult">
-	   select au.id,au.username,au.user_code,au.status,au.source,au.role_id, 
+	   select au.id,au.username,au.user_code,au.status,au.source,au.role_id,au.headimgurl, 
 	   aui.real_name,aui.sex,aui.age,aui.organization,aui.email,aui.mobile,aui.address,au.create_time,aui.update_time
 	   from admin_user au
 	   left join admin_user_info aui on au.id=aui.id where 1=1
@@ -120,6 +124,6 @@
 	</sql>
 	
 	<select id="getByUserCode" resultType="adminUser">
-	  select id,username,user_code,status,source,role_id,create_time,update_time from admin_user where user_code=#{userCode}
+	  select id,username,user_code,status,source,role_id,headimgurl,create_time,update_time from admin_user where user_code=#{userCode}
 	</select>
 </mapper>

@@ -15,4 +15,5 @@ public interface RoleService {
 	
 	public RoleAuthorityDto selectById(Integer id);
 	
+	public RoleAuthorityDto selectByIdMCache(Integer id);
 }

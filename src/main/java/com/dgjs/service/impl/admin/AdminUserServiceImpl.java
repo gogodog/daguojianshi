@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.dgjs.mapper.admin.AdminUserInfoMapper;
@@ -85,6 +86,7 @@ public class AdminUserServiceImpl implements AdminUserService{
 	}
 
 	@Override
+	@Cacheable(value = "cache5m", key = "#root.method.name+'('+#p0+')'")
 	public AdminUser getByUserCode(String userCode) {
 		return adminUserMapper.getByUserCode(userCode);
 	}

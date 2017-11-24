@@ -10,8 +10,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.model.dto.PageInfoDto;
+import com.dgjs.model.dto.RoleAuthorityDto;
 import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.persistence.AdminUser;
+import com.dgjs.model.persistence.AdminUserInfo;
 import com.dgjs.model.persistence.Role;
 import com.dgjs.model.persistence.condition.AdminUserCondition;
 import com.dgjs.model.persistence.result.AdminUserResult;
@@ -25,6 +27,7 @@ public class AdminController {
 
 	@Autowired
 	AdminUserService adminUserService;
+	
 	@Autowired
 	RoleService roleService;
 	
@@ -51,6 +54,38 @@ public class AdminController {
 		adminUser.setId(uid);
 		adminUser.setStatus(UpDown_Status.valueOf(status));
 		int flag = adminUserService.updateAdminUser(adminUser);
+		if(flag < 1){
+			bv.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
+		}
+		return bv;
+	}
+	
+	@RequestMapping("/detail")
+	public ModelAndView detail(Integer uid){
+		ModelAndView mv = new ModelAndView("admin/admin/admin_detail");
+		AdminUser adminUser = adminUserService.getAdminUser(uid);
+		AdminUserInfo adminUserInfo = adminUserService.getAdminUserInfo(uid);
+		RoleAuthorityDto role = roleService.selectById(adminUser.getRole_id());
+		List<Role> allRole= roleService.list();
+		mv.addObject("role", role.getRole());
+		mv.addObject("allRole", allRole);
+		mv.addObject("adminUser", adminUser);
+		mv.addObject("adminUserInfo", adminUserInfo);
+		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/updateAdminRole")
+	public BaseView updateAdminRole(Integer uid,Integer role){
+		BaseView bv = new BaseView();
+		if(uid == null || role == null){
+			bv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
+			return bv;
+		}
+		AdminUser adminUser = new AdminUser();
+		adminUser.setRole_id(role);
+		adminUser.setId(uid);
+		int flag=adminUserService.updateAdminUser(adminUser);
 		if(flag < 1){
 			bv.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
 		}

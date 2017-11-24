@@ -3,6 +3,7 @@ package com.dgjs.service.impl.admin;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.dgjs.mapper.admin.RoleMapper;
@@ -45,6 +46,12 @@ public class RoleServiceImpl implements RoleService{
 		dto.setRole(role);
 		dto.setAuthoritys(authoritys);
 		return dto;
+	}
+
+	@Override
+	@Cacheable(value = "cache5m", key = "#root.method.name+'('+#p0+')'")
+	public RoleAuthorityDto selectByIdMCache(Integer id) {
+		return selectById(id);
 	}
 
 }
