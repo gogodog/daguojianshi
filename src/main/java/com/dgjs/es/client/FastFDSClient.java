@@ -62,8 +62,7 @@ public class FastFDSClient implements FactoryBean<StorageClient>, InitializingBe
 	 * 上传文件
 	 */
 	public String[] uploadFile(String filePath) throws IOException, MyException{
-		String[] paths= filePath.split(webBasePath);
-		filePath = saveRealBasePath+paths[1];
+		filePath = saveRealBasePath+filePath;
 		//直接调用StorageClient对象方法上传文件即可。
 		String[] values = client.upload_file(filePath,"jpg", null);
         return values;

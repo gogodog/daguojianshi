@@ -43,7 +43,7 @@
 				    <div id="showImage">
 				      <#if articlescrap.pictures??>
 				        <#list  articlescrap.pictures as url>
-				          <img src="${imageContextPath}${url}" style="width:200px;height:200px;"> 
+				          <img src="${url}" style="width:200px;height:200px;"> 
 				        </#list>
 				      </#if>
 				    </div>

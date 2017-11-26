@@ -47,7 +47,7 @@ public class ArticlescrapServiceImpl implements ArticlescrapService{
 		if(articlescrap!=null){
 			articlescrap.setContent(PictureUtils.render(articlescrap.getPictures(), articlescrap.getContent(), fastFDSContextPath));
 		}
-		return articlescrapMapper.getArticlescrapIndex(id);
+		return articlescrap;
 	}
 
 	@Override

@@ -75,7 +75,7 @@ public class EventServiceImpl implements EventService{
 				 message = MessageFormat.format(EventCode.AUDIT_SUCCESS_TEMPLATE,title);
 			}
 			noticeMessage.setMessage(message);
-			noticeMessage.setAdmin_id(WebContextHelper.getUserId());
+			noticeMessage.setAdmin_id(pending.getUser_id());
 			noticeMessage.setStatus(Read_Status.UNREAD);
 			noticeMessageService.save(noticeMessage);
 		}

@@ -54,7 +54,6 @@ public class ArticlescrapController {
 	@RequestMapping("/articlescrap")
 	public ModelAndView articlescrap(String articlescrapId) throws Exception{
 		ModelAndView mv = new ModelAndView("admin/content/articlescrap");  
-		mv.addObject("imageContextPath", pictureService.getImageContextPath());
 		if(articlescrapId!=null){
 			Articlescrap articlescrap=articlescrapSerivce.selectById(articlescrapId);
 			mv.addObject("articlescrap", articlescrap);

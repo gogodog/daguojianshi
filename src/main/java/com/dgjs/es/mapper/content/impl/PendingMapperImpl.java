@@ -238,7 +238,7 @@ public class PendingMapperImpl implements PendingMapper{
 					if(uploadFile==null||uploadFile.length!=2){
 						break;
 					}else{
-						fastfdsPics[progress]=uploadFile[1];
+						fastfdsPics[progress]=StringUtils.jointString("/",uploadFile[0],"/",uploadFile[1]);
 						progress++;
 					}
 				}
