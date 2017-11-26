@@ -5,8 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dgjs.annotation.LogRecord;
 import com.dgjs.constants.Constants;
 import com.dgjs.model.dto.PageInfoDto;
+import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.persistence.Comments;
 import com.dgjs.service.content.CommentsService;
 import com.dgjs.utils.StringUtils;
@@ -27,6 +29,7 @@ public class CommentsController {
 	}
 	
 	@RequestMapping("/updateComments")
+	@LogRecord(operate=OperateEnum.Update,remark="修改评论")
 	public ModelAndView updateComments(String id,Boolean isShow,String desc,String articlescrapId){
 	   ModelAndView mv = new ModelAndView("redirect:/admin/cmt/comments?articlescrapId="+articlescrapId);  
 	   commentsService.updateStatus(id, isShow, desc);

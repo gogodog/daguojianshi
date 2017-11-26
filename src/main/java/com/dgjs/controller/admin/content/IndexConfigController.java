@@ -7,9 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dgjs.annotation.LogRecord;
 import com.dgjs.model.dto.IndexConfigDto;
 import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.enums.Index_Type;
+import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.persistence.IndexConfig;
 import com.dgjs.service.content.ArticlescrapService;
@@ -50,6 +52,7 @@ public class IndexConfigController {
 	}
 	
 	@RequestMapping("/delete")
+	@LogRecord(operate=OperateEnum.Update,remark="删除首页配置")
 	public ModelAndView delete(IndexConfig config){
 		ModelAndView mv = new ModelAndView("redirect:/admin/idxcfg/list?type="+config.getType());  
 		indexConfigService.delete(config.getId());
@@ -57,6 +60,7 @@ public class IndexConfigController {
 	}
 	
 	@RequestMapping("/saveOrUpdate")
+	@LogRecord(operate=OperateEnum.Update,remark="保存首页配置")
 	public ModelAndView update(IndexConfig config,String[] pics){
 		ModelAndView mv = new ModelAndView("redirect:/admin/idxcfg/list?type="+config.getType()); 
 		String [] ids={config.getAid()};

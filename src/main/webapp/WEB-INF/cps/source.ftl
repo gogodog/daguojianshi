@@ -37,13 +37,13 @@
 		                   </div>
 		                   </div>
 						   </#list>
-						   <#if (userPics.pics?size<container) >  
+						   <#if (!userPics.pics?? || userPics.pics?size<container) >  
 			                <div class="col-md-2 ">
 			                  <input type="file" id="uploadImage" name="uploadImage" style="display:none" multiple>
 		                      <a class="preview btn btn-info" onclick="uploadFile(this);" href="javascrpt:void(0)"><i class="fa fa-plus fa-2x"></i></a>
 		                    </div>
 		                   </#if> 
-		                   <#if (userPics.pics?size>0) >  
+		                   <#if (userPics.pics?? && userPics.pics?size>0) >  
 			                <div class="col-md-2 ">
 		                      <a class="preview btn btn-info" onclick="removeFile(this);" href="javascrpt:void(0)"><i class="fa fa-minus fa-2x"></i></a>
 		                    </div>

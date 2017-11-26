@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dgjs.annotation.LogRecord;
 import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.RoleAuthorityDto;
+import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.persistence.AdminUser;
 import com.dgjs.model.persistence.AdminUserInfo;
@@ -44,6 +46,7 @@ public class AdminController {
 	
 	@ResponseBody
 	@RequestMapping("/updateAdminStatus")
+	@LogRecord(operate=OperateEnum.Update,remark="修改用户状态")
 	public BaseView updateAdminStatus(Integer uid,Integer status){
 		BaseView bv = new BaseView();
 		if(uid == null || status == null){
@@ -76,6 +79,7 @@ public class AdminController {
 	
 	@ResponseBody
 	@RequestMapping("/updateAdminRole")
+	@LogRecord(operate=OperateEnum.Update,remark="修改用户角色")
 	public BaseView updateAdminRole(Integer uid,Integer role){
 		BaseView bv = new BaseView();
 		if(uid == null || role == null){

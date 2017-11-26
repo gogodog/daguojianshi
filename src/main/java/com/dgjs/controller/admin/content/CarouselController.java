@@ -10,7 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dgjs.annotation.LogRecord;
 import com.dgjs.model.enums.Carousel_Position;
+import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.persistence.Carousel;
 import com.dgjs.service.common.PictureService;
@@ -54,6 +56,7 @@ public class CarouselController {
 	}
 	
 	@RequestMapping("/saveCarousel")
+	@LogRecord(operate=OperateEnum.Add,remark="保存轮播图")
 	public ModelAndView saveCarousel(HttpServletRequest request, HttpServletResponse response,Carousel carousel){
 		ModelAndView mv = new ModelAndView("redirect:/admin/cul/carouselList?position="+carousel.getPosition());  
 		try {
@@ -66,6 +69,7 @@ public class CarouselController {
 	}
 	
 	@RequestMapping("/deleteCarousel")
+	@LogRecord(operate=OperateEnum.Delete,remark="删除轮播图")
 	public ModelAndView deleteCarousel(HttpServletRequest request, HttpServletResponse response,Carousel carousel){
 		ModelAndView mv = new ModelAndView("redirect:/admin/cul/carouselList?position="+carousel.getPosition());  
 		carouselService.deleteById(carousel.getId());

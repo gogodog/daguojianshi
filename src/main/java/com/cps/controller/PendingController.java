@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dgjs.annotation.LogRecord;
-import com.dgjs.constants.Constants;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Pending;
 import com.dgjs.model.enums.Articlescrap_Type;

@@ -100,6 +100,9 @@ public class DraftMapperImpl implements DraftMapper{
 	private BoolQueryBuilder getListQueryBuilder(DraftCondition condition){
 		BoolQueryBuilder boolBuilder = new BoolQueryBuilder();
 		if(condition!=null){
+			if(condition.getUser_id()!=null){
+				boolBuilder.must(QueryBuilders.termQuery("user_id", condition.getUser_id()));
+			}
 			if(!StringUtils.isNullOrEmpty(condition.getTitle())){
 				boolBuilder.must(QueryBuilders.matchQuery("title", condition.getTitle()));
 			}

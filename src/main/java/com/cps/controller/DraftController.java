@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dgjs.annotation.LogRecord;
-import com.dgjs.constants.Constants;
 import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Draft;
@@ -44,6 +43,7 @@ public class DraftController {
 	@LogRecord(operate=OperateEnum.Browse,remark="浏览草稿箱")
 	public ModelAndView list(HttpServletRequest request,DraftCondition condtion){
 		ModelAndView mv = new ModelAndView("/cps/draft");
+		condtion.setUser_id(WebContextHelper.getUserId());
 		PageInfoDto<Draft> pageinfo=draftService.listDrafts(condtion);
 		mv.addObject("pageinfo", pageinfo);
 		return mv;

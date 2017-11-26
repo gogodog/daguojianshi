@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dgjs.annotation.LogRecord;
 import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.exceptions.TransactionException;
 import com.dgjs.model.dto.RoleAuthorityDto;
+import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.persistence.Authority;
 import com.dgjs.model.persistence.Role;
 import com.dgjs.model.result.view.BaseView;
@@ -41,6 +43,7 @@ public class RoleController {
 	
 	@ResponseBody
 	@RequestMapping(value="/deleteRole",method=RequestMethod.POST)
+	@LogRecord(operate=OperateEnum.Delete,remark="删除角色")
 	public BaseView delete(Integer id){
 		BaseView mv = new BaseView();
 		if(id == null){
@@ -62,6 +65,7 @@ public class RoleController {
 	
 	@ResponseBody
 	@RequestMapping(value="/saveOrUpdateRole",method=RequestMethod.POST)
+	@LogRecord(operate=OperateEnum.Update,remark="保存角色")
 	public BaseView saveOrUpdate(Integer roleId,String roleName,String authorityIds){
 		BaseView mv = new BaseView();
 		if(StringUtils.isEmpty(roleName)){

@@ -3,9 +3,9 @@
         <ul class="nav" id="main-menu">
             <li>
                 <div class="user-img-div">
-                    <img src="${contextPath}/cps/img/user.png" class="img-thumbnail" />
+                    <img src="${user.headimgurl}" class="img-thumbnail" />
 
-                    <div class="inner-text">文甲东<br/><small>最后一次登录 : 2 Weeks Ago </small><br/>自知之明，兢兢业业，顺其自然。</div>
+                    <div class="inner-text">${user.username}<br/><small>最后一次登录 : 2 Weeks Ago </small><br/>自知之明，兢兢业业，顺其自然。</div>
                 </div>
             </li>
             <li>

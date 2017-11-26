@@ -27,6 +27,6 @@
 	</update>
 	
 	<select id="selectById" resultType="UserPics">
-	       select id,pictures,create_time,update_time from user_pics
+	       select id,pictures,create_time,update_time from user_pics where id = #{id}
 	</select>
 </mapper>

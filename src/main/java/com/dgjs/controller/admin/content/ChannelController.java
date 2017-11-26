@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dgjs.annotation.LogRecord;
 import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.controller.front.FeedBackController;
 import com.dgjs.model.dto.ChannelArticlescrapDto;
 import com.dgjs.model.dto.business.Articlescrap;
+import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.persistence.Channel;
 import com.dgjs.model.persistence.ChannelArticlescrap;
 import com.dgjs.model.result.view.BaseView;
@@ -36,6 +38,7 @@ public class ChannelController {
 	
 	@ResponseBody
 	@RequestMapping(value="/save",method=RequestMethod.POST)
+	@LogRecord(operate=OperateEnum.Add,remark="保存频道")
 	public BaseView saveChannel(Channel channel){
 		BaseView mv = new BaseView(); 
 		if(channel.getC_name()==null||channel.getC_name().length()>10){
@@ -71,6 +74,7 @@ public class ChannelController {
 	}
 	
 	@RequestMapping("/delete")
+	@LogRecord(operate=OperateEnum.Delete,remark="删除频道")
 	public ModelAndView delete(String channel_id){
 		ModelAndView mv = new ModelAndView("redirect:/admin/channel/list"); 
 		channelService.deleteById(Integer.parseInt(channel_id));
@@ -89,6 +93,7 @@ public class ChannelController {
 	
 	@ResponseBody
 	@RequestMapping(value="/deleteCA",method=RequestMethod.POST)
+	@LogRecord(operate=OperateEnum.Delete,remark="删除频道文章")
 	public BaseView deleteCA(String caId){
 		BaseView mv = new BaseView(); 
 	    if(StringUtils.isNullOrEmpty(caId)){
@@ -110,6 +115,7 @@ public class ChannelController {
 	
 	@ResponseBody
 	@RequestMapping("/saveCA")
+	@LogRecord(operate=OperateEnum.Add,remark="保存频道文章")
 	public BaseView saveCA(ChannelArticlescrap ca){
 		BaseView mv = new BaseView();
 		if(ca.getChannel_id()==null||StringUtils.isNullOrEmpty(ca.getArticlescrap_id())){
@@ -136,6 +142,7 @@ public class ChannelController {
 	
 	@ResponseBody
 	@RequestMapping(value="/updateCA",method=RequestMethod.POST)
+	@LogRecord(operate=OperateEnum.Update,remark="修改频道文章")
 	public BaseView updateCA(String caId,Integer sort){
 		BaseView mv = new BaseView();
 		if(StringUtils.isNullOrEmpty(caId)||sort==null){

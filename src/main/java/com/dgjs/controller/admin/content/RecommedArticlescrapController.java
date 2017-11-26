@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dgjs.annotation.LogRecord;
 import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.model.dto.business.Articlescrap;
+import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.result.view.BaseView;
 import com.dgjs.service.content.ArticlescrapService;
@@ -47,6 +49,7 @@ public class RecommedArticlescrapController {
 	
 	@ResponseBody
 	@RequestMapping("/ajaxSaveRecommedArticlescrap")
+	@LogRecord(operate=OperateEnum.Add,remark="保存推荐文章")
 	public BaseView ajaxSaveRecommedArticlescrap(String id,Integer sort,UpDown_Status status){
 		BaseView view=new BaseView();
 		if(StringUtils.isEmpty(id)||sort==null||status ==null||sort<0){
@@ -74,6 +77,7 @@ public class RecommedArticlescrapController {
 	}
 	
 	@RequestMapping("/deleteRecommedArticlescrap")
+	@LogRecord(operate=OperateEnum.Add,remark="删除推荐文章")
 	public ModelAndView deleteRecommedArticlescrap(String recommedArticlescrapId) throws Exception{
 		ModelAndView mv = new ModelAndView("redirect:/admin/rcma/recommedArticlescrapList"); 
 		recommedArticlescrapService.deleteById(recommedArticlescrapId);
@@ -82,6 +86,7 @@ public class RecommedArticlescrapController {
 	
 	@ResponseBody
 	@RequestMapping("/ajaxUpdateRAStatus")
+	@LogRecord(operate=OperateEnum.Update,remark="修改推荐文章状态")
 	public BaseView ajaxUpdateStatus(String recommedArticlescrapId,UpDown_Status status){
 		BaseView view=new BaseView();
 		if(recommedArticlescrapId==null||status==null){

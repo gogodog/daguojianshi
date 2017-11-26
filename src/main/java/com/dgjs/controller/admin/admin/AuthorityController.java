@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dgjs.annotation.LogRecord;
 import com.dgjs.constants.RETURN_STATUS;
+import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.persistence.Authority;
 import com.dgjs.model.result.view.BaseView;
 import com.dgjs.service.admin.AuthorityService;
@@ -36,6 +38,7 @@ public class AuthorityController {
 	
 	@ResponseBody
 	@RequestMapping(value="/saveAthrty",method=RequestMethod.POST)
+	@LogRecord(operate=OperateEnum.Update,remark="保存权限")
 	public BaseView save(Authority authority){
 		BaseView mv = new BaseView();
 		if(StringUtils.isEmpty(authority.getAuthority_name())||
@@ -57,6 +60,7 @@ public class AuthorityController {
 	
 	@ResponseBody
 	@RequestMapping(value="/deleteAthrty",method=RequestMethod.POST)
+	@LogRecord(operate=OperateEnum.Delete,remark="删除权限")
 	public BaseView delete(Integer id){
 		BaseView mv = new BaseView();
 		if(id == null){
@@ -78,6 +82,7 @@ public class AuthorityController {
 	
 	@ResponseBody
 	@RequestMapping(value="/updateAthrty",method=RequestMethod.POST)
+	@LogRecord(operate=OperateEnum.Update,remark="修改权限")
 	public BaseView update(Authority authority){
 		BaseView mv = new BaseView();
 		if(authority.getId()==null || StringUtils.isEmpty(authority.getAuthority_name())){

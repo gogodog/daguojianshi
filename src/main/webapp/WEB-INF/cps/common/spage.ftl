@@ -16,6 +16,7 @@ function spage(currentPage){
 	$("#page").submit();
 }
 </script>
+<#if pageinfo.currentPage??>
 <ul class="pagination">
 	<li><a href="javascript:void(0);" onclick="spage(${pageinfo.currentPage-1})">&laquo;</a></li>
 	<#list 1..pageinfo.totalPage as i>
@@ -23,4 +24,5 @@ function spage(currentPage){
 	</#list>
 	<li><a href="javascript:void(0);" onclick="spage(${pageinfo.currentPage+1})">&raquo;</a></li>
 </ul>
+</#if>
 <hr />

@@ -10,14 +10,15 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
+import com.dgjs.annotation.LogRecord;
 import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.model.dto.PictureDto;
 import com.dgjs.model.dto.ThumbnailatorDto;
+import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.result.view.EditorUploadPictureView;
 import com.dgjs.model.result.view.UploadPictureView;
 import com.dgjs.service.common.PictureService;
@@ -33,6 +34,7 @@ public class PictureController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/ajaxUpload")
+	@LogRecord(operate=OperateEnum.Add,remark="上传图片")
 	public String ajaxUpload(HttpServletRequest request, HttpServletResponse response,String imagePath,ThumbnailatorDto thumbnailator){
 		 UploadPictureView view=new UploadPictureView();
 	     try {
@@ -47,6 +49,7 @@ public class PictureController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/ajaxUploadEditorImage")
+	@LogRecord(operate=OperateEnum.Add,remark="上传富文本编辑图片")
 	public String ajaxUploadEditorImage(HttpServletRequest request, HttpServletResponse response,String imagePath,ThumbnailatorDto thumbnailator){
 		EditorUploadPictureView view=new EditorUploadPictureView();
 	     try {

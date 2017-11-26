@@ -7,8 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dgjs.annotation.LogRecord;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.enums.Ad_Position;
+import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.persistence.Advertisement;
 import com.dgjs.model.persistence.condition.AdvertisementCondtion;
@@ -50,6 +52,7 @@ public class AdvertisementController {
 	}
 	
 	@RequestMapping("/saveAdvertisement")
+	@LogRecord(operate=OperateEnum.Add,remark="保存广告")
 	public ModelAndView saveAdvertisement(Advertisement advertisement){
 		ModelAndView mv = new ModelAndView("redirect:/admin/ad/adList");  
 		if(advertisement.getId()!=null){
@@ -61,6 +64,7 @@ public class AdvertisementController {
 	}
 	
 	@RequestMapping("/deleteAdvertisement")
+	@LogRecord(operate=OperateEnum.Delete,remark="删除广告")
 	public ModelAndView deleteAdvertisement(Long adId){
 		ModelAndView mv = new ModelAndView("redirect:/admin/ad/adList");  
 		advertisementService.deleteById(adId);
