@@ -108,7 +108,7 @@ public class IndexController {
 		List<Articlescrap> commentsArticlescrapList=articlescrapService.getArticlescrapByComments(2);
 		mv.addObject("commentsArticlescrapList", commentsArticlescrapList);
 		//首页访问量
-	    int indexVisitCount = dataSerivce.getPageTotalVisits("10336266");
+	    int indexVisitCount = dataSerivce.getPageTotalVisits(String.valueOf(Constants.DD_INDEX_ID));
 	    mv.addObject("indexVisitCount",indexVisitCount);
 		return mv;
     }
@@ -130,7 +130,6 @@ public class IndexController {
 		articlescrapCondtion.setSort(sort);
 		PageInfoDto<Articlescrap> pageInfo=articlescrapService.listArticlescrap(articlescrapCondtion);
 		list.put("pageInfo", pageInfo);
-		list.put("imageContextPath", pictureService.getImageContextPath());
 		//加载文章阅读量
 		List<Articlescrap> aticlescrapList = pageInfo == null?null:pageInfo.getObjects();
 		if(aticlescrapList!=null&&aticlescrapList.size()>0){

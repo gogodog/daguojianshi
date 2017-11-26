@@ -5,7 +5,7 @@
 				<li>
 					<a title="${articlescrap.title}" href="${contextPath}/show/${articlescrap.id}" >
 						<span class="thumbnail">
-							<img class="thumb" src="${imageContextPath}${articlescrap.show_picture}" style="display: block;">
+							<img class="thumb" src="${articlescrap.pictures[0]}" style="display: block;">
 						</span>
 						<span class="text">${articlescrap.title}</span>
 						<span class="muted"><i class="glyphicon glyphicon-time"></i>${(articlescrap.start_time)!'无'}</span>
