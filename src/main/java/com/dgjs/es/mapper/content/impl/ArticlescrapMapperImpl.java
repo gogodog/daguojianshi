@@ -276,6 +276,9 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 			if(condition.getPicNum()!=null){
 				boolBuilder.must(QueryBuilders.rangeQuery("pic_num").gte(condition.getPicNum()));
 			}
+			if(condition.getUserId()!=null){
+				boolBuilder.must(QueryBuilders.termQuery("user_id",condition.getUserId()));
+			}
 			if(condition.getWithoutIds()!=null && condition.getWithoutIds().length>0){
 				boolBuilder.mustNot(QueryBuilders.idsQuery().addIds(condition.getWithoutIds()));
 			}

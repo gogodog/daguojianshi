@@ -30,7 +30,8 @@ public class ArticlescrapEs implements java.io.Serializable{
 	private int time_degree;//起始时间精度
     private String[] pictures;//图片
     private int pic_num;//图片数量
-	 
+    private Integer user_id;//用户id	 
+    
 	public String getId() {
 		return id;
 	}
@@ -143,6 +144,12 @@ public class ArticlescrapEs implements java.io.Serializable{
 	public void setPic_num(int pic_num) {
 		this.pic_num = pic_num;
 	}
+	public Integer getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(Integer user_id) {
+		this.user_id = user_id;
+	}
 	public static ArticlescrapEs ConvertToEs(Articlescrap articlescrap){
 		if(articlescrap == null){
 			return null;
@@ -165,6 +172,7 @@ public class ArticlescrapEs implements java.io.Serializable{
 		if(articlescrap.getRecommend()!=null){
 			articlescrapEs.setRecommend(articlescrap.getRecommend());
 		}
+		articlescrapEs.setUser_id(articlescrap.getUser_id());
 		articlescrapEs.setPictures(articlescrap.getPictures());
 		articlescrapEs.setPic_num(articlescrap.getPic_num());
 		return articlescrapEs;
@@ -193,6 +201,7 @@ public class ArticlescrapEs implements java.io.Serializable{
 		articlescrap.setRecommend(articlescrapEs.getRecommend());
 		articlescrap.setPictures(articlescrapEs.getPictures());
 		articlescrap.setPic_num(articlescrapEs.getPic_num());
+		articlescrap.setUser_id(articlescrapEs.getUser_id());
 		return articlescrap;
 	}
 	

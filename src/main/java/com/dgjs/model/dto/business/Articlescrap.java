@@ -36,6 +36,7 @@ public class Articlescrap {
 	private TIME_DEGREE time_degree;//起始时间精度
 	private String[] pictures;//图片路径
 	private int pic_num;//图片数量
+	private Integer user_id;//用户id	 
 	
 	private transient String start_time_c;//内容的起始时间
 	private transient String start_time_y;//内容的起始时间
@@ -274,6 +275,12 @@ public class Articlescrap {
 	}
 	public void setStart_time_d(String start_time_d) {
 		this.start_time_d = start_time_d;
+	}
+	public Integer getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(Integer user_id) {
+		this.user_id = user_id;
 	}
 	@Override
 	public String toString() {

@@ -154,6 +154,7 @@ public class Pending extends Draft{
 		articlescrap.setType(pending.getType());
 		articlescrap.setUpdate_time(new Date());
 		articlescrap.setVisits(pending.getVisits()==null?null:pending.getVisits().longValue());
+		articlescrap.setUser_id(pending.getUser_id());
 		return articlescrap;
 	}
 	

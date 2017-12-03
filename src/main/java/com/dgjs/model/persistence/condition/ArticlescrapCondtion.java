@@ -36,6 +36,7 @@ public class ArticlescrapCondtion {
 	private Integer greaterStartTime;//startTime要大于的时间
 	private Integer lessThanStartTime;//startTime要小于的时间
     private boolean isNeedContent=false;//是否要包含content
+    private Integer userId;//作者
 	
 	public Articlescrap_Status getStatus() {
 		return status;
@@ -179,6 +180,12 @@ public class ArticlescrapCondtion {
 	}
 	public void setNeedContent(boolean isNeedContent) {
 		this.isNeedContent = isNeedContent;
+	}
+	public Integer getUserId() {
+		return userId;
+	}
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 	
 }
