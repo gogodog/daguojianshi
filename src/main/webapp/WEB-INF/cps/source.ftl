@@ -4,7 +4,7 @@
 <body>
     <div id="wrapper">
         <#include "/cps/common/top.ftl">
-        <#assign page_name='source'>
+        <#assign page_name='userPics/source'>
         <#include "/cps/common/menu.ftl">
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper">

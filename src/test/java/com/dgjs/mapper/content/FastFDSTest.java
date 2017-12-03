@@ -23,7 +23,7 @@ public class FastFDSTest {
     public void testUpload() throws Exception {
         // 1、把FastDFS提供的jar包添加到工程中
         // 2、初始化全局配置。加载一个配置文件。
-        ClientGlobal.init("/Users/user/Documents/workspaces/elong_workspace_b170327/daguojianshi/src/main/resources/config.properties");
+        ClientGlobal.init("/Users/user/Documents/workspaces/elong_workspace_b170327/daguojianshi/src/test/resources/config.properties");
         // 3、创建一个TrackerClient对象。
         TrackerClient trackerClient = new TrackerClient();
         // 4、创建一个TrackerServer对象。

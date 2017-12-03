@@ -2,7 +2,7 @@
 <body>
     <div id="wrapper">
         <#include "/cps/common/top.ftl">
-        <#assign page_name='psoninf'>
+        <#assign page_name='user/psoninf'>
         <#include "/cps/common/menu.ftl">
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper">

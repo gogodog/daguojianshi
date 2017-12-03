@@ -18,7 +18,6 @@ import com.dgjs.model.enums.Pending_Status;
 import com.dgjs.model.persistence.condition.PendingCondition;
 import com.dgjs.service.common.PictureService;
 import com.dgjs.service.content.PendingService;
-import com.dgjs.utils.PictureUtils;
 import com.dgjs.utils.WebContextHelper;
 
 @Controller

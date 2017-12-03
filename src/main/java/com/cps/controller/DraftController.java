@@ -1,9 +1,12 @@
 package com.cps.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,6 +47,9 @@ public class DraftController {
 	public ModelAndView list(HttpServletRequest request,DraftCondition condtion){
 		ModelAndView mv = new ModelAndView("/cps/draft");
 		condtion.setUser_id(WebContextHelper.getUserId());
+		Map<String, SortOrder> map = new HashMap<String, SortOrder>();
+		map.put("update_time", SortOrder.DESC);
+		condtion.setSort(map);
 		PageInfoDto<Draft> pageinfo=draftService.listDrafts(condtion);
 		mv.addObject("pageinfo", pageinfo);
 		return mv;

@@ -2,7 +2,7 @@
 <body>
     <div id="wrapper">
         <#include "/cps/common/top.ftl">
-        <#assign page_name='wdoc'>
+        <#assign page_name='dft/wdoc'>
         <#include "/cps/common/menu.ftl">
         <input type="hidden" name="tag" value="${id}">
         <div id="page-wrapper">
