@@ -294,7 +294,7 @@ public class MIndexController {
 	    return contextPath+"/index";
 	}
 	
-	private Map<String,Integer> getVisits(List<MIndexView> list){
+	private Map<String,Long> getVisits(List<MIndexView> list){
 		if(list == null || list.size() == 0){
 			return null;
 		}
@@ -302,7 +302,7 @@ public class MIndexController {
 		for(MIndexView miv : list){
 			aids.add(miv.getAid());
 		}
-		Map<String,Integer> map=dataSerivce.getDocShowCounts(aids);
+		Map<String,Long> map=dataSerivce.getDocShowCounts(aids);
 		return map;
 	}
 }

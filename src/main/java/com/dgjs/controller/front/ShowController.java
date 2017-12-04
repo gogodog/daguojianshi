@@ -56,7 +56,7 @@ public class ShowController {
 		mv.addObject("articlescrap", articlescrap);
 		mv.addObject("imageContextPath", pictureService.getImageContextPath());
 		//文章阅读量
-		Map<String,Integer> map=dataSerivce.getDocShowCounts(String.valueOf(id));
+		Map<String,Long> map=dataSerivce.getDocShowCounts(String.valueOf(id));
 		mv.addObject("visits", map.get(String.valueOf(id)));
 		//加载分类
 		mv.addObject("types", Articlescrap_Type.values());

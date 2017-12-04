@@ -137,7 +137,7 @@ public class IndexController {
 			for(Articlescrap articlescrap:aticlescrapList){
 				articlescrapIds.add(String.valueOf(articlescrap.getId()));
 			}
-			Map<String,Integer> map=dataSerivce.getDocShowCounts(articlescrapIds);
+			Map<String,Long> map=dataSerivce.getDocShowCounts(articlescrapIds);
 			list.put("visits", map);
 		}
 		list.put("isTypeShow", type==null?true:false);

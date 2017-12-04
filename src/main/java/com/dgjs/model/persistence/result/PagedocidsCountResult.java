@@ -4,7 +4,7 @@ public class PagedocidsCountResult {
 
 	private String pagedocids;
 	
-    private Integer visits;
+    private Long visits;
 
 	public String getPagedocids() {
 		return pagedocids;
@@ -14,13 +14,12 @@ public class PagedocidsCountResult {
 		this.pagedocids = pagedocids;
 	}
 
-	public Integer getVisits() {
+	public Long getVisits() {
 		return visits;
 	}
 
-	public void setVisits(Integer visits) {
+	public void setVisits(Long visits) {
 		this.visits = visits;
 	}
-    
-    
+
 }

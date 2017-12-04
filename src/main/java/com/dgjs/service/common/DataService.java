@@ -22,7 +22,7 @@ public interface DataService {
 	
 	IpHttpResponse.IpAliData getLocalAliAdressByIp(String ip);
 	
-	Map<String,Integer> getDocShowCounts(String docids);
+	Map<String,Long> getDocShowCounts(String docids);
 	
-	Map<String,Integer> getDocShowCounts(List<String> docids);
+	Map<String,Long> getDocShowCounts(List<String> docids);
 }

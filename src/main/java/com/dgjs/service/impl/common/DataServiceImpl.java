@@ -84,7 +84,7 @@ public class DataServiceImpl implements DataService{
 	}
 
 	@Override
-	public Map<String, Integer> getDocShowCounts(String docids) {
+	public Map<String, Long> getDocShowCounts(String docids) {
 		String[] docIdArray=docids.split("#");
 		return getDocShowCounts(Arrays.asList(docIdArray));
 	}
@@ -112,15 +112,15 @@ public class DataServiceImpl implements DataService{
 	}
 
 	@Override
-	public Map<String, Integer> getDocShowCounts(List<String> docids) {
+	public Map<String, Long> getDocShowCounts(List<String> docids) {
 		List<PagedocidsCountResult> list=dadianMapper.pagedocidsCount(docids);
-		Map<String,Integer> map = new HashMap<String,Integer>();
+		Map<String,Long> map = new HashMap<String,Long>();
 		for(PagedocidsCountResult pagedocidsCount:list){
 	       	map.put(pagedocidsCount.getPagedocids(), pagedocidsCount.getVisits());
 	    }
 		for(String docid:docids){
 			if(!map.containsKey(docid)){
-				map.put(docid, 0);
+				map.put(docid, 0L);
 			}
 		}
 		return map;

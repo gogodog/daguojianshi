@@ -66,7 +66,7 @@
                    type: 'bar'
                },
                title: {
-                   text: '文章访问量TOP榜'
+                   text: '文章访问量'
                },
                xAxis: {
                    categories: titles

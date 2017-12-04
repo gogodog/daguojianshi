@@ -38,6 +38,9 @@ public class ArticlescrapCondtion {
     private boolean isNeedContent=false;//是否要包含content
     private Integer userId;//作者
 	
+    private String[] includes;//返回值需要的字段
+    private String[] excludes;//返回值不需要的字段
+    
 	public Articlescrap_Status getStatus() {
 		return status;
 	}
@@ -186,6 +189,18 @@ public class ArticlescrapCondtion {
 	}
 	public void setUserId(Integer userId) {
 		this.userId = userId;
+	}
+	public String[] getIncludes() {
+		return includes;
+	}
+	public void setIncludes(String[] includes) {
+		this.includes = includes;
+	}
+	public String[] getExcludes() {
+		return excludes;
+	}
+	public void setExcludes(String[] excludes) {
+		this.excludes = excludes;
 	}
 	
 }

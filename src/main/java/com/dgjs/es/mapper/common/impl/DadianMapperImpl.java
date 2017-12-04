@@ -68,7 +68,7 @@ public class DadianMapperImpl implements DadianMapper{
 	        InternalValueCount internames =entry.getAggregations().get("agg_count");
 	        PagedocidsCountResult result = new PagedocidsCountResult();
 	        result.setPagedocids(String.valueOf(entry.getKey()));
-	        result.setVisits((int)internames.getValue());
+	        result.setVisits((long)internames.getValue());
 	        list.add(result);
          }
 		return list;

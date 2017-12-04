@@ -16,9 +16,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
-import com.dgjs.model.result.view.BaseView;
+import com.dgjs.service.common.DataService;
 import com.dgjs.service.content.ArticlescrapService;
-import com.dgjs.utils.WebContextHelper;
 
 @Controller
 @RequestMapping("/cps/flwststcs")
@@ -26,6 +25,9 @@ public class FlowStatisticsController {
 
 	@Autowired
 	ArticlescrapService articlescrapSerivce;
+	
+	@Autowired
+	DataService dataSerivce;
 	
 	@RequestMapping("/list")
 	public ModelAndView list(){
@@ -42,19 +44,24 @@ public class FlowStatisticsController {
 			articlescrapCondtion.setCurrentPage(currentPage);
 		}
 		Map<String, SortOrder> sort = new HashMap<String, SortOrder>();
-		sort.put("visits", SortOrder.DESC);
+		sort.put("show_time", SortOrder.DESC);
 		articlescrapCondtion.setSort(sort);
 //		articlescrapCondtion.setUserId(WebContextHelper.getUserId());
+		String[] includes = {"id","title"};
+		articlescrapCondtion.setIncludes(includes);
 		PageInfoDto<Articlescrap> pageinfo = articlescrapSerivce.listArticlescrap(articlescrapCondtion);
 		List<Articlescrap> list = pageinfo.getObjects();
-		if(list!=null && !list.isEmpty()){
+		List<String> ids = new ArrayList<String>();
+		if(list!=null && list.size()>0){
+			for(Articlescrap articlescrap:list){
+				ids.add(articlescrap.getId());
+			}
+			Map<String,Long> map=dataSerivce.getDocShowCounts(ids);
 			List<String> titles = new ArrayList<String> ();
 			List<Long> visits = new ArrayList<Long> ();
-			List<String> ids = new ArrayList<String> ();
 			for(Articlescrap articlescrap:list){
 				titles.add(articlescrap.getTitle());
-				visits.add(articlescrap.getVisits());
-				ids.add(articlescrap.getId());
+				visits.add(map.get(articlescrap.getId()));
 			}
 			json.put("titles", titles);
 			json.put("visits", visits);
