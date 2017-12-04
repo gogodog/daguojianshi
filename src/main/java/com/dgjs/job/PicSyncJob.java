@@ -44,6 +44,8 @@ public class PicSyncJob {
 		PendingCondition condition = new PendingCondition();
 		condition.setStatus(Pending_Status.PUBLISH_PENDING);
 		condition.setPicSyncStatus(Arrays.asList(Pic_Sync_Status.SYNCHING,Pic_Sync_Status.UNSYNC));
+		String[] includes={"id"};
+		condition.setIncludes(includes);
 		PageInfoDto<Pending> pageinfo = pendingService.listPending(condition);
 		List<Pending> pendingList = pageinfo.getObjects();
 		while(pendingList!=null && pendingList.size()>0){
@@ -74,6 +76,8 @@ public class PicSyncJob {
 			Integer adminId=Integer.parseInt(f.getName());
 			DraftCondition condition = new DraftCondition();
 			condition.setUser_id(adminId);
+			String[] includes = {"id","pictures"};
+			condition.setIncludes(includes);
 			PageInfoDto<Draft> pageinfo = draftService.listDrafts(condition);
 			List<Draft> drafts = pageinfo.getObjects();
 			List<String> picsList = new ArrayList<String>();
@@ -94,6 +98,7 @@ public class PicSyncJob {
 			PendingCondition pdcondition  = new PendingCondition();
 			pdcondition.setUserId(adminId);
 			pdcondition.setStatus(Pending_Status.Audit_FAIL);
+			pdcondition.setIncludes(includes);
 			PageInfoDto<Pending> pdPageInfo= pendingService.listPending(pdcondition);
 			List<Pending> pdList= pdPageInfo.getObjects();
 			while(pdList!=null && pdList.size()>0){

@@ -23,6 +23,9 @@ public class DraftCondition {
 	private int currentPage=1;//当前页
 	private boolean needTotalResults;//是否需要查询总数
 	
+	private String[] includes;//返回值需要的字段
+    private String[] excludes;//返回值不需要的字段
+    
 	public String getAuthor() {
 		return author;
 	}
@@ -94,6 +97,18 @@ public class DraftCondition {
 	}
 	public void setUser_id(Integer user_id) {
 		this.user_id = user_id;
+	}
+	public String[] getIncludes() {
+		return includes;
+	}
+	public void setIncludes(String[] includes) {
+		this.includes = includes;
+	}
+	public String[] getExcludes() {
+		return excludes;
+	}
+	public void setExcludes(String[] excludes) {
+		this.excludes = excludes;
 	}
 	
 }

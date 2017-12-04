@@ -24,6 +24,9 @@ public class PendingCondition {
 	private boolean needTotalResults;//是否需要查询总数
 	private List<Pic_Sync_Status> picSyncStatus;//图片同步状态
 	
+	private String[] includes;//返回值需要的字段
+    private String[] excludes;//返回值不需要的字段
+	
 	public Pending_Status getStatus() {
 		return status;
 	}
@@ -89,6 +92,18 @@ public class PendingCondition {
 	}
 	public void setPicSyncStatus(List<Pic_Sync_Status> picSyncStatus) {
 		this.picSyncStatus = picSyncStatus;
+	}
+	public String[] getIncludes() {
+		return includes;
+	}
+	public void setIncludes(String[] includes) {
+		this.includes = includes;
+	}
+	public String[] getExcludes() {
+		return excludes;
+	}
+	public void setExcludes(String[] excludes) {
+		this.excludes = excludes;
 	}
 	
 }

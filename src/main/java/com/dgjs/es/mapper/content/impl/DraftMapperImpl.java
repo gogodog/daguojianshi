@@ -80,8 +80,12 @@ public class DraftMapperImpl implements DraftMapper{
 			}
 		}
 		condition.setBeginNum((condition.getCurrentPage()-1)*condition.getOnePageSize());
-		SearchResponse myresponse = responsebuilder.setFrom(condition.getBeginNum()).
-				setSize(condition.getOnePageSize()).setExplain(true).execute().actionGet();
+		responsebuilder = responsebuilder.setFrom(condition.getBeginNum()).setSize(condition.getOnePageSize()).setExplain(true);
+		if((condition.getIncludes()!=null && condition.getIncludes().length>0)||
+				(condition.getExcludes()!=null&&condition.getExcludes().length>0)){
+			responsebuilder.setFetchSource(condition.getIncludes(), condition.getExcludes());
+		}
+		SearchResponse myresponse = responsebuilder.execute().actionGet();
 		SearchHits hits = myresponse.getHits();
 		if(hits.getTotalHits()>0){
 			List<Draft> list = new ArrayList<Draft>();
