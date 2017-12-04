@@ -138,6 +138,13 @@ public class IndexController {
 				articlescrapIds.add(String.valueOf(articlescrap.getId()));
 			}
 			Map<String,Long> map=dataSerivce.getDocShowCounts(articlescrapIds);
+			//加上访问基数
+			for(Articlescrap articlescrap:aticlescrapList){
+				Long visits=articlescrap.getVisits();
+				if(visits!=null && visits>0){
+					map.put(articlescrap.getId(), visits+map.get(articlescrap.getId()));
+				}
+			}
 			list.put("visits", map);
 		}
 		list.put("isTypeShow", type==null?true:false);
