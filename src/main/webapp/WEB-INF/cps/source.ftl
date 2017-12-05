@@ -28,7 +28,7 @@
 						   <#list userPics.pics as pic>
 						   <div class="col-md-2">
 		                     <div class="portfolio-item ys mix_all" data-cat="ys" >
-		                        <img src="http://img4.imgtn.bdimg.com/it/u=679805784,3150507797&fm=214&gp=0.jpg" alt="简史-${pic.name}" class="img-responsive" style="width:100%;height:145px;" />
+		                        <img src="${imageContextPath}${pic.url}" alt="简史-${pic.name}" class="img-responsive" style="width:100%;height:145px;" />
 		                        <div class="overlay">
 	                              <p>
 	                                  <span dataVal="${pic.url}" dataId="editName">${pic.name}</span>
