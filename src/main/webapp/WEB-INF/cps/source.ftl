@@ -38,18 +38,17 @@
 		                   </div>
 		                   </div>
 						   </#list>
-						   <#if (!userPics.pics?? || userPics.pics?size<container) >  
-			                <div class="col-md-2 ">
-			                  <input type="file" id="uploadImage" name="uploadImage" style="display:none" multiple>
-		                      <a class="preview btn btn-info" onclick="uploadFile(this);" href="javascrpt:void(0)"><i class="fa fa-plus fa-2x"></i></a>
-		                    </div>
-		                   </#if> 
-		                   <#if (userPics.pics?? && userPics.pics?size>0) >  
-			                <div class="col-md-2 ">
-		                      <a class="preview btn btn-info" onclick="removeFile(this);" href="javascrpt:void(0)"><i class="fa fa-minus fa-2x"></i></a>
-		                    </div>
-		                    <button class="btn btn-primary" id="editName"><i class="glyphicon glyphicon-search"></i>Edit</button>
-		                   </#if> 
+						   <div class="col-md-12">
+						   		<h1 class="page-subhead-line"></h1>
+                        		<#if (!userPics.pics?? || userPics.pics?size<container) >  
+				                  <input type="file" id="uploadImage" name="uploadImage" style="display:none" multiple>
+			                      <button class="btn btn-primary" onclick="uploadFile(this);"><i class="glyphicon glyphicon-plus"></i>Add</button>
+			                   </#if> 
+			                   <#if (userPics.pics?? && userPics.pics?size>0) >  
+			                    <button class="btn btn-primary" onclick="removeFile(this);"><i class="glyphicon glyphicon-home"></i>Del</button>
+			                    <button class="btn btn-primary" id="editName"><i class="glyphicon glyphicon-search"></i>Edit</button>
+			                   </#if> 
+                			</div>
 		                </div>
 			   </div>
 		</div></div>
@@ -161,7 +160,6 @@
     			picInfoArray[index++] = picInfo;
     		});
     		ajaxUpdatePicName(JSON.stringify(picInfoArray));
-//    		alert(JSON.stringify(picInfoArray));
         });
     })
     
