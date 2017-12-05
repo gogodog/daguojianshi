@@ -5,6 +5,7 @@
     <div id="wrapper">
         <#include "/cps/common/top.ftl">
         <#assign page_name='userPics/source'>
+        <#assign view_frame='port-folio'>
         <#include "/cps/common/menu.ftl">
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper">
@@ -13,7 +14,7 @@
                     <div class="col-md-12">
                         <h1 class="page-head-line">素材管理</h1>
                         <h1 class="page-subhead-line">系统至多保存${container}张素材展示.素材尺寸最大为${fileSize}M,系统支持多图上传，一次最多可上传${onceContainer}张</h1>
-                </div>
+                	</div>
                 <div id="port-folio">
                           <ul id="filters" style="display:none">
 								<li><span class="filter active" data-filter="zs dl ys">全部</span></li>
@@ -27,7 +28,7 @@
 						   <#list userPics.pics as pic>
 						   <div class="col-md-2">
 		                     <div class="portfolio-item ys mix_all" data-cat="ys" >
-		                        <img src="${imageContextPath}${pic.url}" class="img-responsive" style="width:100%;height:145px;" />
+		                        <img src="http://img4.imgtn.bdimg.com/it/u=679805784,3150507797&fm=214&gp=0.jpg" alt="简史-${pic.name}" class="img-responsive" style="width:100%;height:145px;" />
 		                        <div class="overlay">
 	                              <p>
 	                                  <span dataVal="${pic.url}" dataId="editName">${pic.name}</span>
@@ -53,6 +54,7 @@
 			   </div>
 		</div></div>
     <#include "/cps/common/f-static.ftl">
+    <#include "/cps/common/viewImage.ftl">
     <script src="${contextPath}/cps/js/jquery.prettyPhoto.js"></script>
     <script src="${contextPath}/cps/js/jquery.mixitup.min.js"></script>
     <script src="${contextPath}/cps/js/galleryCustom.js"></script>
