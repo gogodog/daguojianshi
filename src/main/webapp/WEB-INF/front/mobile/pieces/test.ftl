@@ -10,7 +10,7 @@
           <#list adList as ad>
              <div class="item<#if ad_index==0> active</#if>">
                <a href="${ad.ad_link_url}" title="${ad.ad_desc}" >
-               <img src="${imageContextPath}${ad.ad_pic_url}" alt="dgjs" class="img-responsive" style="width:100%;height:100%"></a>
+               <img src="${imageContextPath}${ad.ad_pic_url}" alt="cwillow" class="img-responsive" style="width:100%;height:100%"></a>
               <a class="banner-title" href="${ad.ad_link_url}">${ad.ad_desc}</a>
              </div>
           </#list>

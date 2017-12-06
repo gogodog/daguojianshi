@@ -8,7 +8,7 @@
     <meta name="description" content="">
     
     
-    <meta name="keywords" content="手机万柳网,手机大国简史,历史资料,大国简史无线">
+    <meta name="keywords" content="手机简史网,手机大国简史,历史资料,大国简史无线">
 	<meta name="description" content="cwillow.com">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 	<meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT">
@@ -19,7 +19,7 @@
 	<meta name="referrer" content="always">
 	<meta name="robots" content="index, follow">
 	<meta name="googlebot" content="index, follow">
-	<meta name="author" content="dgjs_mobile">
+	<meta name="author" content="cwillow_mobile">
 	<meta name="baidu-site-verification" content="rTnMzcp5WP">
     
     
