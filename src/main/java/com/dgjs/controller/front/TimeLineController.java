@@ -27,7 +27,6 @@ import com.dgjs.model.dto.timeline.Timeline;
 import com.dgjs.model.dto.timeline.TimelineView;
 import com.dgjs.model.enums.Articlescrap_Status;
 import com.dgjs.model.enums.Articlescrap_Type;
-import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.param.view.TimeLineView;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 import com.dgjs.service.common.PictureService;
@@ -222,7 +221,7 @@ public class TimeLineController {
     	Asset ast = new Asset();
 		ast.setCaption(StringUtils.jointString("简史",type==null?"":type.getValue(),"时间轴"));
 		ast.setCredit("19世纪的百年资料");
-		ast.setMedia("http://img.taopic.com/uploads/allimg/140326/235113-1403260U22059.jpg");
+		ast.setMedia("");
 		ast.setStart("-1000");
 		Timeline timeline = new Timeline();
 		timeline.setAsset(ast);
@@ -248,7 +247,7 @@ public class TimeLineController {
 			Asset ast = new Asset();
 			ast.setCaption(StringUtils.jointString("简史",type==null?"":type.getValue(),"时间轴"));
 			ast.setCredit("19世纪的百年资料");
-			ast.setMedia("http://img.taopic.com/uploads/allimg/140326/235113-1403260U22059.jpg");
+			ast.setMedia("");
 			ast.setStart("-1000");
 			Timeline timeline = new Timeline();
 			timeline.setAsset(ast);
