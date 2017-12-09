@@ -312,7 +312,7 @@ var yeshi1="<article class=\"excerpt listtxt\" onclick=\"location.href='contextP
 var yeshi2="<article class=\"excerpt twohref\"><div class=\"inline2div\">"
 	   +"<a href='contextPath/show/aId1'>&Xi;&nbspatitle1</a><a href='contextPathlinkUrl'>&Xi;&nbspatitle2</a></div></article>";
 var yeshicrsl="<div class=\"itemactive\"><a href=\"linkUrl\">"
-       +"<img src=\"image_url\" alt=\"dgjs\" class=\"img-responsive\" style=\"width:100%;height:100%\"></a>"         
+       +"<img src=\"image_url\" alt=\"cwillow\" class=\"img-responsive\" style=\"width:100%;height:100%\"></a>"         
        +"<a class=\"banner-title\" href=\"linkUrl\">image_desc</a></div>";
 var total1="<article class=\"excerpt listright\" onclick=\"location.href='contextPath/show/aId'\">"
        +"<a class=\"focus\" href=\"javascript:void(0)\"><img class=\"thumb\" src=\"picUrl\" style=\"display:inline;\"></a>"

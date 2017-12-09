@@ -5,6 +5,7 @@
     <div id="wrapper">
         <#include "/cps/common/top.ftl">
         <#assign page_name='userPics/source'>
+        <#assign view_frame='port-folio'>
         <#include "/cps/common/menu.ftl">
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper">
@@ -13,7 +14,7 @@
                     <div class="col-md-12">
                         <h1 class="page-head-line">素材管理</h1>
                         <h1 class="page-subhead-line">系统至多保存${container}张素材展示.素材尺寸最大为${fileSize}M,系统支持多图上传，一次最多可上传${onceContainer}张</h1>
-                </div>
+                	</div>
                 <div id="port-folio">
                           <ul id="filters" style="display:none">
 								<li><span class="filter active" data-filter="zs dl ys">全部</span></li>
@@ -27,7 +28,7 @@
 						   <#list userPics.pics as pic>
 						   <div class="col-md-2">
 		                     <div class="portfolio-item ys mix_all" data-cat="ys" >
-		                        <img src="${imageContextPath}${pic.url}" class="img-responsive" style="width:100%;height:145px;" />
+		                        <img src="${imageContextPath}${pic.url}" alt="简史-${pic.name}" class="img-responsive" style="width:100%;height:145px;" />
 		                        <div class="overlay">
 	                              <p>
 	                                  <span dataVal="${pic.url}" dataId="editName">${pic.name}</span>
@@ -37,22 +38,22 @@
 		                   </div>
 		                   </div>
 						   </#list>
-						   <#if (!userPics.pics?? || userPics.pics?size<container) >  
-			                <div class="col-md-2 ">
-			                  <input type="file" id="uploadImage" name="uploadImage" style="display:none" multiple>
-		                      <a class="preview btn btn-info" onclick="uploadFile(this);" href="javascrpt:void(0)"><i class="fa fa-plus fa-2x"></i></a>
-		                    </div>
-		                   </#if> 
-		                   <#if (userPics.pics?? && userPics.pics?size>0) >  
-			                <div class="col-md-2 ">
-		                      <a class="preview btn btn-info" onclick="removeFile(this);" href="javascrpt:void(0)"><i class="fa fa-minus fa-2x"></i></a>
-		                    </div>
-		                    <button class="btn btn-primary" id="editName"><i class="glyphicon glyphicon-search"></i>Edit</button>
-		                   </#if> 
+						   <div class="col-md-12">
+						   		<h1 class="page-subhead-line"></h1>
+                        		<#if (!userPics.pics?? || userPics.pics?size<container) >  
+				                  <input type="file" id="uploadImage" name="uploadImage" style="display:none" multiple>
+			                      <button class="btn btn-primary" onclick="uploadFile(this);"><i class="glyphicon glyphicon-plus"></i>上传</button>
+			                   </#if> 
+			                   <#if (userPics.pics?? && userPics.pics?size>0) >  
+			                    <button class="btn btn-primary" onclick="removeFile(this);"><i class="glyphicon glyphicon-home"></i>删除</button>
+			                    <button class="btn btn-primary" id="editName"><i class="glyphicon glyphicon-search"></i>重命名</button>
+			                   </#if> 
+                			</div>
 		                </div>
 			   </div>
 		</div></div>
     <#include "/cps/common/f-static.ftl">
+    <#include "/cps/common/viewImage.ftl">
     <script src="${contextPath}/cps/js/jquery.prettyPhoto.js"></script>
     <script src="${contextPath}/cps/js/jquery.mixitup.min.js"></script>
     <script src="${contextPath}/cps/js/galleryCustom.js"></script>
@@ -159,7 +160,6 @@
     			picInfoArray[index++] = picInfo;
     		});
     		ajaxUpdatePicName(JSON.stringify(picInfoArray));
-//    		alert(JSON.stringify(picInfoArray));
         });
     })
     

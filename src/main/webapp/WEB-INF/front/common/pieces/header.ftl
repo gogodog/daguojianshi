@@ -15,26 +15,26 @@
           </div>
         </form>
         <ul class="nav navbar-nav navbar-right">
-          <li><a data-cont="大国简史" title="大国简史" href="${contextPath}/dgjs">首页</a></li>
+          <li><a data-cont="简史网" title="简史网" href="${contextPath}/dgjs">首页</a></li>
           <#list types as type>
-            <li><a data-cont="大国简史" title="大国简史" href="${contextPath}/index?type=${type}">${type.value}</a></li>
+            <li><a data-cont="简史网" title="简史网" href="${contextPath}/index?type=${type}">${type.value}</a></li>
           </#list>
         </ul>
         <table class="mobile-menu" style="border-spacing:10px 100px;">
 	    <tbody>
 	    	<tr>
-	    		<td><a data-cont="大国简史" title="大国简史" href="${contextPath}/dgjs">首页</a></a></td>
-				<td><a data-cont="大国简史" title="大国简史" href="${contextPath}/index?type=${types[0]}">${types[0].value}</a></td>
-				<td><a data-cont="大国简史" title="大国简史" href="${contextPath}/index?type=${types[1]}">${types[1].value}</a></td>
-				<td><a data-cont="大国简史" title="大国简史" href="${contextPath}/index?type=${types[2]}">${types[2].value}</a></td>
-				<td><a data-cont="大国简史" title="大国简史" href="${contextPath}/index?type=${types[3]}">${types[3].value}</a></td>
+	    		<td><a data-cont="简史网" title="简史网" href="${contextPath}/dgjs">首页</a></a></td>
+				<td><a data-cont="简史网" title="简史网" href="${contextPath}/index?type=${types[0]}">${types[0].value}</a></td>
+				<td><a data-cont="简史网" title="简史网" href="${contextPath}/index?type=${types[1]}">${types[1].value}</a></td>
+				<td><a data-cont="简史网" title="简史网" href="${contextPath}/index?type=${types[2]}">${types[2].value}</a></td>
+				<td><a data-cont="简史网" title="简史网" href="${contextPath}/index?type=${types[3]}">${types[3].value}</a></td>
 		    </tr>
 		    <tr>
-		    	<td><a data-cont="大国简史" title="大国简史" href="${contextPath}/index?type=${types[4]}">${types[4].value}</a></td>
-	    		<td><a data-cont="大国简史" title="大国简史" href="${contextPath}/index?type=${types[5]}">${types[5].value}</a></td>
-	    		<td><a data-cont="大国简史" title="大国简史" href="${contextPath}/index?type=${types[6]}">${types[6].value}</a></td>
-	    		<td><a data-cont="大国简史" title="大国简史" href="${contextPath}/index?type=${types[7]}">${types[7].value}</a></td>
-	    		<td><a data-cont="大国简史" title="大国简史" href="${contextPath}/index?type=${types[8]}">${types[8].value}</a></td>
+		    	<td><a data-cont="简史网" title="简史网" href="${contextPath}/index?type=${types[4]}">${types[4].value}</a></td>
+	    		<td><a data-cont="简史网" title="简史网" href="${contextPath}/index?type=${types[5]}">${types[5].value}</a></td>
+	    		<td><a data-cont="简史网" title="简史网" href="${contextPath}/index?type=${types[6]}">${types[6].value}</a></td>
+	    		<td><a data-cont="简史网" title="简史网" href="${contextPath}/index?type=${types[7]}">${types[7].value}</a></td>
+	    		<td><a data-cont="简史网" title="简史网" href="${contextPath}/index?type=${types[8]}">${types[8].value}</a></td>
 		    </tr>
 		</tbody></table>
       </div>

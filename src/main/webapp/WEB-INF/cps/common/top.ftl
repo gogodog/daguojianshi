@@ -6,7 +6,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html">History Of Country <br> 简史</a>
+        <a class="navbar-brand" href="index.html">Sample History<br> 简史</a>
     </div>
     <div class="header-right">
         <a href="${contextPath}/cps/ntcmsg/list" class="btn btn-info" title="New Message"><b>${unreadCount} </b><i class="fa fa-envelope-o fa-2x"></i></a>

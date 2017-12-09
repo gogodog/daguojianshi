@@ -12,9 +12,14 @@
                         <h1 class="page-head-line">流量统计</h1>
                     </div>
                 </div>
-                <div id="container" style="min-width:400px;height:400px"></div>
-                <button type="button" class="btn btn-lg btn-primary" style="display:none" id="prevButn">《 </button>
-                <button type="button" class="btn btn-lg btn-primary" style="display:none" id="nextButn"> 》</button>
+                <div id="container" style="min-width:100%;height:100%"></div>
+                <div class="col-md-12">
+					<h1 class="page-subhead-line"></h1>
+                	<ul class="pager">
+					  <li><a href="#" style="display:none" id="prevButn">上翻</a></li>
+					  <li><a href="#" style="display:none" id="nextButn">下翻</a></li>
+					</ul>
+                </div>
              </div>
         </div>
     </div>
@@ -75,7 +80,8 @@
                    min: 0,
                    title: {
                        text: '访问量'
-                   }
+                   },
+                   allowDecimals:false
                },
                legend: {
                    reversed: true
