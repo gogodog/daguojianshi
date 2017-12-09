@@ -115,13 +115,19 @@ $("#comment-submit").click(function(){
 		 alert('请输入您的昵称');
 		 return;
 	 }
-	 if(comment_name.length>255){
-		 alert('昵称长度不能超过255');
+	 if(comment_name.length>30){
+		 alert('昵称长度不能超过30');
 		 return;
 	 }
-	 if(email.length>255){
-		 alert('邮箱长度不能超过255');
+	 if(email.length>50){
+		 alert('邮箱长度不能超过50');
 		 return;
+	 }
+	 if($.trim(email)){
+		 if(!isEmail(email)){
+			 alert('邮箱格式错误');
+			 return;
+		 }
 	 }
 	 if(comment == null || comment == ''){
 		 alert('请输入评论内容');
@@ -131,6 +137,11 @@ $("#comment-submit").click(function(){
 		 alert('评论内容不能超过1000');
 		 return;
 	 }
-	 timer(5);
+	 timer(60);
+	 $('#respond').toggle(500);
 	 saveComments();
 });
+function isEmail(str){ 
+	var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/; 
+	return reg.test(str); 
+} 
