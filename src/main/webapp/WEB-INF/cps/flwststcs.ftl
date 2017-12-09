@@ -75,7 +75,8 @@
                    min: 0,
                    title: {
                        text: '访问量'
-                   }
+                   },
+                   allowDecimals:false
                },
                legend: {
                    reversed: true
