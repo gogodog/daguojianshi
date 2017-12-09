@@ -42,11 +42,11 @@
 						   		<h1 class="page-subhead-line"></h1>
                         		<#if (!userPics.pics?? || userPics.pics?size<container) >  
 				                  <input type="file" id="uploadImage" name="uploadImage" style="display:none" multiple>
-			                      <button class="btn btn-primary" onclick="uploadFile(this);"><i class="glyphicon glyphicon-plus"></i>Add</button>
+			                      <button class="btn btn-primary" onclick="uploadFile(this);"><i class="glyphicon glyphicon-plus"></i>上传</button>
 			                   </#if> 
 			                   <#if (userPics.pics?? && userPics.pics?size>0) >  
-			                    <button class="btn btn-primary" onclick="removeFile(this);"><i class="glyphicon glyphicon-home"></i>Del</button>
-			                    <button class="btn btn-primary" id="editName"><i class="glyphicon glyphicon-search"></i>Edit</button>
+			                    <button class="btn btn-primary" onclick="removeFile(this);"><i class="glyphicon glyphicon-home"></i>删除</button>
+			                    <button class="btn btn-primary" id="editName"><i class="glyphicon glyphicon-search"></i>重命名</button>
 			                   </#if> 
                 			</div>
 		                </div>
