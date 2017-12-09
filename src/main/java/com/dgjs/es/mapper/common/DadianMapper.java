@@ -14,4 +14,7 @@ public interface DadianMapper {
 	public long pageIdCount(@Param("pageid")String pageid);
 	
 	public List<PagedocidsCountResult> pagedocidsCount(List<String> pagedocids);
+	
+	public void getArticleDaysVisits();
+	
 }

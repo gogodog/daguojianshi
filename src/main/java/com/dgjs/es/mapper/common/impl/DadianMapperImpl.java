@@ -74,4 +74,12 @@ public class DadianMapperImpl implements DadianMapper{
 		return list;
 	}
 
+	@Override
+	public void getArticleDaysVisits() {
+		 TransportClient client=transportClient.getClient();
+		 AggregationBuilder aggregationBuilder = AggregationBuilders  
+	                .terms("dadian_agg").field("pagedocids")  
+	                .subAggregation(AggregationBuilders.count("agg_count").field("pagedocids"));  
+	}
+
 }

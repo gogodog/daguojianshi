@@ -72,4 +72,10 @@ public class FlowStatisticsController {
 		}
 		return json;
 	}
+	
+	@ResponseBody
+	@RequestMapping("/test")
+	public Object articleDaysVisits(Integer currentPage){
+		return null;
+	}
 }

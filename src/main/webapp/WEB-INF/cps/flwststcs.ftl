@@ -82,7 +82,12 @@
                },
                plotOptions: {
                    series: {
-                       stacking: 'normal'
+                       stacking: 'normal',
+                       events: {
+                           click: function(event) {
+            	              articleDayVisits(event);
+                           }
+                       }
                    }
                },
                series: [{
@@ -98,6 +103,37 @@
        $("#nextButn").click(function(){
     	   getVisits(parseInt(currentPageNum)+1);
        })
+       
+       function articleDaysVisits(event){
+    	   alert(event.point.category);
+    	   $.ajax({
+     		   async:false,
+     		   data:{currentPage:currentPage},
+     		   dataType:"json",
+     		   url:contextPath+"/cps/flwststcs/getArticlescrapsVisits",
+     		   type:"POST",
+     		   success:function(data) {
+                    if(data.error){
+                  	  console.log(data.errorMessage);
+                    }else{
+                  	  if(data.titles!=null && data.titles.length>0){
+                  		  var titles = data.titles;
+                      	  var visits = data.visits;
+                      	  var ids =  data.ids;
+                          currentPageNum = data.currentPage;
+                      	  var havePrev = data.havePrev;
+                      	  var haveNext = data.haveNext;
+                      	  havePrev? $("#prevButn").show() : $("#prevButn").hide();
+                      	  haveNext? $("#nextButn").show() : $("#nextButn").hide();
+                      	  visitsHcharts(titles,visits);
+                  	  }
+                    }
+                }, 
+                error:function(){
+                    console.log("服务器繁忙...");
+                }
+           })
+       }
    </script>
 </body>
 </html>
