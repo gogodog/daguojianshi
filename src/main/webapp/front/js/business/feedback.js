@@ -1,10 +1,7 @@
 var doubtLevel=1;
 function getArticlescrapId(){
 	//获取文章id
-	var thisURL = document.URL;
-	var paths = thisURL.split("/");
-	var aid = paths[paths.length-1];
-	return aid;
+   return $("#doctype").val();
 }
 
 function judge(){
