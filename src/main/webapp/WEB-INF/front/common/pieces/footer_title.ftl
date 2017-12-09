@@ -6,7 +6,7 @@
     <p style="line-height:125%;"><a href="/front/ctdinfo/index.html">网站简介┊联系我们</a></p>
     <p style="line-height:125%;">简史网┊SampleHistory</p>
     -->
-        <p style="line-height:125%;">简史网 • 中国</p>
+        <p style="line-height:125%;"><a href="/front/ctdinfo/index.html">简史网 • 中国</a></p>
   </div>
   <div id="gotop" onclick="window.scroll(0,0);"><a href="javascript:void(0);" class="gotop"></a></div>
 </footer>
