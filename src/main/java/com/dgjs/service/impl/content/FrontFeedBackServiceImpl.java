@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.dgjs.es.mapper.content.ArticlescrapMapper;
 import com.dgjs.mapper.content.FrontFeedBackMapper;
-import com.dgjs.model.dto.FeedBackDto;
+import com.dgjs.model.dto.FrontFeedBackDto;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.enums.Judge_Level;
@@ -40,7 +40,7 @@ public class FrontFeedBackServiceImpl implements FrontFeedBackService{
 	}
 
 	@Override
-	public PageInfoDto<FeedBackDto> listFeedBack(FrontFeedBackCondition condition) {
+	public PageInfoDto<FrontFeedBackDto> listFeedBack(FrontFeedBackCondition condition) {
 		int beginNum = (condition.getCurrentPage() - 1) * condition.getOnePageSize();
 		condition.setBeginNum(beginNum);
 		List<FrontFeedBack> list=frontFeedBackMapper.listFeedBack(condition);
@@ -48,7 +48,7 @@ public class FrontFeedBackServiceImpl implements FrontFeedBackService{
 		if(condition.isNeedTotalResults()){
 			totalResults = frontFeedBackMapper.countFeedBack(condition);
 		}
-		List<FeedBackDto> resultList = null;
+		List<FrontFeedBackDto> resultList = null;
 		//从es获取文章标题
 		if(list!=null&&list.size()>0){
 			Set<String> aids = new HashSet<String>();
@@ -70,9 +70,9 @@ public class FrontFeedBackServiceImpl implements FrontFeedBackService{
 					map.put(articlescrap.getId(), articlescrap.getTitle());
 				}
 			}
-			resultList = new ArrayList<FeedBackDto>();
+			resultList = new ArrayList<FrontFeedBackDto>();
 			for(FrontFeedBack feedBack:list){
-				FeedBackDto dto = new FeedBackDto();
+				FrontFeedBackDto dto = new FrontFeedBackDto();
 				dto.setFeedBack(feedBack);
 				if(map!=null)
 				   dto.setTitle(map.get(feedBack.getArticlescrap_id()));

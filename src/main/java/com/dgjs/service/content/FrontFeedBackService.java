@@ -1,6 +1,6 @@
 package com.dgjs.service.content;
 
-import com.dgjs.model.dto.FeedBackDto;
+import com.dgjs.model.dto.FrontFeedBackDto;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.enums.Judge_Level;
 import com.dgjs.model.persistence.FrontFeedBack;
@@ -12,5 +12,5 @@ public interface FrontFeedBackService {
 	
 	public int getLevelCount(String articlescrapId,Judge_Level judge_level);
 	
-	public PageInfoDto<FeedBackDto> listFeedBack(FrontFeedBackCondition condition);
+	public PageInfoDto<FrontFeedBackDto> listFeedBack(FrontFeedBackCondition condition);
 }

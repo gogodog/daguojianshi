@@ -1,6 +1,10 @@
 package com.dgjs.model.persistence.result;
 
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import com.dgjs.model.persistence.AdminUser;
 
@@ -79,4 +83,15 @@ public class AdminUserResult extends AdminUser{
 		this.role_name = role_name;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public static Map<Integer,AdminUserResult> fromListToMap(List<AdminUserResult> list){
+		if(list == null || list.size() == 0){
+			return Collections.EMPTY_MAP;
+		}
+		Map<Integer,AdminUserResult> map = new HashMap<Integer,AdminUserResult>();
+		for(AdminUserResult adminUserResult:list){
+			map.put(adminUserResult.getId(), adminUserResult);
+		}
+		return map;
+	}
 }

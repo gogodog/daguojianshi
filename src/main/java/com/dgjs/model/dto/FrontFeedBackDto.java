@@ -2,7 +2,7 @@ package com.dgjs.model.dto;
 
 import com.dgjs.model.persistence.FrontFeedBack;
 
-public class FeedBackDto {
+public class FrontFeedBackDto {
 	
 	FrontFeedBack feedBack;
 	String title;

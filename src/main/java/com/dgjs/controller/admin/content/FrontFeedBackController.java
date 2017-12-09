@@ -5,13 +5,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.dgjs.model.dto.FeedBackDto;
+import com.dgjs.model.dto.FrontFeedBackDto;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.persistence.condition.FrontFeedBackCondition;
 import com.dgjs.service.content.FrontFeedBackService;
 
 @Controller
-@RequestMapping("/admin/fb")
+@RequestMapping("/admin/ffb")
 public class FrontFeedBackController {
 
 	@Autowired
@@ -21,7 +21,7 @@ public class FrontFeedBackController {
 	public ModelAndView list(FrontFeedBackCondition condition){
 		ModelAndView mv = new ModelAndView("admin/content/feedbacks");
 		condition.setNeedTotalResults(true);
-		PageInfoDto<FeedBackDto> pageInfo=feedBackService.listFeedBack(condition);
+		PageInfoDto<FrontFeedBackDto> pageInfo=feedBackService.listFeedBack(condition);
 		mv.addObject("pageInfo",pageInfo);
 		mv.addObject("condition",condition);
 		return mv;

@@ -12,7 +12,8 @@
            <secondlevel desc="广告内容管理" url="/admin/ad/adList"></secondlevel> 
        </firstlevel>
        <firstlevel desc="反馈管理" >
-           <secondlevel desc="反馈管理" url="/admin/fb/feedBackList"></secondlevel> 
+           <secondlevel desc="前台反馈管理" url="/admin/ffb/feedBackList"></secondlevel> 
+           <secondlevel desc="后台反馈管理" url="/admin/afb/feedBackList"></secondlevel> 
        </firstlevel>
        <firstlevel desc="后台用户管理" >
            <secondlevel desc="权限管理" url="/admin/admin/athrtyList"></secondlevel> 
