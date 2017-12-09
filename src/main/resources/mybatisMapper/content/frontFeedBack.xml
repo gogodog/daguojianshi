@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.dgjs.mapper.content.FeedBackMapper">
+<mapper namespace="com.dgjs.mapper.content.FrontFeedBackMapper">
   
-  	<insert id="save" parameterType="feedBack" keyProperty="id" useGeneratedKeys="true">
-	       insert into feedback
+  	<insert id="save" parameterType="frontFeedBack" keyProperty="id" useGeneratedKeys="true">
+	       insert into front_feedback
 	       (
 	           articlescrap_id,
 	           ip,
@@ -12,7 +12,6 @@
 	           uname,
 	           email,
 	           doubt_level,
-	           feedback_type,
 	           create_time
 	       )
 	       values
@@ -24,17 +23,16 @@
 	           #{uname},
 	           #{email},
 	           #{doubt_level},
-	           #{feedback_type},
 	           now()
 	       )
 	</insert>
 	
 	<select id="getLevelCount" resultType="int">
-	    select count(1) from feedback where articlescrap_id=#{articlescrap_id}
+	    select count(1) from front_feedback where articlescrap_id=#{articlescrap_id}
 	    <if test="judge_level!=null">and judge_level=#{judge_level}</if>
 	</select>
 	
-	<select id="listFeedBack" resultType="feedBack">
+	<select id="listFeedBack" resultType="frontFeedBack">
 	    select 
 	           id,
 	           articlescrap_id,
@@ -44,28 +42,25 @@
 	           uname,
 	           email,
 	           doubt_level,
-	           feedback_type,
 	           create_time
-	    from feedback 
-      <where>
-         <if test="articlescrap_id!=null and articlescrap_id!=''">and articlescrap_id=#{articlescrap_id}</if>
-         <if test="feedback_type!=null"> <![CDATA[ and feedback_type = #{feedback_type} ]]></if>
-         <if test="timeFrom!=null"> <![CDATA[ and create_time >= #{timeFrom} ]]></if>
-         <if test="timeTo!=null"> <![CDATA[ and create_time <= #{timeTo} ]]></if>
-      </where>
+	    from front_feedback 
+        <include refid="conditionSql" />
       order by create_time desc
 	  limit #{beginNum},#{onePageSize}
 	</select>
 	
 	<select id="countFeedBack" resultType="int">
 	    select count(1)
-	    from feedback 
-      <where>
+	    from front_feedback 
+        <include refid="conditionSql" />
+	</select>
+	
+	<sql id="conditionSql">
+	  <where>
          <if test="articlescrap_id!=null and articlescrap_id!=''">and articlescrap_id=#{articlescrap_id}</if>
-         <if test="feedback_type!=null"> <![CDATA[ and feedback_type = #{feedback_type} ]]></if>
          <if test="timeFrom!=null"> <![CDATA[ and create_time >= #{timeFrom} ]]></if>
          <if test="timeTo!=null"> <![CDATA[ and create_time <= #{timeTo} ]]></if>
       </where>
-	</select>
+	</sql>
 	
 </mapper>

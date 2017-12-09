@@ -19,7 +19,6 @@ import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 import com.dgjs.service.common.PictureService;
-import com.dgjs.service.content.FeedBackService;
 import com.dgjs.service.content.ArticlescrapService;
 import com.dgjs.utils.DateUtils;
 
@@ -33,8 +32,6 @@ public class ArticlescrapController {
 	@Autowired
 	PictureService pictureService;
 	
-	@Autowired
-	FeedBackService aJudgeService;
 	
 	@RequestMapping("/articlescrapList")
     public ModelAndView articlescrapList(HttpServletRequest request, HttpServletResponse response,ArticlescrapCondtion condtion) throws Exception {  

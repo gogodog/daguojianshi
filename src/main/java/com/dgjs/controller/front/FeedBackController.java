@@ -18,11 +18,10 @@ import com.dgjs.constants.Constants;
 import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.constants.Session_Keys;
 import com.dgjs.model.dto.business.Articlescrap;
-import com.dgjs.model.enums.Feedback_Type;
 import com.dgjs.model.enums.Judge_Level;
-import com.dgjs.model.persistence.FeedBack;
+import com.dgjs.model.persistence.FrontFeedBack;
 import com.dgjs.model.result.view.BaseView;
-import com.dgjs.service.content.FeedBackService;
+import com.dgjs.service.content.FrontFeedBackService;
 import com.dgjs.service.content.ArticlescrapService;
 import com.dgjs.utils.IPUtils;
 
@@ -33,7 +32,7 @@ public class FeedBackController {
 	private Log log = LogFactory.getLog(FeedBackController.class);
 	
 	@Autowired
-	FeedBackService feedBackService;
+	FrontFeedBackService feedBackService;
 	
 	@Autowired
 	ArticlescrapService articlescrapService;
@@ -51,7 +50,7 @@ public class FeedBackController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/judge")
-	public BaseView ajaxJudge(HttpServletRequest request,FeedBack aJudge){
+	public BaseView ajaxJudge(HttpServletRequest request,FrontFeedBack aJudge){
 		BaseView view=new BaseView();
 		if(StringUtils.isEmpty(aJudge.getArticlescrap_id())||aJudge.getJudge_level()==null
 				||(!StringUtils.isEmpty(aJudge.getJudge_message())&&aJudge.getJudge_message().length()>255)
@@ -77,7 +76,6 @@ public class FeedBackController {
 					aJudge.setIp(IPUtils.getIpAddr3(request));
 				}
 				session.setAttribute(Session_Keys.ip, aJudge.getIp());
-				aJudge.setFeedback_type(Feedback_Type.FRONT);
 				int flag=feedBackService.save(aJudge);
 				if(flag < 1){
 					view.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);

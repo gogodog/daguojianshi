@@ -1,23 +1,22 @@
 package com.dgjs.model.dto;
 
-import com.dgjs.model.persistence.FeedBack;
+import com.dgjs.model.persistence.FrontFeedBack;
 
 public class FeedBackDto {
 	
-	FeedBack feedBack;
+	FrontFeedBack feedBack;
 	String title;
-	public FeedBack getFeedBack() {
-		return feedBack;
-	}
-	public void setFeedBack(FeedBack feedBack) {
-		this.feedBack = feedBack;
-	}
 	public String getTitle() {
 		return title;
 	}
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
+	public FrontFeedBack getFeedBack() {
+		return feedBack;
+	}
+	public void setFeedBack(FrontFeedBack feedBack) {
+		this.feedBack = feedBack;
+	}
 	
 }

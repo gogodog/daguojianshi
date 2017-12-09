@@ -7,25 +7,23 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.dgjs.model.dto.FeedBackDto;
 import com.dgjs.model.dto.PageInfoDto;
-import com.dgjs.model.enums.Feedback_Type;
-import com.dgjs.model.persistence.condition.FeedBackCondition;
-import com.dgjs.service.content.FeedBackService;
+import com.dgjs.model.persistence.condition.FrontFeedBackCondition;
+import com.dgjs.service.content.FrontFeedBackService;
 
 @Controller
 @RequestMapping("/admin/fb")
-public class AFeedBackController {
+public class FrontFeedBackController {
 
 	@Autowired
-	FeedBackService feedBackService;
+	FrontFeedBackService feedBackService;
 	
 	@RequestMapping("/feedBackList")
-	public ModelAndView list(FeedBackCondition condition){
+	public ModelAndView list(FrontFeedBackCondition condition){
 		ModelAndView mv = new ModelAndView("admin/content/feedbacks");
 		condition.setNeedTotalResults(true);
 		PageInfoDto<FeedBackDto> pageInfo=feedBackService.listFeedBack(condition);
 		mv.addObject("pageInfo",pageInfo);
 		mv.addObject("condition",condition);
-		mv.addObject("types", Feedback_Type.values());
 		return mv;
 	}
 }

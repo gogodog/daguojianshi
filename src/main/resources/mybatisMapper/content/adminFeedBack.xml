@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgjs.mapper.content.AdminFeedBackMapper">
+  
+  	<insert id="save" parameterType="adminFeedBack" keyProperty="id" useGeneratedKeys="true">
+	       insert into admin_feedback
+	       (
+	           message,
+	           userId,
+	           isHaveFeedBack,
+	           create_time
+	       )
+	       values
+	       (
+	           #{message},
+	           #{userId},
+	           #{isHaveFeedBack},
+	           now()
+	       )
+	</insert>
+	
+	<select id="listFeedBack" resultType="adminFeedBack">
+	    select 
+	           id,
+	           message,
+	           userId,
+	           isHaveFeedBack,
+	           create_time
+	    from admin_feedback 
+        <include refid="conditionSql" />
+      order by isHaveFeedBack desc create_time desc
+	  limit #{beginNum},#{onePageSize}
+	</select>
+	
+	<select id="countFeedBack" resultType="int">
+	    select count(1)
+	    from admin_feedback 
+        <include refid="conditionSql" />
+	</select>
+	
+	<sql id="conditionSql">
+	  <where>
+         <if test="isHaveFeedBack!=null">and isHaveFeedBack=#{isHaveFeedBack}</if>
+         <if test="timeFrom!=null"> <![CDATA[ and create_time >= #{timeFrom} ]]></if>
+         <if test="timeTo!=null"> <![CDATA[ and create_time <= #{timeTo} ]]></if>
+      </where>
+	</sql>
+	
+</mapper>

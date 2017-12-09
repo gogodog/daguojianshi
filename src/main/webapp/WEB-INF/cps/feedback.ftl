@@ -37,14 +37,14 @@
    <script>
       var contextPath = '${contextPath}';
       $("button[type='button']").click(function(){
-    	  var judge_message = $(".form-control").val();
-    	  if(judge_message == null || judge_message.length == 0){
+    	  var message = $(".form-control").val();
+    	  if(message == null || message.length == 0){
     		  alert('反馈信息不能为空');
     		  return;
     	  }
     	  $.ajax({
     		   async:false,
-    		   data:{judge_message:judge_message},
+    		   data:{message:message},
     		   dataType: "json",
     		   url:contextPath+"/cps/fb/saveFeedback",
     		   type:"POST",

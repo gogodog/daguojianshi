@@ -11,48 +11,48 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dgjs.es.mapper.content.ArticlescrapMapper;
-import com.dgjs.mapper.content.FeedBackMapper;
+import com.dgjs.mapper.content.FrontFeedBackMapper;
 import com.dgjs.model.dto.FeedBackDto;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.enums.Judge_Level;
-import com.dgjs.model.persistence.FeedBack;
-import com.dgjs.model.persistence.condition.FeedBackCondition;
-import com.dgjs.service.content.FeedBackService;
+import com.dgjs.model.persistence.FrontFeedBack;
+import com.dgjs.model.persistence.condition.FrontFeedBackCondition;
+import com.dgjs.service.content.FrontFeedBackService;
 
 @Service
-public class FeedBackServiceImpl implements FeedBackService{
+public class FrontFeedBackServiceImpl implements FrontFeedBackService{
 
 	@Autowired
-	FeedBackMapper mapper;
+	FrontFeedBackMapper frontFeedBackMapper;
 	
 	@Autowired
 	ArticlescrapMapper articlescrapMapper;
 	
 	@Override
-	public int save(FeedBack aJudge) {
-		return mapper.save(aJudge);
+	public int save(FrontFeedBack feedBack) {
+		return frontFeedBackMapper.save(feedBack);
 	}
 
 	@Override
 	public int getLevelCount(String articlescrapId, Judge_Level judge_level) {
-		return mapper.getLevelCount(articlescrapId, judge_level);
+		return frontFeedBackMapper.getLevelCount(articlescrapId, judge_level);
 	}
 
 	@Override
-	public PageInfoDto<FeedBackDto> listFeedBack(FeedBackCondition condition) {
+	public PageInfoDto<FeedBackDto> listFeedBack(FrontFeedBackCondition condition) {
 		int beginNum = (condition.getCurrentPage() - 1) * condition.getOnePageSize();
 		condition.setBeginNum(beginNum);
-		List<FeedBack> list=mapper.listFeedBack(condition);
+		List<FrontFeedBack> list=frontFeedBackMapper.listFeedBack(condition);
 		int totalResults=0;
 		if(condition.isNeedTotalResults()){
-			totalResults = mapper.countFeedBack(condition);
+			totalResults = frontFeedBackMapper.countFeedBack(condition);
 		}
 		List<FeedBackDto> resultList = null;
 		//从es获取文章标题
 		if(list!=null&&list.size()>0){
 			Set<String> aids = new HashSet<String>();
-			for(FeedBack feedBack:list){
+			for(FrontFeedBack feedBack:list){
 				if(feedBack.getArticlescrap_id()!=null){
 					aids.add(feedBack.getArticlescrap_id());
 				}
@@ -71,7 +71,7 @@ public class FeedBackServiceImpl implements FeedBackService{
 				}
 			}
 			resultList = new ArrayList<FeedBackDto>();
-			for(FeedBack feedBack:list){
+			for(FrontFeedBack feedBack:list){
 				FeedBackDto dto = new FeedBackDto();
 				dto.setFeedBack(feedBack);
 				if(map!=null)
