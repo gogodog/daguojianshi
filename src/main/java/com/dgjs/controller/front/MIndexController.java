@@ -168,6 +168,7 @@ public class MIndexController {
 			mIndex.setTitle(dto.getIndexConfig().getTitle());
 			mIndex.setSub_content(dto.getIndexConfig().getSub_content());
 			mIndex.setaType(dto.getArticlescrap().getTypeValue());
+			mIndex.setVisits(dto.getArticlescrap().getVisits());
 			if(StringUtils.isNullOrEmpty(mIndex.getTitle())){
 				mIndex.setTitle(dto.getArticlescrap().getTitle());
 			}
@@ -197,6 +198,7 @@ public class MIndexController {
 			 mIndexView.setTitle(articlescrap.getTitle());
 			 mIndexView.setType(Index_Type.valueOf(articlescrap.getType().getKey()));
 			 mIndexView.setaType(articlescrap.getTypeValue());
+			 mIndexView.setVisits(articlescrap.getVisits());
 			 mIndexList.add(mIndexView);
 		 }
 		return mIndexList;
@@ -303,6 +305,13 @@ public class MIndexController {
 			aids.add(miv.getAid());
 		}
 		Map<String,Long> map=dataSerivce.getDocShowCounts(aids);
+		//加上访问基数
+		for(MIndexView miv : list){
+			Long visits=miv.getVisits()==null?0:miv.getVisits();
+			if(visits!=null && visits>0){
+				map.put(miv.getAid(), visits+map.get(miv.getAid()));
+			}
+		}
 		return map;
 	}
 }
