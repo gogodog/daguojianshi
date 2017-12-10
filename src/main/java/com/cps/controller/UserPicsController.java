@@ -42,7 +42,6 @@ public class UserPicsController {
 	PictureService pictureService;
 	
 	@RequestMapping("/list")
-	@LogRecord(operate=OperateEnum.Browse,remark="浏览素材库")
 	public ModelAndView list(){
 		ModelAndView mv = new ModelAndView("/cps/source");
 		UserPicsDto userPics=userPicsService.selectById(WebContextHelper.getUserId());
@@ -57,7 +56,6 @@ public class UserPicsController {
 	
 	@ResponseBody
 	@RequestMapping("/ajaxList")
-	@LogRecord(operate=OperateEnum.Browse,remark="浏览素材库（草稿箱浏览）")
 	public String ajaxList(){
 		JSONArray jsa = new JSONArray();
 		UserPicsDto userPics=userPicsService.selectById(WebContextHelper.getUserId());

@@ -13,9 +13,11 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dgjs.annotation.LogRecord;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.enums.Articlescrap_Type;
+import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 import com.dgjs.service.common.PictureService;
@@ -60,6 +62,7 @@ public class ArticlescrapController {
 	}
 	
 	@RequestMapping("/saveArticlescrap")
+	@LogRecord(operate=OperateEnum.Update,remark="修改文章信息")
 	public ModelAndView saveArticlescrap(Articlescrap articlescrap,String showTime) throws Exception{
 		ModelAndView mv = new ModelAndView("redirect:/admin/atcp/articlescrapList");  
 		articlescrap.setBeginTime();
@@ -73,6 +76,7 @@ public class ArticlescrapController {
 	}
 	
 	@RequestMapping("/deleteArticlescrap")
+	@LogRecord(operate=OperateEnum.Update,remark="删除文章")
 	public ModelAndView deleteArticlescrap(String articlescrapId)  throws Exception{
 		ModelAndView mv = new ModelAndView("redirect:/admin/atcp/articlescrapList");  
 		articlescrapSerivce.deleteArticlescrap(articlescrapId);

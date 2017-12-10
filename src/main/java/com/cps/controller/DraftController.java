@@ -43,7 +43,6 @@ public class DraftController {
 	PictureService pictureService;
 	
 	@RequestMapping("/draft")
-	@LogRecord(operate=OperateEnum.Browse,remark="浏览草稿箱")
 	public ModelAndView list(HttpServletRequest request,DraftCondition condtion){
 		ModelAndView mv = new ModelAndView("/cps/draft");
 		condtion.setUser_id(WebContextHelper.getUserId());
@@ -56,7 +55,6 @@ public class DraftController {
 	}
 	
 	@RequestMapping("/wdoc")
-	@LogRecord(operate=OperateEnum.Browse,remark="进入写文章页")
     public ModelAndView wdoc(HttpServletRequest request,String aid) throws Exception {  
 		ModelAndView mv = new ModelAndView("/cps/wdoc");
 		mv.addObject("types", Articlescrap_Type.values());
@@ -145,7 +143,6 @@ public class DraftController {
     }
 	
 	@RequestMapping("/previewDraft")
-	@LogRecord(operate=OperateEnum.Browse,remark="预览草稿")
 	public ModelAndView previewDraft(String aid)  throws Exception{
 		ModelAndView mv = new ModelAndView("front/admin/show");
 		Draft draft=draftService.selectByIdAll(aid);

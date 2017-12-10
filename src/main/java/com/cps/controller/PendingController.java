@@ -31,7 +31,6 @@ public class PendingController {
 	PictureService pictureService;
 	
 	@RequestMapping("/docms")
-	@LogRecord(operate=OperateEnum.Browse,remark="查询文章管理列表")
 	public ModelAndView docms(PendingCondition condition){
 		ModelAndView mv = new ModelAndView("/cps/docms");
 		condition.setUserId(WebContextHelper.getUserId());
@@ -47,7 +46,6 @@ public class PendingController {
 	}
 	
 	@RequestMapping("/previewPending")
-	@LogRecord(operate=OperateEnum.Browse,remark="预览文章管理")
 	public ModelAndView previewDraft(String aid)  throws Exception{
 		ModelAndView mv = new ModelAndView("front/admin/show");
 		Pending pending=pendingService.selectByIdAll(aid);

@@ -24,7 +24,6 @@ public class CpsFeedBackController {
 	AdminFeedBackService feedBackService;
 	
 	@RequestMapping("/feedback")
-	@LogRecord(operate=OperateEnum.Browse,remark="进入反馈页面")
     public String feedback(HttpServletRequest request) throws Exception {  
 		return "/cps/feedback";
     }

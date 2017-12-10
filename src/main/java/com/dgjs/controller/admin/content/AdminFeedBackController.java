@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dgjs.annotation.LogRecord;
 import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.model.dto.AdminFeedBackDto;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.enums.Message_Related_Type;
+import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.persistence.AdminFeedBack;
 import com.dgjs.model.persistence.NoticeMessage;
 import com.dgjs.model.persistence.condition.AdminFeedBackCondition;
@@ -54,6 +56,7 @@ public class AdminFeedBackController {
 	
 	@ResponseBody
 	@RequestMapping("/reply")
+	@LogRecord(operate=OperateEnum.Add,remark="回复反馈消息")
 	public BaseView reply(Long feedbackId,String message){
 		BaseView bv = new BaseView();
 		if(feedbackId == null){

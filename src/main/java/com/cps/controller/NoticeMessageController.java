@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
+import com.dgjs.annotation.LogRecord;
 import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.model.dto.PageInfoDto;
+import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.enums.Read_Status;
 import com.dgjs.model.persistence.NoticeMessage;
 import com.dgjs.model.persistence.condition.NoticeMessageCondition;
@@ -47,6 +49,7 @@ public class NoticeMessageController {
 	
 	@ResponseBody
 	@RequestMapping("/readMessage")
+	@LogRecord(operate=OperateEnum.Update,remark="读取通知消息")
 	public BaseView readMessage(String ids){
 		BaseView bv = new BaseView();
 		List<Long> list= JSON.parseArray(ids, Long.class);

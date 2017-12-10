@@ -23,7 +23,6 @@ public class AdminUserController {
 	AdminUserService adminUserService;
 	
 	@RequestMapping("/psoninf")
-	@LogRecord(operate=OperateEnum.Browse,remark="查询个人信息")
 	public ModelAndView userInfo(){
 		ModelAndView mv = new ModelAndView("/cps/psoninf");
 		AdminUserInfo adminUserInfo = adminUserService.getAdminUserInfo(WebContextHelper.getUserId());
