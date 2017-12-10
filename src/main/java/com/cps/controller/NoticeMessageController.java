@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSON;
 import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.model.dto.PageInfoDto;
+import com.dgjs.model.enums.Read_Status;
 import com.dgjs.model.persistence.NoticeMessage;
 import com.dgjs.model.persistence.condition.NoticeMessageCondition;
 import com.dgjs.model.result.view.BaseView;
@@ -24,12 +25,23 @@ public class NoticeMessageController {
 	@Autowired
 	NoticeMessageService noticeMessageService;
 	
-	@RequestMapping("/list")
-	public ModelAndView list(NoticeMessageCondition condtion){
+	@RequestMapping("/unreadList")
+	public ModelAndView list(NoticeMessageCondition condition){
+		return commonList(Read_Status.UNREAD,condition);
+	}
+	
+	@RequestMapping("/readList")
+	public ModelAndView readList(NoticeMessageCondition condition){
+		return commonList(Read_Status.READE,condition);
+	}
+	
+	private ModelAndView commonList(Read_Status read_Status,NoticeMessageCondition condition){
 		ModelAndView mv = new ModelAndView("/cps/ntcmsg_list");
-		condtion.setAdminId(WebContextHelper.getUserId());
-		PageInfoDto<NoticeMessage> pageInfo = noticeMessageService.list(condtion);
+		condition.setAdminId(WebContextHelper.getUserId());
+		condition.setStatus(read_Status);
+		PageInfoDto<NoticeMessage> pageInfo = noticeMessageService.list(condition);
 		mv.addObject("pageinfo", pageInfo);
+		mv.addObject("condition", condition);
 		return mv;
 	}
 	

@@ -17,5 +17,7 @@ public interface NoticeMessageService {
 	
 	public int getUnReadCount(Integer adminId);
 	
+	public int getReadCount(Integer adminId);
+	
 	public List<NoticeMessage> getByTypeRelatedId(Message_Related_Type type,Long relatedId);
 }

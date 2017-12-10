@@ -2,7 +2,11 @@
 <body>
     <div id="wrapper">
     	<#include "/cps/common/top.ftl">
-        <#assign page_name='ntcmsg/list'>
+    	<#if condtion.status == 'UNREAD'>
+           <#assign page_name='ntcmsg/unreadList'>
+        <#else>
+    	   <#assign page_name='ntcmsg/readList'>
+        </#if>
         <#include "/cps/common/menu.ftl">
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper">
@@ -43,11 +47,15 @@
     <#include "/cps/common/f-static.ftl">
     <script>
     var contextPath="${contextPath}";
-    document.onreadystatechange = function () {   
-        if(document.readyState=="complete") {          
-        	readMessage();
-         }   
-     }   
+    var status = "${condition.status}";
+    if(status == 'UNREAD'){
+    	readMessage();
+    }
+//    document.onreadystatechange = function () {   
+//        if(document.readyState=="complete") {          
+//        	readMessage();
+//         }   
+//     }   
     
     function readMessage(){
     	var index=0;

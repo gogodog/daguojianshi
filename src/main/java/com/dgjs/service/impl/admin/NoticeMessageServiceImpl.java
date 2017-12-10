@@ -31,12 +31,15 @@ public class NoticeMessageServiceImpl implements NoticeMessageService{
 	@Override
 	public PageInfoDto<NoticeMessage> list(NoticeMessageCondition condition) {
 		condition.setBeginNum((condition.getCurrentPage()-1)*condition.getOnePageSize());
-		List<NoticeMessage> list=mapper.getByAdminId(condition);
 		int totalResults=0;
 		if(condition.isNeedTotalResults()){
 			totalResults = mapper.getByAdminIdCount(condition);
 		}
-		return PageInfoDto.getPageInfo(condition.getCurrentPage(), condition.getOnePageSize(), totalResults, list);
+		List<NoticeMessage> list=mapper.getByAdminId(condition);
+		if(list!=null&&!list.isEmpty()){
+			return PageInfoDto.getPageInfo(condition.getCurrentPage(), condition.getOnePageSize(), totalResults, list);
+		}
+		return null;
 	}
 
 	@Override
@@ -55,6 +58,14 @@ public class NoticeMessageServiceImpl implements NoticeMessageService{
 	@Override
 	public List<NoticeMessage> getByTypeRelatedId(Message_Related_Type type, Long relatedId) {
 		return noticeMessageRelatedMapper.getByTypeRelatedId(type, relatedId);
+	}
+
+	@Override
+	public int getReadCount(Integer adminId) {
+		NoticeMessageCondition condition = new NoticeMessageCondition();
+		condition.setAdminId(adminId);
+		condition.setStatus(Read_Status.READE);
+		return mapper.getByAdminIdCount(condition);
 	}
 
 }

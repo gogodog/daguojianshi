@@ -1,5 +1,6 @@
 package com.dgjs.controller.admin.content;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +74,11 @@ public class AdminFeedBackController {
 		if(adminFeedBack == null){
 			return null;
 		}
-		return com.dgjs.utils.StringUtils.jointString("针对于反馈消息","[",adminFeedBack.getMessage(),"]的回复信息:",message);
+		String[] array = new String[2];
+		array[0] = adminFeedBack.getMessage();
+		array[1] = message;
+		String replyMessage = "对于反馈消息[{0}]的回复:{1}";
+		return MessageFormat.format(replyMessage, array);
 	}
+	
 }
