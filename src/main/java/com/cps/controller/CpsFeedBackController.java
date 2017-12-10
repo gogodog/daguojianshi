@@ -39,7 +39,7 @@ public class CpsFeedBackController {
 			return bv; 
 		}
 		feedBack.setUserId(WebContextHelper.getUserId());
-		feedBack.setHaveFeedBack(false);
+		feedBack.setHaveReply(false);
 		feedBackService.save(feedBack);
 		return bv;
 	}

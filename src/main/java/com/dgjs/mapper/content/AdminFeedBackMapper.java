@@ -12,4 +12,8 @@ public interface AdminFeedBackMapper {
 	public List<AdminFeedBack> listFeedBack(AdminFeedBackCondition condition);
 	
 	public int countFeedBack(AdminFeedBackCondition condition);
+	
+	public AdminFeedBack selectById(Long id);
+	
+	public int updateToReply(Long id);
 }

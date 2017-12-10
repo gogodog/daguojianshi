@@ -11,4 +11,6 @@ public interface AdminFeedBackService {
 	
 	public PageInfoDto<AdminFeedBackDto> list(AdminFeedBackCondition condition);
 	
+	public AdminFeedBack selectById(Long id);
+	
 }

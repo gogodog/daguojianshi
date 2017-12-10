@@ -8,7 +8,7 @@ public class AdminFeedBack {
 	private Date create_time;//创建时间
 	private String message;//反馈内容
 	private Integer userId;//反馈人
-	private boolean isHaveFeedBack;//是否已经回馈过
+	private boolean isHaveReply;//是否已经回馈过
 	
 	public Date getCreate_time() {
 		return create_time;
@@ -34,11 +34,11 @@ public class AdminFeedBack {
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
-	public boolean isHaveFeedBack() {
-		return isHaveFeedBack;
+	public boolean isHaveReply() {
+		return isHaveReply;
 	}
-	public void setHaveFeedBack(boolean isHaveFeedBack) {
-		this.isHaveFeedBack = isHaveFeedBack;
+	public void setHaveReply(boolean isHaveReply) {
+		this.isHaveReply = isHaveReply;
 	}
-    
+        
 }

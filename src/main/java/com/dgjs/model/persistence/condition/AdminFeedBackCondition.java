@@ -9,7 +9,7 @@ import com.dgjs.utils.DateUtils;
 
 public class AdminFeedBackCondition {
 
-	private Boolean isHaveFeedBack;
+	private Boolean isHaveReply;
 	private Date timeFrom;
 	private Date timeTo;
 	private int beginNum;
@@ -39,12 +39,6 @@ public class AdminFeedBackCondition {
 	public void setTimeTo(Date timeTo) {
 		this.timeTo = timeTo;
 	}
-	public Boolean getIsHaveFeedBack() {
-		return isHaveFeedBack;
-	}
-	public void setIsHaveFeedBack(Boolean isHaveFeedBack) {
-		this.isHaveFeedBack = isHaveFeedBack;
-	}
 	public int getBeginNum() {
 		return beginNum;
 	}
@@ -68,6 +62,12 @@ public class AdminFeedBackCondition {
 	}
 	public void setNeedTotalResults(boolean needTotalResults) {
 		this.needTotalResults = needTotalResults;
+	}
+	public Boolean getIsHaveReply() {
+		return isHaveReply;
+	}
+	public void setIsHaveReply(Boolean isHaveReply) {
+		this.isHaveReply = isHaveReply;
 	}
 	
 }

@@ -7,14 +7,14 @@
 	       (
 	           message,
 	           userId,
-	           isHaveFeedBack,
+	           isHaveReply,
 	           create_time
 	       )
 	       values
 	       (
 	           #{message},
 	           #{userId},
-	           #{isHaveFeedBack},
+	           #{isHaveReply},
 	           now()
 	       )
 	</insert>
@@ -24,11 +24,11 @@
 	           id,
 	           message,
 	           userId,
-	           isHaveFeedBack,
+	           isHaveReply,
 	           create_time
 	    from admin_feedback 
         <include refid="conditionSql" />
-      order by isHaveFeedBack,create_time desc
+      order by isHaveReply,create_time desc
 	  limit #{beginNum},#{onePageSize}
 	</select>
 	
@@ -40,10 +40,23 @@
 	
 	<sql id="conditionSql">
 	  <where>
-         <if test="isHaveFeedBack!=null">and isHaveFeedBack=#{isHaveFeedBack}</if>
+         <if test="isHaveReply!=null">and isHaveReply=#{isHaveReply}</if>
          <if test="timeFrom!=null"> <![CDATA[ and create_time >= #{timeFrom} ]]></if>
          <if test="timeTo!=null"> <![CDATA[ and create_time <= #{timeTo} ]]></if>
       </where>
 	</sql>
 	
+	<select id="selectById" resultType="adminFeedBack">
+	     select 
+	           id,
+	           message,
+	           userId,
+	           isHaveReply,
+	           create_time
+	    from admin_feedback where id = #{id}
+	</select>
+	
+	<update id="updateToReply">
+	     update admin_feedback set isHaveReply = 1 where id = #{id}
+	</update>
 </mapper>

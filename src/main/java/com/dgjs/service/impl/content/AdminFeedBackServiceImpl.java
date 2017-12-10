@@ -61,4 +61,9 @@ public class AdminFeedBackServiceImpl implements AdminFeedBackService{
 		return PageInfoDto.getPageInfo(condition.getCurrentPage(), condition.getOnePageSize(), totalResults, resultList);
 	}
 
+	@Override
+	public AdminFeedBack selectById(Long id) {
+		return adminFeedBackMapper.selectById(id);
+	}
+
 }

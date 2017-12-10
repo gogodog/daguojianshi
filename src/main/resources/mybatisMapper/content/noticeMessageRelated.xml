@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgjs.mapper.content.NoticeMessageRelatedMapper">
+  
+  	<insert id="save" parameterType="noticeMessageRelated" keyProperty="id" useGeneratedKeys="true">
+	       insert into notice_message_related
+	       (
+	           notice_message_id,
+               related_id,
+               type,
+               create_time
+	       )
+	       values
+	       (
+	           #{notice_message_id},
+               #{related_id},
+               #{type},
+               now()
+	       )
+	</insert>
+	
+	<select id="getByTypeRelatedId" resultType="noticeMessage">
+	     select id,admin_id,message,status,create_time,update_time from notice_message where id in
+	     (
+	        select notice_message_id from notice_message_related
+	        <where>
+	          <if test="relatedId!=null">and related_id=#{relatedId}</if>
+	          <if test="type!=null">and type=#{type}</if>
+	        </where>
+	     )
+	     order by create_time asc
+	</select>
+	
+	
+</mapper>

@@ -18,10 +18,10 @@
 			<input type="hidden" name="currentPage">
 		    <p style="margin-bottom:10px">
 		        <label>回馈状态:</label>
-		           <select name="isHaveFeedBack">
+		           <select name="isHaveReply">
 		              <option value="">全部</option>
-		              <option value="false" <#if condition.isHaveFeedBack?? && condition.isHaveFeedBack == false>selected</#if>>未回馈</option>
-		              <option value="true" <#if condition.isHaveFeedBack?? && condition.isHaveFeedBack == true>selected</#if>>已回馈</option>
+		              <option value="false" <#if condition.isHaveReply?? && condition.isHaveReply == false>selected</#if>>未回馈</option>
+		              <option value="true" <#if condition.isHaveReply?? && condition.isHaveReply == true>selected</#if>>已回馈</option>
 		           </select>
 		        <label>反馈时间:</label><input type="text" name="time_from" value="<#if condition.timeFrom??>${condition.timeFrom?date}</#if>"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd'});" class="Wdate" style="width:100px"/> 
 		        - <input type="text" value="<#if condition.timeTo??>${condition.timeTo?date}</#if>" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'});" class="Wdate" style="width:100px" name="time_to"/>&nbsp;&nbsp;
@@ -42,10 +42,10 @@
 					     <td>${fd.feedBack.create_time?datetime}</td>
 					     <td>${fd.adminUser.username}</td>						
 					     <td>${fd.feedBack.message}</td>
-					     <td><#if fd.feedBack.haveFeedBack?? && fd.feedBack.haveFeedBack == true>已回馈<#else>未回馈</#if></td>
+					     <td><#if fd.feedBack.haveReply?? && fd.feedBack.haveReply == true>已回馈<#else>未回馈</#if></td>
 					     <td>
 					       <div class="table-fun">
-				     		  <a href="javascript:void(0)">回馈</a>
+				     		  <a href="${contextPath}/admin/afb/detail?relatedId=${fd.feedBack.id}">回复</a>
 				     	   </div>
 					     </td>
 				     </tr>

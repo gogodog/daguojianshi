@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dgjs.mapper.admin.NoticeMessageMapper;
+import com.dgjs.mapper.content.NoticeMessageRelatedMapper;
 import com.dgjs.model.dto.PageInfoDto;
+import com.dgjs.model.enums.Message_Related_Type;
 import com.dgjs.model.enums.Read_Status;
 import com.dgjs.model.persistence.NoticeMessage;
 import com.dgjs.model.persistence.condition.NoticeMessageCondition;
@@ -17,6 +19,9 @@ public class NoticeMessageServiceImpl implements NoticeMessageService{
 
 	@Autowired
 	NoticeMessageMapper mapper;
+	
+	@Autowired
+	NoticeMessageRelatedMapper noticeMessageRelatedMapper;
 	
 	@Override
 	public int save(NoticeMessage noticeMessage) {
@@ -45,6 +50,11 @@ public class NoticeMessageServiceImpl implements NoticeMessageService{
 		condition.setAdminId(adminId);
 		condition.setStatus(Read_Status.UNREAD);
 		return mapper.getByAdminIdCount(condition);
+	}
+
+	@Override
+	public List<NoticeMessage> getByTypeRelatedId(Message_Related_Type type, Long relatedId) {
+		return noticeMessageRelatedMapper.getByTypeRelatedId(type, relatedId);
 	}
 
 }
