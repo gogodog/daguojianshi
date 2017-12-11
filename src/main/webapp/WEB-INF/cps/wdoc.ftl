@@ -9,9 +9,13 @@
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12" style="float:none;">
-                        <input name="title" class="form-control" style="font-size:24px;margin-bottom:10px;border: none;box-shadow: none;text-align: center;color: #555;" placeholder="内容标题" type="text" value="${(draft.title)!''}"/>
-				        <input class="form-control" style="margin:3px" type="text" placeholder="作者" name="author" value="${(draft.author)!''}"/>
-				        <input class="form-control" style="margin:3px" type="text" placeholder="关键词（多个请用#号隔开）" name="keywordsValue" value="${(draft.keywordsValue)!''}"/>
+                        <input name="title" class="form-control" style="height:37px;font-size:24px;margin-bottom:10px;border: none;box-shadow: none;text-align: center;color: #555;" placeholder="内容标题" type="text" value="${(draft.title)!''}"/>
+				        <input class="form-control" style="height:37px;margin:3px" type="text" placeholder="作者" name="author" value="${(draft.author)!''}"/>
+				        <input class="form-control" style="height:37px;margin:3px" type="text" placeholder="关键词（多个请用#号隔开）" name="keywordsValue" value="${(draft.keywordsValue)!''}"/>
+				        <select style="height:37px;margin:3px" class="form-control" name="states[]" multiple="multiple" id="biaoqian" placeholder="年">
+						  <option value="AL">Alabama</option>
+						  <option value="WY">Wyoming</option>
+						</select>
 				        <label>类型:</label>
 				        	<#list types as type>
 						      <input style="margin-top:9px" type="radio" name="type" value="${type}" 
@@ -39,5 +43,12 @@
                 </div>
     </div>
 <#include "/cps/common/f-static.ftl">
+<link href="${contextPath}/cps/select2/select2.css" rel="stylesheet" />
+<script src="${contextPath}/cps/select2/select2.js"></script>
+<script>
+$(document).ready(function() {
+    $('#biaoqian').select2();
+});
+</script>
 </body>
 </html>
