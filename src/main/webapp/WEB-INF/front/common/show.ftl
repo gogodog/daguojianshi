@@ -33,14 +33,11 @@
       <article class="article-content">
         <p>${articlescrap.content}</p>
         <div style="margin: 10px 0">
-           <p style="text-align:center;text-indent:0px;">
+           <p style="text-align:center;text-indent:0px;font-weight: 700;">
     	     - 大国简史 -
            </p>
     	   <p style="text-align:center;text-indent:0px;">
     	 	 Country Of History
-    	   </p>
-    	   <p style="text-align:center;text-indent:0px;"> 
-    		 <strong><img src="http://www.cwillow.com/images/editor/p1/20170531054816777978.jpg" alt=""><br>  </strong> 
     	   </p>
     	   <p style="text-align:center;text-indent:0px;">
     		 <strong>来自中国的世界史</strong> 
@@ -53,10 +50,8 @@
     	   </p>
         </div>
       <div class="bdsharebuttonbox">
-		<!-- <a href="#" class="bds_more" data-cmd="more"></a> -->
 		<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
 		<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
-		<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
 		<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
 		<a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
 		<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
