@@ -29,10 +29,8 @@ public class AdminFeedBackController {
 	
 	@Autowired
 	AdminFeedBackService adminFeedBackService;
-	
 	@Autowired
 	NtcMsgRltdTransactionService noticeMessageRelatedService;
-	
 	@Autowired
 	NoticeMessageService noticeMessageService;
 
@@ -83,5 +81,4 @@ public class AdminFeedBackController {
 		String replyMessage = "对于反馈消息[{0}]的回复:{1}";
 		return MessageFormat.format(replyMessage, array);
 	}
-	
 }

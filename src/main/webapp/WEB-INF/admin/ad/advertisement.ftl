@@ -74,33 +74,21 @@
 			$("input[name='status']").val("DOWN");
 		}
 	});
-	function ajaxFileUpload()
-	{
+	function ajaxFileUpload(){
 	    var contextPath="${contextPath}";
 	    var imageContextPath="${imageContextPath}";
 	    var uploadFileName="advertisement";
-	    $.ajaxFileUpload
-	    (
-	        {
+	    $.ajaxFileUpload({
 	        	async:false,
 	            url:contextPath+'/admin/static/ajaxUpload?imagePath='+uploadFileName+"&positions=BOTTOM_RIGHT&height=250&width=1000&dapt=true",//这个是要提交到上传的文件
 	            secureuri:false,
 	            fileElementId:'uploadImage',//这里是你文件上传input框的id
 	            dataType: 'json',
-	            success: function (result)
-	            {
-	                if(typeof(result.error) != 'undefined')
-	                {
-	                    if(result.error != '')
-	                    {
+	            success: function (result){
+	                if(typeof(result.error) != 'undefined'){
+	                    if(result.error != ''){
 	                        alert(result.errorMessage);//如有错误则弹出错误
-	                    }else
-	                    {
-//	                    	var accessPath=imageContextPath+result.imageUrl;
-//	                        $("#showImage").attr("src",accessPath);
-//	                        $("input[name='ad_pic_url']").val(result.imageUrl);
-//	                        $("#showImage").show();
-	                        
+	                    }else{
 	                        var results=result.list;
 	                    	for(var i=0;i<results.length;i++){
 	                    		var accessPath=imageContextPath+results[i].watermarkImageUrl;
@@ -111,8 +99,7 @@
 	                    }
 	                }
 	            },
-	            error: function (result, status, e)
-	            {
+	            error: function (result, status, e){
 	                alert(e);
 	            }
 	        }
