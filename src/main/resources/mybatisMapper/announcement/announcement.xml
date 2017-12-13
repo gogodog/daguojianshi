@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgjs.mapper.announcement.AnnouncementMapper">
+  
+  	<insert id="save" parameterType="announcement" keyProperty="id" useGeneratedKeys="true">
+	       insert into announcement
+	       (
+	           message,
+	           status,
+	           type,
+	           show_time,
+	           create_time,
+	           update_time
+	       )
+	       values
+	       (
+	           #{message},
+	           #{status},
+	           #{type},
+	           #{show_time},
+	           now(),
+	           now()
+	       )
+	</insert>
+	
+	<select id="list" resultType="announcement">
+	       select 
+	           id,
+	           message,
+	           status,
+	           type,
+	           create_time,
+	           update_time,
+	           show_time
+	       from announcement 
+	       <include refid="conditionSql" />
+	       order by show_time desc
+	       limit #{beginNum},#{onePageSize}
+	</select>
+	
+	<select id="count" resultType="int">
+	       select count(1) from announcement
+	       <include refid="conditionSql" />
+	</select>
+	
+	<sql id="conditionSql">
+	  <where>
+         <if test="status!=null">and status=#{status}</if>
+         <if test="type!=null">and type=#{type}</if>
+         <if test="timeFrom!=null"> <![CDATA[ and show_time >= #{timeFrom} ]]></if>
+         <if test="timeTo!=null"> <![CDATA[ and show_time <= #{timeTo} ]]></if>
+      </where>
+	</sql>
+	
+	<update id="updateStatus">
+	       update announcement set 
+	           <if test="show_time!=null">
+	               show_time=#{show_time},
+	           </if>
+	           status=#{status},
+	           update_time=now()
+	       where id = #{id}  
+	</update>
+	
+	<select id="selectById" resultType="announcement">
+	     select 
+	           message,
+	           status,
+	           type,
+	           show_time,
+	           create_time,
+	           update_time
+	     from announcement where id=#{id}
+	</select>
+	
+</mapper>
