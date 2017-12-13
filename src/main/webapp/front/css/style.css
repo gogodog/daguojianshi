@@ -564,7 +564,7 @@ body,input,button,textarea,select {
 
 .carousel-inner .item img {
 	margin: 0 auto;
-	border-radius: 4px;
+	/** cott border-radius: 4px;**/
 }
 
 .carousel-control.left,.carousel-control.right {
@@ -692,7 +692,7 @@ body,input,button,textarea,select {
 }
 
 .excerpt .thumb {
-	border-radius: 5px;
+	/** cott border-radius: 5px; **/
 	width: 220px;
 	height: 150px;
 	overflow: hidden;
