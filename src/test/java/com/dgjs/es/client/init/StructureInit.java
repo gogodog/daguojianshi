@@ -89,12 +89,13 @@ public class StructureInit {
 					.startObject("_source").field("excludes", list).endObject()
 					.startObject("properties")
 					.startObject("title").field("type", "text").field("store", "false").field("index", "analyzed").field("analyzer", "ik_smart").endObject()
+					.startObject("content").field("type", "text").field("store", "yes").field("index", "analyzed").field("analyzer", "ik_smart").endObject()
 					.startObject("type").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
 					.startObject("author").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
 					.startObject("create_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "false").field("index", "not_analyzed").endObject()
 			        .startObject("update_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "false").field("index", "not_analyzed").endObject()
 					.startObject("sub_content").field("type", "text").field("store", "false").field("index", "analyzed").field("analyzer", "ik_smart").endObject()
-					.startObject("content").field("type", "text").field("store", "yes").field("index", "analyzed").field("analyzer", "ik_smart").endObject()
+					
 					.startObject("keywords").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
 					.startObject("start_time").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
 					.startObject("time_degree").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
@@ -189,7 +190,6 @@ public class StructureInit {
 		
 		private void initLogIndex(TransportClient client) throws IOException {
 			String type =  "dadian";
-			List<String> list = Arrays.asList("pagedocids");
 			createIndex(client,log_index);
 			XContentBuilder builder=XContentFactory.jsonBuilder()
 					.startObject()

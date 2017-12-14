@@ -51,9 +51,9 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 	@Autowired
 	ESTransportClient transportClient;
 	
-	final static String index = "dgjs_v4";
+	final static String index = "dgjs_v1";
 	
-	final static String type = "articlescrap_v4";
+	final static String type = "articlescrap_v1";
 	
 	@Override
 	public Articlescrap getArticlescrapIndex(String id) {

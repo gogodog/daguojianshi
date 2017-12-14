@@ -47,9 +47,9 @@ public class PendingMapperImpl implements PendingMapper{
 	@Autowired
 	FastFDSClient fastFDSClient;
 	
-	final static String index = "dp_v5";
+	final static String index = "dp_v1";
 	
-	final static String type = "pending_v5";
+	final static String type = "pending_v1";
 	
 	@SuppressWarnings("deprecation")
 	@Override
