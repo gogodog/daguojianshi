@@ -134,6 +134,7 @@ function uploadBase64(){
 				}else{
 					var results=result.list;
 					for(var i=0;i<results.length;i++){
+						debugger;
 						var accessPath=imageContextPath+results[i].minImageUrl;
 						$("#showImage").attr("src",accessPath);
 						$("input[name='image_url']").val(results[i].minImageUrl);

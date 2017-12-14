@@ -139,6 +139,7 @@
 				}else{
 					var results=result.list;
 					for(var i=0;i<results.length;i++){
+						debugger;
 						var accessPath=imageContextPath+results[i].watermarkImageUrl;
 						$("#showImage").attr("src",accessPath);
 						$("input[name='ad_pic_url']").val(results[i].watermarkImageUrl);

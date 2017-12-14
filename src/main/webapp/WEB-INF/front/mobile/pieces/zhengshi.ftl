@@ -7,4 +7,4 @@
 </div>
 <div id="zhengshi"></div>
 <!-- 查看更多 -->
-<div class="title showmore" style='border-top: solid 1px #EAEAEA;'><a href="javascript:void(0);" id="zhengshishimore">查 看 更 多</a></div>
+<div class="title showmore" style='border-top: solid 1px #EAEAEA;'><a href="javascript:void(0);" id="zhengshimore">查 看 更 多</a></div>
