@@ -15,12 +15,15 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.HandlerMapping;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.condition.PatternsRequestCondition;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
+
 @Controller
-public class XController {
+@RequestMapping("/cps")
+public class LoginController {
 
 	@RequestMapping("/test")
 	public void init(HttpServletRequest request,HttpServletResponse response) {  
@@ -44,4 +47,11 @@ public class XController {
 	    }  
 //	    System.out.println(uList);
 	}  
+	
+	@RequestMapping("/login")
+	public ModelAndView login(){
+		ModelAndView mv = new ModelAndView("/cps/login");
+		//清除登录信息
+		return mv;
+	}
 }

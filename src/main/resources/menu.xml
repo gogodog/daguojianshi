@@ -21,5 +21,8 @@
            <secondlevel desc="用户管理" url="/admin/adnur/adminList"></secondlevel>
            <secondlevel desc="操作日志" url="/admin/oprtlg/list"></secondlevel>
        </firstlevel>
+       <firstlevel desc="公告管理" >
+           <secondlevel desc="公告内容管理" url="/admin/announce/list"></secondlevel> 
+       </firstlevel>
    </project>
 </Configuration>
