@@ -12,6 +12,8 @@ public interface PictureService {
 	
 	public List<PictureDto> uploadPic(HttpServletRequest request,String imagePath,String fileName,ThumbnailatorDto thumbnailator);
 	
+	public List<PictureDto> uploadPicBase64(String base64,String imagePath,String fileName,ThumbnailatorDto thumbnailator);
+	
 	public String getImageContextPath();
 	
 	public String getWebContextPath();

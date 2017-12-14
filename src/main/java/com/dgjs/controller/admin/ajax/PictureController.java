@@ -11,6 +11,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
@@ -39,6 +40,21 @@ public class PictureController {
 		 UploadPictureView view=new UploadPictureView();
 	     try {
 	    	 List<PictureDto> list = pictureService.uploadPic(request, imagePath,"uploadImage",thumbnailator);
+	    	 view.setList(list);
+	    } catch (Exception e) {
+	        view.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
+	        log.error("ajaxUpload error", e);
+	    }
+	    return JSON.toJSONString(view);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/ajaxUploadBase64",method=RequestMethod.POST)
+	@LogRecord(operate=OperateEnum.Add,remark="上传图片base64")
+	public String ajaxUploadBase64(String base64, HttpServletRequest request, HttpServletResponse response,String imagePath,ThumbnailatorDto thumbnailator){
+		 UploadPictureView view=new UploadPictureView();
+	     try {
+	    	 List<PictureDto> list = pictureService.uploadPicBase64(base64, "","uploadImage",thumbnailator);
 	    	 view.setList(list);
 	    } catch (Exception e) {
 	        view.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);

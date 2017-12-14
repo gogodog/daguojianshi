@@ -7,6 +7,11 @@
 <script src="${contextPath}/admin/js/support-fileupload.js"></script>
 <script src="${contextPath}/admin/js/ajaxfileupload.js"></script>
 <script src="${contextPath}/admin/js/validation/jquery.validate.js"></script>
+<link href="${contextPath}/admin/plugins/cropper/css/cropper.min.css" rel="stylesheet">
+<link href="${contextPath}/admin/plugins/cropper/css/bootstrap.min.css" rel="stylesheet">
+<script src="${contextPath}/admin/plugins/cropper/js/bootstrap.min.js"></script>
+	<script src="${contextPath}/admin/plugins/cropper/js/cropper.min.js"></script>
+	<script src="${contextPath}/admin/plugins/cropper/js/main.js"></script>
 </head>
 <body marginwidth="0" marginheight="0">
 	<div class="container">
@@ -52,9 +57,7 @@
 		        </div>
 			    <div class="form-group">
 				    <label for="">广告图片</label>
-				    <img src="<#if advertisement.ad_pic_url??>${imageContextPath}${advertisement.ad_pic_url}</#if>" id="showImage" style="width:200px;height:200px;<#if advertisement.ad_pic_url??>display:block;<#else>display:none;</#if>">
-				    <div class="file"><input type="file" class="form-input-file" id="uploadImage" name="uploadImage"/>选择文件</div>
-				    <div class="file"><input type="button" class="form-input-file" id="buttonUpload" onClick="return ajaxFileUpload();">上传</div>
+				    <img src="<#if advertisement.ad_pic_url??>${imageContextPath}${advertisement.ad_pic_url}</#if>" id="showImage" style="<#if advertisement.ad_pic_url??>display:block;<#else>display:none;</#if>">
 			    </div>
 				<div class="form-group" style="margin-left:150px;">
 					<input type="submit" class="sub-btn" value="提  交" />
@@ -65,7 +68,53 @@
 			</div>
 		</div>
 	</div>
+	<div class="container" id="crop-avatar">
+	<h5>修改广告图片</h5>
+    <div class="avatar-view" title="Change the avatar">
+      <img id="avatar" src="/admin/images/selimg.png" alt="点击选择图片文件">
+    </div>
+    <div class="file"><button class="form-input-file" onClick="return uploadBase64();">上传裁剪图片</button></div>
+    <div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <form class="avatar-form" action="${contextPath}/admin/static/ajaxUpload?" enctype="multipart/form-data" method="post">
+            <div class="modal-header">
+              <button class="close" data-dismiss="modal" type="button">&times;</button>
+              <h4 class="modal-title" id="avatar-modal-label">裁剪图片</h4>
+            </div>
+            <div class="modal-body">
+              <div class="avatar-body">
+                <div class="avatar-upload">
+                  <input class="avatar-src" name="avatar_src" type="hidden">
+                  <input class="avatar-data" name="avatar_data" type="hidden">
+                  <input class="avatar-input" id="avatarInput" name="avatar_file" type="file">
+                </div>
+                <div class="row">
+                  <div class="col-md-9">
+                    <div class="avatar-wrapper"></div>
+                  </div>
+                </div>
+                <div class="row avatar-btns">
+                  <div class="col-md-3">
+                    <button class="btn btn-primary btn-block avatar-save" type="submit">确定裁剪</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
+  </div>
 	
+	
+	
+	
+	
+	
+	
+
 	<script type="text/javascript">
 	$("#status").click(function(){
 		if($('#status').is(':checked')) {
@@ -104,6 +153,47 @@
 	            }
 	        }
 	    )
+	}
+	
+	function uploadBase64(){
+		var base64 = $('#avatar')[0].src;
+		if(!base64 || base64.indexOf("base64") <= 0){
+			alert('请选择图片');
+			return;
+		}
+		var contextPath="${contextPath}";
+	    var imageContextPath="${imageContextPath}";
+	    var uploadFileName="advertisement";
+		var data = {};
+		data['base64'] = base64;
+		$.ajax(contextPath+'/admin/static/ajaxUploadBase64?imagePath='+uploadFileName+"&positions=BOTTOM_RIGHT&dapt=true", {
+        data: data,
+        type: 'post',
+        dataType: 'json',
+        processData: true,
+        contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+        success: function (result) {
+         if(typeof(result.error) != 'undefined'){
+	                    if(result.error != ''){
+	                        alert(result.errorMessage);//如有错误则弹出错误
+	                    }else{
+	                        var results=result.list;
+	                    	for(var i=0;i<results.length;i++){
+	                    		var accessPath=imageContextPath+results[i].watermarkImageUrl;
+	                    		 $("#showImage").attr("src",accessPath);
+	                             $("input[name='ad_pic_url']").val(results[i].watermarkImageUrl);
+	                             $("#showImage").show();
+	                    	}
+	                    }
+	                }
+        },
+        error: function (result, status, e){
+	                alert(e);
+	            }
+      });
+		
+	
+	
 	}
 	
 	$().ready(function() {

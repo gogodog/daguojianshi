@@ -20,6 +20,8 @@ public class ThumbnailatorDto {
 	
 	private boolean isAdapt;//是否根据图片大小算出缩放比例
 	
+	private String base64;
+	
 
 	public boolean isAdapt() {
 		return isAdapt;
@@ -94,5 +96,13 @@ public class ThumbnailatorDto {
 		}else{
 			this.setScale(0.3f);
 		}
+	}
+
+	public String getBase64() {
+		return base64;
+	}
+
+	public void setBase64(String base64) {
+		this.base64 = base64;
 	}
 }

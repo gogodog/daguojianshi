@@ -66,11 +66,7 @@
     <!-- cps -->
     <mvc:resources mapping="/cps/**" location="/cps/"/>
 	<!-- 后台 -->
-	<mvc:resources mapping="/admin/images/**" location="/admin/images/"/>  
-	<mvc:resources mapping="/admin/js/**" location="/admin/js/"/>  
-	<mvc:resources mapping="/admin/css/**" location="/admin/css/"/>
-	<mvc:resources mapping="/admin/fonts/**" location="/admin/fonts/"/>
-	<mvc:resources mapping="/admin/plugins/**" location="/admin/plugins/"/>
+	<mvc:resources mapping="/admin/**" location="/admin/"/>
 	<!-- 公共 -->
 	<mvc:resources mapping="/common/**" location="/common/"/>
 	
