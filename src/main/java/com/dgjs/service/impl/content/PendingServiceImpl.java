@@ -68,7 +68,9 @@ public class PendingServiceImpl implements PendingService{
 		if(status == Pending_Status.Audit_FAIL){
 			Pending pending=pendingMapper.selectById(id);
 			Draft draft = draftMapper.selectById(pending.getDraft_id());
+			String content = draftMapper.getContent(pending.getDraft_id());
 			draft.setDraft_status(Draft_Status.NORMAL);
+			draft.setContent(content);
 			flag = draftMapper.updateDraft(draft);
 		}
 		return flag;
