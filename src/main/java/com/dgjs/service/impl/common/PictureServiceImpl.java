@@ -140,7 +140,7 @@ public class PictureServiceImpl implements PictureService {
 				return dto;
 			}
 			byte[] file = PictureServiceImpl.decodeBase64(base64.substring(base64.indexOf(",")+1));
-			if (file.length > Constants.MAX_FILE_SIZE * 1024 * 1024 * 1024) {
+			if (file.length > Constants.MAX_FILE_SIZE * 1024 * 1024) {
 				dto.setErrorInfo(RETURN_STATUS.PARAM_ERROR.getValue(), "图片大小不能超过" + Constants.MAX_FILE_SIZE + "M");
 				return dto;
 			}

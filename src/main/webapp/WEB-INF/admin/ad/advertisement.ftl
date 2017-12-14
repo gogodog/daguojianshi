@@ -10,8 +10,8 @@
 <link href="${contextPath}/admin/plugins/cropper/css/cropper.min.css" rel="stylesheet">
 <link href="${contextPath}/admin/plugins/cropper/css/bootstrap.min.css" rel="stylesheet">
 <script src="${contextPath}/admin/plugins/cropper/js/bootstrap.min.js"></script>
-	<script src="${contextPath}/admin/plugins/cropper/js/cropper.min.js"></script>
-	<script src="${contextPath}/admin/plugins/cropper/js/main.js"></script>
+<script src="${contextPath}/admin/plugins/cropper/js/cropper.min.js"></script>
+<script src="${contextPath}/admin/plugins/cropper/js/main.js"></script>
 </head>
 <body marginwidth="0" marginheight="0">
 	<div class="container">
@@ -107,15 +107,7 @@
     </div>
     <div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
   </div>
-	
-	
-	
-	
-	
-	
-	
-
-	<script type="text/javascript">
+<script type="text/javascript">
 	$("#status").click(function(){
 		if($('#status').is(':checked')) {
 			   $("input[name='status']").val("UP");
@@ -123,38 +115,6 @@
 			$("input[name='status']").val("DOWN");
 		}
 	});
-	function ajaxFileUpload(){
-	    var contextPath="${contextPath}";
-	    var imageContextPath="${imageContextPath}";
-	    var uploadFileName="advertisement";
-	    $.ajaxFileUpload({
-	        	async:false,
-	            url:contextPath+'/admin/static/ajaxUpload?imagePath='+uploadFileName+"&positions=BOTTOM_RIGHT&height=250&width=1000&dapt=true",//这个是要提交到上传的文件
-	            secureuri:false,
-	            fileElementId:'uploadImage',//这里是你文件上传input框的id
-	            dataType: 'json',
-	            success: function (result){
-	                if(typeof(result.error) != 'undefined'){
-	                    if(result.error != ''){
-	                        alert(result.errorMessage);//如有错误则弹出错误
-	                    }else{
-	                        var results=result.list;
-	                    	for(var i=0;i<results.length;i++){
-	                    		var accessPath=imageContextPath+results[i].watermarkImageUrl;
-	                    		 $("#showImage").attr("src",accessPath);
-	                             $("input[name='ad_pic_url']").val(results[i].watermarkImageUrl);
-	                             $("#showImage").show();
-	                    	}
-	                    }
-	                }
-	            },
-	            error: function (result, status, e){
-	                alert(e);
-	            }
-	        }
-	    )
-	}
-	
 	function uploadBase64(){
 		var base64 = $('#avatar')[0].src;
 		if(!base64 || base64.indexOf("base64") <= 0){
@@ -173,30 +133,23 @@
         processData: true,
         contentType: 'application/x-www-form-urlencoded; charset=utf-8',
         success: function (result) {
-         if(typeof(result.error) != 'undefined'){
-	                    if(result.error != ''){
-	                        alert(result.errorMessage);//如有错误则弹出错误
-	                    }else{
-	                        var results=result.list;
-	                    	for(var i=0;i<results.length;i++){
-	                    		var accessPath=imageContextPath+results[i].watermarkImageUrl;
-	                    		 $("#showImage").attr("src",accessPath);
-	                             $("input[name='ad_pic_url']").val(results[i].watermarkImageUrl);
-	                             $("#showImage").show();
-	                    	}
-	                    }
-	                }
+        	if(typeof(result.error) != 'undefined'){
+				if(result.error != ''){
+					alert(result.errorMessage);//如有错误则弹出错误
+				}else{
+					var results=result.list;
+					for(var i=0;i<results.length;i++){
+						var accessPath=imageContextPath+results[i].watermarkImageUrl;
+						$("#showImage").attr("src",accessPath);
+						$("input[name='ad_pic_url']").val(results[i].watermarkImageUrl);
+						$("#showImage").show();
+					}
+				}
+			}
         },
-        complete:function(){
-        	$("#avatar").attr('src','/admin/images/selimg.png');
-        },
-        error: function (result, status, e){
-	                alert(e);
-	            }
+        complete:function(){$("#avatar").attr('src','/admin/images/selimg.png');},
+        error: function (result, status, e){alert(e);}
       });
-		
-	
-	
 	}
 	
 	$().ready(function() {

@@ -54,7 +54,7 @@ public class PictureController {
 	public String ajaxUploadBase64(String base64, HttpServletRequest request, HttpServletResponse response,String imagePath,ThumbnailatorDto thumbnailator){
 		 UploadPictureView view=new UploadPictureView();
 	     try {
-	    	 List<PictureDto> list = pictureService.uploadPicBase64(base64, "","uploadImage",thumbnailator);
+	    	 List<PictureDto> list = pictureService.uploadPicBase64(base64, imagePath,"uploadImage",thumbnailator);
 	    	 view.setList(list);
 	    } catch (Exception e) {
 	        view.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
