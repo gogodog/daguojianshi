@@ -71,7 +71,7 @@
 	<div class="container" id="crop-avatar">
 	<h5>修改广告图片</h5>
     <div class="avatar-view" title="Change the avatar">
-      <img id="avatar" src="/admin/images/selimg.png" alt="点击选择图片文件">
+      <img id="avatar" src="${contextPath}/admin/images/selimg.png" alt="点击选择图片文件">
     </div>
     <div class="file"><button class="form-input-file" onClick="return uploadBase64();">上传裁剪图片</button></div>
     <div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
@@ -147,7 +147,7 @@
 				}
 			}
         },
-        complete:function(){$("#avatar").attr('src','/admin/images/selimg.png');},
+        complete:function(){$("#avatar").attr('src',contextPath+'/admin/images/selimg.png');},
         error: function (result, status, e){alert(e);}
       });
 	}
