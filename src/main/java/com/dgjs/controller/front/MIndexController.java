@@ -253,7 +253,7 @@ public class MIndexController {
 				 sort.put("show_time", SortOrder.DESC);
 				 affairsCondition.setSort(sort);
 				 PageInfoDto<Articlescrap> dto = articlescrapService.listArticlescrap(affairsCondition);
-				 List<Articlescrap> articlescrapList=dto.getObjects();
+				 List<Articlescrap> articlescrapList=dto==null?null:dto.getObjects();
 				 if(articlescrapList!=null){
 					 affairsList.addAll(getMIndexViewList(articlescrapList));
 				 }

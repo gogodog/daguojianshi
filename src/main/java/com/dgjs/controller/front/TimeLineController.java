@@ -233,8 +233,9 @@ public class TimeLineController {
 	}
 	
 	private void processNullValue(TimelineView tv,boolean isNext,String aid,String contextPath,Articlescrap_Type type){
-		boolean isAllParamNull=tv.getTimeline()==null&&StringUtils.isNullOrEmpty(tv.getMaxTimeAid())&&StringUtils.isNullOrEmpty(tv.getMinTimeAid());
-		if(tv == null||isAllParamNull){
+		boolean isAllParamNull=tv==null||(tv.getTimeline()==null&&StringUtils.isNullOrEmpty(tv.getMaxTimeAid())&&StringUtils.isNullOrEmpty(tv.getMinTimeAid()));
+		if(isAllParamNull){
+			tv = tv == null?new TimelineView():tv;
 			List<Dat> dts = new ArrayList<>();
 			Asset one = new Asset();
 			Dat dt = new Dat();
