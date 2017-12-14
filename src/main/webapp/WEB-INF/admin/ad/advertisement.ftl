@@ -187,6 +187,9 @@
 	                    }
 	                }
         },
+        complete:function(){
+        	$("#avatar").attr('src','/admin/images/selimg.png');
+        },
         error: function (result, status, e){
 	                alert(e);
 	            }
