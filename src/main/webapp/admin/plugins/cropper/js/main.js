@@ -236,8 +236,7 @@
     },
     getBase64: function(){
     	this.$imgData=this.$img.cropper('getCroppedCanvas')
-        var dataurl = this.$imgData.toDataURL('image/png');  //dataurl便是base64图片
-    	//console.log(dataurl)
+        var dataurl = this.$imgData.toDataURL('image/jpeg',0.3);  //dataurl便是base64图片
     	document.getElementById('avatar').src=dataurl;
     	this.$avatarClose.click();
     	return dataurl;
