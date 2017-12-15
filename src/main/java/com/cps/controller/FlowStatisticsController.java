@@ -18,6 +18,7 @@ import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 import com.dgjs.service.common.DataService;
 import com.dgjs.service.content.ArticlescrapService;
+import com.dgjs.utils.WebContextHelper;
 
 @Controller
 @RequestMapping("/cps/flwststcs")
@@ -46,7 +47,7 @@ public class FlowStatisticsController {
 		Map<String, SortOrder> sort = new HashMap<String, SortOrder>();
 		sort.put("show_time", SortOrder.DESC);
 		articlescrapCondtion.setSort(sort);
-//		articlescrapCondtion.setUserId(WebContextHelper.getUserId());
+		articlescrapCondtion.setUserId(WebContextHelper.getUserId());
 		String[] includes = {"id","title"};
 		articlescrapCondtion.setIncludes(includes);
 		PageInfoDto<Articlescrap> pageinfo = articlescrapSerivce.listArticlescrap(articlescrapCondtion);
