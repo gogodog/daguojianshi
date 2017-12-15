@@ -13,6 +13,10 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogramAggregationBuilder;
+import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogramInterval;
+import org.elasticsearch.search.aggregations.bucket.histogram.ExtendedBounds;
+import org.elasticsearch.search.aggregations.bucket.histogram.Histogram;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.elasticsearch.search.aggregations.metrics.valuecount.InternalValueCount;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,10 +80,31 @@ public class DadianMapperImpl implements DadianMapper{
 
 	@Override
 	public void getArticleDaysVisits() {
+		 String docId="AWBVXra61p3upr9ufkun";
 		 TransportClient client=transportClient.getClient();
-		 AggregationBuilder aggregationBuilder = AggregationBuilders  
-	                .terms("dadian_agg").field("pagedocids")  
-	                .subAggregation(AggregationBuilders.count("agg_count").field("pagedocids"));  
+		 try {  
+	           SearchRequestBuilder searchRequestBuilder = client.prepareSearch(index).setTypes(type);  
+	           searchRequestBuilder.setQuery(QueryBuilders.termsQuery("pagedocids", docId));
+	           DateHistogramAggregationBuilder field = AggregationBuilders.dateHistogram("doc_visits").field("ctime");  
+	           field.dateHistogramInterval(DateHistogramInterval.DAY);  
+//	           field.dateHistogramInterval(DateHistogramInterval.days(10))  
+	           field.format("yyyy-MM-dd");  
+	           field.minDocCount(0);//强制返回空 buckets,既空的月份也返回  
+	           field.extendedBounds(new ExtendedBounds("2017-12-14", "2014-12-15"));// Elasticsearch 默认只返回你的数据中最小值和最大值之间的 buckets  
+	           searchRequestBuilder.addAggregation(field);  
+	           searchRequestBuilder.setSize(0);  
+	           SearchResponse searchResponse = searchRequestBuilder.execute().actionGet();  
+	           System.out.println(searchResponse.toString());  
+	           Histogram histogram = searchResponse.getAggregations().get("doc_visits");  
+	           for (Histogram.Bucket entry : histogram.getBuckets()) {  
+//	               DateTime key = (DateTime) entry.getKey();   
+	               String keyAsString = entry.getKeyAsString();   
+	               Long count = entry.getDocCount(); // Doc count  
+	               System.out.println(keyAsString + "，访问量:" + count );  
+	           }  
+	       } catch (Exception e) {  
+	            e.printStackTrace();  
+	       }  
 	}
 
 }

@@ -139,7 +139,7 @@ public class DraftMapperImpl implements DraftMapper{
 		 }
 		 updateRequest.doc(DraftEs.ConvertToEs(draft).toString());
 		 client.update(updateRequest).get();
-		 return 0;
+		 return 1;
 	}
 
 	@Override
