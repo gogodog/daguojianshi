@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>简史-用户系统</title>
     <link href="${contextPath}/cps/css/bootstrap.css" rel="stylesheet" />
     <link href="${contextPath}/cps/css/font-awesome.css" rel="stylesheet" />

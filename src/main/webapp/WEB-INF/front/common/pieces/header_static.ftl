@@ -6,7 +6,7 @@
 	<meta name="full-screen" content="yes">
     <meta name="keywords" content="">
     <meta name="description" content="">
-    
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     
     <meta name="keywords" content="手机简史网,手机大国简史,历史资料,大国简史无线">
 	<meta name="description" content="cwillow.com">
