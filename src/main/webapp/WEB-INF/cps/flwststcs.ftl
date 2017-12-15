@@ -74,7 +74,12 @@
                    text: '文章访问量'
                },
                xAxis: {
-                   categories: titles
+                   categories: titles,
+                   labels: {
+                	   formatter: function() {
+            	          return recursionSubStr(this.value);
+                	   }
+                   }
                },
                yAxis: {
                    min: 0,
@@ -140,6 +145,26 @@
                 }
            })
        }
+       
+       function recursionSubStr(str){
+    	   var subStr='';
+    	   var subLength=10;
+    	   var index = 0;//
+    	   if(str == '' || str == null){
+    		   return '';
+    	   }
+    	   while(str.length > subLength){
+    		   index++;//
+    		   if(index==3){//
+    			   subStr = subStr + '...';//
+    			   return subStr;//
+    		   }//
+    		   subStr+=str.substr(0,subLength)+"<br>";
+    		   str = str.substring(subLength,str.length-1)
+    	   }
+    	   return subStr+str;
+       }
+       
    </script>
 </body>
 </html>

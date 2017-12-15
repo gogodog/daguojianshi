@@ -51,9 +51,9 @@ public class FlowStatisticsController {
 		String[] includes = {"id","title"};
 		articlescrapCondtion.setIncludes(includes);
 		PageInfoDto<Articlescrap> pageinfo = articlescrapSerivce.listArticlescrap(articlescrapCondtion);
-		List<Articlescrap> list = pageinfo.getObjects();
-		List<String> ids = new ArrayList<String>();
+		List<Articlescrap> list = pageinfo==null?null:pageinfo.getObjects();
 		if(list!=null && list.size()>0){
+			List<String> ids = new ArrayList<String>();
 			for(Articlescrap articlescrap:list){
 				ids.add(articlescrap.getId());
 			}
