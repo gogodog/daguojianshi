@@ -14,9 +14,7 @@
 				        <input class="form-control" style="height:37px;margin:3px" type="text" placeholder="关键词（多个请用#号隔开）" name="keywordsValue" value="${(draft.keywordsValue)!''}"/>
 				        <label>类型:</label>
 				        	<#list types as type>
-						      <input style="margin-top:9px" type="radio" name="type" value="${type}" 
-				                 <#if draft.type == type>checked</#if>
-						      >${type.value}
+						      <input style="margin-top:9px" type="radio" name="type" value="${type}" <#if draft.type == type>checked</#if>>${type.value}
 						    </#list>
 			        </div>
 			        <div class="col-md-12" style="float:none;margin:2px;">

@@ -81,7 +81,7 @@ public class DraftController {
 			return mv;
 		}
 		if(draft.getTitle().length()<2||draft.getTitle().length()>50){
-			mv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR.name(),"标题长度需在2-50之间");
+			mv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR.name(),"标题长度需在10-50之间");
 			return mv;
 		}
 		if(draft.getAuthor().length()<2||draft.getAuthor().length()>20){
@@ -103,11 +103,11 @@ public class DraftController {
 			return mv;
 		}
 		if(draft.getSub_content().length()>700||draft.getSub_content().length()<20){
-			mv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR.name(),"摘要长度需在20-700之间");
+			mv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR.name(),"摘要长度需在30-300之间");
 			return mv;
 		}
 		if(draft.getContent().length()<150||draft.getContent().length()>10000){
-			mv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR.name(),"正文长度需在150-10000之间");
+			mv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR.name(),"正文长度需在300-10000之间");
 			return mv;
 		}
 		draft.setBeginTime();
