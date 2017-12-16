@@ -1,6 +1,6 @@
 <#include "/cps/common/header.ftl">
-<link href="${contextPath}/cps/css/prettyPhoto.css" rel="stylesheet" />
-<link href="${contextPath}/cps/css/bootstrap-fileupload.min.css" rel="stylesheet" />
+<link href="/cps/css/prettyPhoto.css" rel="stylesheet" />
+<link href="/cps/css/bootstrap-fileupload.min.css" rel="stylesheet" />
 <body>
     <div id="wrapper">
         <#include "/cps/common/top.ftl">
@@ -54,11 +54,11 @@
 		</div></div>
     <#include "/cps/common/f-static.ftl">
     <#include "/cps/common/viewImage.ftl">
-    <script src="${contextPath}/cps/js/jquery.prettyPhoto.js"></script>
-    <script src="${contextPath}/cps/js/jquery.mixitup.min.js"></script>
-    <script src="${contextPath}/cps/js/galleryCustom.js"></script>
-    <script src="${contextPath}/cps/js/bootstrap-fileupload.js"></script>
-    <script src="${contextPath}/cps/js/ajaxfileupload.js"></script>
+    <script src="/cps/js/jquery.prettyPhoto.js"></script>
+    <script src="/cps/js/jquery.mixitup.min.js"></script>
+    <script src="/cps/js/galleryCustom.js"></script>
+    <script src="/cps/js/bootstrap-fileupload.js"></script>
+    <script src="/cps/js/ajaxfileupload.js"></script>
     <script>
       var contextPath="${contextPath}";
       var userId="${userId}";

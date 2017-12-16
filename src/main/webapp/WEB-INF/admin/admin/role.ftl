@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
 <#include "/admin/common/head_title.ftl">
-<script src="${contextPath}/admin/js/jquery-1.11.1.min.js"></script>
-<script src="${contextPath}/admin/js/support-fileupload.js"></script>
-<script src="${contextPath}/admin/js/ajaxfileupload.js"></script>
-<script src="${contextPath}/admin/js/validation/jquery.validate.js"></script>
+<script src="/admin/js/jquery-1.11.1.min.js"></script>
+<script src="/admin/js/support-fileupload.js"></script>
+<script src="/admin/js/ajaxfileupload.js"></script>
+<script src="/admin/js/validation/jquery.validate.js"></script>
 </head>
 <body marginwidth="0" marginheight="0">
 	<div class="container">
-		<div class="public-nav">您当前的位置：<a href="">后台用户管理</a>><a href="">角色管理</a>><a href="${contextPath}/admin/admin/role">添加角色</a></div>
+		<div class="public-nav">您当前的位置：<a href="">后台用户管理</a>><a href="">角色管理</a>><a href="/admin/admin/role">添加角色</a></div>
 		<div class="public-content">
 			<div class="public-content-header">
 				<h3>添加角色</h3>

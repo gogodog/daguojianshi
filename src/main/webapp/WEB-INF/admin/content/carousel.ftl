@@ -2,19 +2,19 @@
 <html lang="en">
 <head>
 <#include "/admin/common/head_title.ftl">
-<script src="${contextPath}/admin/js/jquery-1.11.1.min.js"></script>
-<script src="${contextPath}/admin/js/support-fileupload.js"></script>
-<script src="${contextPath}/admin/js/ajaxfileupload.js"></script>
-<script src="${contextPath}/admin/js/validation/jquery.validate.js"></script>
-<link href="${contextPath}/admin/plugins/cropper/css/cropper.min.css" rel="stylesheet">
-<link href="${contextPath}/admin/plugins/cropper/css/bootstrap.min.css" rel="stylesheet">
-<script src="${contextPath}/admin/plugins/cropper/js/bootstrap.min.js"></script>
-<script src="${contextPath}/admin/plugins/cropper/js/cropper.min.js"></script>
-<script src="${contextPath}/admin/plugins/cropper/js/main.js"></script>
+<script src="/admin/js/jquery-1.11.1.min.js"></script>
+<script src="/admin/js/support-fileupload.js"></script>
+<script src="/admin/js/ajaxfileupload.js"></script>
+<script src="/admin/js/validation/jquery.validate.js"></script>
+<link href="/admin/plugins/cropper/css/cropper.min.css" rel="stylesheet">
+<link href="/admin/plugins/cropper/css/bootstrap.min.css" rel="stylesheet">
+<script src="/admin/plugins/cropper/js/bootstrap.min.js"></script>
+<script src="/admin/plugins/cropper/js/cropper.min.js"></script>
+<script src="/admin/plugins/cropper/js/main.js"></script>
 </head>
 <body marginwidth="0" marginheight="0">
 	<div class="container">
-		<div class="public-nav">您当前的位置：<a href="">内容管理</a>><a href="">轮播图管理</a>><a href="${contextPath}/admin/cul/carousel">添加轮播图</a></div>
+		<div class="public-nav">您当前的位置：<a href="">内容管理</a>><a href="">轮播图管理</a>><a href="/admin/cul/carousel">添加轮播图</a></div>
 		<div class="public-content">
 			<div class="public-content-header">
 				<h3>添加轮播</h3>
@@ -62,7 +62,7 @@
 				<div class="container" id="crop-avatar">
 	<h5>修改广告图片</h5>
     <div class="avatar-view" title="Change the avatar">
-      <img id="avatar" src="${contextPath}/admin/images/selimg.png" alt="点击选择图片文件">
+      <img id="avatar" src="/admin/images/selimg.png" alt="点击选择图片文件">
     </div>
     <div class="file"><button class="form-input-file" onClick="return uploadBase64();">上传裁剪图片</button></div>
     <div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">

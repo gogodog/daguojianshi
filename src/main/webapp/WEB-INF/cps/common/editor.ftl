@@ -5,8 +5,8 @@
 </div>
 <button class="btn btn-danger" onclick="saveEditor(1)"><i class="fa fa-toggle-on"></i>保存编辑</button>
 <button class="btn btn-danger" onclick="preview();"><i class="fa fa-bug "></i></i>预览</button>
-<script src="${contextPath}/admin/js/support-fileupload.js"></script>
-<script src="${contextPath}/admin/js/ajaxfileupload.js"></script>
+<script src="/admin/js/support-fileupload.js"></script>
+<script src="/admin/js/ajaxfileupload.js"></script>
 <script>
 var contextPath="${contextPath}";
 var editorImagePath=contextPath+"/admin/static/ajaxUploadEditorImage?imagePath=editor";
@@ -83,7 +83,7 @@ function preview(){
 	window.location.href = contextPath+"/cps/dft/previewDraft?aid="+aid;
 }
 </script>
-<script src="${contextPath}/admin/js/kingediter/kindeditor-all2.js"></script>
+<script src="/admin/js/kingediter/kindeditor-all2.js"></script>
 <script>
 KindEditor.ready(function(K) {
     window.editor = K.create('#editor_id', {

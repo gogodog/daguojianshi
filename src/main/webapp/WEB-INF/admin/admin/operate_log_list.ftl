@@ -44,7 +44,7 @@
 					     <td><#if result.operateLog.isSuccess == 1>成功<#else>失败</#if></td>	
 					     <td>
 					       <div class="table-fun-1">
-				     		<a href="${contextPath}/admin/oprtlg/detail?id=${result.operateLog.id}">查看详情</a>
+				     		<a href="/admin/oprtlg/detail?id=${result.operateLog.id}">查看详情</a>
 				     	   </div>
 					     </td>	
 				     </tr>
@@ -54,9 +54,9 @@
 			</div>
 		</div>
 	</div>
-<script src="${contextPath}/admin/js/jquery-1.11.1.min.js"></script>
-<script src="${contextPath}/admin/js/page.js" charset="utf-8"></script>
-<script language="javascript" src="${contextPath}/admin/js/My97DatePicker/wdatePicker.js"></script>
+<script src="/admin/js/jquery-1.11.1.min.js"></script>
+<script src="/admin/js/page.js" charset="utf-8"></script>
+<script language="javascript" src="/admin/js/My97DatePicker/wdatePicker.js"></script>
 <script>
 var contextPath="${contextPath}";
 </script>

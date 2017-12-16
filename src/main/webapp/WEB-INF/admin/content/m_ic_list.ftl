@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <#include "/admin/common/head_title.ftl">
-<link rel="stylesheet" type="text/css" href="${contextPath}/admin/css/xcConfirm.css"/>
-<script src="${contextPath}/admin/js/jquery-1.11.1.min.js"></script>
-<script src="${contextPath}/admin/js/confirm/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css" href="/admin/css/xcConfirm.css"/>
+<script src="/admin/js/jquery-1.11.1.min.js"></script>
+<script src="/admin/js/confirm/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body marginwidth="0" marginheight="0">
 	<div class="container">
@@ -13,7 +13,7 @@
 			<div class="public-content-header">
 			<h3 style="display: inline-block;">首页配置管理列表</h3>
 				<div class="public-content-right fr">
-				<a href="${contextPath}/admin/idxcfg/indexConfig" 
+				<a href="/admin/idxcfg/indexConfig" 
 				   style="height: 24px; width: 70px;border: 1px solid #ccc;font-size: 12px;text-align:center">添加配置</a>
 			</div>
 			</div>
@@ -50,7 +50,7 @@
 					     <td>${dto.indexConfig.sub_content}</td>
 					     <td>
 					     	<div class="table-fun">
-					     		<a href="${contextPath}/admin/idxcfg/indexConfig?id=${dto.indexConfig.id}">修改</a>
+					     		<a href="/admin/idxcfg/indexConfig?id=${dto.indexConfig.id}">修改</a>
 					     		<a href="javascript:void(0)" onclick="deleteIndexConfig('${dto.indexConfig.id}','${dto.indexConfig.type}');">删除</a>
 					     	</div>
 					     </td>

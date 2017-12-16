@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <#include "/admin/common/head_title.ftl">
-<link rel="stylesheet" type="text/css" href="${contextPath}/admin/css/xcConfirm.css"/>
-<script src="${contextPath}/admin/js/jquery-1.11.1.min.js"></script>
-<script src="${contextPath}/admin/js/confirm/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css" href="/admin/css/xcConfirm.css"/>
+<script src="/admin/js/jquery-1.11.1.min.js"></script>
+<script src="/admin/js/confirm/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body marginwidth="0" marginheight="0">
 	<div class="container">
@@ -13,7 +13,7 @@
 			<div class="public-content-header">
 			<h3 style="display: inline-block;">文章推荐列表</h3>
 				<div class="public-content-right fr">
-				<a href="${contextPath}/admin/rcma/recommedArticlescrap" 
+				<a href="/admin/rcma/recommedArticlescrap" 
 				   style="height: 24px; width: 70px;border: 1px solid #ccc;font-size: 12px;text-align:center">添加推荐</a>
 			</div>
 			</div>
@@ -43,7 +43,7 @@
                          </td>
 					     <td>
 					     	<div class="table-fun-1">
-					     	    <a href="${contextPath}/admin/atcp/articlescrap?articlescrapId=${recommedArticlescrap.id}">查看文章</a>
+					     	    <a href="/admin/atcp/articlescrap?articlescrapId=${recommedArticlescrap.id}">查看文章</a>
 					     		<a href="javascript:void(0)" onclick="deleteRA('${recommedArticlescrap.id}');">删除</a>
 					     		<a href="javascript:void(0)" onclick="updateStatus('${recommedArticlescrap.id}','${recommedArticlescrap.recommend.status}');">
                                    <#if recommedArticlescrap.recommend.status == 1>

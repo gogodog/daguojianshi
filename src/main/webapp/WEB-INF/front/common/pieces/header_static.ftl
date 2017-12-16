@@ -6,7 +6,6 @@
 	<meta name="full-screen" content="yes">
     <meta name="keywords" content="">
     <meta name="description" content="">
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     
     <meta name="keywords" content="手机简史网,手机大国简史,历史资料,大国简史无线">
 	<meta name="description" content="cwillow.com">
@@ -25,20 +24,20 @@
     
     
     <title>简史</title>
-    <link rel="stylesheet" type="text/css" href="${contextPath}/front/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="${contextPath}/front/css/nprogress.css">
-    <link rel="stylesheet" type="text/css" href="${contextPath}/front/css/style.css">
-    <link rel="stylesheet" type="text/css" href="${contextPath}/front/css/font-awesome.min.css">
-    <link rel="apple-touch-icon-precomposed" href="${contextPath}/front/images/favico.ico">
-    <link rel="shortcut icon" href="${contextPath}/front/images/favico.ico">
-    <script src="${contextPath}/front/js/jquery-2.1.4.min.js"></script>
-    <script src="${contextPath}/front/js/hammer.min.js"></script>
-    <script src="${contextPath}/front/js/jquery.lazyload.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/front/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/front/css/nprogress.css">
+    <link rel="stylesheet" type="text/css" href="/front/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/front/css/font-awesome.min.css">
+    <link rel="apple-touch-icon-precomposed" href="/front/images/favico.ico">
+    <link rel="shortcut icon" href="/front/images/favico.ico">
+    <script src="/front/js/jquery-2.1.4.min.js"></script>
+    <script src="/front/js/hammer.min.js"></script>
+    <script src="/front/js/jquery.lazyload.min.js"></script>
     <!--[if gte IE 9]>
-      <script src="${contextPath}/front/js/jquery-1.11.1.min.js" type="text/javascript"></script>
-      <script src="${contextPath}/front/js/html5shiv.min.js" type="text/javascript"></script>
-      <script src="${contextPath}/front/js/respond.min.js" type="text/javascript"></script>
-      <script src="${contextPath}/front/js/selectivizr-min.js" type="text/javascript"></script>
+      <script src="/front/js/jquery-1.11.1.min.js" type="text/javascript"></script>
+      <script src="/front/js/html5shiv.min.js" type="text/javascript"></script>
+      <script src="/front/js/respond.min.js" type="text/javascript"></script>
+      <script src="/front/js/selectivizr-min.js" type="text/javascript"></script>
     <![endif]-->
     
     

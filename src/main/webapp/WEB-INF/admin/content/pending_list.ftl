@@ -42,7 +42,7 @@
                          </td>
                          <td>
                            <div class="table-fun-1">
-                            <a href="${contextPath}/admin/pding/previewPending?aid=${object.id}">查看</a>     
+                            <a href="/admin/pding/previewPending?aid=${object.id}">查看</a>     
                             <#if object.status == 'AUDIT_PENDING'>
                               <a href="javascript:void(0)" onclick="showAudit('${object.id}');">审核</a>  
                             </#if>
@@ -61,12 +61,12 @@
 			</div>
 		</div>
 	</div>
-<script src="${contextPath}/admin/js/jquery-1.11.1.min.js"></script>
-<script src="${contextPath}/admin/js/page.js" charset="utf-8"></script>
-<script language="javascript" src="${contextPath}/admin/js/My97DatePicker/wdatePicker.js"></script>
-<script src="${contextPath}/admin/js/page.js" charset="utf-8"></script>
-<link rel="stylesheet" type="text/css" href="${contextPath}/admin/css/alertify.css">
-<script src="${contextPath}/admin/js/alertify.js" type="text/javascript" charset="utf-8"></script>
+<script src="/admin/js/jquery-1.11.1.min.js"></script>
+<script src="/admin/js/page.js" charset="utf-8"></script>
+<script language="javascript" src="/admin/js/My97DatePicker/wdatePicker.js"></script>
+<script src="/admin/js/page.js" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css" href="/admin/css/alertify.css">
+<script src="/admin/js/alertify.js" type="text/javascript" charset="utf-8"></script>
 <script>
 var contextPath="${contextPath}";
 function showAuditFailDesc(audit_desc){

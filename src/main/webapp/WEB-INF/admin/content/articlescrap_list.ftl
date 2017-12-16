@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <#include "/admin/common/head_title.ftl">
-<link rel="stylesheet" type="text/css" href="${contextPath}/admin/css/xcConfirm.css"/>
+<link rel="stylesheet" type="text/css" href="/admin/css/xcConfirm.css"/>
 </head>
 <body marginwidth="0" marginheight="0">
 	<div class="container">
@@ -11,7 +11,7 @@
 			<div class="public-content-header">
 			<h3 style="display: inline-block;">文章列表</h3>
 				<div class="public-content-right fr">
-				  <a href="${contextPath}/admin/atcp/articlescrap" 
+				  <a href="/admin/atcp/articlescrap" 
 				     style="height: 24px; width: 70px;border: 1px solid #ccc;font-size: 12px;text-align:center">添加文章</a>
 			    </div>
 			</div>
@@ -54,9 +54,9 @@
 					     <td>${articlescrap.update_time?datetime}</td>
 					     <td>
 					     	<div class="table-fun">
-					     		<a href="${contextPath}/admin/atcp/articlescrap?articlescrapId=${articlescrap.id}">修改</a>
+					     		<a href="/admin/atcp/articlescrap?articlescrapId=${articlescrap.id}">修改</a>
 					     		<a href="javascript:void(0)" onclick="deleteArticlescrap('${articlescrap.id}');">删除</a>
-					     		<a href="${contextPath}/admin/cmt/comments?articlescrapId=${articlescrap.id}">评论</a>
+					     		<a href="/admin/cmt/comments?articlescrapId=${articlescrap.id}">评论</a>
 					     	</div>
 					     </td>
 				     </tr>
@@ -66,10 +66,10 @@
 			</div>
 		</div>
 	</div>
-<script src="${contextPath}/admin/js/jquery-1.11.1.min.js"></script>
-<script src="${contextPath}/admin/js/confirm/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
-<script src="${contextPath}/admin/js/page.js" charset="utf-8"></script>
-<script language="javascript" src="${contextPath}/admin/js/My97DatePicker/wdatePicker.js"></script>
+<script src="/admin/js/jquery-1.11.1.min.js"></script>
+<script src="/admin/js/confirm/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+<script src="/admin/js/page.js" charset="utf-8"></script>
+<script language="javascript" src="/admin/js/My97DatePicker/wdatePicker.js"></script>
 <script>
 var contextPath="${contextPath}";
 function deleteArticlescrap(articlescrapId){

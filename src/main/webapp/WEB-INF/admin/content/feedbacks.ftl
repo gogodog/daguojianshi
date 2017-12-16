@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <#include "/admin/common/head_title.ftl">
-<script src="${contextPath}/admin/js/jquery-1.11.1.min.js"></script>
+<script src="/admin/js/jquery-1.11.1.min.js"></script>
 </head>
 <body marginwidth="0" marginheight="0">
 	<div class="container">
@@ -53,8 +53,8 @@
 		</div>
 	</div>
 </body>
-<script language="javascript" src="${contextPath}/admin/js/My97DatePicker/wdatePicker.js"></script>
-<script src="${contextPath}/admin/js/page.js" charset="utf-8"></script>
+<script language="javascript" src="/admin/js/My97DatePicker/wdatePicker.js"></script>
+<script src="/admin/js/page.js" charset="utf-8"></script>
 <script>
 var contextPath="${contextPath}";
 </script>

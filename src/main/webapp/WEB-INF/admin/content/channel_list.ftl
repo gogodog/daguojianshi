@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <#include "/admin/common/head_title.ftl">
-<link rel="stylesheet" type="text/css" href="${contextPath}/admin/css/xcConfirm.css"/>
-<script src="${contextPath}/admin/js/jquery-1.11.1.min.js"></script>
-<script src="${contextPath}/admin/js/confirm/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css" href="/admin/css/xcConfirm.css"/>
+<script src="/admin/js/jquery-1.11.1.min.js"></script>
+<script src="/admin/js/confirm/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body marginwidth="0" marginheight="0">
 	<div class="container">
@@ -37,7 +37,7 @@
 					     <td>${channel.update_time?datetime}</td>
 					     <td>
 					     	<div class="table-fun-1">
-					     	    <a href="${contextPath}/admin/channel/caList?channelId=${channel.id}&channelName=${channel.c_name}">关联文章</a>
+					     	    <a href="/admin/channel/caList?channelId=${channel.id}&channelName=${channel.c_name}">关联文章</a>
 					     		<a href="javascript:void(0)" onclick="update('${channel.id}','${channel.c_name}','${channel.status}','${channel.sort}');">修改</a>
 					     		<a href="javascript:void(0)" onclick="deleteChannel('${channel.id}');">删除</a>
 					     	</div>

@@ -36,7 +36,7 @@
 		                            <td>${object.update_time?string("yyyy-MM-dd HH:mm:ss")}</td>
 		                            <td>
 		                              <button type="button" class="btn btn-xs btn-info" onclick="location.href='${contextPath}/cps/dft/previewDraft?aid=${object.id}'">预览</button>
-		                             <!-- <a href="${contextPath}/cps/dft/previewDraft?aid=${object.id}">预览</a>&nbsp;&nbsp;-->
+		                             <!-- <a href="/cps/dft/previewDraft?aid=${object.id}">预览</a>&nbsp;&nbsp;-->
 		                              <#if object.draft_status == 'NORMAL'>
 		                                <button type="button" class="btn btn-xs btn-primary" onclick="location.href='${contextPath}/cps/dft/wdoc?aid=${object.id}'">继续编辑</button>
 		                                <button type="button" class="btn btn-xs btn-danger" onclick="deleteA('${object.id}');">删除</button>
@@ -56,7 +56,7 @@
         </div>
     </div>
     <#include "/cps/common/f-static.ftl">
-    <script src="${contextPath}/admin/js/confirm/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/admin/js/confirm/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
     <script>
     var contextPath="${contextPath}";
     function deleteA(aid){
