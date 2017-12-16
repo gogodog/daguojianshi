@@ -34,7 +34,7 @@ public class DadianThread implements Runnable,ApplicationListener<ContextRefresh
 	public void run() {
 		while(true){
 			try {
-				Thread.sleep(2000);
+				Thread.sleep(60*1000);
 			    if(DadianThread.QUEUE.isEmpty()){
 				   continue;
 			    }
