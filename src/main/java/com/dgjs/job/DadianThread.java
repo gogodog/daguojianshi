@@ -32,6 +32,7 @@ public class DadianThread implements Runnable,ApplicationListener<ContextRefresh
 
 	@Override
 	public void run() {
+		//"0 0/2 * * * ?
 		while(true){
 			try {
 				Thread.sleep(60*1000);
