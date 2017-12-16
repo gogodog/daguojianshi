@@ -9895,7 +9895,6 @@ function setImage(url){
 	}
 	if(!url.value ||url.value == "http://"){
 		$('#remoteTitle').val("");
-		console.log(1);
 		return;
 	}
 	$('#remoteTitle').val(url.text);
