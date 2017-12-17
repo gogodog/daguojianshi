@@ -157,10 +157,6 @@
 	                    	}
 	                    	$("#showImage").html(divImages);
 	                    	$("#pictures").html(pictures);
-//	                    	var accessPath=imageContextPath+result.imageUrl;
-//	                        $("#showImage").attr("src",accessPath);
-//	                        $("input[name='show_picture']").val(result.imageUrl);
-//	                        $("#showImage").show();
 	                    }
 	                }
 	            },
@@ -262,7 +258,29 @@
 	<script src="/admin/js/kingediter/kindeditor-all.js"></script>
 	<script>
 		 KindEditor.ready(function(K) {
-	                window.editor = K.create('#editor_id');
+	                window.editor = K.create('#editor_id', {
+		resizeType : 1,
+		pasteType : 1,
+		allowPreviewEmoticons : false,
+		allowImageUpload : false,
+		allowImageRemote : true,
+		dataUrl:contextPath+"/cps/userPics/ajaxList",
+		scListPage:contextPath+"/cps/userPics/list",
+		scListPageCallBack:function(){
+			alert("callback...");
+		},
+		cssData: 'body {font-family: "微软雅黑"; font-size: 16px}',
+		items : [
+			'source',
+			'undo', 'redo', '|', 
+			'preview','plainpaste', '|', 
+			'justifyleft', 'justifycenter', 'justifyright','justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent','superscript', 'clearhtml', 'quickformat', 'selectall', '|',
+			//'fontname', 'fontsize', '|', 
+			'forecolor', 'hilitecolor', 'bold','italic', 'underline', 'lineheight', 'removeformat', '|', 
+			'image','hr','|', 
+			'fullscreen','about'
+		]
+	});
 	        });
 	</script>
 </body>
