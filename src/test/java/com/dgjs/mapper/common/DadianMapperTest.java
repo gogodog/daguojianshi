@@ -74,4 +74,9 @@ public class DadianMapperTest {
 		List<PagedocidsCountResult> list = dadianMapper.pagedocidsCount(Arrays.asList("AV2RYOxY76afZAVcqApC"));
 		System.out.println(JSON.toJSONString(list));
 	}
+	
+	@Test
+	public void testDadian(){
+		dadianMapper.getArticleDaysVisits();
+	}
 }
