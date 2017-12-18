@@ -4,8 +4,8 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title></title>
-	<link rel="stylesheet" href="${contextPath}/admin/css/reset.css">
-	<link rel="stylesheet" href="${contextPath}/admin/css/public.css">
+	<link rel="stylesheet" href="/admin/css/reset.css">
+	<link rel="stylesheet" href="/admin/css/public.css">
 </head>
 <body>
 <#include "/admin/common/login_title.ftl">
@@ -17,11 +17,11 @@
 		 <#include "/admin/common/left_menu.ftl">
 		<!-- 右侧内容展示部分 -->
 		<div class="public-ifame-content">
-		<iframe name="content" src="${contextPath}${menus[0].children[0].url}" frameborder="0" id="mainframe" scrolling="yes" marginheight="0" marginwidth="0" width="100%" style="height: 700px;"></iframe>
+		<iframe name="content" src="${menus[0].children[0].url}" frameborder="0" id="mainframe" scrolling="yes" marginheight="0" marginwidth="0" width="100%" style="height: 700px;"></iframe>
 		</div>
 	</div>
 </div>
-<script src="${contextPath}/admin/js/jquery.min.js"></script>
+<script src="/admin/js/jquery.min.js"></script>
 <script>
 $().ready(function(){
 	var item = $(".public-ifame-item");

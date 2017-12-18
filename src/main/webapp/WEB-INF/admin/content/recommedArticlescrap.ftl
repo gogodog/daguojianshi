@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <#include "/admin/common/head_title.ftl">
-<script src="${contextPath}/admin/js/jquery-1.11.1.min.js"></script>
+<script src="/admin/js/jquery-1.11.1.min.js"></script>
 </head>
 <body marginwidth="0" marginheight="0">
 	<div class="container">

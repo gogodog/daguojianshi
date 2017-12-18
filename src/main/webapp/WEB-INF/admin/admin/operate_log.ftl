@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 <#include "/admin/common/head_title.ftl">
-<script src="${contextPath}/admin/js/jquery-1.11.1.min.js"></script>
-<script language="javascript" src="${contextPath}/admin/js/My97DatePicker/wdatePicker.js"></script>
-<script src="${contextPath}/admin/js/support-fileupload.js"></script>
-<script src="${contextPath}/admin/js/ajaxfileupload.js"></script>
-<script src="${contextPath}/admin/js/validation/jquery.validate.js"></script>
+<script src="/admin/js/jquery-1.11.1.min.js"></script>
+<script language="javascript" src="/admin/js/My97DatePicker/wdatePicker.js"></script>
+<script src="/admin/js/support-fileupload.js"></script>
+<script src="/admin/js/ajaxfileupload.js"></script>
+<script src="/admin/js/validation/jquery.validate.js"></script>
 </head>
 <body marginwidth="0" marginheight="0">
 	<div class="container">

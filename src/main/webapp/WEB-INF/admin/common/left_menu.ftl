@@ -11,7 +11,7 @@
 		         <div class="ifame-item-sub">
 			         <ul>
 			            <#list menu.children as child>
-			               <li><a href="${contextPath}${child.url}" target="content">${child.desc}</a></li>
+			               <li><a href="${child.url}" target="content">${child.desc}</a></li>
 			            </#list>
 			         </ul>
 		         </div>

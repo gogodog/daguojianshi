@@ -3,7 +3,7 @@
           	<ul>
           	 <#list commentsArticlescrapList as articlescrap>
 				<li>
-					<a title="${articlescrap.title}" href="${contextPath}/show/${articlescrap.id}" >
+					<a title="${articlescrap.title}" href="/show/${articlescrap.id}" >
 						<span class="thumbnail">
 							<img class="thumb" src="${articlescrap.pictures[0]}" style="display: block;">
 						</span>

@@ -28,7 +28,7 @@
             <a href="javascript:void(0)" title="主题" >
             ${articlescrap.typeValue}
             </a></span> 
-            <span id="show_visits" class="item article-meta-views" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="浏览量"><i class="glyphicon glyphicon-eye-open"></i> ${visits}</span><#if articlescrap.start_time??><a href="${contextPath}/timeline?articlescrapId=${articlescrap.id}" style="float: right;">查看时轴&gt;&gt;</a></#if></div>
+            <span id="show_visits" class="item article-meta-views" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="浏览量"><i class="glyphicon glyphicon-eye-open"></i> ${visits}</span><#if articlescrap.start_time??><a href="/timeline?articlescrapId=${articlescrap.id}" style="float: right;">查看时轴&gt;&gt;</a></#if></div>
       </header>
       <article class="article-content">
         <p>${articlescrap.content}</p>
@@ -80,7 +80,7 @@
 </section>
     <#include "/front/common/pieces/footer_title.ftl">
     <#include "/front/common/pieces/footer_static.ftl">
-    <script src="${contextPath}/front/js/business/keyword.js"></script>
-    <script src="${contextPath}/front/js/business/show.js"></script>
+    <script src="/front/js/business/keyword.js"></script>
+    <script src="/front/js/business/show.js"></script>
 </body>
 </html>

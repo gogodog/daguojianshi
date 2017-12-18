@@ -3,7 +3,7 @@
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" onclick="menu()"> <span class="sr-only"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-        <h1 class="logo hvr-bounce-in"><a class="titlelog" href="${contextPath}/timeline"><img src="${contextPath}/front/images/slogo.png">简史</a></h1>
+        <h1 class="logo hvr-bounce-in"><a class="titlelog" href="/timeline"><img src="/front/images/slogo.png">简史</a></h1>
       </div>
       <div class="collapse navbar-collapse" id="header-navbar">
         <form class="navbar-form visible-xs" action="/Search" method="post" style="margin-top: 0px;border-color:#ffffff;">
@@ -15,26 +15,26 @@
           </div>
         </form>
         <ul class="nav navbar-nav navbar-right">
-          <li><a data-cont="简史网" title="简史网" href="${contextPath}/dgjs">首页</a></li>
+          <li><a data-cont="简史网" title="简史网" href="/dgjs">首页</a></li>
           <#list types as type>
-            <li><a data-cont="简史网" title="简史网" href="${contextPath}/index?type=${type}">${type.value}</a></li>
+            <li><a data-cont="简史网" title="简史网" href="/index?type=${type}">${type.value}</a></li>
           </#list>
         </ul>
         <table class="mobile-menu" style="border-spacing:10px 100px;">
 	    <tbody>
 	    	<tr>
-	    		<td><a data-cont="简史网" title="简史网" href="${contextPath}/dgjs">首页</a></a></td>
-				<td><a data-cont="简史网" title="简史网" href="${contextPath}/index?type=${types[0]}">${types[0].value}</a></td>
-				<td><a data-cont="简史网" title="简史网" href="${contextPath}/index?type=${types[1]}">${types[1].value}</a></td>
-				<td><a data-cont="简史网" title="简史网" href="${contextPath}/index?type=${types[2]}">${types[2].value}</a></td>
-				<td><a data-cont="简史网" title="简史网" href="${contextPath}/index?type=${types[3]}">${types[3].value}</a></td>
+	    		<td><a data-cont="简史网" title="简史网" href="/dgjs">首页</a></a></td>
+				<td><a data-cont="简史网" title="简史网" href="/index?type=${types[0]}">${types[0].value}</a></td>
+				<td><a data-cont="简史网" title="简史网" href="/index?type=${types[1]}">${types[1].value}</a></td>
+				<td><a data-cont="简史网" title="简史网" href="/index?type=${types[2]}">${types[2].value}</a></td>
+				<td><a data-cont="简史网" title="简史网" href="/index?type=${types[3]}">${types[3].value}</a></td>
 		    </tr>
 		    <tr>
-		    	<td><a data-cont="简史网" title="简史网" href="${contextPath}/index?type=${types[4]}">${types[4].value}</a></td>
-	    		<td><a data-cont="简史网" title="简史网" href="${contextPath}/index?type=${types[5]}">${types[5].value}</a></td>
-	    		<td><a data-cont="简史网" title="简史网" href="${contextPath}/index?type=${types[6]}">${types[6].value}</a></td>
-	    		<td><a data-cont="简史网" title="简史网" href="${contextPath}/index?type=${types[7]}">${types[7].value}</a></td>
-	    		<td><a data-cont="简史网" title="简史网" href="${contextPath}/index?type=${types[8]}">${types[8].value}</a></td>
+		    	<td><a data-cont="简史网" title="简史网" href="/index?type=${types[4]}">${types[4].value}</a></td>
+	    		<td><a data-cont="简史网" title="简史网" href="/index?type=${types[5]}">${types[5].value}</a></td>
+	    		<td><a data-cont="简史网" title="简史网" href="/index?type=${types[6]}">${types[6].value}</a></td>
+	    		<td><a data-cont="简史网" title="简史网" href="/index?type=${types[7]}">${types[7].value}</a></td>
+	    		<td><a data-cont="简史网" title="简史网" href="/index?type=${types[8]}">${types[8].value}</a></td>
 		    </tr>
 		</tbody></table>
       </div>

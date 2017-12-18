@@ -5744,10 +5744,7 @@ _plugin('core', function(K) {
 		});
 	});
 	self.clickToolbar('about', function() {
-		var html = '<div style="margin:20px;">' +
-			'<div>KindEditor ' + _VERSION + '</div>' +
-			'<div>Copyright &copy; <a href="http://www.kindsoft.net/" target="_blank">kindsoft.net</a> All rights reserved.</div>' +
-			'</div>';
+		var html = '<div style="margin:20px;"><div>如使用中有任何问题，请在反馈栏联系简史网研发部！</div><br/><div>简史网&nbsp;--&nbsp;研发部</div>';
 		self.createDialog({
 			name : 'about',
 			width : 350,
@@ -7187,7 +7184,7 @@ KindEditor.plugin('image', function(K) {
 			'</div>',
 			'<div class="ke-dialog-row">',
 			'<label for="remoteUrl" style="width:60px;">请选择素材</label>',
-			'<select id="remoteUrlsel" class="ke-input-text" name="url" style="width:200px;" onchange="$(\'#remoteUrl\').val(this.options[this.options.selectedIndex].value)"><option value="http://" selected>请选择</option>',
+			'<select id="remoteUrlsel" class="ke-input-text" name="url" style="width:200px;" onchange="setImage(this.options[this.options.selectedIndex])"><option value="http://" selected>请选择</option>',
 			/*'<option value="http://img0.imgtn.bdimg.com/it/u=38591822,3103715740&fm=213&gp=0.jpg">name1</option><option value="url2">name2</option>',*/
 			'optiondesss',
 			'</select>',
@@ -7230,7 +7227,7 @@ KindEditor.plugin('image', function(K) {
 		        type : "GET",
 		        dataType : "json",
 		        success : function(result) {
-		        	console.log("success::" + JSON.stringify(result));
+		        	//console.log("success::" + JSON.stringify(result));
 		            for(var r=0  ; r<result.length ; r++){
 		            	re += "<option value=\""+result[r].address+"\">"+result[r].name+"</option>";
 		            }	
@@ -9890,3 +9887,20 @@ KindEditor.plugin('fixtoolbar', function (K) {
         self.afterCreate(init);
     }
 });
+function setImage(url){
+	$('#remoteUrl').val(url.value);
+	var shownode = document.getElementById("showImg");
+	if(shownode != null){
+		shownode.parentNode.removeChild(shownode);
+	}
+	if(!url.value ||url.value == "http://"){
+		$('#remoteTitle').val("");
+		return;
+	}
+	$('#remoteTitle').val(url.text);
+	var pdiv = document.getElementsByClassName('ke-dialog-default')[0];
+	var w = pdiv.offsetWidth;
+	var h = pdiv.offsetHeight;
+	var html = "<div id='showImg' class='ke-dialog-shadow' style=' border:1px solid #000;overflow:hidden;width:50%;max-width:50%;height:auto;max-height:50%;left:"+(w+h/4)+"px;top:"+h/4+"px'><img src='"+url.value+"' style='max-width:300px;_width:expression(this.width > 300 ? \"300px\" : this.width);width: "+w/2+"px;'></div>";
+	pdiv.insertAdjacentHTML("afterBegin",html);
+}

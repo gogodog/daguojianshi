@@ -5,8 +5,8 @@
 </div>
 <button class="btn btn-danger" onclick="saveEditor(1)"><i class="fa fa-toggle-on"></i>保存编辑</button>
 <button class="btn btn-danger" onclick="preview();"><i class="fa fa-bug "></i></i>预览</button>
-<script src="${contextPath}/admin/js/support-fileupload.js"></script>
-<script src="${contextPath}/admin/js/ajaxfileupload.js"></script>
+<script src="/admin/js/support-fileupload.js"></script>
+<script src="/admin/js/ajaxfileupload.js"></script>
 <script>
 var contextPath="${contextPath}";
 var editorImagePath=contextPath+"/admin/static/ajaxUploadEditorImage?imagePath=editor";
@@ -38,29 +38,39 @@ function saveEditor(isBack){
 		if($.trim(id).length>0){
 			jso["id"]=$.trim(id);
 		}
-		$.post(contextPath+"/cps/dft/savedraft",jso,function(result){
+		senSave(jso,true);
+  	}
+}
+function senSave(jso,isBack){
+	$.post(contextPath+"/cps/dft/savedraft",jso,function(result){
 			if(result.error){
-				alert(errorMessage);
+				alert(result.errorMessage);
 			}else{
-				if(isBack == '1'){
+				if(isBack == true){
 					location.href=contextPath+"/cps/dft/draft";
 				}
 			}
 	  	});
-  	}
 }
+
+//window.setInterval(showalert, 3000); 
+function showalert() 
+{ 
+	alert("定时保存"); 
+} 
+
 function check(jso){
 	 //length
-	if(jso.title.length <2 || jso.title.length >50){
-		alert("标题长度不得小于2个字符，大于50个字符");
+	if(jso.title.length <10 || jso.title.length >50){
+		alert("标题长度不得小于10个字符，大于50个字符");
 		return 1;
 	}
-	if(jso.sub_content.length <20 || jso.sub_content.length >700){
-		alert("摘要长度不得小于20个字符，大于700个字符");
+	if(jso.sub_content.length <30 || jso.sub_content.length >300){
+		alert("摘要长度不得小于30个字符，大于300个字符");
 		return 1;
 	}
-	if(jso.content.length <150 || jso.content.length >10000){
-		alert("内容文本长度不得小于150个字符，大于10000个字符");
+	if(jso.content.length <300 || jso.content.length >10000){
+		alert("内容文本长度不得小于300个字符，大于10000个字符");
 		return 1;
 	}
 	if(jso.author.length <2 || jso.author.length >20){
@@ -83,11 +93,12 @@ function preview(){
 	window.location.href = contextPath+"/cps/dft/previewDraft?aid="+aid;
 }
 </script>
-<script src="${contextPath}/admin/js/kingediter/kindeditor-all2.js"></script>
+<script src="/admin/js/kingediter/kindeditor-all2.js"></script>
 <script>
 KindEditor.ready(function(K) {
     window.editor = K.create('#editor_id', {
 		resizeType : 1,
+		pasteType : 1,
 		allowPreviewEmoticons : false,
 		allowImageUpload : false,
 		allowImageRemote : true,
@@ -96,10 +107,17 @@ KindEditor.ready(function(K) {
 		scListPageCallBack:function(){
 			alert("callback...");
 		},
+		cssData: 'body {font-family: "微软雅黑"; font-size: 16px}',
 		items : [
-			'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
-			'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
-			'insertunorderedlist', '|', 'image', 'link']
+			'source',
+			'undo', 'redo', '|', 
+			'preview','plainpaste', '|', 
+			'justifyleft', 'justifycenter', 'justifyright','justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent','superscript', 'clearhtml', 'quickformat', 'selectall', '|',
+			//'fontname', 'fontsize', '|', 
+			'forecolor', 'hilitecolor', 'bold','italic', 'underline', 'lineheight', 'removeformat', '|', 
+			'image','hr','|', 
+			'fullscreen','about'
+		]
 	});
 });
 </script>

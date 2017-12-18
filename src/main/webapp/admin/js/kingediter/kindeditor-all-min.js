@@ -3804,7 +3804,7 @@
             }),
             b.clickToolbar("about",
             function() {
-                var a = '<div style="margin:20px;"><div>KindEditor ' + _VERSION + '</div><div>Copyright &copy; <a href="http://www.kindsoft.net/" target="_blank">kindsoft.net</a> All rights reserved.</div></div>';
+                var a = '<div style="margin:20px;"><div>如使用中有任何问题，请在反馈栏联系简史网研发部！</div><br/><div>简史网&nbsp;--&nbsp;研发部</div>';
                 b.createDialog({
                     name: "about",
                     width: 350,

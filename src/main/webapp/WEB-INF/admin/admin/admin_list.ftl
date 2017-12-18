@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <#include "/admin/common/head_title.ftl">
-<link rel="stylesheet" type="text/css" href="${contextPath}/admin/css/xcConfirm.css"/>
+<link rel="stylesheet" type="text/css" href="/admin/css/xcConfirm.css"/>
 </head>
 <body marginwidth="0" marginheight="0">
 	<div class="container">
@@ -45,7 +45,7 @@
 					     <td>
 					     	<div class="table-fun-1">
 					     		<a href="javascript:void(0)" onclick="updateStatus('${result.id}','${result.status.key}');"><#if result.status.key=="0">启用<#elseif result.status.key=="1">禁用</#if></a>
-					     		<a href="${contextPath}/admin/adnur/detail?uid=${result.id}">查看详情</a>
+					     		<a href="/admin/adnur/detail?uid=${result.id}">查看详情</a>
 					        </div>
 					     </td>
 				     </tr>
@@ -55,10 +55,10 @@
 			</div>
 		</div>
 	</div>
-<script src="${contextPath}/admin/js/jquery-1.11.1.min.js"></script>
-<script src="${contextPath}/admin/js/confirm/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
-<script src="${contextPath}/admin/js/page.js" charset="utf-8"></script>
-<script language="javascript" src="${contextPath}/admin/js/My97DatePicker/wdatePicker.js"></script>
+<script src="/admin/js/jquery-1.11.1.min.js"></script>
+<script src="/admin/js/confirm/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+<script src="/admin/js/page.js" charset="utf-8"></script>
+<script language="javascript" src="/admin/js/My97DatePicker/wdatePicker.js"></script>
 <script>
 var contextPath="${contextPath}";
 function updateStatus(uid,status){

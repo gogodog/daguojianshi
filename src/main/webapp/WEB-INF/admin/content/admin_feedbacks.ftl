@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <#include "/admin/common/head_title.ftl">
-<script src="${contextPath}/admin/js/jquery-1.11.1.min.js"></script>
+<script src="/admin/js/jquery-1.11.1.min.js"></script>
 </head>
 <body marginwidth="0" marginheight="0">
 	<div class="container">
@@ -45,7 +45,7 @@
 					     <td><#if fd.feedBack.haveReply?? && fd.feedBack.haveReply == true>已回馈<#else>未回馈</#if></td>
 					     <td>
 					       <div class="table-fun">
-				     		  <a href="${contextPath}/admin/afb/detail?relatedId=${fd.feedBack.id}">回复</a>
+				     		  <a href="/admin/afb/detail?relatedId=${fd.feedBack.id}">回复</a>
 				     	   </div>
 					     </td>
 				     </tr>
@@ -56,8 +56,8 @@
 		</div>
 	</div>
 </body>
-<script language="javascript" src="${contextPath}/admin/js/My97DatePicker/wdatePicker.js"></script>
-<script src="${contextPath}/admin/js/page.js" charset="utf-8"></script>
+<script language="javascript" src="/admin/js/My97DatePicker/wdatePicker.js"></script>
+<script src="/admin/js/page.js" charset="utf-8"></script>
 <script>
 var contextPath="${contextPath}";
 </script>

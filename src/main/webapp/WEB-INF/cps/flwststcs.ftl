@@ -24,9 +24,9 @@
         </div>
     </div>
    <#include "/cps/common/f-static.ftl">
-   <script src="${contextPath}/cps/js/hcharts/highcharts.js"></script>
-   <script src="${contextPath}/cps/js/hcharts/exporting.js"></script>
-   <script src="${contextPath}/cps/js/hcharts/highcharts-zh_CN.js"></script>
+   <script src="/cps/js/hcharts/highcharts.js"></script>
+   <script src="/cps/js/hcharts/exporting.js"></script>
+   <script src="/cps/js/hcharts/highcharts-zh_CN.js"></script>
    <script>
       var contextPath = '${contextPath}';
       var currentPageNum = "1";

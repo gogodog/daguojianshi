@@ -89,7 +89,7 @@
         mainApp.loadMenu();
         mainApp.slide_show();
         mainApp.reviews_fun();
-        mainApp.wizard_fun();
+        //mainApp.wizard_fun();当下不需要使用导航插件
        
     });
 }(jQuery));
