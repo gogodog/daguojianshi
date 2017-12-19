@@ -53,8 +53,16 @@
 					     <td>${articlescrap.create_time?datetime}</td>
 					     <td>${articlescrap.update_time?datetime}</td>
 					     <td>
-					     	<div class="table-fun">
-					     		<a href="/admin/atcp/articlescrap?articlescrapId=${articlescrap.id}">修改</a>
+					     	<div class="table-fun-1">
+					     	<!--	<a href="/admin/atcp/articlescrap?articlescrapId=${articlescrap.id}">修改</a> -->
+					       	    <a href="/admin/atcp/info?articlescrapId=${articlescrap.id}">修改信息</a>
+					       	    <a href="/admin/atcp/content?articlescrapId=${articlescrap.id}">修改内容</a>
+					       	    <a href="/admin/atcp/previewArticlescrap?articlescrapId=${articlescrap.id}">预览</a>
+					     		<#if articlescrap.status == 'INIT' || articlescrap.status == 'DOWN'>
+					     		   <a href="javascript:void(0)" onclick="updateStatus('${articlescrap.id}','UP');">上架</a>
+					     		<#elseif articlescrap.status == 'UP'>   
+					     		   <a href="javascript:void(0)" onclick="updateStatus('${articlescrap.id}','DOWN');">下架</a>
+					     		</#if>
 					     		<a href="javascript:void(0)" onclick="deleteArticlescrap('${articlescrap.id}');">删除</a>
 					     		<a href="/admin/cmt/comments?articlescrapId=${articlescrap.id}">评论</a>
 					     	</div>
@@ -77,6 +85,38 @@ function deleteArticlescrap(articlescrapId){
 	window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.confirm,{onOk:function(){
 		window.location.href=contextPath+"/admin/atcp/deleteArticlescrap?articlescrapId="+articlescrapId;
 	}})
+}
+
+function updateStatus(articlescrapId,status){
+	var txt = "";
+	if(status == 'UP'){
+		txt = "您确定要上架吗？";
+	}else if(status == 'DOWN'){
+		txt = "您确定要下架吗？";
+	}
+	window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.confirm,{onOk:function(){
+		changeStatus(articlescrapId,status);
+	}})
+}
+
+function changeStatus(articlescrapId,status){
+	  $.ajax({
+		   data:{articlescrapId:articlescrapId,status:status},
+		   dataType: "json",
+		   url:contextPath+"/admin/atcp/updateStatus",
+		   type:"POST",
+		   success:function(data) {
+             if(data.error){
+             	alertify.error(data.errorMessage);
+             }else{
+             	alert('操作成功');
+             	location.reload();
+             }
+         }, 
+         error:function(){
+         	alertify.error("服务器繁忙...");
+         }
+     })
 }
 </script>
 </body>

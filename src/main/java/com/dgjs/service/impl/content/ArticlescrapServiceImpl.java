@@ -42,8 +42,8 @@ public class ArticlescrapServiceImpl implements ArticlescrapService{
 	}
 
 	@Override
-	public Articlescrap selectById(String id) {
-		Articlescrap articlescrap = articlescrapMapper.getArticlescrapIndex(id);
+	public Articlescrap selectByIdAll(String id) {
+		Articlescrap articlescrap = articlescrapMapper.getArticlescrapAll(id);
 		if(articlescrap!=null){
 			articlescrap.setContent(PictureUtils.render(articlescrap.getPictures(), articlescrap.getContent(), fastFDSContextPath));
 		}
@@ -136,6 +136,16 @@ public class ArticlescrapServiceImpl implements ArticlescrapService{
 	@Override
 	public int bulkUpdateStatus(List<Articlescrap> list, Articlescrap_Status status) {
 		 return articlescrapMapper.bulkUpdateStatus(list, status);
+	}
+
+	@Override
+	public String getContent(String id) {
+		return articlescrapMapper.getContent(id);
+	}
+
+	@Override
+	public Articlescrap selectById(String id) {
+		return articlescrapMapper.getArticlescrap(id);
 	}
 
 }

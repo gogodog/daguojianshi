@@ -57,7 +57,7 @@ public class RecommedArticlescrapController {
 			return view;
 		}
 		try{
-			Articlescrap articlescrap=articlescrapSerivce.selectById(id);
+			Articlescrap articlescrap=articlescrapSerivce.selectByIdAll(id);
 			if(articlescrap==null){
 				view.setBaseViewValue("NO_ARTICLESCRAP", "没有对应的文章");
 				return view;

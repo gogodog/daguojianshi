@@ -123,7 +123,7 @@ public class ChannelController {
 			return mv;
 		}
 		try{
-			Articlescrap articlescrap=articlescrapSerivce.selectById(ca.getArticlescrap_id());
+			Articlescrap articlescrap=articlescrapSerivce.selectByIdAll(ca.getArticlescrap_id());
 			if(articlescrap==null){
 				mv.setBaseViewValue(RETURN_STATUS.SERVICE_ERROR.toString(),"错误的文章id");
 				return mv;

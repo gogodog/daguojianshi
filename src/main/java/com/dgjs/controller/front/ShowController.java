@@ -52,7 +52,7 @@ public class ShowController {
 	@RequestMapping("/show/{id}")
     public ModelAndView show(@PathVariable("id") String id, HttpServletRequest request, HttpServletResponse response) throws Exception {  
 		ModelAndView mv = new ModelAndView("front/common/show");
-		Articlescrap articlescrap=articlescrapService.selectById(id);
+		Articlescrap articlescrap=articlescrapService.selectByIdAll(id);
 		mv.addObject("articlescrap", articlescrap);
 		mv.addObject("imageContextPath", pictureService.getImageContextPath());
 		//文章阅读量

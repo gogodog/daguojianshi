@@ -11,7 +11,11 @@ import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 
 public interface ArticlescrapMapper {
 
-	public Articlescrap getArticlescrapIndex(String id);
+	public Articlescrap getArticlescrapAll(String id);
+	
+	public Articlescrap getArticlescrap(String id);
+	
+	public String getContent(String id);
 	
 	public PageInfoDto<Articlescrap> listArticlescrap(ArticlescrapCondtion condition);
 	
@@ -28,4 +32,5 @@ public interface ArticlescrapMapper {
 	public List<Articlescrap> getArticlescrapByIds(String[] ids);
 	
 	public int bulkUpdateStatus(List<Articlescrap> list,Articlescrap_Status status);
+	
 }

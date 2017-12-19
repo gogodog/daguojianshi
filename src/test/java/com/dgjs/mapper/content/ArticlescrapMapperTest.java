@@ -33,7 +33,7 @@ public class ArticlescrapMapperTest {
 		String[] ids = {"AVzZrY1I9b4MAjksb_WD","AVzZrYlm9b4MAjksb_WA"};
 		List<Articlescrap> list=mapper.getArticlescrapByIds(ids);
 		for(Articlescrap articlescrap:list){
-			Articlescrap a = mapper.getArticlescrapIndex(articlescrap.getId());
+			Articlescrap a = mapper.getArticlescrap(articlescrap.getId());
 			articlescrap.setContent(a.getContent());
 		}
 		mapper.bulkUpdateStatus(list, Articlescrap_Status.INIT);

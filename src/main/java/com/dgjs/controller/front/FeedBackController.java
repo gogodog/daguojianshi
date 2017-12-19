@@ -60,7 +60,7 @@ public class FeedBackController {
 			return view;
 		}
 		try{
-			Articlescrap articlescrap=articlescrapService.selectById(aJudge.getArticlescrap_id());
+			Articlescrap articlescrap=articlescrapService.selectByIdAll(aJudge.getArticlescrap_id());
 			if(articlescrap==null){
 				view.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
 				return view;

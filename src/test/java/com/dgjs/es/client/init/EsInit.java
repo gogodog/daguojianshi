@@ -224,7 +224,7 @@ public class EsInit {
 //		    articlescrap=articlescrapMapper.getArticlescrapIndex(articlescrap.getId());
 //			nArticlescrapMapper.saveArticlescrap(articlescrap);
 //		}
-		Articlescrap articlescrap=articlescrapMapper.getArticlescrapIndex("AV2L5pR9iB8TaXhbkscg");
+		Articlescrap articlescrap=articlescrapMapper.getArticlescrap("AV2L5pR9iB8TaXhbkscg");
 		articlescrap.setPic_num(1);
 		articlescrapMapper.updateArticlescrap(articlescrap);
 	}

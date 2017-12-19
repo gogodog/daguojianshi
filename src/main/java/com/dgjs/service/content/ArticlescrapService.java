@@ -13,7 +13,11 @@ public interface ArticlescrapService {
 	
 	public int updateArticlescrap(Articlescrap articlescrap) throws Exception;
 	
+	public Articlescrap selectByIdAll(String id);
+	
 	public Articlescrap selectById(String id);
+	
+	public String getContent(String id);
 	
 	public PageInfoDto<Articlescrap> listArticlescrap(ArticlescrapCondtion articlescrapCondtion);
 	
@@ -26,4 +30,5 @@ public interface ArticlescrapService {
 	public String getDadianArticlescrapIds(List<Articlescrap> recommedArticlescraps,List<Articlescrap> newArticlescraps,List<Articlescrap> commentsArticlescrap);
 
 	public int bulkUpdateStatus(List<Articlescrap> list,Articlescrap_Status status);
+	
 }

@@ -47,7 +47,6 @@ import com.dgjs.utils.StringUtils;
 @Service
 public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 
-
 	@Autowired
 	ESTransportClient transportClient;
 	
@@ -56,7 +55,7 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 	final static String type = "articlescrap_v1";
 	
 	@Override
-	public Articlescrap getArticlescrapIndex(String id) {
+	public Articlescrap getArticlescrapAll(String id) {
 		TransportClient client=transportClient.getClient();
  		GetResponse response = client.prepareGet(index, type , id).get();
  		ArticlescrapEs articlescrapEs=JSON.parseObject(response.getSourceAsString(), ArticlescrapEs.class);
@@ -220,7 +219,8 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 		return null;
 	}
 
-	private  String getContent(String id) {
+	@Override
+	public String getContent(String id) {
 		TransportClient client=transportClient.getClient();
 		SearchRequestBuilder responsebuilder = client.prepareSearch(index).setTypes(type);
 		responsebuilder.setQuery(QueryBuilders.idsQuery().addIds(id));
@@ -313,4 +313,14 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
             }
             return success;
      }
+
+	@Override
+	public Articlescrap getArticlescrap(String id) {
+		TransportClient client=transportClient.getClient();
+ 		GetResponse response = client.prepareGet(index, type , id).get();
+ 		ArticlescrapEs articlescrapEs=JSON.parseObject(response.getSourceAsString(), ArticlescrapEs.class);
+ 		Articlescrap articlescrap =  ArticlescrapEs.ConvertToVo(articlescrapEs);
+ 		articlescrap.setId(id);
+ 		return articlescrap;
+	}
 }
