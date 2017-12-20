@@ -193,7 +193,6 @@ public class A {
 		articlescrap.setAuthor(articlescrapEs.getAuthor());
 		articlescrap.setContent(articlescrapEs.getContent());
 		articlescrap.setCreate_time(articlescrapEs.getCreate_time());
-		articlescrap.setShow_picture(articlescrapEs.getShow_picture());
 		articlescrap.setShow_time(articlescrapEs.getShow_time());
 		articlescrap.setStart_time(articlescrapEs.getStart_time());
 		articlescrap.setStatus(articlescrapEs.getStatus());
@@ -205,8 +204,7 @@ public class A {
 		articlescrap.setRecommend(articlescrapEs.getRecommend());
 		articlescrap.setKeywords(articlescrapEs.getKeywords());
 		articlescrap.setTime_degree(articlescrapEs.getTime_degree());
-        String[] pic = {articlescrapEs.getShow_picture()};
-		articlescrap.setPictures(pic);
+//		articlescrap.setPictures(pic);
 		articlescrap.setPic_num(1);
 		return articlescrap;
 	}

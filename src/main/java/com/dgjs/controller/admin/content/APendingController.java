@@ -16,15 +16,15 @@ import com.dgjs.annotation.LogRecord;
 import com.dgjs.constants.EventCode;
 import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.model.dto.PageInfoDto;
-import com.dgjs.model.dto.business.Pending;
+import com.dgjs.model.dto.business.PDraft;
 import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.enums.Pending_Status;
 import com.dgjs.model.param.view.ArticleAudit;
 import com.dgjs.model.param.view.ArticlePublish;
-import com.dgjs.model.persistence.condition.PendingCondition;
+import com.dgjs.model.persistence.condition.PDraftCondition;
 import com.dgjs.model.result.view.BaseView;
-import com.dgjs.service.content.PendingService;
+import com.dgjs.service.content.PDraftService;
 import com.dgjs.utils.DateUtils;
 import com.dgjs.utils.WebContextHelper;
 
@@ -33,15 +33,15 @@ import com.dgjs.utils.WebContextHelper;
 public class APendingController {
 
 	@Autowired
-	PendingService pendingService;
+	PDraftService draftService;
 	
 	@RequestMapping("/docms")
-	public ModelAndView docms(PendingCondition condition){
+	public ModelAndView docms(PDraftCondition condition){
 		ModelAndView mv = new ModelAndView("/admin/content/pending_list");
 		Map<String, SortOrder> sort = new HashMap<String, SortOrder>();
 		sort.put("update_time", SortOrder.DESC);
 		condition.setSort(sort);
-		PageInfoDto<Pending> pageinfo = pendingService.listPending(condition);
+		PageInfoDto<PDraft> pageinfo = draftService.listDrafts(condition);
 		mv.addObject("pageInfo", pageinfo);
 		mv.addObject("condition",condition);
 		mv.addObject("statusList", Pending_Status.values());
@@ -52,8 +52,8 @@ public class APendingController {
 	@RequestMapping("/previewPending")
 	public ModelAndView previewDraft(String aid)  throws Exception{
 		ModelAndView mv = new ModelAndView("front/admin/show");
-		Pending pending=pendingService.selectByIdAll(aid);
-		mv.addObject("articlescrap", pending);
+		PDraft draft=draftService.selectByIdAll(aid);
+		mv.addObject("articlescrap", draft);
 		return mv;
 	}
 	
@@ -77,7 +77,7 @@ public class APendingController {
 			mv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
 			return mv;
 		}
-		int flag = pendingService.audit(aid, status, WebContextHelper.getUserId(), audit_desc);
+		int flag = draftService.audit(aid, status, WebContextHelper.getUserId(), audit_desc);
 		if(flag<1){
 			mv.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
 			return mv;
@@ -93,7 +93,7 @@ public class APendingController {
 		Date showTime = null;
 		String aid = articlePublish.getAid();
 		String show_time = articlePublish.getShow_time();
-		Integer visits = articlePublish.getVisits();
+		Long visits = articlePublish.getVisits();
 		if(StringUtils.isEmpty(aid)){
 			mv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
 			return mv;
@@ -103,10 +103,14 @@ public class APendingController {
 		if(showTime == null){
 			showTime = new Date();
 		}
-		int flag=pendingService.publish(aid, WebContextHelper.getUserId(), visits==null?0:visits, showTime,articlePublish.getShowNow()==0?false:true);
+		PDraft draft = draftService.selectById(aid);
+		if(draft == null){
+			mv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
+			return mv;
+		}
+		int flag=draftService.publish(aid, WebContextHelper.getUserId(), visits==null?0:visits, showTime,articlePublish.getShowNow()==0?false:true);
 		if(flag < 1){
 			mv.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
-			return mv;
 		}
 		return mv;
 	}

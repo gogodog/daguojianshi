@@ -21,7 +21,6 @@ public class ArticlescrapEs implements java.io.Serializable{
 	private String create_time;//创建时间
 	private String update_time;//修改时间
 	private String sub_content;//精简内容
-	private String show_picture;//展示图片
 	private Long visits;//访问量
 	private Integer start_time;//内容的起始时间
 	private String[] keywords;//关键词（分类）
@@ -31,6 +30,7 @@ public class ArticlescrapEs implements java.io.Serializable{
     private String[] pictures;//图片
     private int pic_num;//图片数量
     private Integer user_id;//用户id	 
+    private String draft_id;//原文id
     
 	public String getId() {
 		return id;
@@ -92,12 +92,6 @@ public class ArticlescrapEs implements java.io.Serializable{
 	public void setSub_content(String sub_content) {
 		this.sub_content = sub_content;
 	}
-	public String getShow_picture() {
-		return show_picture;
-	}
-	public void setShow_picture(String show_picture) {
-		this.show_picture = show_picture;
-	}
 	public Long getVisits() {
 		return visits;
 	}
@@ -150,6 +144,12 @@ public class ArticlescrapEs implements java.io.Serializable{
 	public void setUser_id(Integer user_id) {
 		this.user_id = user_id;
 	}
+	public String getDraft_id() {
+		return draft_id;
+	}
+	public void setDraft_id(String draft_id) {
+		this.draft_id = draft_id;
+	}
 	public static ArticlescrapEs ConvertToEs(Articlescrap articlescrap){
 		if(articlescrap == null){
 			return null;
@@ -158,7 +158,6 @@ public class ArticlescrapEs implements java.io.Serializable{
 		articlescrapEs.setAuthor(articlescrap.getAuthor());
 		articlescrapEs.setContent(articlescrap.getContent());
 		articlescrapEs.setCreate_time(DateUtils.parseStringFromDate(articlescrap.getCreate_time()));
-		articlescrapEs.setShow_picture(articlescrap.getShow_picture());
 		articlescrapEs.setShow_time(DateUtils.parseStringFromDate(articlescrap.getShow_time()));
 		articlescrapEs.setStatus(articlescrap.getStatus()==null?-1:articlescrap.getStatus().getKey());
 		articlescrapEs.setSub_content(articlescrap.getSub_content());
@@ -175,6 +174,7 @@ public class ArticlescrapEs implements java.io.Serializable{
 		articlescrapEs.setUser_id(articlescrap.getUser_id());
 		articlescrapEs.setPictures(articlescrap.getPictures());
 		articlescrapEs.setPic_num(articlescrap.getPic_num());
+		articlescrapEs.setDraft_id(articlescrap.getDraftId());
 		return articlescrapEs;
 	}
 	
@@ -186,7 +186,6 @@ public class ArticlescrapEs implements java.io.Serializable{
 		articlescrap.setAuthor(articlescrapEs.getAuthor());
 		articlescrap.setContent(articlescrapEs.getContent());
 		articlescrap.setCreate_time(DateUtils.parseDateFromString(articlescrapEs.getCreate_time()));
-		articlescrap.setShow_picture(articlescrapEs.getShow_picture());
 		articlescrap.setShow_time(DateUtils.parseDateFromString(articlescrapEs.getShow_time()));
 		articlescrap.setBegin_time(articlescrapEs.getStart_time());
 		articlescrap.setStatus(articlescrapEs.getStatus()==-1?null:Articlescrap_Status.valueOf(articlescrapEs.getStatus()));
@@ -202,6 +201,7 @@ public class ArticlescrapEs implements java.io.Serializable{
 		articlescrap.setPictures(articlescrapEs.getPictures());
 		articlescrap.setPic_num(articlescrapEs.getPic_num());
 		articlescrap.setUser_id(articlescrapEs.getUser_id());
+		articlescrap.setDraftId(articlescrapEs.getDraft_id());
 		return articlescrap;
 	}
 	

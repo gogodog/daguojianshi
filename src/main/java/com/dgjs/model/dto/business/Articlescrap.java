@@ -11,7 +11,6 @@ import com.dgjs.model.dto.business.entity.Recommend;
 import com.dgjs.model.enums.Articlescrap_Status;
 import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.TIME_DEGREE;
-import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.utils.StringUtils;
 
 public class Articlescrap {
@@ -25,18 +24,18 @@ public class Articlescrap {
 	private Date create_time;//创建时间
 	private Date update_time;//修改时间
 	private String sub_content;//精简内容
-	private String show_picture;//展示图片
 	private Long visits;//访问量
 	private String start_time;//内容的起始时间
 	private String[] keywords;//关键词（分类）
 	private Articlescrap_Type type;//文章类型
 	private Recommend recommend;//推荐信息
+	private String draftId;//原文id
+	private Integer user_id;//用户id	 
 	
 	private Integer begin_time;//起始时间
 	private TIME_DEGREE time_degree;//起始时间精度
 	private String[] pictures;//图片路径
 	private int pic_num;//图片数量
-	private Integer user_id;//用户id	 
 	
 	private transient String start_time_c;//内容的起始时间
 	private transient String start_time_y;//内容的起始时间
@@ -118,9 +117,6 @@ public class Articlescrap {
 	}
 	public String getShow_picture() {
 		return pictures == null||pictures.length==0?null:pictures[0];
-	}
-	public void setShow_picture(String show_picture) {
-		this.show_picture = show_picture;
 	}
 	public Long getVisits() {
 		return visits;
@@ -301,4 +297,11 @@ public class Articlescrap {
 		}
 		return map;
 	}
+	public String getDraftId() {
+		return draftId;
+	}
+	public void setDraftId(String draftId) {
+		this.draftId = draftId;
+	}
+	
 }

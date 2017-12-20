@@ -15,45 +15,45 @@ import com.mysql.jdbc.StringUtils;
 @Service
 public class DraftServiceImpl implements DraftService{
 	
-	@Autowired
-	DraftMapper draftMapper;
-	
-	@Value("${imageContextPath}${webBasePath}")
-	private String webContextPath;
-
-	@Override
-	public int saveDraft(Draft draft) {
-		return draftMapper.saveDraft(draft);
-	}
-
-	@Override
-	public Draft selectById(String id) {
-		return draftMapper.selectById(id);
-	}
-
-	@Override
-	public PageInfoDto<Draft> listDrafts(DraftCondition condition) {
-		return draftMapper.listDrafts(condition);
-	}
-
-	@Override
-	public int updateDraft(Draft draft) throws Exception {
-		return draftMapper.updateDraft(draft);
-	}
-
-	@Override
-	public int deleteDraft(String id) {
-		return draftMapper.deleteDraft(id);
-	}
-
-	@Override
-	public Draft selectByIdAll(String id) {
-		Draft draft = draftMapper.selectById(id);
-		String content = draftMapper.getContent(id);
-		if(draft!=null && !StringUtils.isNullOrEmpty(content)){
-			draft.setContent(PictureUtils.render(draft.getPictures(), content,webContextPath));
-		}
-		return draft;
-	}
+//	@Autowired
+//	DraftMapper draftMapper;
+//	
+//	@Value("${imageContextPath}${webBasePath}")
+//	private String webContextPath;
+//
+//	@Override
+//	public int saveDraft(Draft draft) {
+//		return draftMapper.saveDraft(draft);
+//	}
+//
+//	@Override
+//	public Draft selectById(String id) {
+//		return draftMapper.selectById(id);
+//	}
+//
+//	@Override
+//	public PageInfoDto<Draft> listDrafts(DraftCondition condition) {
+//		return draftMapper.listDrafts(condition);
+//	}
+//
+//	@Override
+//	public int updateDraft(Draft draft) throws Exception {
+//		return draftMapper.updateDraft(draft);
+//	}
+//
+//	@Override
+//	public int deleteDraft(String id) {
+//		return draftMapper.deleteDraft(id);
+//	}
+//
+//	@Override
+//	public Draft selectByIdAll(String id) {
+//		Draft draft = draftMapper.selectById(id);
+//		String content = draftMapper.getContent(id);
+//		if(draft!=null && !StringUtils.isNullOrEmpty(content)){
+//			draft.setContent(PictureUtils.render(draft.getPictures(), content,webContextPath));
+//		}
+//		return draft;
+//	}
 
 }

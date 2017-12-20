@@ -1,7 +1,9 @@
 package com.dgjs.model.enums;
 
 public enum Pending_Status {
-
+     
+	INIT(0,"初始化"),
+	
 	AUDIT_PENDING(10,"待审核"),
 	
 	Audit_FAIL(20,"审核未通过"),
@@ -32,6 +34,8 @@ public enum Pending_Status {
 	
 	public static Pending_Status valueOf(int key){
 		switch (key) {
+		case 0:
+			return INIT;
 		case 10:
 			return AUDIT_PENDING;
 		case 20:

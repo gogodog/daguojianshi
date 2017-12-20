@@ -164,8 +164,8 @@ public class DataInit {
 		 Date now = new Date();
 //		 Pending pending = pendingMapper.publish("AV3WCNPB76afZAVcqAsi", 1, now, 1001, now);
 //		 System.out.println(JSON.toJSONString(pending, true));
-		 int flag = pendingService.publish("AV3wJ79y76afZAVcqAss", 1, 1001, now,true);
-		 System.out.println(flag);
+//		 int flag = pendingService.publish("AV3wJ79y76afZAVcqAss", 1, 1001, now,true);
+//		 System.out.println(flag);
 	 }
 	 
 	 @Test

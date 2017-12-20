@@ -6,17 +6,15 @@ import java.util.concurrent.ExecutorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dgjs.constants.Constants;
 import com.dgjs.constants.EventCode;
-import com.dgjs.model.dto.business.Pending;
+import com.dgjs.model.dto.business.PDraft;
 import com.dgjs.model.enums.Pending_Status;
 import com.dgjs.model.enums.Read_Status;
 import com.dgjs.model.param.view.ArticleAudit;
 import com.dgjs.model.persistence.NoticeMessage;
 import com.dgjs.service.admin.NoticeMessageService;
 import com.dgjs.service.common.EventService;
-import com.dgjs.service.content.PendingService;
-import com.dgjs.utils.WebContextHelper;
+import com.dgjs.service.content.PDraftService;
 
 import freemarker.log.Logger;
 
@@ -29,7 +27,7 @@ public class EventServiceImpl implements EventService{
 	private NoticeMessageService noticeMessageService;
 	
 	@Autowired
-	private PendingService pendingService;
+	private PDraftService draftService;
 	
 	@Autowired
 	private ExecutorService eventExecutor;
@@ -66,8 +64,8 @@ public class EventServiceImpl implements EventService{
 					 break;
 				}
 			}
-			Pending pending = pendingService.selectById(articleAudit.getAid());
-			String title = pending.getTitle();
+			PDraft draft = draftService.selectById(articleAudit.getAid());
+			String title = draft.getTitle();
 			String message = null;
 			if(articleAudit.getStatus()==Pending_Status.Audit_FAIL){
 				 message = MessageFormat.format(EventCode.AUDIT_FAIL_TEMPLATE,title,articleAudit.getAudit_desc());
@@ -75,7 +73,7 @@ public class EventServiceImpl implements EventService{
 				 message = MessageFormat.format(EventCode.AUDIT_SUCCESS_TEMPLATE,title);
 			}
 			noticeMessage.setMessage(message);
-			noticeMessage.setAdmin_id(pending.getUser_id());
+			noticeMessage.setAdmin_id(draft.getUser_id());
 			noticeMessage.setStatus(Read_Status.UNREAD);
 			noticeMessageService.save(noticeMessage);
 		}

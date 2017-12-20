@@ -11,15 +11,12 @@ import org.springframework.stereotype.Component;
 
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.UserPicsDto;
-import com.dgjs.model.dto.business.Draft;
-import com.dgjs.model.dto.business.Pending;
+import com.dgjs.model.dto.business.PDraft;
 import com.dgjs.model.dto.business.entity.Pics;
 import com.dgjs.model.enums.Pending_Status;
 import com.dgjs.model.enums.Pic_Sync_Status;
-import com.dgjs.model.persistence.condition.DraftCondition;
-import com.dgjs.model.persistence.condition.PendingCondition;
-import com.dgjs.service.content.DraftService;
-import com.dgjs.service.content.PendingService;
+import com.dgjs.model.persistence.condition.PDraftCondition;
+import com.dgjs.service.content.PDraftService;
 import com.dgjs.service.content.UserPicsService;
 import com.dgjs.utils.StringUtils;
 
@@ -31,37 +28,34 @@ public class PicSyncJob {
 	private Logger log = Logger.getLogger(this.getClass().getName());
 	
 	@Autowired
-	PendingService pendingService;
-	
-	@Autowired
-	DraftService draftService;
+	PDraftService draftService;
 	
 	@Autowired
 	UserPicsService userPicsService;
 
 //	@Scheduled(cron = "0 */5 * * * ?")
     public void picSyncJob() {
-		PendingCondition condition = new PendingCondition();
+		PDraftCondition condition = new PDraftCondition();
 		condition.setStatus(Pending_Status.PUBLISH_PENDING);
 		condition.setPicSyncStatus(Arrays.asList(Pic_Sync_Status.SYNCHING,Pic_Sync_Status.UNSYNC));
 		String[] includes={"id"};
 		condition.setIncludes(includes);
-		PageInfoDto<Pending> pageinfo = pendingService.listPending(condition);
-		List<Pending> pendingList = pageinfo.getObjects();
-		while(pendingList!=null && pendingList.size()>0){
-			for(Pending pending : pendingList){
+		PageInfoDto<PDraft> pageinfo = draftService.listDrafts(condition);
+		List<PDraft> draftList = pageinfo.getObjects();
+		while(draftList!=null && draftList.size()>0){
+			for(PDraft draft : draftList){
 				try {
-					pendingService.movePic(pending.getId());
+					draftService.movePic(draft.getId());
 				} catch (Exception e) {
-					log.error("picSyncJob exception,with id="+pending.getId(), e);
+					log.error("picSyncJob exception,with id="+draft.getId(), e);
 				}
 			}
-			if(pendingList.size() < pageinfo.getOnePageSize()){
+			if(draftList.size() < pageinfo.getOnePageSize()){
 				break;
 			}else{
 				condition.setCurrentPage(pageinfo.getCurrentPage()+1);
-				pageinfo = pendingService.listPending(condition);
-				pendingList = pageinfo.getObjects();
+				pageinfo = draftService.listDrafts(condition);
+				draftList = pageinfo.getObjects();
 			}
 		}
 	}
@@ -74,15 +68,15 @@ public class PicSyncJob {
 		File[] userFiles = file.listFiles();
 		for(File f:userFiles){
 			Integer adminId=Integer.parseInt(f.getName());
-			DraftCondition condition = new DraftCondition();
-			condition.setUser_id(adminId);
+			PDraftCondition condition = new PDraftCondition();
+			condition.setUserId(adminId);
 			String[] includes = {"id","pictures"};
 			condition.setIncludes(includes);
-			PageInfoDto<Draft> pageinfo = draftService.listDrafts(condition);
-			List<Draft> drafts = pageinfo.getObjects();
+			PageInfoDto<PDraft> pageinfo = draftService.listDrafts(condition);
+			List<PDraft> drafts = pageinfo.getObjects();
 			List<String> picsList = new ArrayList<String>();
 			while(drafts!=null && drafts.size()>0){
-				for(Draft draft:drafts){
+				for(PDraft draft:drafts){
 					String[] pics = draft.getPictures();
 					picsList.addAll(Arrays.asList(pics));
 				}
@@ -95,14 +89,14 @@ public class PicSyncJob {
 				}
 			}
 			
-			PendingCondition pdcondition  = new PendingCondition();
+			PDraftCondition pdcondition  = new PDraftCondition();
 			pdcondition.setUserId(adminId);
 			pdcondition.setStatus(Pending_Status.Audit_FAIL);
 			pdcondition.setIncludes(includes);
-			PageInfoDto<Pending> pdPageInfo= pendingService.listPending(pdcondition);
-			List<Pending> pdList= pdPageInfo.getObjects();
+			PageInfoDto<PDraft> pdPageInfo= draftService.listDrafts(pdcondition);
+			List<PDraft> pdList= pdPageInfo.getObjects();
 			while(pdList!=null && pdList.size()>0){
-				for(Pending pd:pdList){
+				for(PDraft pd:pdList){
 					String[] pictures=pd.getPictures();
 					picsList.addAll(Arrays.asList(pictures));
 				}
@@ -110,7 +104,7 @@ public class PicSyncJob {
 					break;
 				}else{
 					pdcondition.setCurrentPage(pageinfo.getCurrentPage()+1);
-					pdPageInfo=pendingService.listPending(pdcondition);
+					pdPageInfo=draftService.listDrafts(pdcondition);
 					pdList=pdPageInfo.getObjects();
 				}
 			}

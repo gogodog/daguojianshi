@@ -1,12 +1,22 @@
 package com.dgjs.model.es;
 
+import com.alibaba.fastjson.JSON;
+import com.dgjs.model.dto.business.PDraft;
+import com.dgjs.model.enums.Articlescrap_Type;
+import com.dgjs.model.enums.Pending_Status;
+import com.dgjs.model.enums.Pic_Sync_Status;
+import com.dgjs.model.enums.TIME_DEGREE;
+import com.dgjs.utils.DateUtils;
+
 public class PDraftEs implements java.io.Serializable{
 
 	private static final long serialVersionUID = -160221286633493187L;
+	
+	//基本信息
 	private String id;//id
 	private String title;//标题
 	private Integer type;//文章类型
-	private String author;//作者
+	private String author;//作者(笔名)
 	private String create_time;//创建时间
 	private String update_time;//修改时间
 	private String sub_content;//精简内容
@@ -21,15 +31,18 @@ public class PDraftEs implements java.io.Serializable{
     //审核后参数
 	private Integer audit_user_id;//审核人id
     private String audit_time;//审核时间
-    private String audit_desc;//审核描述
     private Integer publish_user_id;//发布人id
     private String publish_time;//发布时间
-    private Integer visits;//访问量基数
-    private String show_time;//显示时间
     private int status;//状态
     
+    //是否审核发布过
+    private boolean isHaveAudit;//是否审核过
+    private boolean isHavePublish;//是否发不过
+    
+    //发布后图片信息
     private Integer pic_sync_status;//图片同步状态
     private int progress;//图片同步进度
+    
 	public String getId() {
 		return id;
 	}
@@ -126,12 +139,6 @@ public class PDraftEs implements java.io.Serializable{
 	public void setAudit_time(String audit_time) {
 		this.audit_time = audit_time;
 	}
-	public String getAudit_desc() {
-		return audit_desc;
-	}
-	public void setAudit_desc(String audit_desc) {
-		this.audit_desc = audit_desc;
-	}
 	public Integer getPublish_user_id() {
 		return publish_user_id;
 	}
@@ -143,18 +150,6 @@ public class PDraftEs implements java.io.Serializable{
 	}
 	public void setPublish_time(String publish_time) {
 		this.publish_time = publish_time;
-	}
-	public Integer getVisits() {
-		return visits;
-	}
-	public void setVisits(Integer visits) {
-		this.visits = visits;
-	}
-	public String getShow_time() {
-		return show_time;
-	}
-	public void setShow_time(String show_time) {
-		this.show_time = show_time;
 	}
 	public int getStatus() {
 		return status;
@@ -174,5 +169,82 @@ public class PDraftEs implements java.io.Serializable{
 	public void setProgress(int progress) {
 		this.progress = progress;
 	}
+	public boolean isHaveAudit() {
+		return isHaveAudit;
+	}
+	public void setHaveAudit(boolean isHaveAudit) {
+		this.isHaveAudit = isHaveAudit;
+	}
+	public boolean isHavePublish() {
+		return isHavePublish;
+	}
+	public void setHavePublish(boolean isHavePublish) {
+		this.isHavePublish = isHavePublish;
+	}
     
+	public static PDraftEs ConvertToEs(PDraft draft){
+		if(draft == null){
+			return null;
+		}
+		PDraftEs draftEs = new PDraftEs();
+		draftEs.setAudit_time(DateUtils.parseStringFromDate(draft.getAudit_time()));
+		draftEs.setAudit_user_id(draft.getAudit_user_id());
+		draftEs.setAuthor(draft.getAuthor());
+		draftEs.setContent(draft.getContent());
+		draftEs.setCreate_time(DateUtils.parseStringFromDate(draft.getCreate_time()));
+		draftEs.setHaveAudit(draft.isHaveAudit());
+		draftEs.setHavePublish(draft.isHavePublish());
+		draftEs.setKeywords(draft.getKeywords());
+		draftEs.setPic_num(draft.getPic_num());
+		draftEs.setPic_sync_status(draft.getPic_sync_Status()==null?-1:draft.getPic_sync_Status().getKey());
+		draftEs.setPictures(draft.getPictures());
+		draftEs.setProgress(draft.getProgress());
+		draftEs.setPublish_time(DateUtils.parseStringFromDate(draft.getPublish_time()));
+		draftEs.setPublish_user_id(draft.getPublish_user_id());
+		draftEs.setStart_time(draft.getBegin_time());
+		draftEs.setStatus(draft.getStatus()==null?-1:draft.getStatus().getKey());
+		draftEs.setSub_content(draft.getSub_content());
+		draftEs.setTime_degree(draft.getTime_degree()==null?-1:draft.getTime_degree().getKey());
+		draftEs.setTitle(draft.getTitle());
+		draftEs.setType(Articlescrap_Type.transTo(draft.getType()));
+		draftEs.setUpdate_time(DateUtils.parseStringFromDate(draft.getUpdate_time()));
+		draftEs.setUser_id(draft.getUser_id());
+		return draftEs;
+	}
+	
+	public static PDraft ConvertToVo(PDraftEs draftEs){
+		if(draftEs == null){
+			return null;
+		}
+		PDraft draft = new PDraft();
+		draft.setAudit_time(DateUtils.parseDateFromString(draftEs.getAudit_time()));
+		draft.setAudit_user_id(draftEs.getAudit_user_id());
+		draft.setAuthor(draftEs.getAuthor());
+		draft.setBegin_time(draftEs.getStart_time());
+		draft.setContent(draftEs.getContent());
+		draft.setCreate_time(DateUtils.parseDateFromString(draftEs.getCreate_time()));
+		draft.setHaveAudit(draftEs.isHaveAudit());
+		draft.setHavePublish(draftEs.isHavePublish());
+		draft.setId(draftEs.getId());
+		draft.setKeywords(draftEs.getKeywords());
+		draft.setPic_num(draftEs.getPic_num());
+		draft.setPic_sync_Status(draftEs.getPic_sync_status()==-1?null:Pic_Sync_Status.valueOf(draftEs.getPic_sync_status()));
+		draft.setPictures(draftEs.getPictures());
+		draft.setProgress(draftEs.getProgress());
+		draft.setPublish_time(DateUtils.parseDateFromString(draftEs.getPublish_time()));
+		draft.setPublish_user_id(draftEs.getPublish_user_id());
+		draft.setStatus(draftEs.getStatus()==-1?null:Pending_Status.valueOf(draftEs.getStatus()));
+		draft.setSub_content(draftEs.getSub_content());
+		draft.setTime_degree(draftEs.getTime_degree()==-1?null:TIME_DEGREE.valueOf(draftEs.getTime_degree()));
+		draft.setTitle(draftEs.getTitle());
+		draft.setType(Articlescrap_Type.transFrom(draftEs.getType()));
+		draft.setUpdate_time(DateUtils.parseDateFromString(draftEs.getUpdate_time()));
+		draft.setUser_id(draftEs.getUser_id());
+		return draft;
+	}
+
+	@Override
+	public String toString() {
+		return JSON.toJSONString(this);
+	}
 }

@@ -4,12 +4,12 @@ import java.util.Date;
 
 import com.dgjs.model.enums.Articlescrap_Status;
 import com.dgjs.model.enums.Articlescrap_Type;
-import com.dgjs.model.enums.Draft_Status;
 import com.dgjs.model.enums.Pending_Status;
 import com.dgjs.model.enums.Pic_Sync_Status;
 
-public class PDraft {
+public class PDraft extends StartTime{
 
+	//基本信息
 	private String id;//id
 	private String title;//标题
 	private Articlescrap_Type type;//文章类型
@@ -22,19 +22,21 @@ public class PDraft {
 	private String[] pictures;//图片
     private int pic_num;//图片数量
 	private Integer user_id;//用户id
-	private Draft_Status draft_status;//状态	
+	private Pending_Status status;//审核状态
 	
+	//审核后参数
 	private Integer audit_user_id;//审核人id
 	private Date audit_time;//审核时间
-	private String audit_desc;//审核描述
 	private Integer publish_user_id;//发布人id
 	private Date publish_time;//发布时间
-	private Integer visits;//访问基数
-	private Date show_time;//显示时间
-	private Pending_Status status;//审核状态
+	
+	//发布后图片信息
 	private Pic_Sync_Status pic_sync_Status;//状态
 	private int progress;//同步进度
-	private String draft_id;//草稿id
+	
+	//是否审核发布过
+    private boolean isHaveAudit;//是否审核过
+    private boolean isHavePublish;//是否发不过
 	
 	public String getId() {
 		return id;
@@ -109,12 +111,6 @@ public class PDraft {
 		this.user_id = user_id;
 	}
 	
-	public Draft_Status getDraft_status() {
-		return draft_status;
-	}
-	public void setDraft_status(Draft_Status draft_status) {
-		this.draft_status = draft_status;
-	}
 	public void setKeywordsValue(String keywordsValue) {
 		if(keywordsValue != null){
 			String[] values =keywordsValue.split("#");
@@ -152,12 +148,6 @@ public class PDraft {
 	public void setAudit_time(Date audit_time) {
 		this.audit_time = audit_time;
 	}
-	public String getAudit_desc() {
-		return audit_desc;
-	}
-	public void setAudit_desc(String audit_desc) {
-		this.audit_desc = audit_desc;
-	}
 	public Integer getPublish_user_id() {
 		return publish_user_id;
 	}
@@ -169,18 +159,6 @@ public class PDraft {
 	}
 	public void setPublish_time(Date publish_time) {
 		this.publish_time = publish_time;
-	}
-	public Integer getVisits() {
-		return visits;
-	}
-	public void setVisits(Integer visits) {
-		this.visits = visits;
-	}
-	public Date getShow_time() {
-		return show_time;
-	}
-	public void setShow_time(Date show_time) {
-		this.show_time = show_time;
 	}
 	public Pending_Status getStatus() {
 		return status;
@@ -200,34 +178,42 @@ public class PDraft {
 	public void setProgress(int progress) {
 		this.progress = progress;
 	}
-	public String getDraft_id() {
-		return draft_id;
-	}
-	public void setDraft_id(String draft_id) {
-		this.draft_id = draft_id;
-	}
 	
-	public static Articlescrap transToArticlescrap(Pending pending){
-		if(pending == null){
+	
+	public boolean isHaveAudit() {
+		return isHaveAudit;
+	}
+	public void setHaveAudit(boolean isHaveAudit) {
+		this.isHaveAudit = isHaveAudit;
+	}
+	public boolean isHavePublish() {
+		return isHavePublish;
+	}
+	public void setHavePublish(boolean isHavePublish) {
+		this.isHavePublish = isHavePublish;
+	}
+	public static Articlescrap transToArticlescrap(PDraft draft,Long visits,Date showTime){
+		if(draft == null){
 			return null;
 		}
 		Articlescrap articlescrap = new Articlescrap();
-		articlescrap.setAuthor(pending.getAuthor());
-		articlescrap.setBegin_time(pending.getBegin_time());
-		articlescrap.setContent(pending.getContent());
-		articlescrap.setCreate_time(pending.getPublish_time());
-		articlescrap.setKeywords(pending.getKeywords());
-		articlescrap.setPic_num(pending.getPic_num());
-		articlescrap.setPictures(pending.getPictures());
-		articlescrap.setShow_time(pending.getShow_time());
+		articlescrap.setAuthor(draft.getAuthor());
+		articlescrap.setBegin_time(draft.getBegin_time());
+		articlescrap.setContent(draft.getContent());
+		articlescrap.setCreate_time(draft.getPublish_time());
+		articlescrap.setKeywords(draft.getKeywords());
+		articlescrap.setPic_num(draft.getPic_num());
+		articlescrap.setPictures(draft.getPictures());
+		articlescrap.setShow_time(showTime);
 		articlescrap.setStatus(Articlescrap_Status.INIT);
-		articlescrap.setSub_content(pending.getSub_content());
-		articlescrap.setTime_degree(pending.getTime_degree());
-		articlescrap.setTitle(pending.getTitle());
-		articlescrap.setType(pending.getType());
+		articlescrap.setSub_content(draft.getSub_content());
+		articlescrap.setTime_degree(draft.getTime_degree());
+		articlescrap.setTitle(draft.getTitle());
+		articlescrap.setType(draft.getType());
 		articlescrap.setUpdate_time(new Date());
-		articlescrap.setVisits(pending.getVisits()==null?null:pending.getVisits().longValue());
-		articlescrap.setUser_id(pending.getUser_id());
+		articlescrap.setVisits(visits);
+		articlescrap.setUser_id(draft.getUser_id());
+		articlescrap.setDraftId(draft.getId());
 		return articlescrap;
 	}
 }
