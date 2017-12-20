@@ -24,9 +24,19 @@
    <select id="list" resultType="draftAPRecord">
        select id,draft_id,create_time,operator,action,operate_desc from draft_ap_record
        <where>
-          <if test="draft_id!=null and draft_id!=''">and draft_id=#{draft_id}</if>
-          <if test="operator!=null">and operator=#{operator}</if>
-          <if test="action!=null">and action=#{action}</if>
+          <if test="operator!=null">operator=#{operator}</if>
+          <if test="draft_ids!=null and draft_ids.size()>0">
+            and draft_id in
+            <foreach collection="draft_ids" index="index" item="item" open="(" separator="," close=")">
+             #{item}
+            </foreach>
+          </if>
+          <if test="status_list!=null and status_list.size()>0">
+            and action in
+            <foreach collection="status_list" index="index" item="item" open="(" separator="," close=")">
+             #{item}
+            </foreach>
+          </if>
        </where> 
        limit 0,100
    </select>

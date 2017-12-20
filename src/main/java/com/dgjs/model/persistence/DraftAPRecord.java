@@ -50,4 +50,19 @@ public class DraftAPRecord {
 		this.operate_desc = operate_desc;
 	}
 	
+	public String getActionDesc(){
+		if(action==null){
+			return null;
+		}
+		if(action==Pending_Status.Audit_FAIL){
+			return "审核不通过";
+		}
+		if(action==Pending_Status.PUBLISH_PENDING){
+			return "审核通过";
+		}
+		if(action==Pending_Status.PUBLISHED){
+			return "发布";
+		}
+		return null;
+	}
 }

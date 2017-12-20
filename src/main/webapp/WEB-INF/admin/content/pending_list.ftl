@@ -42,16 +42,16 @@
                          </td>
                          <td>
                            <div class="table-fun-1">
-                            <a href="/admin/pding/previewPending?aid=${object.id}">查看</a>     
-                            <#if object.status == 'AUDIT_PENDING'>
-                              <a href="javascript:void(0)" onclick="showAudit('${object.id}');">审核</a>  
-                            </#if>
-                            <#if object.status == 'PUBLISH_PENDING'>
-                              <a href="javascript:void(0)" onclick="showPublish('${object.id}');">发布</a>  
-                            </#if>
-                            <#if object.status == 'Audit_FAIL'>
-                              <a href="javascript:void(0)" onclick="showAuditFailDesc('${object.audit_desc}');">拒绝原因</a>  
-                            </#if>
+                              <a href="/admin/pding/previewPending?aid=${object.id}">查看</a>     
+                              <#if object.status == 'AUDIT_PENDING'>
+                                <a href="javascript:void(0)" onclick="showAudit('${object.id}');">审核</a>  
+                              </#if>
+                              <#if object.status == 'PUBLISH_PENDING'>
+                                <a href="javascript:void(0)" onclick="showPublish('${object.id}');">发布</a>  
+                              </#if>
+                              <#if object.haveAudit || object.havePublish>
+                                <a href="/admin/pding/aprecord?aid=${object.id}">审核记录</a>  
+                              </#if>
                            </div>
                          </td>
 				     </tr>
