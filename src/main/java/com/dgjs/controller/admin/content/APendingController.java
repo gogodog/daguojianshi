@@ -1,7 +1,9 @@
 package com.dgjs.controller.admin.content;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.elasticsearch.search.sort.SortOrder;
@@ -22,8 +24,10 @@ import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.enums.Pending_Status;
 import com.dgjs.model.param.view.ArticleAudit;
 import com.dgjs.model.param.view.ArticlePublish;
+import com.dgjs.model.persistence.DraftAPRecord;
 import com.dgjs.model.persistence.condition.PDraftCondition;
 import com.dgjs.model.result.view.BaseView;
+import com.dgjs.service.content.DraftAPRecordService;
 import com.dgjs.service.content.PDraftService;
 import com.dgjs.utils.DateUtils;
 import com.dgjs.utils.WebContextHelper;
@@ -34,6 +38,9 @@ public class APendingController {
 
 	@Autowired
 	PDraftService draftService;
+	
+	@Autowired
+	DraftAPRecordService draftAPRecordService;
 	
 	@RequestMapping("/docms")
 	public ModelAndView docms(PDraftCondition condition){
@@ -112,6 +119,14 @@ public class APendingController {
 		if(flag < 1){
 			mv.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
 		}
+		return mv;
+	}
+	
+	@RequestMapping("/aprecord")
+	public ModelAndView aprecord(String aid)  throws Exception{
+		ModelAndView mv = new ModelAndView("admin/content/aprecord");
+	    List<DraftAPRecord> list = draftAPRecordService.list(Arrays.asList(aid), Arrays.asList(Pending_Status.Audit_FAIL,Pending_Status.PUBLISH_PENDING,Pending_Status.PUBLISHED), null);
+		mv.addObject("list", list);
 		return mv;
 	}
 }

@@ -1,6 +1,11 @@
 package com.dgjs.service.impl.content;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.dgjs.es.mapper.content.ArticlescrapMapper;
 import com.dgjs.es.mapper.content.PDraftMapper;
 import com.dgjs.mapper.content.DraftAPRecordMapper;
+import com.dgjs.model.dto.DraftDto;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.dto.business.PDraft;
@@ -116,6 +122,42 @@ public class PDraftServiceImpl implements PDraftService{
 	@Override
 	public int submitAudit(String id)  throws Exception{
 		return draftMapper.submitAudit(id);
+	}
+
+	@Override
+	public PageInfoDto<DraftDto> listDraftsWithAPRecord(PDraftCondition condition) {
+		PageInfoDto<PDraft> pageinfo = listDrafts(condition);
+		if(pageinfo!=null && pageinfo.getObjects().size()>0){
+			List<PDraft> list = pageinfo.getObjects();
+			List<String> draftIds = new ArrayList<String>();
+			List<DraftDto> resultList = new ArrayList<DraftDto>();
+			for(PDraft draft:list){
+				if(draft.isHaveAudit()||draft.isHavePublish()){
+					//找出有发布审核记录的草稿id
+					draftIds.add(draft.getId());
+				}
+			}
+			List<DraftAPRecord> draftAPRecords = draftAPRecordMapper.list(draftIds, Arrays.asList(Pending_Status.Audit_FAIL,Pending_Status.PUBLISH_PENDING,Pending_Status.PUBLISHED), null);
+		    Map<String,List<DraftAPRecord>> map = new HashMap<String,List<DraftAPRecord>>();
+			for(DraftAPRecord draftAPRecord:draftAPRecords){
+		    	if(map.containsKey(draftAPRecord.getDraft_id())){
+		    		List<DraftAPRecord> draftAPRecordList = map.get(draftAPRecord.getDraft_id());
+		    		draftAPRecordList.add(draftAPRecord);
+		    	}else{
+		    		List<DraftAPRecord> draftAPRecordList = new ArrayList<DraftAPRecord>();
+		    		draftAPRecordList.add(draftAPRecord);
+		    		map.put(draftAPRecord.getDraft_id(), draftAPRecordList);
+		    	}
+		    }
+			for(PDraft draft:list){
+				DraftDto dto = new DraftDto();
+				dto.setDraft(draft);
+				dto.setDraftAPRecords(map.get(draft.getId()));
+				resultList.add(dto);
+			}
+			return PageInfoDto.getPageInfo(pageinfo.getCurrentPage(), pageinfo.getOnePageSize(), pageinfo.getTotalResults(), resultList);
+		}
+		return null;
 	}
 
 }

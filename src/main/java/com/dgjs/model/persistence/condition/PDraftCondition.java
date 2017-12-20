@@ -1,7 +1,6 @@
 package com.dgjs.model.persistence.condition;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 import org.elasticsearch.search.sort.SortOrder;
@@ -9,7 +8,6 @@ import org.elasticsearch.search.sort.SortOrder;
 import com.dgjs.constants.Constants;
 import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.Pending_Status;
-import com.dgjs.model.enums.Pic_Sync_Status;
 
 public class PDraftCondition {
 

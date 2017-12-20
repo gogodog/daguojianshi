@@ -2,6 +2,7 @@ package com.dgjs.service.content;
 
 import java.util.Date;
 
+import com.dgjs.model.dto.DraftDto;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.PDraft;
 import com.dgjs.model.enums.Pending_Status;
@@ -29,4 +30,5 @@ public interface PDraftService {
 	
 	public int publish(String id,Integer publish_user_id,Long visits,Date show_time,boolean isShowNow) throws Exception;
 	
+	public PageInfoDto<DraftDto> listDraftsWithAPRecord(PDraftCondition condition);
 }
