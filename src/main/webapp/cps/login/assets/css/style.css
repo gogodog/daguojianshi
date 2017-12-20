@@ -182,7 +182,7 @@ button:active {
 .connect a.twitter { background: url(../img/twitter.png) center center no-repeat; }
 .connect a:hover { background-position: center bottom; }
 .login{text-align:right;margin-right: 5%;margin-top: 2%;}
-.login a{border: 1px solid #fff;padding: 3px 8px 3px 8px;border-radius: 5px;color: #fff}
+.login a{border:1px solid #fff;padding:3px 8px 3px 8px;border-radius:5px;color:#fff;text-decoration:none}
 
 
 
