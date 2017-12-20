@@ -27,14 +27,12 @@
                 <img id="ewm" src="/cps/img/login.png" style="display:none"/>
                 <div class="connect" style="display:none">微信掃描二維碼登錄</div>
             </div>
-            
         </div>
 
         <!-- Javascript -->
         <script src="login/assets/js/jquery-1.8.2.min.js"></script>
         <script src="login/assets/js/supersized.3.2.7.min.js"></script>
         <script src="login/assets/js/supersized-init.js"></script>
-        <script src="login/assets/js/scripts.js"></script>
 <script>
 var isclose = true;
 function login(){
