@@ -21,7 +21,7 @@
 
     <body>
 <div class="login"><a href="javascript:void(0);" onclick="login()">微信登录</a></div>
-<div id="title" style=" margin:  15% auto 0 auto;"><img src="/front/images/favico.ico">  <h1>简史网</h1></div>
+<div id="title" style=" margin:  15% auto 0 auto;"><img src="/front/images/favico.ico">  <h1>简史网<f style="font-size:10px">【cps】</f></h1></div>
         <div class="page-container">
             <div class="form">
                 <img id="ewm" src="/cps/img/login.png" style="display:none"/>
