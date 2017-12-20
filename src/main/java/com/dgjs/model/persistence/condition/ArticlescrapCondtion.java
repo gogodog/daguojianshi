@@ -1,6 +1,7 @@
 package com.dgjs.model.persistence.condition;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.elasticsearch.search.sort.SortOrder;
@@ -9,6 +10,7 @@ import org.springframework.util.StringUtils;
 import com.dgjs.constants.Constants;
 import com.dgjs.model.enums.Articlescrap_Status;
 import com.dgjs.model.enums.Articlescrap_Type;
+import com.dgjs.model.enums.Pic_Sync_Status;
 import com.dgjs.utils.DateUtils;
 
 public class ArticlescrapCondtion {
@@ -37,6 +39,9 @@ public class ArticlescrapCondtion {
 	private Integer lessThanStartTime;//startTime要小于的时间
     private boolean isNeedContent=false;//是否要包含content
     private Integer userId;//作者
+    
+	//审核发布参数
+    private List<Pic_Sync_Status> picSyncStatus;//图片同步状态
 	
     private String[] includes;//返回值需要的字段
     private String[] excludes;//返回值不需要的字段
@@ -201,6 +206,12 @@ public class ArticlescrapCondtion {
 	}
 	public void setExcludes(String[] excludes) {
 		this.excludes = excludes;
+	}
+	public List<Pic_Sync_Status> getPicSyncStatus() {
+		return picSyncStatus;
+	}
+	public void setPicSyncStatus(List<Pic_Sync_Status> picSyncStatus) {
+		this.picSyncStatus = picSyncStatus;
 	}
 	
 }

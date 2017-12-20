@@ -29,7 +29,6 @@ public class PDraftCondition {
 	
 	//审核发布参数
 	private Pending_Status status;
-	private List<Pic_Sync_Status> picSyncStatus;//图片同步状态
 	
 	//返回字段
 	private String[] includes;//返回值需要的字段
@@ -125,11 +124,4 @@ public class PDraftCondition {
 	public void setStatus(Pending_Status status) {
 		this.status = status;
 	}
-	public List<Pic_Sync_Status> getPicSyncStatus() {
-		return picSyncStatus;
-	}
-	public void setPicSyncStatus(List<Pic_Sync_Status> picSyncStatus) {
-		this.picSyncStatus = picSyncStatus;
-	}
-	
 }

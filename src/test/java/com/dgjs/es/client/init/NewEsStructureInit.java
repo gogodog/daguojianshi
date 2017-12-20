@@ -72,6 +72,8 @@ public class NewEsStructureInit {
 				.startObject("pic_num").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
 				.startObject("user_id").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
 				.startObject("draft_id").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
+				.startObject("pic_sync_status").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
+				.startObject("progress").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
 				.endObject()
 				.endObject()
 				.endObject();
@@ -107,8 +109,6 @@ public class NewEsStructureInit {
 				.startObject("audit_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "false").field("index", "not_analyzed").endObject()
 				.startObject("publish_user_id").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
 				.startObject("publish_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "false").field("index", "not_analyzed").endObject()
-				.startObject("pic_sync_status").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
-				.startObject("progress").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
 				.startObject("isHaveAudit").field("type", "boolean").field("store", "false").field("index", "not_analyzed").endObject()
 				.startObject("isHavePublish").field("type", "boolean").field("store", "false").field("index", "not_analyzed").endObject()
 				.endObject()

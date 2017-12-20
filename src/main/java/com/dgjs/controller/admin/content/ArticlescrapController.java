@@ -157,8 +157,8 @@ public class ArticlescrapController {
 	@RequestMapping("/content")
 	public ModelAndView content(String articlescrapId){
 		ModelAndView mv = new ModelAndView("admin/content/a_content");  
-		String content = articlescrapSerivce.getContent(articlescrapId);
-		mv.addObject("content", content);
+		Articlescrap articlescrap = articlescrapSerivce.selectByIdAll(articlescrapId);
+		mv.addObject("content", articlescrap.getContent());
 		mv.addObject("articlescrapId", articlescrapId);
 		return mv;
 	}

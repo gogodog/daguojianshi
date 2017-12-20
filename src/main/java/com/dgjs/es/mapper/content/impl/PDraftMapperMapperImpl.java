@@ -18,20 +18,15 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHitField;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.sort.SortOrder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
 import com.dgjs.es.client.ESTransportClient;
-import com.dgjs.es.client.FastFDSClient;
 import com.dgjs.es.mapper.content.PDraftMapper;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.PDraft;
 import com.dgjs.model.enums.Pending_Status;
-import com.dgjs.model.enums.Pic_Sync_Status;
-import com.dgjs.model.es.DraftEs;
 import com.dgjs.model.es.PDraftEs;
 import com.dgjs.model.persistence.condition.PDraftCondition;
 import com.dgjs.utils.DateUtils;
@@ -46,11 +41,6 @@ public class PDraftMapperMapperImpl implements PDraftMapper{
 	final static String index = "dp_v2";
 	
 	final static String type = "draft_v2";
-	
-	@Autowired
-	FastFDSClient fastFDSClient;
-	
-	private static final Logger logger = LoggerFactory.getLogger(PDraftMapperMapperImpl.class);
 	
 	@Override
 	public int saveDraft(PDraft draft) {
@@ -157,10 +147,6 @@ public class PDraftMapperMapperImpl implements PDraftMapper{
 		draftEs.setStatus(status.getKey());
 		draftEs.setAudit_user_id(audit_user_id);
 		draftEs.setHaveAudit(true);
-		if(status==Pending_Status.PUBLISH_PENDING){
-			//此处建议用消息队列或者定时任务处理
-			movePic(id);
-		}
 	    return updateDraft2(draftEs);
 	}
 
@@ -169,9 +155,6 @@ public class PDraftMapperMapperImpl implements PDraftMapper{
 			throws Exception {
 		PDraftEs draftEs=selectByIdAll2(id);
 		if(draftEs.getStatus()!=Pending_Status.PUBLISH_PENDING.getKey()){
-			return null;
-		}
-		if(draftEs.getPic_sync_status()!=Pic_Sync_Status.SYNCHRONIZED.getKey()){
 			return null;
 		}
 		Date now = new Date();
@@ -187,61 +170,12 @@ public class PDraftMapperMapperImpl implements PDraftMapper{
 	}
 
 	@Override
-	public int movePic(String aid) throws Exception {
-		PDraftEs draftEs=selectById2(aid);
-		movePic(draftEs);
-		String datenow = DateUtils.parseStringFromDate(new Date());
-		draftEs.setUpdate_time(datenow);
-		return updateDraft2(draftEs);
-	}
-	
-
-	@Override
 	public int submitAudit(String id) throws Exception {
 		PDraftEs draftEs = selectByIdAll2(id);
 		draftEs.setStatus(Pending_Status.AUDIT_PENDING.getKey());
 		String datenow = DateUtils.parseStringFromDate(new Date());
 		draftEs.setUpdate_time(datenow);
 		return updateDraft2(draftEs);
-	}
-	
-	private void movePic(PDraftEs draftEs){
-		String[] pics = draftEs.getPictures();
-		//如果没有图片，设置为同步完成
-		if(pics==null||pics.length==0){
-			draftEs.setPic_sync_status(Pic_Sync_Status.SYNCHRONIZED.getKey());
-			return;
-		}
-		String[] fastfdsPics = new String[pics.length];
-		int progress=draftEs.getProgress();
-		try {
-			for(int i=0;i<pics.length;i++){
-				String pic=pics[i];
-				if(progress == i){
-					String[] uploadFile = fastFDSClient.uploadFile(pic);//fastfds上传
-					if(uploadFile==null||uploadFile.length!=2){
-						break;
-					}else{
-						fastfdsPics[progress]=StringUtils.jointString("/",uploadFile[0],"/",uploadFile[1]);
-						progress++;
-					}
-				}
-			}
-		 }
-		 catch (Exception e) {
-				logger.error("uploadFile to fastfds exception,param="+JSON.toJSONString(draftEs), e);
-		 } 
-		 if(progress > 0 && progress < pics.length){
-			 draftEs.setProgress(progress);
-			 draftEs.setPic_sync_status(Pic_Sync_Status.SYNCHING.getKey());
-	     }else if(progress == pics.length){
-	    	 draftEs.setProgress(progress);
-	    	 draftEs.setPic_sync_status(Pic_Sync_Status.SYNCHRONIZED.getKey());
-	     }
-		 for(int i=0;i<progress;i++){
-			 pics[i]=fastfdsPics[i];
-		 }
-		 draftEs.setPictures(pics);
 	}
 	
 	private BoolQueryBuilder getListQueryBuilder(PDraftCondition condition){
@@ -272,14 +206,6 @@ public class PDraftMapperMapperImpl implements PDraftMapper{
 		    	String[] matchFields={"title","sub_content","keywords","content"};
 		    	boolBuilder.must(QueryBuilders.multiMatchQuery(condition.getKeyword(),matchFields));
 		    }
-		    List<Pic_Sync_Status> picSyncStatusList= condition.getPicSyncStatus();
-		    if(picSyncStatusList!=null&&picSyncStatusList.size()>0){
-		    	List<Integer> picSyncStatus = new ArrayList<Integer>();
-		    	for(Pic_Sync_Status status : picSyncStatusList){
-		    		 picSyncStatus.add(status.getKey());
-		    	}
-		    	boolBuilder.must(QueryBuilders.termsQuery("pic_sync_Status", picSyncStatus));
-		    }
 		}
 		return boolBuilder;
 	}
@@ -295,7 +221,7 @@ public class PDraftMapperMapperImpl implements PDraftMapper{
 	private PDraftEs selectById2(String id){
 		TransportClient client=transportClient.getClient();
 		GetResponse response = client.prepareGet(index, type, id).get();
-		PDraftEs draftEs = JSON.parseObject(response.getSourceAsString(), DraftEs.class);
+		PDraftEs draftEs = JSON.parseObject(response.getSourceAsString(), PDraftEs.class);
 		draftEs.setId(id);
 		return draftEs;
 	}

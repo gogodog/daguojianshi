@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.dgjs.model.dto.business.PDraft;
 import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.Pending_Status;
-import com.dgjs.model.enums.Pic_Sync_Status;
 import com.dgjs.model.enums.TIME_DEGREE;
 import com.dgjs.utils.DateUtils;
 
@@ -38,10 +37,6 @@ public class PDraftEs implements java.io.Serializable{
     //是否审核发布过
     private boolean isHaveAudit;//是否审核过
     private boolean isHavePublish;//是否发不过
-    
-    //发布后图片信息
-    private Integer pic_sync_status;//图片同步状态
-    private int progress;//图片同步进度
     
 	public String getId() {
 		return id;
@@ -157,18 +152,6 @@ public class PDraftEs implements java.io.Serializable{
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	public Integer getPic_sync_status() {
-		return pic_sync_status;
-	}
-	public void setPic_sync_status(Integer pic_sync_status) {
-		this.pic_sync_status = pic_sync_status;
-	}
-	public int getProgress() {
-		return progress;
-	}
-	public void setProgress(int progress) {
-		this.progress = progress;
-	}
 	public boolean isHaveAudit() {
 		return isHaveAudit;
 	}
@@ -196,9 +179,7 @@ public class PDraftEs implements java.io.Serializable{
 		draftEs.setHavePublish(draft.isHavePublish());
 		draftEs.setKeywords(draft.getKeywords());
 		draftEs.setPic_num(draft.getPic_num());
-		draftEs.setPic_sync_status(draft.getPic_sync_Status()==null?-1:draft.getPic_sync_Status().getKey());
 		draftEs.setPictures(draft.getPictures());
-		draftEs.setProgress(draft.getProgress());
 		draftEs.setPublish_time(DateUtils.parseStringFromDate(draft.getPublish_time()));
 		draftEs.setPublish_user_id(draft.getPublish_user_id());
 		draftEs.setStart_time(draft.getBegin_time());
@@ -209,6 +190,7 @@ public class PDraftEs implements java.io.Serializable{
 		draftEs.setType(Articlescrap_Type.transTo(draft.getType()));
 		draftEs.setUpdate_time(DateUtils.parseStringFromDate(draft.getUpdate_time()));
 		draftEs.setUser_id(draft.getUser_id());
+		draftEs.setId(draft.getId());
 		return draftEs;
 	}
 	
@@ -228,9 +210,7 @@ public class PDraftEs implements java.io.Serializable{
 		draft.setId(draftEs.getId());
 		draft.setKeywords(draftEs.getKeywords());
 		draft.setPic_num(draftEs.getPic_num());
-		draft.setPic_sync_Status(draftEs.getPic_sync_status()==-1?null:Pic_Sync_Status.valueOf(draftEs.getPic_sync_status()));
 		draft.setPictures(draftEs.getPictures());
-		draft.setProgress(draftEs.getProgress());
 		draft.setPublish_time(DateUtils.parseDateFromString(draftEs.getPublish_time()));
 		draft.setPublish_user_id(draftEs.getPublish_user_id());
 		draft.setStatus(draftEs.getStatus()==-1?null:Pending_Status.valueOf(draftEs.getStatus()));

@@ -29,5 +29,4 @@ public interface PDraftService {
 	
 	public int publish(String id,Integer publish_user_id,Long visits,Date show_time,boolean isShowNow) throws Exception;
 	
-	public int movePic(String aid) throws Exception;
 }

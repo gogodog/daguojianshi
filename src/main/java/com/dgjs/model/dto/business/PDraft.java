@@ -30,10 +30,6 @@ public class PDraft extends StartTime{
 	private Integer publish_user_id;//发布人id
 	private Date publish_time;//发布时间
 	
-	//发布后图片信息
-	private Pic_Sync_Status pic_sync_Status;//状态
-	private int progress;//同步进度
-	
 	//是否审核发布过
     private boolean isHaveAudit;//是否审核过
     private boolean isHavePublish;//是否发不过
@@ -166,20 +162,6 @@ public class PDraft extends StartTime{
 	public void setStatus(Pending_Status status) {
 		this.status = status;
 	}
-	public Pic_Sync_Status getPic_sync_Status() {
-		return pic_sync_Status;
-	}
-	public void setPic_sync_Status(Pic_Sync_Status pic_sync_Status) {
-		this.pic_sync_Status = pic_sync_Status;
-	}
-	public int getProgress() {
-		return progress;
-	}
-	public void setProgress(int progress) {
-		this.progress = progress;
-	}
-	
-	
 	public boolean isHaveAudit() {
 		return isHaveAudit;
 	}
@@ -214,6 +196,8 @@ public class PDraft extends StartTime{
 		articlescrap.setVisits(visits);
 		articlescrap.setUser_id(draft.getUser_id());
 		articlescrap.setDraftId(draft.getId());
+		articlescrap.setProgress(0);
+		articlescrap.setPic_sync_status(Pic_Sync_Status.UNSYNC);
 		return articlescrap;
 	}
 }

@@ -10,6 +10,7 @@ import com.alibaba.fastjson.JSON;
 import com.dgjs.model.dto.business.entity.Recommend;
 import com.dgjs.model.enums.Articlescrap_Status;
 import com.dgjs.model.enums.Articlescrap_Type;
+import com.dgjs.model.enums.Pic_Sync_Status;
 import com.dgjs.model.enums.TIME_DEGREE;
 import com.dgjs.utils.StringUtils;
 
@@ -36,6 +37,10 @@ public class Articlescrap {
 	private TIME_DEGREE time_degree;//起始时间精度
 	private String[] pictures;//图片路径
 	private int pic_num;//图片数量
+	
+	//图片信息
+    private Pic_Sync_Status pic_sync_status;//图片同步状态
+    private int progress;//图片同步进度
 	
 	private transient String start_time_c;//内容的起始时间
 	private transient String start_time_y;//内容的起始时间
@@ -302,6 +307,18 @@ public class Articlescrap {
 	}
 	public void setDraftId(String draftId) {
 		this.draftId = draftId;
+	}
+	public Pic_Sync_Status getPic_sync_status() {
+		return pic_sync_status;
+	}
+	public void setPic_sync_status(Pic_Sync_Status pic_sync_status) {
+		this.pic_sync_status = pic_sync_status;
+	}
+	public int getProgress() {
+		return progress;
+	}
+	public void setProgress(int progress) {
+		this.progress = progress;
 	}
 	
 }

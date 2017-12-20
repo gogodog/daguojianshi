@@ -5,6 +5,7 @@ import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.dto.business.entity.Recommend;
 import com.dgjs.model.enums.Articlescrap_Status;
 import com.dgjs.model.enums.Articlescrap_Type;
+import com.dgjs.model.enums.Pic_Sync_Status;
 import com.dgjs.model.enums.TIME_DEGREE;
 import com.dgjs.utils.DateUtils;
 
@@ -31,6 +32,10 @@ public class ArticlescrapEs implements java.io.Serializable{
     private int pic_num;//图片数量
     private Integer user_id;//用户id	 
     private String draft_id;//原文id
+    
+    //图片信息
+    private Integer pic_sync_status;//图片同步状态
+    private int progress;//图片同步进度
     
 	public String getId() {
 		return id;
@@ -150,6 +155,18 @@ public class ArticlescrapEs implements java.io.Serializable{
 	public void setDraft_id(String draft_id) {
 		this.draft_id = draft_id;
 	}
+	public Integer getPic_sync_status() {
+		return pic_sync_status;
+	}
+	public void setPic_sync_status(Integer pic_sync_status) {
+		this.pic_sync_status = pic_sync_status;
+	}
+	public int getProgress() {
+		return progress;
+	}
+	public void setProgress(int progress) {
+		this.progress = progress;
+	}
 	public static ArticlescrapEs ConvertToEs(Articlescrap articlescrap){
 		if(articlescrap == null){
 			return null;
@@ -175,6 +192,8 @@ public class ArticlescrapEs implements java.io.Serializable{
 		articlescrapEs.setPictures(articlescrap.getPictures());
 		articlescrapEs.setPic_num(articlescrap.getPic_num());
 		articlescrapEs.setDraft_id(articlescrap.getDraftId());
+		articlescrapEs.setProgress(articlescrap.getProgress());
+		articlescrapEs.setPic_sync_status(articlescrap.getPic_sync_status()==null?-1:articlescrap.getPic_sync_status().getKey());
 		return articlescrapEs;
 	}
 	
@@ -202,6 +221,8 @@ public class ArticlescrapEs implements java.io.Serializable{
 		articlescrap.setPic_num(articlescrapEs.getPic_num());
 		articlescrap.setUser_id(articlescrapEs.getUser_id());
 		articlescrap.setDraftId(articlescrapEs.getDraft_id());
+		articlescrap.setProgress(articlescrapEs.getProgress());
+		articlescrap.setPic_sync_status(articlescrapEs.getPic_sync_status()==-1?null:Pic_Sync_Status.valueOf(articlescrapEs.getPic_sync_status()));
 		return articlescrap;
 	}
 	

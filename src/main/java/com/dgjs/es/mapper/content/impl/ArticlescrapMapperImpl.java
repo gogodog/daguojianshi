@@ -28,16 +28,20 @@ import org.elasticsearch.script.ScriptType;
 import org.elasticsearch.search.SearchHitField;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.sort.SortOrder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
 import com.dgjs.es.client.ESTransportClient;
+import com.dgjs.es.client.FastFDSClient;
 import com.dgjs.es.mapper.content.ArticlescrapMapper;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.dto.business.entity.Recommend;
 import com.dgjs.model.enums.Articlescrap_Status;
+import com.dgjs.model.enums.Pic_Sync_Status;
 import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.es.ArticlescrapEs;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
@@ -47,8 +51,13 @@ import com.dgjs.utils.StringUtils;
 @Service
 public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 
+	private static final Logger logger = LoggerFactory.getLogger(ArticlescrapMapperImpl.class);
+	
 	@Autowired
 	ESTransportClient transportClient;
+	
+	@Autowired
+	FastFDSClient fastFDSClient;
 	
 	final static String index = "dgjs_v2";
 	
@@ -182,14 +191,17 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 	    	articlescrap.setRecommend(recommend);
 	    }
 	    IndexRequestBuilder indexRequestBuilder =client.prepareIndex(index, type);
-	    IndexResponse response = indexRequestBuilder.setSource(ArticlescrapEs.ConvertToEs(articlescrap).toString()).execute().actionGet();
+	    ArticlescrapEs articlescrapEs = ArticlescrapEs.ConvertToEs(articlescrap);
+	    //图片上传fastdfs
+	    movePic(articlescrapEs);
+	    IndexResponse response = indexRequestBuilder.setSource(articlescrapEs.toString()).execute().actionGet();
 	    return StringUtils.isNullOrEmpty(response.getId())?0:1;
 	}
 
 	@SuppressWarnings("deprecation")
 	@Override
 	public int updateArticlescrap(Articlescrap articlescrap) throws Exception {
-		TransportClient client=transportClient.getClient();
+		 TransportClient client=transportClient.getClient();
 		 UpdateRequest updateRequest = new UpdateRequest(index, type,articlescrap.getId());
 		 if(articlescrap.getUpdate_time()==null){
 		     articlescrap.setUpdate_time(new Date());
@@ -286,6 +298,14 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 			if(condition.getWithoutIds()!=null && condition.getWithoutIds().length>0){
 				boolBuilder.mustNot(QueryBuilders.idsQuery().addIds(condition.getWithoutIds()));
 			}
+			List<Pic_Sync_Status> picSyncStatusList= condition.getPicSyncStatus();
+		    if(picSyncStatusList!=null&&picSyncStatusList.size()>0){
+		    	List<Integer> picSyncStatus = new ArrayList<Integer>();
+		    	for(Pic_Sync_Status status : picSyncStatusList){
+		    		 picSyncStatus.add(status.getKey());
+		    	}
+		    	boolBuilder.must(QueryBuilders.termsQuery("pic_sync_status", picSyncStatus));
+		    }
 			return boolBuilder;
 		}
 		return null;
@@ -322,5 +342,64 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
  		Articlescrap articlescrap =  ArticlescrapEs.ConvertToVo(articlescrapEs);
  		articlescrap.setId(id);
  		return articlescrap;
+	}
+	
+	private void movePic(ArticlescrapEs articlescrapEs){
+		String[] pics = articlescrapEs.getPictures();
+		//如果没有图片，设置为同步完成
+		if(pics==null||pics.length==0){
+			articlescrapEs.setPic_sync_status(Pic_Sync_Status.SYNCHRONIZED.getKey());
+			return;
+		}
+		String[] fastfdsPics = new String[pics.length];
+		int progress=articlescrapEs.getProgress();
+		try {
+			for(int i=0;i<pics.length;i++){
+				String pic=pics[i];
+				if(progress == i){
+					String[] uploadFile = fastFDSClient.uploadFile(pic);//fastfds上传
+					if(uploadFile==null||uploadFile.length!=2){
+						break;
+					}else{
+						fastfdsPics[progress]=StringUtils.jointString("/",uploadFile[0],"/",uploadFile[1]);
+						progress++;
+					}
+				}
+			}
+		 }
+		 catch (Exception e) {
+			 logger.error("uploadFile to fastfds exception,param="+JSON.toJSONString(articlescrapEs), e);
+		 } 
+		 if(progress > 0 && progress < pics.length){
+			 articlescrapEs.setProgress(progress);
+			 articlescrapEs.setPic_sync_status(Pic_Sync_Status.SYNCHING.getKey());
+	     }else if(progress == pics.length){
+	    	 articlescrapEs.setProgress(progress);
+	    	 articlescrapEs.setPic_sync_status(Pic_Sync_Status.SYNCHRONIZED.getKey());
+	     }
+		 //如果图片没同步成功
+		 if(progress!=pics.length){
+			 //如果设置了立刻上架，则将状态改为初始化，待图片同步完成后再自动上架
+			 if(articlescrapEs.getStatus() == Articlescrap_Status.UP.getKey()){
+				 articlescrapEs.setStatus(Articlescrap_Status.INIT.getKey());
+			 }
+		 }
+		 for(int i=0;i<progress;i++){
+			 pics[i]=fastfdsPics[i];
+		 }
+		 articlescrapEs.setUpdate_time(DateUtils.parseStringFromDate(new Date()));
+		 articlescrapEs.setPictures(pics);
+	}
+
+	@Override
+	@SuppressWarnings("deprecation")
+	public void movePic(String id) throws Exception {
+		TransportClient client=transportClient.getClient();
+ 		GetResponse response = client.prepareGet(index, type , id).get();
+ 		ArticlescrapEs articlescrapEs=JSON.parseObject(response.getSourceAsString(), ArticlescrapEs.class);
+		movePic(articlescrapEs);
+		UpdateRequest updateRequest = new UpdateRequest(index, type,id);
+		updateRequest.doc(articlescrapEs.toString());
+		client.update(updateRequest).get();
 	}
 }

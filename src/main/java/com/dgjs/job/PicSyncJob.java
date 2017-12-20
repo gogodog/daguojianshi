@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.dgjs.model.dto.PageInfoDto;
@@ -14,51 +13,21 @@ import com.dgjs.model.dto.UserPicsDto;
 import com.dgjs.model.dto.business.PDraft;
 import com.dgjs.model.dto.business.entity.Pics;
 import com.dgjs.model.enums.Pending_Status;
-import com.dgjs.model.enums.Pic_Sync_Status;
 import com.dgjs.model.persistence.condition.PDraftCondition;
 import com.dgjs.service.content.PDraftService;
 import com.dgjs.service.content.UserPicsService;
 import com.dgjs.utils.StringUtils;
 
-import freemarker.log.Logger;
-
 @Component
 public class PicSyncJob {
-	
-	private Logger log = Logger.getLogger(this.getClass().getName());
 	
 	@Autowired
 	PDraftService draftService;
 	
 	@Autowired
 	UserPicsService userPicsService;
+	
 
-//	@Scheduled(cron = "0 */5 * * * ?")
-    public void picSyncJob() {
-		PDraftCondition condition = new PDraftCondition();
-		condition.setStatus(Pending_Status.PUBLISH_PENDING);
-		condition.setPicSyncStatus(Arrays.asList(Pic_Sync_Status.SYNCHING,Pic_Sync_Status.UNSYNC));
-		String[] includes={"id"};
-		condition.setIncludes(includes);
-		PageInfoDto<PDraft> pageinfo = draftService.listDrafts(condition);
-		List<PDraft> draftList = pageinfo.getObjects();
-		while(draftList!=null && draftList.size()>0){
-			for(PDraft draft : draftList){
-				try {
-					draftService.movePic(draft.getId());
-				} catch (Exception e) {
-					log.error("picSyncJob exception,with id="+draft.getId(), e);
-				}
-			}
-			if(draftList.size() < pageinfo.getOnePageSize()){
-				break;
-			}else{
-				condition.setCurrentPage(pageinfo.getCurrentPage()+1);
-				pageinfo = draftService.listDrafts(condition);
-				draftList = pageinfo.getObjects();
-			}
-		}
-	}
 	
 //	@Scheduled(cron = "0 0 2 * * ?")
 	public void syncServerPic(){
@@ -86,26 +55,6 @@ public class PicSyncJob {
 					condition.setCurrentPage(pageinfo.getCurrentPage()+1);
 					pageinfo = draftService.listDrafts(condition);
 					drafts = pageinfo.getObjects();
-				}
-			}
-			
-			PDraftCondition pdcondition  = new PDraftCondition();
-			pdcondition.setUserId(adminId);
-			pdcondition.setStatus(Pending_Status.Audit_FAIL);
-			pdcondition.setIncludes(includes);
-			PageInfoDto<PDraft> pdPageInfo= draftService.listDrafts(pdcondition);
-			List<PDraft> pdList= pdPageInfo.getObjects();
-			while(pdList!=null && pdList.size()>0){
-				for(PDraft pd:pdList){
-					String[] pictures=pd.getPictures();
-					picsList.addAll(Arrays.asList(pictures));
-				}
-				if(pdList.size()<pdPageInfo.getOnePageSize()){
-					break;
-				}else{
-					pdcondition.setCurrentPage(pageinfo.getCurrentPage()+1);
-					pdPageInfo=draftService.listDrafts(pdcondition);
-					pdList=pdPageInfo.getObjects();
 				}
 			}
 			

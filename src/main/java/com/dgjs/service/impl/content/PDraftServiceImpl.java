@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.dgjs.es.mapper.content.ArticlescrapMapper;
@@ -17,12 +18,16 @@ import com.dgjs.model.enums.Pending_Status;
 import com.dgjs.model.persistence.DraftAPRecord;
 import com.dgjs.model.persistence.condition.PDraftCondition;
 import com.dgjs.service.content.PDraftService;
+import com.dgjs.utils.PictureUtils;
 
 @Service
 public class PDraftServiceImpl implements PDraftService{
 
 	@Autowired
 	PDraftMapper draftMapper;
+	
+	@Value("${imageContextPath}${webBasePath}")
+	private String webContextPath;
 	
 	@Autowired
 	DraftAPRecordMapper draftAPRecordMapper;
@@ -57,13 +62,17 @@ public class PDraftServiceImpl implements PDraftService{
 
 	@Override
 	public PDraft selectByIdAll(String id) {
-		return draftMapper.selectByIdAll(id);
+		PDraft draft = draftMapper.selectByIdAll(id);
+		if(draft!=null){
+		   draft.setContent(PictureUtils.render(draft.getPictures(),draft.getContent(),webContextPath));
+	    }
+		return draft;
 	}
 
 	@Override
 	public int audit(String id, Pending_Status status, Integer audit_user_id, String audit_desc) throws Exception {
 		int flag = draftMapper.audit(id, status, audit_user_id);
-		if(flag>1){
+		if(flag>0){
 			//保存审核记录
 			DraftAPRecord draftAPRecord = new DraftAPRecord();
 			draftAPRecord.setAction(status);
@@ -89,13 +98,14 @@ public class PDraftServiceImpl implements PDraftService{
 				articlescrap.setShow_time(new Date());
 			}
 			flag=articlescrapMapper.saveArticlescrap(articlescrap);
+			//保存发布记录
+			DraftAPRecord draftAPRecord = new DraftAPRecord();
+			draftAPRecord.setAction(Pending_Status.PUBLISHED);
+			draftAPRecord.setDraft_id(id);
+			draftAPRecord.setOperator(publish_user_id);
+			flag = draftAPRecordMapper.save(draftAPRecord);
 		}
 		return flag;
-	}
-
-	@Override
-	public int movePic(String aid) throws Exception {
-		return draftMapper.movePic(aid);
 	}
 
 	@Override

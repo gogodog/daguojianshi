@@ -37,7 +37,7 @@
 		                            <td>
 		                              <button type="button" class="btn btn-xs btn-info" onclick="location.href='${contextPath}/cps/dft/previewDraft?aid=${object.id}'">预览</button>
 		                             <!-- <a href="/cps/dft/previewDraft?aid=${object.id}">预览</a>&nbsp;&nbsp;-->
-		                              <#if object.draft_status == 'NORMAL'>
+		                              <#if object.status == 'INIT'>
 		                                <button type="button" class="btn btn-xs btn-primary" onclick="location.href='${contextPath}/cps/dft/wdoc?aid=${object.id}'">继续编辑</button>
 		                                <button type="button" class="btn btn-xs btn-danger" onclick="deleteA('${object.id}');">删除</button>
 		                                <button type="button" class="btn btn-xs btn-warning" onclick="submitAudit('${object.id}');">提审</button>

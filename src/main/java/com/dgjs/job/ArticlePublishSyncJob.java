@@ -1,5 +1,6 @@
 package com.dgjs.job;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.enums.Articlescrap_Status;
+import com.dgjs.model.enums.Pic_Sync_Status;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 import com.dgjs.service.content.ArticlescrapService;
 import com.dgjs.utils.DateUtils;
@@ -39,6 +41,31 @@ public class ArticlePublishSyncJob {
 			}
 		}catch(Exception e){
 			log.error("PublishSyncJob exception", e);
+		}
+	}
+	
+//	@Scheduled(cron = "0 */5 * * * ?")
+    public void picSyncJob() {
+    	ArticlescrapCondtion condition = new ArticlescrapCondtion();
+		condition.setPicSyncStatus(Arrays.asList(Pic_Sync_Status.SYNCHING,Pic_Sync_Status.UNSYNC));
+		String[] includes={"id"};
+		condition.setIncludes(includes);
+		PageInfoDto<Articlescrap> pageinfo = articlescrapService.listArticlescrap(condition);
+		List<Articlescrap> articlescrapList = pageinfo.getObjects();
+		while(articlescrapList!=null && articlescrapList.size()>0){
+			for(Articlescrap articlescrap : articlescrapList){
+				try {
+					articlescrapService.movePic(articlescrap.getId());
+				} catch (Exception e) {
+					log.error("picSyncJob exception,with id="+articlescrap.getId(), e);
+				}
+			}
+			if(articlescrapList.size() < pageinfo.getOnePageSize()){
+				break;
+			}else{
+				pageinfo = articlescrapService.listArticlescrap(condition);
+				articlescrapList = pageinfo.getObjects();
+			}
 		}
 	}
 }

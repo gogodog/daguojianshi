@@ -148,4 +148,9 @@ public class ArticlescrapServiceImpl implements ArticlescrapService{
 		return articlescrapMapper.getArticlescrap(id);
 	}
 
+	@Override
+	public void movePic(String id) throws Exception{
+		 articlescrapMapper.movePic(id);
+	}
+
 }

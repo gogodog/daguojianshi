@@ -33,4 +33,6 @@ public interface ArticlescrapMapper {
 	
 	public int bulkUpdateStatus(List<Articlescrap> list,Articlescrap_Status status);
 	
+	public void movePic(String id) throws Exception;
+	
 }

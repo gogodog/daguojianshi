@@ -59,8 +59,4 @@ public interface PDraftMapper {
 	 */
 	public PDraft publish(String id,Integer publish_user_id,Date publish_time) throws Exception;
 	
-	/*
-	 * 移动图片
-	 */
-	public int movePic(String aid) throws Exception;
 }
