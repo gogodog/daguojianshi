@@ -15,7 +15,20 @@ jQuery(function($){
         slides             : [    // Slideshow Images
                                  {image : '/cps/login/assets/img/backgrounds/1.jpg'},
                                  {image : '/cps/login/assets/img/backgrounds/2.jpg'},
-                                 {image : '/cps/login/assets/img/backgrounds/3.jpg'}
+                                 {image : '/cps/login/assets/img/backgrounds/3.jpg'},
+                                 {image : '/cps/login/assets/img/backgrounds/x1.jpg'},
+                                 {image : '/cps/login/assets/img/backgrounds/x2.jpg'},
+                                 {image : '/cps/login/assets/img/backgrounds/x3.jpg'},
+                                 {image : '/cps/login/assets/img/backgrounds/x4.jpg'},
+                                 {image : '/cps/login/assets/img/backgrounds/x5.jpg'},
+                                 {image : '/cps/login/assets/img/backgrounds/x6.png'},
+                                 {image : '/cps/login/assets/img/backgrounds/x7.jpg'},
+                                 {image : '/cps/login/assets/img/backgrounds/x8.jpg'},
+                                 {image : '/cps/login/assets/img/backgrounds/x9.jpg'},
+                                 {image : '/cps/login/assets/img/backgrounds/x10.jpg'},
+                                 {image : '/cps/login/assets/img/backgrounds/x11.png'},
+                                 {image : '/cps/login/assets/img/backgrounds/x12.jpg'},
+                                 {image : '/cps/login/assets/img/backgrounds/x12.png'}
                              ]
     });
 });
