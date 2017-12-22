@@ -20,6 +20,10 @@ import org.springframework.web.servlet.mvc.condition.PatternsRequestCondition;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
+import com.alibaba.fastjson.JSONObject;
+
+import freemarker.log.Logger;
+
 
 @Controller
 @RequestMapping("/cps")
@@ -44,8 +48,7 @@ public class LoginController {
 	                   
 	            }  
 	        }  
-	    }  
-//	    System.out.println(uList);
+	    } 
 	}  
 	
 	@RequestMapping("/login")
@@ -53,5 +56,13 @@ public class LoginController {
 		ModelAndView mv = new ModelAndView("/cps/login");
 		//清除登录信息
 		return mv;
+	}
+	
+	private Logger log = Logger.getLogger(this.getClass().getName()); 
+	@RequestMapping("/ck")
+	public String loginCallBack(String code, String state,HttpServletRequest request,HttpServletResponse response) {
+		String req = JSONObject.toJSONString(request.getAttributeNames());
+		log.info("wechat request : " + req);
+		return "/cps/ck";
 	}
 }
