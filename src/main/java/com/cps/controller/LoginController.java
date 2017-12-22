@@ -60,9 +60,11 @@ public class LoginController {
 	
 	private Logger log = Logger.getLogger(this.getClass().getName()); 
 	@RequestMapping("/ck")
-	public String loginCallBack(String code, String state,HttpServletRequest request,HttpServletResponse response) {
+	public String loginCallBack(String code, String stat,HttpServletRequest request,HttpServletResponse response) {
 		String req = JSONObject.toJSONString(request.getAttributeNames());
 		log.info("wechat request : " + req);
+		log.info("[微信回调]用户code : " + code);
+		log.info("[微信用户]stat : " + stat);
 		return "/cps/ck";
 	}
 }
