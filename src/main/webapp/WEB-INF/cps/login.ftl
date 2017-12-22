@@ -36,7 +36,7 @@ var obj = new WxLogin({
 	  id:"login_container", 
 	  appid: "wxc146262e5d8a95cc", 
 	  scope: "snsapi_login", 
-	  redirect_uri: "www.cwillow.com%2fcps%2fck",
+	  redirect_uri: "https%3a%2f%2fwww.cwillow.com%2fcps%2fck",
 	  state: "19002",
 	  style: "white",
 	  href: ""
