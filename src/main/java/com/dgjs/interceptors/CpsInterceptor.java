@@ -19,9 +19,7 @@ public class CpsInterceptor implements HandlerInterceptor{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		int unreadCount = noticeMessageService.getUnReadCount(WebContextHelper.getUserId());
-//		int readCount = noticeMessageService.getReadCount(WebContextHelper.getUserId());
 		request.setAttribute("unreadCount", unreadCount);
-//		request.setAttribute("readCount", readCount);
 		return true;
 	}
 
