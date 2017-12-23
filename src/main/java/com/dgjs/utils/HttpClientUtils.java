@@ -1,7 +1,6 @@
 package com.dgjs.utils;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.dgjs.model.wechat.res.UserInfo;
 
 public class HttpClientUtils {
 
@@ -111,19 +111,13 @@ public class HttpClientUtils {
 		}
     }
     
-    public static void main(String[] args) {
-    	Map<String,String> map = new HashMap<String,String>();
-    	map.put("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36");
-        for(int i=0;i<10;i++){
-        	try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-        	JSONObject result = HttpClientUtils.sendGetWithHeader("http://ip.taobao.com/service/getIpInfo.php?ip=182.61.33.10"+i,map);
-        	System.out.println("182.61.33.10"+i);
-        	System.out.println(JSON.toJSONString(result));
-    	}
-	}
+    public static JSONObject sendGetWithParams(Object param, String url){
+    	url += "?"+ConvertObjUtils.serializBean(param);
+    	return sendGet(url);
+    }
+    
+    public static <T> T sendGetWithParams(Object param, String url, Class<T> t){
+    	return JSONObject.toJavaObject(sendGetWithParams(param, url), t);    		
+    }
+ 
 }

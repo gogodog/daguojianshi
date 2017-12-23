@@ -19,4 +19,7 @@ public interface Constants {
 	public static final int MAX_CONTAINER = 50;
 	public static final int ONECE_MAX_CONTAINER = 5;//用户一次最多可上传几张图片
 	public static final int MAX_FILE_SIZE = 2;//上传图片最大不能超过多少兆
+	
+	public static final int CK_USERINFO_MAXAGE = 7200;
+	public static final String CK_USERINFO_KEY = "usercode";
 }

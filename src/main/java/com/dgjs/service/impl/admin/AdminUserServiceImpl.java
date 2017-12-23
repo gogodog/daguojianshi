@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,7 @@ import com.dgjs.model.persistence.AdminUserInfo;
 import com.dgjs.model.persistence.Role;
 import com.dgjs.model.persistence.condition.AdminUserCondition;
 import com.dgjs.model.persistence.result.AdminUserResult;
+import com.dgjs.model.wechat.res.UserInfo;
 import com.dgjs.service.admin.AdminUserService;
 
 @Service
@@ -91,4 +94,12 @@ public class AdminUserServiceImpl implements AdminUserService{
 		return adminUserMapper.getByUserCode(userCode);
 	}
 
+	@Override
+	public boolean wxLogin(UserInfo userInfo, HttpServletResponse response) {
+		//TODO 关悦
+		//TODO 微信入口通过unionid判断是否新老用户，若新用户，登记造册
+		//TODO 新老用户返回本地code
+		//TODO 建议cookie缓存：CookieUtils.addCookie(response, Constants.CK_USERINFO_KEY, JSONObject.toJSONString(code), Constants.CK_USERINFO_MAXAGE);
+		return true;
+	}
 }
