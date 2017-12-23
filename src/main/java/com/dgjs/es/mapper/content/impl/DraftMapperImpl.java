@@ -33,7 +33,7 @@ import com.dgjs.utils.DateUtils;
 import com.dgjs.utils.StringUtils;
 
 @Service
-public class DraftMapperMapperImpl implements DraftMapper{
+public class DraftMapperImpl implements DraftMapper{
 
 	@Autowired
 	ESTransportClient transportClient;
