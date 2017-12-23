@@ -3,7 +3,7 @@
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" onclick="menu()"> <span class="sr-only"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-        <h1 class="logo hvr-bounce-in"><a class="titlelog" href="/dgjs"><img src="/front/images/slogo.png">简史</a></h1>
+        <h1 class="logo hvr-bounce-in"><a class="titlelog" href="/dgjs"><img src="/front/images/slogo.png">简史网</a></h1>
       </div>
       <div class="collapse navbar-collapse" id="header-navbar">
         <form class="navbar-form visible-xs" action="/Search" method="post" style="margin-top: 0px;border-color:#ffffff;">
@@ -15,9 +15,9 @@
           </div>
         </form>
         <ul class="nav navbar-nav navbar-right">
-          <li><a data-cont="简史" title="简史" href="/timeline">全部</a></li>
+          <li><a data-cont="简史网" title="简史网" href="/timeline">全部</a></li>
           <#list types as type>
-            <li><a data-cont="简史" title="简史" href="/timeline?type=${type}">${type.value}</a></li>
+            <li><a data-cont="简史网" title="简史网" href="/timeline?type=${type}">${type.value}</a></li>
           </#list>
         </ul>
         <table class="mobile-menu" style="border-spacing:10px 100px;">

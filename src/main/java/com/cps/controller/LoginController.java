@@ -54,7 +54,13 @@ public class LoginController {
 	@RequestMapping("/login")
 	public ModelAndView login(){
 		ModelAndView mv = new ModelAndView("/cps/login");
-		//清除登录信息
+		return mv;
+	}
+	
+	@RequestMapping("/logout")
+	public ModelAndView logout(){
+		ModelAndView mv = new ModelAndView("/cps/login");
+		//TODO 清除登录信息，返回登录页
 		return mv;
 	}
 	

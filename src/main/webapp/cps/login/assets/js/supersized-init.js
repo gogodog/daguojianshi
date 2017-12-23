@@ -34,8 +34,7 @@ jQuery(function($){
 });
 var isclose = true;
 function login() {
-	$("#ewm").slideToggle("slow");
-	$(".connect").fadeToggle("slow");
+	$(".page-container").slideToggle("slow");
 	if (isclose) {
 		$("#title").animate({'margin-top' : '5%'});
 		isclose = false;

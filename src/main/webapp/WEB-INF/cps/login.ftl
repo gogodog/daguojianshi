@@ -23,7 +23,7 @@
 	<img src="/front/images/favico.ico">
 	<h1>简史网<f style="font-size:10px"> CPS</f></h1>
 </div>
-<div class="page-container">
+<div class="page-container" style="display:none">
     <div class="form" id="login_container"></div>
 </div>
 <!-- Javascript -->
