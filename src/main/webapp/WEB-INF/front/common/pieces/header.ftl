@@ -3,7 +3,11 @@
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" onclick="menu()"> <span class="sr-only"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-        <h1 class="logo hvr-bounce-in"><a class="titlelog" href="/timeline"><img src="/front/images/slogo.png">简史</a></h1>
+        <h1 class="logo hvr-bounce-in">
+           <a class="titlelog" href="/timeline"><img src="/front/images/slogo.png">
+               简史<#if doctype??>[${doctype.value}]</#if>
+           </a>
+        </h1>
       </div>
       <div class="collapse navbar-collapse" id="header-navbar">
         <form class="navbar-form visible-xs" action="/Search" method="post" style="margin-top: 0px;border-color:#ffffff;">

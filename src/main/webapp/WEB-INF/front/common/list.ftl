@@ -30,7 +30,7 @@
           	<i class="glyphicon glyphicon-comment"></i>4
           </a>
         </p>
-        <p class="note">不用怀疑的是,一个国家在政治上的稳定和顺应时代发展的潮流对国家崛起产生着十分重大的作用.没有良好且稳定的政治,国家在其他各项事业上的发展就会承受着很大的压力和阻碍.在荷兰,市民自治,实现购买自治权,以及后期荷兰独立战争,废除国王,是荷兰统一,最终成立联合共和国.</p>
+        <p class="note"></p>
       </article>
       <#include "/common/pieces/pageutils.ftl"/>
     </div>
