@@ -35,6 +35,7 @@
 				    <label for="">文章精简内容</label>
 				    <textarea style="margin: 0px; width: 690px; height: 125px;" name="sub_content" maxlength="500">${(articlescrap.sub_content)!''}</textarea>
 			    </div>
+			    <!-- 
 			    <div class="form-group">
 				    <label for="">展示图片</label>
 				    <input style="margin-top:9px" type="radio" value="1" name="picm" checked>本地上传
@@ -49,6 +50,7 @@
 				    <div class="file"><input type="file" class="form-input-file" id="uploadImage" name="uploadImage" multiple/>选择文件</div>
 				    <div class="file"><input type="button" class="form-input-file" id="buttonUpload" onClick="return ajaxFileUpload();">上传</div>
 			    </div>
+			    -->
 			    <div class="form-group" style="display:none">
 			        <label for=""></label>
 			        <textarea style="margin: 0px; width: 690px; height: 125px;" maxlength="500" id="piclinkVal"></textarea>
@@ -60,7 +62,7 @@
 				<div class="form-group">
 					<label for="">分类</label>
 					<#list types as type>
-					  <input style="margin-top:9px" type="radio" name="typeValue" value="${type}" 
+					  <input style="margin-top:9px" type="checkbox" name="typeValue" value="${type}" 
 			                 <#if articlescrap.type == type>checked</#if>
 					  >${type.value}
 					</#list>

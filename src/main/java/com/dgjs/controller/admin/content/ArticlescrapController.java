@@ -156,6 +156,7 @@ public class ArticlescrapController {
 		ModelAndView mv = new ModelAndView("admin/content/a_info");  
 		Articlescrap articlescrap = articlescrapSerivce.selectById(articlescrapId);
 		mv.addObject("articlescrap", articlescrap);
+		mv.addObject("types", Articlescrap_Type.values());
 		return mv;
 	}
 	
