@@ -144,7 +144,7 @@ public class ArticlescrapController {
 		ModelAndView mv = new ModelAndView("redirect:/admin/atcp/articlescrapList"); 
 		Articlescrap articlescrap = articlescrapSerivce.selectByIdAll(articlescrapId);
 		List<String> list = PictureUtils.getImgStr(articlescrap.getContent());
-		articlescrap.setContent(PictureUtils.replaceHtml(list,articlescrap.getContent(),pictureService.getFastFDSContextPath()));//将图片设置为占位符
+		articlescrap.setContent(PictureUtils.replaceHtml(list,content,pictureService.getFastFDSContextPath()));//将图片设置为占位符
 		String[] pics = (String[])list.toArray(new String[list.size()]);
 		articlescrap.setPictures(pics);
 		articlescrapSerivce.updateArticlescrap(articlescrap);
