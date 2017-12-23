@@ -2,20 +2,20 @@ package com.dgjs.model.dto;
 
 import java.util.List;
 
-import com.dgjs.model.dto.business.PDraft;
+import com.dgjs.model.dto.business.Draft;
 import com.dgjs.model.persistence.DraftAPRecord;
 
 public class DraftDto {
 
-	private PDraft draft;
+	private Draft draft;
 	
 	private List<DraftAPRecord> draftAPRecords;
 
-	public PDraft getDraft() {
+	public Draft getDraft() {
 		return draft;
 	}
 
-	public void setDraft(PDraft draft) {
+	public void setDraft(Draft draft) {
 		this.draft = draft;
 	}
 

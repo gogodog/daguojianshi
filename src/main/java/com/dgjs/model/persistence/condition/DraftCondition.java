@@ -7,10 +7,11 @@ import org.elasticsearch.search.sort.SortOrder;
 
 import com.dgjs.constants.Constants;
 import com.dgjs.model.enums.Articlescrap_Type;
+import com.dgjs.model.enums.Pending_Status;
 
 public class DraftCondition {
 
-	private Integer user_id;//用户id
+	//基本信息
 	private String author;
 	private String title;
 	private Articlescrap_Type type;//类型
@@ -22,11 +23,16 @@ public class DraftCondition {
 	private int onePageSize=Constants.DEFAULT_ONEPAGESIZE;
 	private int currentPage=1;//当前页
 	private boolean needTotalResults;//是否需要查询总数
+	private Integer userId;//用户id
 	
+	//审核发布参数
+	private Pending_Status status;
+	
+	//返回字段
 	private String[] includes;//返回值需要的字段
     private String[] excludes;//返回值不需要的字段
-    
-	public String getAuthor() {
+	
+    public String getAuthor() {
 		return author;
 	}
 	public void setAuthor(String author) {
@@ -92,12 +98,6 @@ public class DraftCondition {
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
 	}
-	public Integer getUser_id() {
-		return user_id;
-	}
-	public void setUser_id(Integer user_id) {
-		this.user_id = user_id;
-	}
 	public String[] getIncludes() {
 		return includes;
 	}
@@ -110,5 +110,16 @@ public class DraftCondition {
 	public void setExcludes(String[] excludes) {
 		this.excludes = excludes;
 	}
-	
+	public Integer getUserId() {
+		return userId;
+	}
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+	public Pending_Status getStatus() {
+		return status;
+	}
+	public void setStatus(Pending_Status status) {
+		this.status = status;
+	}
 }

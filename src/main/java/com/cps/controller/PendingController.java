@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dgjs.model.dto.PageInfoDto;
-import com.dgjs.model.dto.business.PDraft;
+import com.dgjs.model.dto.business.Draft;
 import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.Pending_Status;
-import com.dgjs.model.persistence.condition.PDraftCondition;
+import com.dgjs.model.persistence.condition.DraftCondition;
 import com.dgjs.service.common.PictureService;
-import com.dgjs.service.content.PDraftService;
+import com.dgjs.service.content.DraftService;
 import com.dgjs.utils.WebContextHelper;
 
 @Controller
@@ -23,19 +23,19 @@ import com.dgjs.utils.WebContextHelper;
 public class PendingController {
 
 	@Autowired
-	PDraftService draftService;
+	DraftService draftService;
 	
 	@Autowired
 	PictureService pictureService;
 	
 	@RequestMapping("/docms")
-	public ModelAndView docms(PDraftCondition condition){
+	public ModelAndView docms(DraftCondition condition){
 		ModelAndView mv = new ModelAndView("/cps/docms");
 		condition.setUserId(WebContextHelper.getUserId());
 		Map<String, SortOrder> sort = new HashMap<String, SortOrder>();
 		sort.put("update_time", SortOrder.DESC);
 		condition.setSort(sort);
-		PageInfoDto<PDraft> pageinfo = draftService.listDrafts(condition);
+		PageInfoDto<Draft> pageinfo = draftService.listDrafts(condition);
 		mv.addObject("pageinfo", pageinfo);
 		mv.addObject("condition",condition);
 		mv.addObject("statusList", Pending_Status.values());
@@ -46,7 +46,7 @@ public class PendingController {
 	@RequestMapping("/previewPending")
 	public ModelAndView previewDraft(String aid)  throws Exception{
 		ModelAndView mv = new ModelAndView("front/admin/show");
-		PDraft draft=draftService.selectByIdAll(aid);
+		Draft draft=draftService.selectByIdAll(aid);
 		mv.addObject("articlescrap", draft);
 		return mv;
 	}

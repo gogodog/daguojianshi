@@ -16,14 +16,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.dgjs.annotation.LogRecord;
 import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.model.dto.PageInfoDto;
-import com.dgjs.model.dto.business.PDraft;
+import com.dgjs.model.dto.business.Draft;
 import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.enums.Pending_Status;
-import com.dgjs.model.persistence.condition.PDraftCondition;
+import com.dgjs.model.persistence.condition.DraftCondition;
 import com.dgjs.model.result.view.BaseView;
 import com.dgjs.service.common.PictureService;
-import com.dgjs.service.content.PDraftService;
+import com.dgjs.service.content.DraftService;
 import com.dgjs.utils.PictureUtils;
 import com.dgjs.utils.WebContextHelper;
 import com.mysql.jdbc.StringUtils;
@@ -33,19 +33,19 @@ import com.mysql.jdbc.StringUtils;
 public class DraftController {
 
 	@Autowired
-	PDraftService draftService;
+	DraftService draftService;
 	
 	@Autowired
 	PictureService pictureService;
 	
 	@RequestMapping("/draft")
-	public ModelAndView list(HttpServletRequest request,PDraftCondition condtion){
+	public ModelAndView list(HttpServletRequest request,DraftCondition condtion){
 		ModelAndView mv = new ModelAndView("/cps/draft");
 		condtion.setUserId(WebContextHelper.getUserId());
 		Map<String, SortOrder> map = new HashMap<String, SortOrder>();
 		map.put("update_time", SortOrder.DESC);
 		condtion.setSort(map);
-		PageInfoDto<PDraft> pageinfo=draftService.listDrafts(condtion);
+		PageInfoDto<Draft> pageinfo=draftService.listDrafts(condtion);
 		mv.addObject("pageinfo", pageinfo);
 		return mv;
 	}
@@ -55,7 +55,7 @@ public class DraftController {
 		ModelAndView mv = new ModelAndView("/cps/wdoc");
 		mv.addObject("types", Articlescrap_Type.values());
 		if(!StringUtils.isNullOrEmpty(aid)){
-			PDraft draft=draftService.selectByIdAll(aid);
+			Draft draft=draftService.selectByIdAll(aid);
 			mv.addObject("draft", draft);
 		}
 		return mv;
@@ -64,7 +64,7 @@ public class DraftController {
 	@ResponseBody
 	@RequestMapping("/savedraft")
 	@LogRecord(operate=OperateEnum.Add,remark="保存草稿箱")
-	public BaseView savedraft(PDraft draft){
+	public BaseView savedraft(Draft draft){
 		BaseView mv = new BaseView();
 		if(draft==null){
 			mv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
@@ -141,7 +141,7 @@ public class DraftController {
 	@RequestMapping("/previewDraft")
 	public ModelAndView previewDraft(String aid)  throws Exception{
 		ModelAndView mv = new ModelAndView("front/admin/show");
-		PDraft draft=draftService.selectByIdAll(aid);
+		Draft draft=draftService.selectByIdAll(aid);
 		mv.addObject("articlescrap", draft);
 		return mv;
 	}
@@ -155,7 +155,7 @@ public class DraftController {
 			mv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
 			return mv;
 		}
-		PDraft draft = draftService.selectById(aid);
+		Draft draft = draftService.selectById(aid);
 		if(draft==null){
 			mv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
 			return mv;

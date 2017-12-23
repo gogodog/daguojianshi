@@ -18,17 +18,17 @@ import com.dgjs.annotation.LogRecord;
 import com.dgjs.constants.EventCode;
 import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.model.dto.PageInfoDto;
-import com.dgjs.model.dto.business.PDraft;
+import com.dgjs.model.dto.business.Draft;
 import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.enums.Pending_Status;
 import com.dgjs.model.param.view.ArticleAudit;
 import com.dgjs.model.param.view.ArticlePublish;
 import com.dgjs.model.persistence.DraftAPRecord;
-import com.dgjs.model.persistence.condition.PDraftCondition;
+import com.dgjs.model.persistence.condition.DraftCondition;
 import com.dgjs.model.result.view.BaseView;
 import com.dgjs.service.content.DraftAPRecordService;
-import com.dgjs.service.content.PDraftService;
+import com.dgjs.service.content.DraftService;
 import com.dgjs.utils.DateUtils;
 import com.dgjs.utils.WebContextHelper;
 
@@ -37,18 +37,18 @@ import com.dgjs.utils.WebContextHelper;
 public class APendingController {
 
 	@Autowired
-	PDraftService draftService;
+	DraftService draftService;
 	
 	@Autowired
 	DraftAPRecordService draftAPRecordService;
 	
 	@RequestMapping("/docms")
-	public ModelAndView docms(PDraftCondition condition){
+	public ModelAndView docms(DraftCondition condition){
 		ModelAndView mv = new ModelAndView("/admin/content/pending_list");
 		Map<String, SortOrder> sort = new HashMap<String, SortOrder>();
 		sort.put("update_time", SortOrder.DESC);
 		condition.setSort(sort);
-		PageInfoDto<PDraft> pageinfo = draftService.listDrafts(condition);
+		PageInfoDto<Draft> pageinfo = draftService.listDrafts(condition);
 		mv.addObject("pageInfo", pageinfo);
 		mv.addObject("condition",condition);
 		mv.addObject("statusList", Pending_Status.values());
@@ -59,7 +59,7 @@ public class APendingController {
 	@RequestMapping("/previewPending")
 	public ModelAndView previewDraft(String aid)  throws Exception{
 		ModelAndView mv = new ModelAndView("front/admin/show");
-		PDraft draft=draftService.selectByIdAll(aid);
+		Draft draft=draftService.selectByIdAll(aid);
 		mv.addObject("articlescrap", draft);
 		return mv;
 	}
@@ -110,7 +110,7 @@ public class APendingController {
 		if(showTime == null){
 			showTime = new Date();
 		}
-		PDraft draft = draftService.selectById(aid);
+		Draft draft = draftService.selectById(aid);
 		if(draft == null){
 			mv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
 			return mv;

@@ -23,17 +23,17 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
 import com.dgjs.es.client.ESTransportClient;
-import com.dgjs.es.mapper.content.PDraftMapper;
+import com.dgjs.es.mapper.content.DraftMapper;
 import com.dgjs.model.dto.PageInfoDto;
-import com.dgjs.model.dto.business.PDraft;
+import com.dgjs.model.dto.business.Draft;
 import com.dgjs.model.enums.Pending_Status;
-import com.dgjs.model.es.PDraftEs;
-import com.dgjs.model.persistence.condition.PDraftCondition;
+import com.dgjs.model.es.DraftEs;
+import com.dgjs.model.persistence.condition.DraftCondition;
 import com.dgjs.utils.DateUtils;
 import com.dgjs.utils.StringUtils;
 
 @Service
-public class PDraftMapperMapperImpl implements PDraftMapper{
+public class DraftMapperMapperImpl implements DraftMapper{
 
 	@Autowired
 	ESTransportClient transportClient;
@@ -43,7 +43,7 @@ public class PDraftMapperMapperImpl implements PDraftMapper{
 	final static String type = "draft_v2";
 	
 	@Override
-	public int saveDraft(PDraft draft) {
+	public int saveDraft(Draft draft) {
 		Date now = new Date();
 		if(draft.getCreate_time()==null){
 			draft.setCreate_time(now);
@@ -51,24 +51,24 @@ public class PDraftMapperMapperImpl implements PDraftMapper{
 		if(draft.getUpdate_time()==null){
 			draft.setUpdate_time(now);
 		}
-	    return saveDraft2(PDraftEs.ConvertToEs(draft));
+	    return saveDraft2(DraftEs.ConvertToEs(draft));
 	}
 
 	@Override
-	public PDraft selectById(String id) {
-		PDraftEs draftEs =selectById2(id);
-		PDraft draft = PDraftEs.ConvertToVo(draftEs);
+	public Draft selectById(String id) {
+		DraftEs draftEs =selectById2(id);
+		Draft draft = DraftEs.ConvertToVo(draftEs);
 		return draft;
 	}
 
 	@Override
-	public PDraft selectByIdAll(String id) {
-		PDraftEs draftEs = selectByIdAll2(id);
-		return PDraftEs.ConvertToVo(draftEs);
+	public Draft selectByIdAll(String id) {
+		DraftEs draftEs = selectByIdAll2(id);
+		return DraftEs.ConvertToVo(draftEs);
 	}
 	
 	@Override
-	public PageInfoDto<PDraft> listDrafts(PDraftCondition condition) {
+	public PageInfoDto<Draft> listDrafts(DraftCondition condition) {
 		BoolQueryBuilder boolBuilder = getListQueryBuilder(condition);
 		TransportClient client=transportClient.getClient();
 		SearchRequestBuilder responsebuilder = client.prepareSearch(index).setTypes(type);
@@ -88,12 +88,12 @@ public class PDraftMapperMapperImpl implements PDraftMapper{
 		SearchResponse myresponse = responsebuilder.execute().actionGet();
 		SearchHits hits = myresponse.getHits();
 		if(hits.getTotalHits()>0){
-			List<PDraft> list = new ArrayList<PDraft>();
+			List<Draft> list = new ArrayList<Draft>();
 			for (int i = 0; i < hits.getHits().length; i++) {
 				String source = hits.getHits()[i].getSourceAsString();
-				PDraftEs draftEs = JSON.parseObject(source, PDraftEs.class);
+				DraftEs draftEs = JSON.parseObject(source, DraftEs.class);
 				draftEs.setId(hits.getHits()[i].getId());
-				PDraft draft = PDraftEs.ConvertToVo(draftEs);
+				Draft draft = DraftEs.ConvertToVo(draftEs);
 				list.add(draft);
 			}
 		    return PageInfoDto.getPageInfo(condition.getCurrentPage(), condition.getOnePageSize(), hits.getTotalHits(), list);
@@ -102,11 +102,11 @@ public class PDraftMapperMapperImpl implements PDraftMapper{
 	}
 	
 	@Override
-	public int updateDraft(PDraft draft) throws Exception {
+	public int updateDraft(Draft draft) throws Exception {
 		 if(draft.getUpdate_time()==null){
 			 draft.setUpdate_time(new Date());
 		 }
-		 return updateDraft2(PDraftEs.ConvertToEs(draft));
+		 return updateDraft2(DraftEs.ConvertToEs(draft));
 	}
 	
 	@Override
@@ -136,7 +136,7 @@ public class PDraftMapperMapperImpl implements PDraftMapper{
 
 	@Override
 	public int audit(String id, Pending_Status status, Integer audit_user_id) throws Exception {
-		PDraftEs draftEs = selectByIdAll2(id);
+		DraftEs draftEs = selectByIdAll2(id);
 		if(draftEs==null||draftEs.getStatus()!=Pending_Status.AUDIT_PENDING.getKey()){
 			return 0;
 		}
@@ -151,9 +151,9 @@ public class PDraftMapperMapperImpl implements PDraftMapper{
 	}
 
 	@Override
-	public PDraft publish(String id, Integer publish_user_id, Date publish_time)
+	public Draft publish(String id, Integer publish_user_id, Date publish_time)
 			throws Exception {
-		PDraftEs draftEs=selectByIdAll2(id);
+		DraftEs draftEs=selectByIdAll2(id);
 		if(draftEs.getStatus()!=Pending_Status.PUBLISH_PENDING.getKey()){
 			return null;
 		}
@@ -164,21 +164,21 @@ public class PDraftMapperMapperImpl implements PDraftMapper{
 		draftEs.setStatus(Pending_Status.PUBLISHED.getKey());
 		draftEs.setPublish_user_id(publish_user_id);
 		draftEs.setHavePublish(true);
-		PDraft draft = PDraftEs.ConvertToVo(draftEs);
+		Draft draft = DraftEs.ConvertToVo(draftEs);
 	    updateDraft(draft);
 		return draft;
 	}
 
 	@Override
 	public int submitAudit(String id) throws Exception {
-		PDraftEs draftEs = selectByIdAll2(id);
+		DraftEs draftEs = selectByIdAll2(id);
 		draftEs.setStatus(Pending_Status.AUDIT_PENDING.getKey());
 		String datenow = DateUtils.parseStringFromDate(new Date());
 		draftEs.setUpdate_time(datenow);
 		return updateDraft2(draftEs);
 	}
 	
-	private BoolQueryBuilder getListQueryBuilder(PDraftCondition condition){
+	private BoolQueryBuilder getListQueryBuilder(DraftCondition condition){
 		BoolQueryBuilder boolBuilder = new BoolQueryBuilder();
 		if(condition!=null){
 			if(condition.getUserId()!=null){
@@ -211,23 +211,23 @@ public class PDraftMapperMapperImpl implements PDraftMapper{
 	}
 	
 	@SuppressWarnings("deprecation")
-	private int saveDraft2(PDraftEs draftEs){
+	private int saveDraft2(DraftEs draftEs){
 		TransportClient client=transportClient.getClient();
 		IndexRequestBuilder indexRequestBuilder = client.prepareIndex(index, type);
 		IndexResponse response = indexRequestBuilder.setSource(draftEs.toString()).execute().actionGet();
 	    return StringUtils.isNullOrEmpty(response.getId())?0:1;
 	}
 
-	private PDraftEs selectById2(String id){
+	private DraftEs selectById2(String id){
 		TransportClient client=transportClient.getClient();
 		GetResponse response = client.prepareGet(index, type, id).get();
-		PDraftEs draftEs = JSON.parseObject(response.getSourceAsString(), PDraftEs.class);
+		DraftEs draftEs = JSON.parseObject(response.getSourceAsString(), DraftEs.class);
 		draftEs.setId(id);
 		return draftEs;
 	}
 	
-	private PDraftEs selectByIdAll2(String id){
-		PDraftEs draftEs = selectById2(id);
+	private DraftEs selectByIdAll2(String id){
+		DraftEs draftEs = selectById2(id);
 		if(draftEs!=null){
 			draftEs.setContent(getContent(id));
 		}
@@ -235,7 +235,7 @@ public class PDraftMapperMapperImpl implements PDraftMapper{
 	}
 	
 	@SuppressWarnings("deprecation")
-	private int updateDraft2(PDraftEs draftEs)  throws Exception {
+	private int updateDraft2(DraftEs draftEs)  throws Exception {
 		 TransportClient client=transportClient.getClient();
 		 UpdateRequest updateRequest = new UpdateRequest(index,type,draftEs.getId());
 		 updateRequest.doc(draftEs.toString());

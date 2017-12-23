@@ -10,11 +10,11 @@ import org.springframework.stereotype.Component;
 
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.UserPicsDto;
-import com.dgjs.model.dto.business.PDraft;
+import com.dgjs.model.dto.business.Draft;
 import com.dgjs.model.dto.business.entity.Pics;
 import com.dgjs.model.enums.Pending_Status;
-import com.dgjs.model.persistence.condition.PDraftCondition;
-import com.dgjs.service.content.PDraftService;
+import com.dgjs.model.persistence.condition.DraftCondition;
+import com.dgjs.service.content.DraftService;
 import com.dgjs.service.content.UserPicsService;
 import com.dgjs.utils.StringUtils;
 
@@ -22,7 +22,7 @@ import com.dgjs.utils.StringUtils;
 public class PicSyncJob {
 	
 	@Autowired
-	PDraftService draftService;
+	DraftService draftService;
 	
 	@Autowired
 	UserPicsService userPicsService;
@@ -37,15 +37,15 @@ public class PicSyncJob {
 		File[] userFiles = file.listFiles();
 		for(File f:userFiles){
 			Integer adminId=Integer.parseInt(f.getName());
-			PDraftCondition condition = new PDraftCondition();
+			DraftCondition condition = new DraftCondition();
 			condition.setUserId(adminId);
 			String[] includes = {"id","pictures"};
 			condition.setIncludes(includes);
-			PageInfoDto<PDraft> pageinfo = draftService.listDrafts(condition);
-			List<PDraft> drafts = pageinfo.getObjects();
+			PageInfoDto<Draft> pageinfo = draftService.listDrafts(condition);
+			List<Draft> drafts = pageinfo.getObjects();
 			List<String> picsList = new ArrayList<String>();
 			while(drafts!=null && drafts.size()>0){
-				for(PDraft draft:drafts){
+				for(Draft draft:drafts){
 					String[] pics = draft.getPictures();
 					picsList.addAll(Arrays.asList(pics));
 				}
