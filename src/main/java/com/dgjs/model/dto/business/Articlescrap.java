@@ -234,7 +234,8 @@ public class Articlescrap {
 					st.append("公元");
 					start_time_c="公元";
 				}
-				st.append(year.replaceAll("-", "")+"年");
+				year=year.replaceAll("-", "");
+				st.append(year+"年");
 				start_time_y=year;
                 if(time_degree==TIME_DEGREE.MONTH){				
                 	st.append(month+"月");

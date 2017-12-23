@@ -1,6 +1,7 @@
 package com.dgjs.controller.admin.content;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +31,7 @@ import com.dgjs.model.result.view.BaseView;
 import com.dgjs.service.common.PictureService;
 import com.dgjs.service.content.ArticlescrapService;
 import com.dgjs.utils.DateUtils;
+import com.dgjs.utils.PictureUtils;
 
 @Controller
 @RequestMapping("/admin/atcp")
@@ -140,8 +142,11 @@ public class ArticlescrapController {
 	@LogRecord(operate=OperateEnum.Update,remark="修改文章内容")
 	public ModelAndView updateContent(String articlescrapId,String content) throws Exception{
 		ModelAndView mv = new ModelAndView("redirect:/admin/atcp/articlescrapList"); 
-		Articlescrap articlescrap = articlescrapSerivce.selectById(articlescrapId);
-		articlescrap.setContent(content);
+		Articlescrap articlescrap = articlescrapSerivce.selectByIdAll(articlescrapId);
+		List<String> list = PictureUtils.getImgStr(articlescrap.getContent());
+		articlescrap.setContent(PictureUtils.replaceHtml(list,articlescrap.getContent(),pictureService.getFastFDSContextPath()));//将图片设置为占位符
+		String[] pics = (String[])list.toArray(new String[list.size()]);
+		articlescrap.setPictures(pics);
 		articlescrapSerivce.updateArticlescrap(articlescrap);
 		return mv;
 	}

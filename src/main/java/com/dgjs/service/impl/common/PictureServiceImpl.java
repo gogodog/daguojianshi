@@ -211,6 +211,11 @@ public class PictureServiceImpl implements PictureService {
         mainMethod.setAccessible(true);  
          Object retObj=mainMethod.invoke(null, input);  
          return (byte[])retObj;  
-    } 
+    }
+
+	@Override
+	public String getFastFDSContextPath() {
+		return fastFDSContextPath;
+	} 
 
 }

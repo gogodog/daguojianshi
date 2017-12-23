@@ -18,4 +18,6 @@ public interface PictureService {
 	
 	public String getWebContextPath();
 	
+	public String getFastFDSContextPath();
+	
 }

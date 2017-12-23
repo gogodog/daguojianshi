@@ -145,6 +145,7 @@ public class ArticlescrapServiceImpl implements ArticlescrapService{
 
 	@Override
 	public Articlescrap selectById(String id) {
+		Articlescrap articlescrap = articlescrapMapper.getArticlescrap(id);
 		return articlescrapMapper.getArticlescrap(id);
 	}
 

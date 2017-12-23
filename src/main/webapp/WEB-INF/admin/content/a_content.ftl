@@ -17,7 +17,7 @@
 			</div>
 			<div class="public-content-cont">
 			<form action="${contextPath}/admin/atcp/updateContent" method="post" enctype="multipart/form-data" id="articlescrapForm">
-			    <input type="hidden" name="id" value="${(articlescrap.id)!''}">
+			    <input type="hidden" name="articlescrapId" value="${(articlescrapId)!''}">
 			    <div class="form-group">
 				    <label for="">文章内容</label>
 				    <textarea id="editor_id" name="content"  class="form-input-textara" style="width:700px;height:300px;">
@@ -50,11 +50,12 @@
 			  }
 		    },
 		    submitHandler:function(form){
+		       KindEditor.sync();
 	           var content=$("#editor_id").val();
 	           if(content ==''){
 	        	   alert("请输入文章内容")
 	           }else{
-	               form.submit();
+	        	   alert(content);
 	           }
 	        }    
 		});
