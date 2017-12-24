@@ -248,7 +248,8 @@ public class MIndexController {
 				 Map<String, SortOrder> sort = new HashMap<String, SortOrder>();
 				 sort.put("show_time", SortOrder.DESC);
 				 affairsCondition.setSort(sort);
-				 List<Articlescrap> articlescrapList = aroundList(affairsCondition,type,aids,request,response);
+//				 List<Articlescrap> articlescrapList = aroundList(affairsCondition,type,aids,false,request,response);
+				 List<Articlescrap> articlescrapList = originList(affairsCondition,aids);
 				 if(articlescrapList!=null){
 					 affairsList.addAll(getMIndexViewList(articlescrapList));
 				 }
@@ -271,8 +272,10 @@ public class MIndexController {
 			 affairsCondition.setOnePageSize(needSelectCount);
 			 Map<String, SortOrder> sort = new HashMap<String, SortOrder>();
 			 sort.put("show_time", SortOrder.DESC);
+			 sort.put("pic_num", SortOrder.ASC);
 			 affairsCondition.setSort(sort);
-			 List<Articlescrap> articlescrapList = aroundList(affairsCondition,type,aids,request,response);
+//			 List<Articlescrap> articlescrapList = aroundList(affairsCondition,type,aids,true,request,response);
+			 List<Articlescrap> articlescrapList = originList(affairsCondition,aids);
 			 if(articlescrapList!=null){
 				 affairsList.addAll(getMIndexViewList(articlescrapList));
 			 }
@@ -330,7 +333,6 @@ public class MIndexController {
 	/*
 	 * 没有cookie操作的原始方法(如果不需要cookie功能直接用此方法)
 	 */
-	@SuppressWarnings("unused")
 	private List<Articlescrap> originList(ArticlescrapCondtion affairsCondition,Set<String> aids){
 		PageInfoDto<Articlescrap> pageinfo = list(affairsCondition,aids);
 		return pageinfo == null ? null : pageinfo.getObjects();
@@ -339,10 +341,11 @@ public class MIndexController {
 	/*
 	 * 有cookie操作方法
 	 */
-	private List<Articlescrap> aroundList(ArticlescrapCondtion affairsCondition,Index_Type type,Set<String> aids,HttpServletRequest request,HttpServletResponse response){
+	@SuppressWarnings("unused")
+	private List<Articlescrap> aroundList(ArticlescrapCondtion affairsCondition,Index_Type type,Set<String> aids,boolean isNeedSetCookieValue,HttpServletRequest request,HttpServletResponse response){
 		getCookieArticles(type,aids,request);
 		PageInfoDto<Articlescrap> pageinfo = list(affairsCondition,aids);
-		return after(type,affairsCondition,pageinfo,request,response);
+		return after(aids,isNeedSetCookieValue,type,affairsCondition,pageinfo,request,response);
 	}
 	
 	//aids是需要查询排除的文章id
@@ -363,19 +366,12 @@ public class MIndexController {
 	private void addCookieArticles(Index_Type type,Set<String> aids,HttpServletRequest request,HttpServletResponse response){
 		int maxAge = 3600*24;
 		String cookieName = COOKIE_NAME+type;
-		String cookieValue = CookieUtils.getUid(request, cookieName);
 		String newAddIds = com.dgjs.utils.StringUtils.combineStr(aids, SPLIT);
-		if(StringUtils.isNullOrEmpty(cookieValue)){
-			CookieUtils.addCookie(response, cookieName, newAddIds, maxAge);
-		}else{
-			String value = com.dgjs.utils.StringUtils.jointString(cookieValue,SPLIT,newAddIds);
-			CookieUtils.addCookie(response, cookieName, value, maxAge);
-		}
+		CookieUtils.addCookie(response, cookieName, newAddIds, maxAge);
 	}
 	
-	private  List<Articlescrap> after(Index_Type type,ArticlescrapCondtion affairsCondition,PageInfoDto<Articlescrap> pageinfo,HttpServletRequest request,HttpServletResponse response){
+	private  List<Articlescrap> after(Set<String> aids,boolean isNeedSetCookieValue,Index_Type type,ArticlescrapCondtion affairsCondition,PageInfoDto<Articlescrap> pageinfo,HttpServletRequest request,HttpServletResponse response){
 		List<Articlescrap> resultList = null;
-		String cookieName = COOKIE_NAME+type;
 		//如果条件查询出库里的数据总条数小于需要的条数,那就将查到的返回
 		if(pageinfo == null||pageinfo.getTotalResults() < pageinfo.getOnePageSize()){
 			return pageinfo == null ? null : pageinfo.getObjects();
@@ -389,11 +385,12 @@ public class MIndexController {
 			needSelectNum = pageinfo.getOnePageSize() - list.size();
 		}else{
 			resultList = list;
-			Set<String> aids = new HashSet<String>();
 			for(Articlescrap articlescrap:resultList){
 				aids.add(articlescrap.getId());
 			}
-			addCookieArticles(type, aids, request, response);
+			if(isNeedSetCookieValue){
+				addCookieArticles(type, aids, request, response);
+			}
 		}
 		
 		//如果需要再次查询
@@ -413,12 +410,14 @@ public class MIndexController {
 				if(list!=null&&list.size()>0){
 					resultList.addAll(list);
 				}
-				CookieUtils.removeCookie(response, cookieName);//清除cookie
-				Set<String> aids = new HashSet<String>();
-				for(Articlescrap articlescrap:resultList){
-					aids.add(articlescrap.getId());
+				if(isNeedSetCookieValue){
+//					CookieUtils.removeCookie(response, cookieName);//清除cookie
+					for(Articlescrap articlescrap:resultList){
+						aids.add(articlescrap.getId());
+					}
+					addCookieArticles(type,aids, request, response);
 				}
-				addCookieArticles(type,aids, request, response);
+				
 			}
 		}
 		return resultList;
