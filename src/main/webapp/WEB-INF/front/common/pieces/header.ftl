@@ -4,7 +4,7 @@
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" onclick="menu()"> <span class="sr-only"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
         <h1 class="logo hvr-bounce-in">
-           <a class="titlelog" href="/timeline"><img src="/front/images/slogo.png">
+           <a class="titlelog" href="/dgjs"><img src="/front/images/slogo.png">
                <#if doctype??>${doctype.value}<#else>简史网</#if>
            </a>
         </h1>

@@ -59,7 +59,8 @@ public class TimeLineController {
 	@ResponseBody
 	@RequestMapping(value = "/getstroies.json")
 	public void getstroies(TimeLineView view,HttpServletResponse response,HttpServletRequest request){
-		TimelineView tv = null;
+		TimelineView tv = new TimelineView();
+		List<Articlescrap> aList = null;
 		int onePageSize=8;
 		String contextPath = (String) request.getAttribute("contextPath");
 		Articlescrap articlescrap = null;
@@ -69,13 +70,15 @@ public class TimeLineController {
 		if(StringUtils.isNullOrEmpty(view.getArticlescrapId())){
 			ArticlescrapCondtion contion = new ArticlescrapCondtion();
 	    	contion.setCurrentPage(1);
-	    	contion.setOnePageSize(1);
-	    	contion.setStartTimeFrom(-10000);
+	    	contion.setOnePageSize(onePageSize);
 	    	contion.setSort(sort);
 	    	contion.setStatus(Articlescrap_Status.UP);
+	    	contion.setKeyword(view.getKeyword());
+	    	contion.setType(view.getType());
 	    	PageInfoDto<Articlescrap> page=articlescrapService.listArticlescrap(contion);
 	    	if(page!=null && page.getObjects()!=null && page.getObjects().size()>0){
 	    	    articlescrap = page.getObjects().get(0);
+	    	    aList = page.getObjects();
 	    	}
 		}else{
 			String[] aid={view.getArticlescrapId()};
@@ -83,102 +86,100 @@ public class TimeLineController {
 			if(list != null && list.size() != 0){
 				articlescrap = list.get(0);
 			}
-		}
-		if(articlescrap!=null && articlescrap.getBegin_time()!=null){
-		    tv = new TimelineView();
-			ArticlescrapCondtion contion = new ArticlescrapCondtion();
-			List<Articlescrap> aList = null;
-			if(view.getIsSlip()){
-				contion.setCurrentPage(1);
-		    	contion.setOnePageSize(onePageSize);
-		    	contion.setType(view.getType());
-		    	contion.setKeyword(view.getKeyword());
-		    	contion.setStatus(Articlescrap_Status.UP);
-		    	if(isNext){
-		    		contion.setSort(sort);
-		    		if(view.getIsContain()==1){
-		    			contion.setGreaterStartTime(articlescrap.getBegin_time());
+			if(articlescrap!=null && articlescrap.getBegin_time()!=null){
+//			    tv = new TimelineView();
+				ArticlescrapCondtion contion = new ArticlescrapCondtion();
+				if(view.getIsSlip()){
+					contion.setCurrentPage(1);
+			    	contion.setOnePageSize(onePageSize);
+			    	contion.setType(view.getType());
+			    	contion.setKeyword(view.getKeyword());
+			    	contion.setStatus(Articlescrap_Status.UP);
+			    	if(isNext){
+			    		contion.setSort(sort);
+			    		if(view.getIsContain()==1){
+			    			contion.setGreaterStartTime(articlescrap.getBegin_time());
+				    	}else{
+				    		contion.setStartTimeFrom(articlescrap.getBegin_time());
+				    	}
 			    	}else{
-			    		contion.setStartTimeFrom(articlescrap.getBegin_time());
+			    		sort.put("start_time", SortOrder.DESC);
+			    		contion.setSort(sort);
+			    		if(view.getIsContain()==1){
+			    			contion.setLessThanStartTime(articlescrap.getBegin_time());
+				    	}else{
+				    		contion.setStartTimeTo(articlescrap.getBegin_time());
+				    	}
 			    	}
-		    	}else{
-		    		sort.put("start_time", SortOrder.DESC);
-		    		contion.setSort(sort);
-		    		if(view.getIsContain()==1){
-		    			contion.setLessThanStartTime(articlescrap.getBegin_time());
-			    	}else{
-			    		contion.setStartTimeTo(articlescrap.getBegin_time());
+			    	PageInfoDto<Articlescrap> page= articlescrapService.listArticlescrap(contion);
+			    	if(page!=null && page.getObjects()!=null && page.getObjects().size()>0){
+			    		 aList = page.getObjects();
 			    	}
-		    	}
-		    	PageInfoDto<Articlescrap> page= articlescrapService.listArticlescrap(contion);
-		    	if(page!=null && page.getObjects()!=null && page.getObjects().size()>0){
-		    		 aList = page.getObjects();
-		    	}
-			}else{
-				int preNum = onePageSize/2;
-				int nextNum = onePageSize - preNum;
-				List<Articlescrap> prevList =null;
-				List<Articlescrap> nextList =null;
-				sort.put("start_time", SortOrder.DESC);
-				contion.setSort(sort);
-				contion.setOnePageSize(preNum);
-				contion.setLessThanStartTime(articlescrap.getBegin_time());
-				contion.setType(view.getType());
-		    	contion.setKeyword(view.getKeyword());
-		    	contion.setStatus(Articlescrap_Status.UP);
-				PageInfoDto<Articlescrap> page= articlescrapService.listArticlescrap(contion);
-				if(page!=null && page.getObjects()!=null && page.getObjects().size()>0){
-					prevList = page.getObjects();
-				}
-				if(prevList==null || prevList.size()==0){
-					nextNum = onePageSize;
-				}else if(prevList.size() < preNum){
-					nextNum = onePageSize - prevList.size();
-				}
-				contion = new ArticlescrapCondtion();
-				contion.setOnePageSize(nextNum);
-				contion.setStartTimeFrom(articlescrap.getBegin_time());
-				contion.setType(view.getType());
-		    	contion.setKeyword(view.getKeyword());
-		    	contion.setStatus(Articlescrap_Status.UP);
-				sort.put("start_time", SortOrder.ASC);
-				contion.setSort(sort);
-				page= articlescrapService.listArticlescrap(contion);
-				if(page!=null && page.getObjects()!=null && page.getObjects().size()>0){
-					nextList = page.getObjects();
-				}
-				if(prevList!=null || nextList!=null){
-					aList = new ArrayList<Articlescrap>();
-					if(prevList!=null){
-						aList.addAll(prevList);
+				}else{
+					int preNum = onePageSize/2;
+					int nextNum = onePageSize - preNum;
+					List<Articlescrap> prevList =null;
+					List<Articlescrap> nextList =null;
+					sort.put("start_time", SortOrder.DESC);
+					contion.setSort(sort);
+					contion.setOnePageSize(preNum);
+					contion.setLessThanStartTime(articlescrap.getBegin_time());
+					contion.setType(view.getType());
+			    	contion.setKeyword(view.getKeyword());
+			    	contion.setStatus(Articlescrap_Status.UP);
+					PageInfoDto<Articlescrap> page= articlescrapService.listArticlescrap(contion);
+					if(page!=null && page.getObjects()!=null && page.getObjects().size()>0){
+						prevList = page.getObjects();
 					}
-					if(nextList!=null){
-						aList.addAll(nextList);
+					if(prevList==null || prevList.size()==0){
+						nextNum = onePageSize;
+					}else if(prevList.size() < preNum){
+						nextNum = onePageSize - prevList.size();
+					}
+					contion = new ArticlescrapCondtion();
+					contion.setOnePageSize(nextNum);
+					contion.setStartTimeFrom(articlescrap.getBegin_time());
+					contion.setType(view.getType());
+			    	contion.setKeyword(view.getKeyword());
+			    	contion.setStatus(Articlescrap_Status.UP);
+					sort.put("start_time", SortOrder.ASC);
+					contion.setSort(sort);
+					page= articlescrapService.listArticlescrap(contion);
+					if(page!=null && page.getObjects()!=null && page.getObjects().size()>0){
+						nextList = page.getObjects();
+					}
+					if(prevList!=null || nextList!=null){
+						aList = new ArrayList<Articlescrap>();
+						if(prevList!=null){
+							aList.addAll(prevList);
+						}
+						if(nextList!=null){
+							aList.addAll(nextList);
+						}
 					}
 				}
 			}
-	    	
-	    	if(aList!=null && aList.size()>0){
-	    	    List<Articlescrap> list= aList;
-	    	    //如果是升序排列
-	    	    if(sort.get("start_time").equals(SortOrder.ASC)){
-	    	    	tv.setMaxTimeAid(list.get(list.size()-1).getId());
-	    	    	tv.setMinTimeAid(list.get(0).getId());
-	    	    	if(view.getIsSlip()){
-	    	    		articlescrap = list.get(0);
-		    	    }
-	    	    }else{
-	    	    	tv.setMaxTimeAid(list.get(0).getId());
-	    	    	tv.setMinTimeAid(list.get(list.size()-1).getId());
-	    	    	if(view.getIsSlip()){
-	    	    		articlescrap = list.get(list.size()-1);
-		    	    }
-	    	    }
-	    	    //组装数据
-	    	    Timeline timeline = getTimeLine(list,contextPath,pictureService.getImageContextPath(),articlescrap,view.getType());
-	    		tv.setTimeline(timeline);
-	    	}
 		}
+		if(aList!=null && aList.size()>0){
+    	    List<Articlescrap> list= aList;
+    	    //如果是升序排列
+    	    if(sort.get("start_time").equals(SortOrder.ASC)){
+    	    	tv.setMaxTimeAid(list.get(list.size()-1).getId());
+    	    	tv.setMinTimeAid(list.get(0).getId());
+    	    	if(view.getIsSlip()){
+    	    		articlescrap = list.get(0);
+	    	    }
+    	    }else{
+    	    	tv.setMaxTimeAid(list.get(0).getId());
+    	    	tv.setMinTimeAid(list.get(list.size()-1).getId());
+    	    	if(view.getIsSlip()){
+    	    		articlescrap = list.get(list.size()-1);
+	    	    }
+    	    }
+    	    //组装数据
+    	    Timeline timeline = getTimeLine(list,contextPath,pictureService.getImageContextPath(),articlescrap,view.getType());
+    		tv.setTimeline(timeline);
+    	}
 		PrintWriter pw = null;
 		try {
 			processNullValue(tv,isNext,articlescrap==null?null:articlescrap.getId(),contextPath,view.getType());
