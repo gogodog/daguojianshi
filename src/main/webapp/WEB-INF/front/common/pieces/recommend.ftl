@@ -2,7 +2,7 @@
         <ul>
         <div>
         <#setting url_escaping_charset='utf-8'>
-        为保证资料库资料的真实性，若如上资料存在虚假部分，麻烦您<a href="/feedback/${articlescrap.id}/?title=${articlescrap.title?url}">点击此处</a>反馈问题
+        为保证资料真实性，若上述内容存有虚假信息，烦请<a href="/feedback/${articlescrap.id}/?title=${articlescrap.title?url}">反馈</a>我们
         </div>
         </ul>
       </div>

@@ -4,7 +4,9 @@
 </textarea> 
 </div>
 <button class="btn btn-danger" onclick="saveEditor(1)"><i class="fa fa-toggle-on"></i>保存编辑</button>
-<button class="btn btn-danger" onclick="preview();"><i class="fa fa-bug "></i></i>预览</button>
+<#if draft.id??>
+   <button class="btn btn-danger" onclick="preview();"><i class="fa fa-bug "></i></i>预览</button>
+</#if>
 <script src="/admin/js/support-fileupload.js"></script>
 <script src="/admin/js/ajaxfileupload.js"></script>
 <script>

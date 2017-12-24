@@ -222,7 +222,7 @@ public class ArticlescrapEs implements java.io.Serializable{
 		articlescrap.setUser_id(articlescrapEs.getUser_id());
 		articlescrap.setDraftId(articlescrapEs.getDraft_id());
 		articlescrap.setProgress(articlescrapEs.getProgress());
-		articlescrap.setPic_sync_status(articlescrapEs.getPic_sync_status()==-1?null:Pic_Sync_Status.valueOf(articlescrapEs.getPic_sync_status()));
+		articlescrap.setPic_sync_status(articlescrapEs.getPic_sync_status()==null||articlescrapEs.getPic_sync_status()==-1?null:Pic_Sync_Status.valueOf(articlescrapEs.getPic_sync_status()));
 		return articlescrap;
 	}
 	
