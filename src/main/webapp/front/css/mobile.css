@@ -3,6 +3,8 @@
 	    border: solid 1px #e6caca;
 	    float: left;
 		margin: 0 1%;
+		height: 85px;
+    	overflow: hidden;
 }
 .itemimg{
 	width: 100%;
