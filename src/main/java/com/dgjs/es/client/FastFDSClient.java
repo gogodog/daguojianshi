@@ -1,6 +1,9 @@
 package com.dgjs.es.client;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.csource.common.MyException;
 import org.csource.fastdfs.ClientGlobal;
@@ -23,6 +26,8 @@ public class FastFDSClient implements FactoryBean<StorageClient>, InitializingBe
 	
 	@Value("${webBasePath}")
 	private String webBasePath;
+	
+	private static final String PIC_SUFFIX = "jpg";
 	
 	@Override
 	public void destroy() throws Exception {
@@ -64,7 +69,7 @@ public class FastFDSClient implements FactoryBean<StorageClient>, InitializingBe
 	public String[] uploadFile(String filePath) throws IOException, MyException{
 		filePath = saveRealBasePath+filePath;
 		//直接调用StorageClient对象方法上传文件即可。
-		String[] values = client.upload_file(filePath,"jpg", null);
+		String[] values = client.upload_file(filePath,PIC_SUFFIX, null);
         return values;
 	}
 	
@@ -74,7 +79,29 @@ public class FastFDSClient implements FactoryBean<StorageClient>, InitializingBe
 	public String[] uploadFile(String group_name, String master_filename, String prefix_name,
             String local_filename) throws IOException, MyException{
 		//直接调用StorageClient对象方法上传文件即可。
-		String[] values = client.upload_file(group_name, master_filename, prefix_name, local_filename, "jpg", null);
+		String[] values = client.upload_file(group_name, master_filename, prefix_name, local_filename, PIC_SUFFIX, null);
         return values;
+	}
+	
+	@SuppressWarnings("resource")
+	public String[] uploadGroupFile(String groupName,String filePath) throws IOException, MyException{
+	    FileInputStream file = new FileInputStream(filePath);
+	    List<Byte> list = new LinkedList<>();
+	    byte[] bytes = new byte[1024];
+	    while(file.read(bytes)!=-1){
+	    	for(byte b:bytes){
+	    		list.add(b);
+	    	}
+	    }
+	    if(list!=null && list.size()>0){
+	    	int index = 0;
+	    	byte[] array = new byte[list.size()];
+	    	for(byte b:list){
+	    		array[index++]=b;
+	    	}
+	    	String[] values=client.upload_file(groupName, array, PIC_SUFFIX, null);
+	    	return values;
+	    }
+	    return null;
 	}
 }

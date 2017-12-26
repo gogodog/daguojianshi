@@ -1,6 +1,11 @@
 package com.dgjs.mapper.content;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.csource.common.MyException;
 import org.csource.common.NameValuePair;
@@ -34,9 +39,11 @@ public class FastFDSTest {
         StorageClient storageClient = new StorageClient(trackerServer, storageServer);
         
         // 上传文件
-        uploadFile(storageClient,"/Users/user/Downloads/hdImg_a574f8b4611a2ff64d203dffe1924d3515115068177.jpg");
+//        uploadFile(storageClient,"/Users/user/Downloads/hdImg_a574f8b4611a2ff64d203dffe1924d3515115068177.jpg");
         // 上传文件
-        uploadFile(storageClient,"/Users/user/Downloads/hdImg_e92e084f17d1386890e173076306fdc815115068408.jpg");
+//        uploadFile(storageClient,"/Users/user/Downloads/hdImg_e92e084f17d1386890e173076306fdc815115068408.jpg");
+        // 上传文件
+        uploadGroupFile(storageClient,"/Users/user/Downloads/hdImg_a574f8b4611a2ff64d203dffe1924d3515115068177.jpg");
         // 删除文件
 //        deleteFile(storageClient,"group1","M00/00/00/rBHGsFn73Z-Aa5JoAAAbCGPhKqk109.jpg");
         
@@ -69,6 +76,7 @@ public class FastFDSTest {
         for (String string : strings) {
             System.out.println(string);
         }
+        System.out.println("上传文件成功");
 	}
 	
 	/*
@@ -107,4 +115,25 @@ public class FastFDSTest {
 		System.out.println(number);
 	}
 	
+	private void uploadGroupFile(StorageClient storageClient,String filePath) throws IOException, MyException{
+	    FileInputStream file = new FileInputStream(filePath);
+	    List<Byte> list = new LinkedList<>();
+	    byte[] bytes = new byte[1024];
+	    while(file.read(bytes)!=-1){
+	    	for(byte b:bytes){
+	    		list.add(b);
+	    	}
+	    }
+	    if(list!=null && list.size()>0){
+	    	int index = 0;
+	    	byte[] array = new byte[list.size()];
+	    	for(byte b:list){
+	    		array[index++]=b;
+	    	}
+	    	String[] values=storageClient.upload_file("group2", array, "jpg", null);
+	    	for(String value:values){
+				System.out.println(value);
+			}
+	    }
+	}
 }

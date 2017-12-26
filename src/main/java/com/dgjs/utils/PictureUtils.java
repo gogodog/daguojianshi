@@ -25,7 +25,6 @@ public class PictureUtils {
 
 	public static final String SUFFIX = ".jpg";
 	
-	
 
 	/**
 	 * 日期+6位随机数

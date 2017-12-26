@@ -2,6 +2,7 @@ package com.dgjs.service.impl.common;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -9,6 +10,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.csource.common.MyException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -17,6 +22,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.dgjs.constants.Constants;
 import com.dgjs.constants.RETURN_STATUS;
+import com.dgjs.es.client.FastFDSClient;
 import com.dgjs.model.dto.PictureDto;
 import com.dgjs.model.dto.ThumbnailatorDto;
 import com.dgjs.service.common.PictureService;
@@ -42,12 +48,17 @@ public class PictureServiceImpl implements PictureService {
 
 	@Value("${imageContextPath}${webBasePath}")
 	private String webContextPath;
+	
+	@Autowired
+	FastFDSClient fastFDSClient;
 
 	private static String zipPath = "/p_";// 压缩图存放位置
 
 	private static String tailor = "/t_h_";// 裁剪高度为x的图片
 
 	private static String wartermark = "/wm_";// 裁剪高度为200的图片路径
+	
+	private Log log = LogFactory.getLog(PictureServiceImpl.class);
 
 	@Override
 	public String getImageContextPath() {
@@ -99,34 +110,9 @@ public class PictureServiceImpl implements PictureService {
 			}
 			String imageUrl = PictureUtils.getImageAccessPath(webBasePath, imagePath, imageName);
 			dto.setImageUrl(imageUrl);
-			if (thumbnailator != null) {
-				thumbnailator.setFromPath(saveImagePath);
-				if (thumbnailator.getPositions() != null) {
-					thumbnailator.setWatermark(watermarker);
-					String p1ImagePath = PictureUtils.getImageSavePath(saveRealBasePath, imagePath + wartermark, imageName);// 1:1压缩图存放位置
-					thumbnailator.setToPath(p1ImagePath);
-					String wmImageUrl = PictureUtils.thumbnailatorImage(thumbnailator);
-					wmImageUrl = webBasePath + wmImageUrl.replaceAll(saveRealBasePath, "");
-					dto.setWatermarkImageUrl(wmImageUrl);
-				} else if (thumbnailator.getHeight() != 0 && thumbnailator.getWidth() != 0) {
-					String tailorImagePath = PictureUtils.getImageSavePath(saveRealBasePath, imagePath + tailor + thumbnailator.getHeight(), imageName);// 裁剪图片位置
-					thumbnailator.setToPath(tailorImagePath);
-					String tailorImageUrl = PictureUtils.thumbnailatorImage(thumbnailator);
-					tailorImageUrl = webBasePath + tailorImageUrl.replaceAll(saveRealBasePath, "");
-					dto.setTailorImageUrl(tailorImageUrl);
-				} else {
-					if (thumbnailator.getScale() == 0) {
-						thumbnailator.setScale(1f);
-					}
-					String p1ImagePath = PictureUtils.getImageSavePath(saveRealBasePath, imagePath + zipPath + (int) (thumbnailator.getScale() * 100), imageName);// 1:1压缩图存放位置
-					thumbnailator.setToPath(p1ImagePath);
-					String minImageUrl = PictureUtils.thumbnailatorImage(thumbnailator);
-					minImageUrl = webBasePath + minImageUrl.replaceAll(saveRealBasePath, "");
-					dto.setMinImageUrl(minImageUrl);
-				}
-			}
+			thumbnailator(thumbnailator,dto,saveImagePath,imagePath,imageName,false);
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("uploadFile exception",e);
 			dto.setErrorInfo(RETURN_STATUS.SYSTEM_ERROR.getValue(), e.getMessage());
 		}
 		return dto;
@@ -154,39 +140,66 @@ public class PictureServiceImpl implements PictureService {
 			outputStream.close();
 			String imageUrl = PictureUtils.getImageAccessPath(webBasePath, imagePath, imageName);
 			dto.setImageUrl(imageUrl);
-			if (thumbnailator != null) {
-				thumbnailator.setFromPath(saveImagePath);
-				if (thumbnailator.getPositions() != null) {
-					thumbnailator.setWatermark(watermarker);
-					String p1ImagePath = PictureUtils.getImageSavePath(saveRealBasePath, imagePath + wartermark, imageName);// 1:1压缩图存放位置
-					thumbnailator.setToPath(p1ImagePath);
-					String wmImageUrl = PictureUtils.thumbnailatorImage(thumbnailator);
-					wmImageUrl = webBasePath + wmImageUrl.replaceAll(saveRealBasePath, "");
-					dto.setWatermarkImageUrl(wmImageUrl);
-				} else if (thumbnailator.getHeight() != 0 && thumbnailator.getWidth() != 0) {
-					String tailorImagePath = PictureUtils.getImageSavePath(saveRealBasePath, imagePath + tailor + thumbnailator.getHeight(), imageName);// 裁剪图片位置
-					thumbnailator.setToPath(tailorImagePath);
-					String tailorImageUrl = PictureUtils.thumbnailatorImage(thumbnailator);
-					tailorImageUrl = webBasePath + tailorImageUrl.replaceAll(saveRealBasePath, "");
-					dto.setTailorImageUrl(tailorImageUrl);
-				} else {
-					if (thumbnailator.getScale() == 0) {
-						thumbnailator.setScale(1f);
-					}
-					String p1ImagePath = PictureUtils.getImageSavePath(saveRealBasePath, imagePath + zipPath + (int) (thumbnailator.getScale() * 100), imageName);// 1:1压缩图存放位置
-					thumbnailator.setToPath(p1ImagePath);
-					String minImageUrl = PictureUtils.thumbnailatorImage(thumbnailator);
-					minImageUrl = webBasePath + minImageUrl.replaceAll(saveRealBasePath, "");
-					dto.setMinImageUrl(minImageUrl);
-				}
-			}
+			thumbnailator(thumbnailator,dto,saveImagePath,imagePath,imageName,true);
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("uploadFileBase64 exception",e);
 			dto.setErrorInfo(RETURN_STATUS.SYSTEM_ERROR.getValue(), e.getMessage());
 		}
 		return dto;
 	}
 
+	private void thumbnailator(ThumbnailatorDto thumbnailator,PictureDto dto,String saveImagePath,String imagePath,String imageName,boolean isWriteToFast) throws Exception{
+		if (thumbnailator != null) {
+			thumbnailator.setFromPath(saveImagePath);
+			if (thumbnailator.getPositions() != null) {
+				thumbnailator.setWatermark(watermarker);
+				String p1ImagePath = PictureUtils.getImageSavePath(saveRealBasePath, imagePath + wartermark, imageName);// 1:1压缩图存放位置
+				thumbnailator.setToPath(p1ImagePath);
+				String wmImageUrl = PictureUtils.thumbnailatorImage(thumbnailator);
+				if(isWriteToFast){
+					wmImageUrl = writeToFast(wmImageUrl);
+				}else{
+					wmImageUrl = webBasePath + wmImageUrl.replaceAll(saveRealBasePath, "");
+				}
+				dto.setWatermarkImageUrl(wmImageUrl);
+			} else if (thumbnailator.getHeight() != 0 && thumbnailator.getWidth() != 0) {
+				String tailorImagePath = PictureUtils.getImageSavePath(saveRealBasePath, imagePath + tailor + thumbnailator.getHeight(), imageName);// 裁剪图片位置
+				thumbnailator.setToPath(tailorImagePath);
+				String tailorImageUrl = PictureUtils.thumbnailatorImage(thumbnailator);
+				if(isWriteToFast){
+					tailorImageUrl = writeToFast(tailorImageUrl);
+				}else{
+					tailorImageUrl = webBasePath + tailorImageUrl.replaceAll(saveRealBasePath, "");
+				}
+				dto.setTailorImageUrl(tailorImageUrl);
+			} else {
+				if (thumbnailator.getScale() == 0) {
+					thumbnailator.setScale(1f);
+				}
+				String p1ImagePath = PictureUtils.getImageSavePath(saveRealBasePath, imagePath + zipPath + (int) (thumbnailator.getScale() * 100), imageName);// 1:1压缩图存放位置
+				thumbnailator.setToPath(p1ImagePath);
+				String minImageUrl = PictureUtils.thumbnailatorImage(thumbnailator);
+				if(isWriteToFast){
+					minImageUrl = writeToFast(minImageUrl);
+				}else{
+					minImageUrl = webBasePath + minImageUrl.replaceAll(saveRealBasePath, "");
+				}
+				dto.setMinImageUrl(minImageUrl);
+			}
+		}
+	}
+	
+	private String writeToFast(String filePath) throws IOException, MyException{
+		String path = null;
+		String[] values = fastFDSClient.uploadGroupFile("group2", filePath);
+		if(values==null||values.length!=2){
+		}else{
+			path = com.dgjs.utils.StringUtils.jointString("/",values[0],"/",values[1]);
+		}
+		return path;
+	}
+	
+	
 	private String getOriginFileName(String fileName) {
 		int pos = fileName.lastIndexOf(".");
 		return fileName.substring(0, pos);
