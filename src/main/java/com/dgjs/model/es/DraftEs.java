@@ -26,6 +26,7 @@ public class DraftEs implements java.io.Serializable{
 	private String[] pictures;//图片
     private int pic_num;//图片数量
     private Integer user_id;//用户id
+    private String show_pic;//封面展示图片
     
     //审核后参数
 	private Integer audit_user_id;//审核人id
@@ -164,7 +165,12 @@ public class DraftEs implements java.io.Serializable{
 	public void setHavePublish(boolean isHavePublish) {
 		this.isHavePublish = isHavePublish;
 	}
-    
+	public String getShow_pic() {
+		return show_pic;
+	}
+	public void setShow_pic(String show_pic) {
+		this.show_pic = show_pic;
+	}
 	public static DraftEs ConvertToEs(Draft draft){
 		if(draft == null){
 			return null;
@@ -191,6 +197,7 @@ public class DraftEs implements java.io.Serializable{
 		draftEs.setUpdate_time(DateUtils.parseStringFromDate(draft.getUpdate_time()));
 		draftEs.setUser_id(draft.getUser_id());
 		draftEs.setId(draft.getId());
+		draftEs.setShow_pic(draft.getShowPic());
 		return draftEs;
 	}
 	
@@ -220,6 +227,7 @@ public class DraftEs implements java.io.Serializable{
 		draft.setType(Articlescrap_Type.transFrom(draftEs.getType()));
 		draft.setUpdate_time(DateUtils.parseDateFromString(draftEs.getUpdate_time()));
 		draft.setUser_id(draftEs.getUser_id());
+		draft.setShowPic(draftEs.getShow_pic());
 		return draft;
 	}
 

@@ -23,6 +23,7 @@ public class Draft extends StartTime{
     private int pic_num;//图片数量
 	private Integer user_id;//用户id
 	private Pending_Status status;//审核状态
+	private String showPic;//封面展示图片
 	
 	//审核后参数
 	private Integer audit_user_id;//审核人id
@@ -173,6 +174,12 @@ public class Draft extends StartTime{
 	}
 	public void setHavePublish(boolean isHavePublish) {
 		this.isHavePublish = isHavePublish;
+	}
+	public String getShowPic() {
+		return showPic;
+	}
+	public void setShowPic(String showPic) {
+		this.showPic = showPic;
 	}
 	public static Articlescrap transToArticlescrap(Draft draft,Long visits,Date showTime){
 		if(draft == null){

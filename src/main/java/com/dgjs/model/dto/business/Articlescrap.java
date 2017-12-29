@@ -41,6 +41,7 @@ public class Articlescrap {
 	//图片信息
     private Pic_Sync_Status pic_sync_status;//图片同步状态
     private int progress;//图片同步进度
+    private String showPic;//封面展示图片
 	
 	private transient String start_time_c;//内容的起始时间
 	private transient String start_time_y;//内容的起始时间
@@ -320,6 +321,12 @@ public class Articlescrap {
 	}
 	public void setProgress(int progress) {
 		this.progress = progress;
+	}
+	public String getShowPic() {
+		return showPic;
+	}
+	public void setShowPic(String showPic) {
+		this.showPic = showPic;
 	}
 	
 }

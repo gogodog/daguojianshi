@@ -36,6 +36,7 @@ public class ArticlescrapEs implements java.io.Serializable{
     //图片信息
     private Integer pic_sync_status;//图片同步状态
     private int progress;//图片同步进度
+    private String show_pic;//封面展示图片
     
 	public String getId() {
 		return id;
@@ -167,6 +168,12 @@ public class ArticlescrapEs implements java.io.Serializable{
 	public void setProgress(int progress) {
 		this.progress = progress;
 	}
+	public String getShow_pic() {
+		return show_pic;
+	}
+	public void setShow_pic(String show_pic) {
+		this.show_pic = show_pic;
+	}
 	public static ArticlescrapEs ConvertToEs(Articlescrap articlescrap){
 		if(articlescrap == null){
 			return null;
@@ -194,6 +201,7 @@ public class ArticlescrapEs implements java.io.Serializable{
 		articlescrapEs.setDraft_id(articlescrap.getDraftId());
 		articlescrapEs.setProgress(articlescrap.getProgress());
 		articlescrapEs.setPic_sync_status(articlescrap.getPic_sync_status()==null?-1:articlescrap.getPic_sync_status().getKey());
+		articlescrapEs.setShow_pic(articlescrap.getShowPic());
 		return articlescrapEs;
 	}
 	
@@ -223,6 +231,7 @@ public class ArticlescrapEs implements java.io.Serializable{
 		articlescrap.setDraftId(articlescrapEs.getDraft_id());
 		articlescrap.setProgress(articlescrapEs.getProgress());
 		articlescrap.setPic_sync_status(articlescrapEs.getPic_sync_status()==null||articlescrapEs.getPic_sync_status()==-1?null:Pic_Sync_Status.valueOf(articlescrapEs.getPic_sync_status()));
+		articlescrap.setShowPic(articlescrapEs.getShow_pic());
 		return articlescrap;
 	}
 	

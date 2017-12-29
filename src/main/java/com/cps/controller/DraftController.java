@@ -13,10 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.dgjs.annotation.LogRecord;
 import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.model.dto.PageInfoDto;
+import com.dgjs.model.dto.UserPicsDto;
 import com.dgjs.model.dto.business.Draft;
+import com.dgjs.model.dto.business.entity.Pics;
 import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.enums.Pending_Status;
@@ -24,6 +28,7 @@ import com.dgjs.model.persistence.condition.DraftCondition;
 import com.dgjs.model.result.view.BaseView;
 import com.dgjs.service.common.PictureService;
 import com.dgjs.service.content.DraftService;
+import com.dgjs.service.content.UserPicsService;
 import com.dgjs.utils.PictureUtils;
 import com.dgjs.utils.WebContextHelper;
 import com.mysql.jdbc.StringUtils;
@@ -37,6 +42,9 @@ public class DraftController {
 	
 	@Autowired
 	PictureService pictureService;
+	
+	@Autowired
+	UserPicsService userPicsService;
 	
 	@RequestMapping("/draft")
 	public ModelAndView list(HttpServletRequest request,DraftCondition condtion){
@@ -57,6 +65,18 @@ public class DraftController {
 		if(!StringUtils.isNullOrEmpty(aid)){
 			Draft draft=draftService.selectByIdAll(aid);
 			mv.addObject("draft", draft);
+		}
+		UserPicsDto userPics=userPicsService.selectById(WebContextHelper.getUserId());
+		if(userPics!=null&&userPics.getPics()!=null&&!userPics.getPics().isEmpty()){
+			JSONArray jsa = new JSONArray();
+			for(Pics userPic:userPics.getPics()){
+				JSONObject jso1 = new JSONObject();
+				jso1.put("url", userPic.getUrl());
+				jso1.put("name", userPic.getName());
+				jsa.add(jso1);
+			}
+			mv.addObject("userPics", jsa);
+			mv.addObject("imageContextPath", pictureService.getImageContextPath());
 		}
 		return mv;
     }
