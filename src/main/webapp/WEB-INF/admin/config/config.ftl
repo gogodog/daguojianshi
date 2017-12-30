@@ -31,7 +31,7 @@
 			    </div>
 			    <div class="form-group">
 			        <label for="">value</label>
-			        <input class="form-input-txt" type="text" name="c_value" value="${(config.c_value)!''}" maxlength="127" />
+			        <input class="form-input-txt" type="text" name="c_value" value='${config.c_value}'  maxlength="127" />
 		        </div>
 				<div class="form-group" style="margin-left:150px;">
 					<input type="submit" class="sub-btn" value="提  交" />
