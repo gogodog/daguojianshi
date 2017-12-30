@@ -22,4 +22,5 @@ public interface Constants {
 	
 	public static final int CK_USERINFO_MAXAGE = 7200;
 	public static final String CK_USERINFO_KEY = "usercode";
+	
 }

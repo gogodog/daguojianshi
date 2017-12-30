@@ -24,5 +24,8 @@
        <firstlevel desc="公告管理" >
            <secondlevel desc="公告内容管理" url="/admin/announce/list"></secondlevel> 
        </firstlevel>
+       <firstlevel desc="配置管理" >
+           <secondlevel desc="参数配置管理" url="/admin/config/list"></secondlevel> 
+       </firstlevel>
    </project>
 </Configuration>

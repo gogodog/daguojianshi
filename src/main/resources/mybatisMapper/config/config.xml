@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgjs.mapper.config.ConfigMapper">
+  
+  	<insert id="save" parameterType="config" keyProperty="id" useGeneratedKeys="true">
+	       insert into config
+	       (
+               c_desc,
+               c_key,
+               c_value,
+               create_time,
+               update_time
+	       )
+	       values
+	       (
+               #{c_desc},
+               #{c_key},
+               #{c_value},
+               now(),
+               now()
+	       )
+	</insert>
+	
+	<select id="selectById" resultType="config">
+	      select id,c_desc,c_key,c_value,create_time,update_time from config where id=#{id}
+	</select>
+	
+	<update id="update">
+	      update config set
+	         c_desc = #{c_desc},
+	         c_value = #{c_value},
+		     update_time = now()
+		     where id=#{id}
+	</update>
+	
+	<select id="list" resultType="config">
+	   select id,c_desc,c_key,c_value,create_time,update_time from config 
+	   <where>
+	      <if test="key!=null and key!=''">
+	         c_key LIKE concat(concat('%',#{key}),'%')
+	      </if>
+	      <if test="desc!=null and desc!=''">
+	        and c_desc LIKE concat(concat('%',#{desc}),'%')
+	      </if>
+	      <if test="keys!=null and keys.size()>0">
+	        and c_key in 
+	         <foreach collection="keys" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+             </foreach>
+	      </if>
+	   </where>
+	   order by update_time desc
+	</select>
+	
+	<delete id="deleteById">
+	   delete from config where id = #{id}
+	</delete>
+</mapper>
