@@ -55,4 +55,8 @@
 	<delete id="deleteById">
 	   delete from config where id = #{id}
 	</delete>
+	
+	<select id="getMIndexConfigByKey" resultType="config">
+	   select id,c_desc,c_key,c_value,create_time,update_time from config where c_key = #{key}
+	</select>
 </mapper>

@@ -20,4 +20,6 @@ public interface ConfigService {
 	public Config selectById(Integer id);
 	
 	public Map<String,MIndexConfigDto> getMIndexConfigs();
+	
+	public MIndexConfigDto getMIndexConfigByKey(String key);
 }

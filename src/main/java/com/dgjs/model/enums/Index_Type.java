@@ -1,5 +1,10 @@
 package com.dgjs.model.enums;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.dgjs.constants.Constants;
+
 public enum Index_Type {
 
     HISTORY(10,"正史"),
@@ -56,5 +61,20 @@ public enum Index_Type {
 		default:
 			return null;
 		}
+    }
+    
+    public static String getConfigKey(Index_Type type){
+    	if(type==null){
+    		return null;
+    	}
+    	return Constants.M_INDEX_CONFIX_PREFIX+type;
+    }
+    
+    public static List<String> getAllConfigKeys(){
+    	List<String> list = new ArrayList<String>();
+    	for(Index_Type type:Index_Type.values()){
+    		list.add(Constants.M_INDEX_CONFIX_PREFIX+type);
+    	}
+    	return list;
     }
 }

@@ -2,7 +2,6 @@ package com.dgjs.mapper.config;
 
 import java.util.List;
 
-
 import com.dgjs.model.persistence.Config;
 import com.dgjs.model.persistence.condition.ConfigCondition;
 
@@ -17,4 +16,6 @@ public interface ConfigMapper {
 	public Config selectById(Integer id);
 	
 	public int deleteById(Integer id);
+	
+	public Config getMIndexConfigByKey(String key);
 }

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgjs.mapper.content.MIndexConfigMapper">
+  
+  	<insert id="save" parameterType="mIndexConfig" keyProperty="id" useGeneratedKeys="true">
+	       insert into m_index_config
+	       (
+	           type,
+               position,
+               sort,
+               status,
+               aid,
+               pictures,
+               title,
+               sub_content,
+               link,
+               create_time,
+               update_time
+	       )
+	       values
+	       (
+	           #{type},
+               #{position},
+               #{sort},
+               #{status},
+               #{aid},
+               #{pictures},
+               #{title},
+               #{sub_content},
+               #{link},
+               now(),
+               now()
+	       )
+	</insert>
+	
+	<select id="list" resultType="mIndexConfig">
+	     select id,type,position,aid,pictures,sort,status,title,sub_content,link,create_time,update_time from m_index_config 
+	     <where>
+	         <if test="status!=null">and status=#{status}</if>
+	         <if test="type!=null">and type=#{type}</if>
+	         <if test="positions!=null and positions.size()>0">
+	            and position in
+	            <foreach collection="positions" index="index" item="item" open="(" separator="," close=")">
+                  #{item}
+                </foreach>
+	         </if>
+	         <if test="sorts!=null and sorts.size()>0">
+	            and sort in
+	            <foreach collection="sorts" index="index" item="item" open="(" separator="," close=")">
+                  #{item}
+                </foreach>
+	         </if>
+	     </where>
+	     order by sort asc
+	</select>
+	
+	<update id="update">
+	      update m_index_config  
+	      <set>
+	         <if test="status!=null">status=#{status},</if>
+	         <if test="type!=null">type=#{type},</if>
+	         <if test="aid!=null">aid=#{aid},</if>
+	         <if test="pictures!=null">pictures=#{pictures},</if>
+	         <if test="title!=null and title!=''">title=#{title},</if>
+	         <if test="sub_content!=null and sub_content!=''">sub_content=#{sub_content},</if>
+	         <if test="link!=null and link!=''">link=#{link},</if>
+	         update_time = now()
+	      </set>
+	      where id=#{id}
+	</update>
+	
+	<delete id="deleteById">
+	      delete from m_index_config where id=#{id}
+	</delete>
+	
+	<select id="selectById" resultType="mIndexConfig">
+	       select id,type,position,aid,pictures,sort,status,title,sub_content,link,create_time,update_time from m_index_config 
+	       where id=#{id}
+	</select>
+	
+</mapper>

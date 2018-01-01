@@ -1,6 +1,5 @@
 package com.dgjs.service.impl.config;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,9 +9,9 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
-import com.dgjs.constants.ConfigKey;
 import com.dgjs.mapper.config.ConfigMapper;
 import com.dgjs.model.dto.MIndexConfigDto;
+import com.dgjs.model.enums.Index_Type;
 import com.dgjs.model.persistence.Config;
 import com.dgjs.model.persistence.condition.ConfigCondition;
 import com.dgjs.service.config.ConfigService;
@@ -52,8 +51,7 @@ public class ConfigServiceImpl implements ConfigService{
 	@Cacheable(value = "cache5m")
 	public Map<String,MIndexConfigDto> getMIndexConfigs(){
 		Map<String,MIndexConfigDto> map = null;
-		List<String> keys = Arrays.asList(ConfigKey.M_INDEX_AFFAIRS,ConfigKey.M_INDEX_GEOGRAPHY,ConfigKey.M_INDEX_HISTORY
-				,ConfigKey.M_INDEX_PERSON,ConfigKey.M_INDEX_UNOFFICIAL,ConfigKey.M_INDEX_UPTODATE);
+		List<String> keys = Index_Type.getAllConfigKeys();
 		ConfigCondition condition = new ConfigCondition();
 		condition.setKeys(keys);
 		List<Config> list = list(condition);
@@ -66,6 +64,17 @@ public class ConfigServiceImpl implements ConfigService{
 			}
 		}
 		return map;
+	}
+
+	@Override
+	public MIndexConfigDto getMIndexConfigByKey(String key) {
+		MIndexConfigDto dto = null;
+		Config config = configMapper.getMIndexConfigByKey(key);
+		if(config!=null){
+			String value = config.getC_value();
+		    dto = JSON.parseObject(value, MIndexConfigDto.class);
+		}
+		return dto;
 	}
 
 	

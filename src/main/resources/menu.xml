@@ -5,7 +5,7 @@
            <secondlevel desc="轮播图管理" url="/admin/cul/carouselList"></secondlevel>
            <secondlevel desc="推荐管理" url="/admin/rcma/recommedArticlescrapList"></secondlevel>
            <secondlevel desc="频道管理" url="/admin/channel/list"></secondlevel>
-           <secondlevel desc="首页配置管理" url="/admin/idxcfg/list"></secondlevel>
+           <secondlevel desc="首页配置管理" url="/admin/midxcfg/list"></secondlevel>
            <secondlevel desc="文章审核管理" url="/admin/pding/docms"></secondlevel>   
        </firstlevel>
        <firstlevel desc="广告管理" >

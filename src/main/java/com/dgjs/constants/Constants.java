@@ -23,4 +23,6 @@ public interface Constants {
 	public static final int CK_USERINFO_MAXAGE = 7200;
 	public static final String CK_USERINFO_KEY = "usercode";
 	
+	/*手机端首页前缀*/
+	public static final String M_INDEX_CONFIX_PREFIX = "M_INDEX_";
 }
