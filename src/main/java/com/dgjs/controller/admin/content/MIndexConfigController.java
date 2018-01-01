@@ -171,27 +171,27 @@ public class MIndexConfigController {
 		    	bv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
 		    }else if(mIndexConfig.getType()==null){
 		    	bv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
-		    }
-		    int flag = 0;
-		    if(mIndexConfig.getId()!=null){
-		    	flag = mIndexConfigService.update(mIndexConfig);
 		    }else{
-		    	if(mIndexConfig.getStatus()==UpDown_Status.UP){
-			    	 MIndexConfigCondition condition = new MIndexConfigCondition();
-					 condition.setPositions(Arrays.asList(mIndexConfig.getPosition()));
-					 condition.setSorts(Arrays.asList(mIndexConfig.getSort()));
-					 condition.setStatus(mIndexConfig.getStatus());
-					 condition.setType(mIndexConfig.getType());
-					 List<MIndexConfig> list = mIndexConfigService.list(condition);
-					 if(list!=null && list.size()>0){
-						 bv.setBaseViewValue(RETURN_STATUS.SERVICE_ERROR.getValue(),"选择的位置已占用");
-						 return bv;
-					 }
+		    	if(!StringUtils.isEmpty(mIndexConfig.getAid())){
+		    		Articlescrap articlescrap = articlescrapService.selectById(mIndexConfig.getAid());
+		    		if(articlescrap == null){
+		    			bv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
+		    			return bv;
+		    		}
+		    		mIndexConfig.setA_type(articlescrap.getTypeValue());
+		    		mIndexConfig.setVisits(articlescrap.getVisits());
+		    		mIndexConfig.setStart_time(articlescrap.getStart_time());
 			    }
-			    flag = mIndexConfigService.save(mIndexConfig);
-		    }
-		    if(flag<1){
-		    	bv.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
+	    	    mIndexConfig.setStatus(UpDown_Status.DOWN);
+	    		int flag = 0;
+	    		if(mIndexConfig.getId()!=null){
+	    			flag = mIndexConfigService.update(mIndexConfig);
+	    		}else{
+	    	    flag = mIndexConfigService.save(mIndexConfig);
+	    		}
+	    		if(flag<1){
+	    			bv.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
+	    		}
 		    }
 		}catch(Exception e){
 			bv.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR.getValue(),e.getMessage());

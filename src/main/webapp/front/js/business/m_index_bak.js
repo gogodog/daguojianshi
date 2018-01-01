@@ -14,26 +14,26 @@ function shishi(){
         async: true,
         dataType: "json",
         success:function(data) {
-            var first = data.first;
-            var second = data.second;
+            var list = data.list;
             var moreLink = data.moreLink;
             var visits = data.visits;
+            var position1 = 2;
             var content="";
-            for(var i=0;i<first.length;i++){
-            	var item = first[i];
-            	content+=shishi1.replace(rplc("aId"),item.aid)
-  		                  .replace(rplc("picUrl"),item.pictures[0])
-  		                  .replace(rplc("atitle"),item.title)
-  		                  .replace(rplc("start_time"),item.start_time==null||item.start_time.length==0?'无':item.start_time)
-  		                  .replace(rplc("visits"),visits[item.aid])
-  		                  .replace(rplc("contextPath"),contextPath);
-            }
-            for(var i=0;i<second.length;i++){
-            	var item = second[i];
-            	content+=shishi2.replace(rplc("aId"),item.aid)
-  		                  .replace(rplc("atitle"),item.title) 
-  		                  .replace(rplc("sub_content"),item.sub_content)
-  		                  .replace(rplc("contextPath"),contextPath);
+            for(var i=0;i<list.length;i++){
+            	var item = list[i];
+            	if(i < position1){
+            		content+=shishi1.replace(rplc("aId"),item.aid)
+            		      .replace(rplc("picUrl"),item.pictures[0])
+            		      .replace(rplc("atitle"),item.title)
+            		      .replace(rplc("start_time"),item.start_time==null||item.start_time.length==0?'无':item.start_time)
+            		      .replace(rplc("visits"),visits[item.aid])
+            		      .replace(rplc("contextPath"),contextPath);
+            	}else{
+            		content+=shishi2.replace(rplc("aId"),item.aid)
+            		      .replace(rplc("atitle"),item.title) 
+            		      .replace(rplc("sub_content"),item.sub_content)
+            		      .replace(rplc("contextPath"),contextPath);
+            	}
             }
             $("#shishi").html(content);
             $("#shishimore").attr("href",moreLink);
@@ -51,28 +51,26 @@ function zhengshi(){
         async: true,
         dataType: "json",
         success:function(data) {
-        	var first = data.first;
-            var second = data.second;
+            var list = data.list;
             var moreLink = data.moreLink;
+            var position1 = 1;
             var content="";
-            
-            for(var i=0;i<first.length;i++){
-            	var item = first[i];
-            	content+=zhengshi1.replace(rplc("aId"),item.aid)
-  		                   .replace(rplc("contextPath"),contextPath)
-  		                   .replace(rplc("sub_content"),item.sub_content)
-  		                   .replace(rplc("picUrl1"),item.pictures[0])
-  		                   .replace(rplc("picUrl2"),item.pictures[1])
-  		                   .replace(rplc("picUrl3"),item.pictures[2]);
+            for(var i=0;i<list.length;i++){
+            	var item = list[i];
+            	if(i < position1){
+            		content+=zhengshi1.replace(rplc("aId"),item.aid)
+            		      .replace(rplc("contextPath"),contextPath)
+            		      .replace(rplc("sub_content"),item.sub_content)
+            		      .replace(rplc("picUrl1"),item.pictures[0])
+            		      .replace(rplc("picUrl2"),item.pictures[1])
+            		      .replace(rplc("picUrl3"),item.pictures[2]);
+            	}else{
+            		content+=zhengshi2.replace(rplc("aId"),item.aid)
+            	       	 .replace(rplc("sub_content"),item.sub_content)
+            	       	 .replace(rplc("atitle"),item.title)
+            	       	.replace(rplc("contextPath"),contextPath);
+            	}
             }
-            for(var i=0;i<second.length;i++){
-            	var item = second[i];
-            	content+=zhengshi2.replace(rplc("aId"),item.aid)
-   	       	               .replace(rplc("sub_content"),item.sub_content)
-   	       	               .replace(rplc("atitle"),item.title)
-   	       	               .replace(rplc("contextPath"),contextPath);
-            }
-            
             $("#zhengshi").html(content);
             $("#zhengshimore").attr("href",moreLink);
         }, 
@@ -89,30 +87,28 @@ function dili(){
         async: true,
         dataType: "json",
         success:function(data) {
-        	var first = data.first;
-            var second = data.second;
+            var list = data.list;
             var moreLink = data.moreLink;
             var visits = data.visits;
+            var position1 = 1;
             var content="";
-            
-            for(var i=0;i<first.length;i++){
-            	var item = first[i];
-            	content+=dili1.replace(rplc("aId"),item.aid)
-  		                    .replace(rplc("contextPath"),contextPath)
-  		                    .replace(rplc("picUrl1"),item.pictures[0])
-  		                    .replace(rplc("picUrl2"),item.pictures[1])
-  		                    .replace(rplc("picUrl3"),item.pictures[2]);
+            for(var i=0;i<list.length;i++){
+            	var item = list[i];
+            	if(i < position1){
+            		content+=dili1.replace(rplc("aId"),item.aid)
+            		      .replace(rplc("contextPath"),contextPath)
+            		      .replace(rplc("picUrl1"),item.pictures[0])
+            		      .replace(rplc("picUrl2"),item.pictures[1])
+            		      .replace(rplc("picUrl3"),item.pictures[2]);
+            	}else{
+            		content+=dili2.replace(rplc("aId"),item.aid)
+            	       	 .replace(rplc("atitle"),item.title)
+            	       	 .replace(rplc("picUrl"),item.pictures[0])
+            	       	 .replace(rplc("start_time"),item.start_time==null||item.start_time.length==0?'无':item.start_time)
+            	       	 .replace(rplc("visits"),visits[item.aid])
+            	         .replace(rplc("contextPath"),contextPath);
+            	}
             }
-            for(var i=0;i<second.length;i++){
-            	var item = second[i];
-            	content+=dili2.replace(rplc("aId"),item.aid)
-   	       	                .replace(rplc("atitle"),item.title)
-   	       	                .replace(rplc("picUrl"),item.pictures[0])
-   	       	                .replace(rplc("start_time"),item.start_time==null||item.start_time.length==0?'无':item.start_time)
-   	       	                .replace(rplc("visits"),visits[item.aid])
-   	                        .replace(rplc("contextPath"),contextPath);
-            }
-            
             $("#dili").html(content);
             $("#dilimore").attr("href",moreLink);
         }, 
@@ -129,37 +125,35 @@ function renwu(){
         async: true,
         dataType: "json",
         success:function(data) {
-        	var first = data.first;
-            var second = data.second;
+            var list = data.list;
             var moreLink = data.moreLink;
             var visits = data.visits;
+            var position1 = 4;
             var content="";
             var temp="";
-            
-            for(var i=0;i<first.length;i++){
-            	var item = first[i];
-            	content+=renwu1.replace(rplc("aId"),item.aid)
-  		                  .replace(rplc("contextPath"),contextPath)
-  		                  .replace(rplc("picUrl"),item.pictures[0])
-  		                  .replace(rplc("start_time"),item.start_time==null||item.start_time.length==0?'无':item.start_time)
-  		                  .replace(rplc("visits"),visits[item.aid])
-  		                  .replace(rplc("atitle"),item.title);
-            }
-            for(var i=0;i<second.length;i++){
-            	var item = second[i];
-            	if(i%2==0){
-        			temp="";
-        			temp+=renwu2.replace(rplc("aId1"),item.aid)
-        			      .replace(rplc("atitle1"),item.title)
+            for(var i=0;i<list.length;i++){
+            	var item = list[i];
+            	if(i < position1){
+            		content+=renwu1.replace(rplc("aId"),item.aid)
+            		      .replace(rplc("contextPath"),contextPath)
+            		      .replace(rplc("picUrl"),item.pictures[0])
+            		      .replace(rplc("start_time"),item.start_time==null||item.start_time.length==0?'无':item.start_time)
+            		      .replace(rplc("visits"),visits[item.aid])
+            		      .replace(rplc("atitle"),item.title);
+            	}else{
+            		if(i%2==0){
+            			temp="";
+            			temp+=renwu2.replace(rplc("aId1"),item.aid)
+            			  .replace(rplc("atitle1"),item.title)
+    		              .replace(rplc("contextPath"),contextPath);
+            		}else{
+            			temp=temp.replace(rplc("aId2"),item.aid)
+          			      .replace(rplc("atitle2"),item.title)
 		                  .replace(rplc("contextPath"),contextPath);
-        		}else{
-        			temp=temp.replace(rplc("aId2"),item.aid)
-      			          .replace(rplc("atitle2"),item.title)
-	                      .replace(rplc("contextPath"),contextPath);
-        			content+=temp;
-        		}
+            			content+=temp;
+            		}
+            	}
             }
-            
             $("#renwu").html(content);
             $("#renwumore").attr("href",moreLink);
         }, 
@@ -176,35 +170,33 @@ function yeshi(){
         async: true,
         dataType: "json",
         success:function(data) {
-        	var first = data.first;
-            var second = data.second;
+            var list = data.list;
             var moreLink = data.moreLink;
             var carouselList=data.carouselList;
             var visits = data.visits;
+            var position1 = 3;
             var content="";
             var temp="";
-            
-            for(var i=0;i<first.length;i++){
-            	var item = first[i];
-            	content+=yeshi1.replace(rplc("aId"),item.aid)
-  		                  .replace(rplc("contextPath"),contextPath)
-  		                  .replace(rplc("atitle"),item.title);
+            for(var i=0;i<list.length;i++){
+            	var item = list[i];
+            	if(i < position1){
+            		content+=yeshi1.replace(rplc("aId"),item.aid)
+            		      .replace(rplc("contextPath"),contextPath)
+            		      .replace(rplc("atitle"),item.title);
+            	}else{
+            		if(i%2==1){
+            			temp="";
+            			temp+=yeshi2.replace(rplc("aId1"),item.aid)
+            			  .replace(rplc("atitle1"),item.title)
+    		              .replace(rplc("contextPath"),contextPath);
+            		}else{
+            			temp=temp.replace(rplc("aId2"),item.aid)
+          			      .replace(rplc("atitle2"),item.title)
+		                  .replace(rplc("contextPath"),contextPath);
+            			content+=temp;
+            		}
+            	}
             }
-            for(var i=0;i<second.length;i++){
-            	var item = second[i];
-            	if(i%2==1){
-        			temp="";
-        			temp+=yeshi2.replace(rplc("aId1"),item.aid)
-        			  .replace(rplc("atitle1"),item.title)
-		              .replace(rplc("contextPath"),contextPath);
-        		}else{
-        			temp=temp.replace(rplc("aId2"),item.aid)
-      			      .replace(rplc("atitle2"),item.title)
-	                  .replace(rplc("contextPath"),contextPath);
-        			content+=temp;
-        		}
-            }
-            
             $("#yeshi").html(content);
             $("#yeshimore").attr("href",moreLink);
             var crsl = "";
@@ -235,30 +227,28 @@ function total(){
         async: true,
         dataType: "json",
         success:function(data) {
-        	var first = data.first;
-            var second = data.second;
+            var list = data.list;
             var moreLink = data.moreLink;
             var visits = data.visits;
+            var position1 = 3;
             var content="";
-            
-            for(var i=0;i<first.length;i++){
-            	var item = first[i];
-            	content+=total1.replace(rplc("aId"),item.aid)
-  		                  .replace(rplc("picUrl"),item.pictures[0])
-  		                  .replace(rplc("atitle"),item.title)
-  		                  .replace(rplc("start_time"),item.start_time==null||item.start_time.length==0?'无':item.start_time)
-  		                  .replace(rplc("visits"),visits[item.aid])
-  		                  .replace(rplc("atype"),item.aType)
-  		                  .replace(rplc("contextPath"),contextPath);
+            for(var i=0;i<list.length;i++){
+            	var item = list[i];
+            	if(i < position1){
+            		content+=total1.replace(rplc("aId"),item.aid)
+            		      .replace(rplc("picUrl"),item.pictures[0])
+            		      .replace(rplc("atitle"),item.title)
+            		      .replace(rplc("start_time"),item.start_time==null||item.start_time.length==0?'无':item.start_time)
+            		      .replace(rplc("visits"),visits[item.aid])
+            		      .replace(rplc("atype"),item.aType)
+            		      .replace(rplc("contextPath"),contextPath);
+            	}else{
+            		content+=total2.replace(rplc("aId"),item.aid)
+            		      .replace(rplc("atitle"),item.title) 
+            		      .replace(rplc("atype"),item.aType)
+            		      .replace(rplc("contextPath"),contextPath);
+            	}
             }
-            for(var i=0;i<second.length;i++){
-            	var item = second[i];
-            	content+=total2.replace(rplc("aId"),item.aid)
-  		                  .replace(rplc("atitle"),item.title) 
-  		                  .replace(rplc("atype"),item.aType)
-  		                  .replace(rplc("contextPath"),contextPath);
-            }
-            
             $("#total").html(content);
             $("#totalmore").attr("href",moreLink);
         }, 

@@ -1,5 +1,7 @@
 package com.dgjs.es.client.init;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.util.StringUtils;
@@ -209,4 +211,11 @@ public class A {
 		return articlescrap;
 	}
 	
+	public static void main(String[] args) {
+		List<Integer> l1 = new ArrayList<Integer>();
+		l1.add(3);
+		l1.add(5);
+		l1.add(3, 2);
+		System.out.println(l1);
+	}
 }

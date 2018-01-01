@@ -24,6 +24,10 @@ public class MIndexConfig {
 	private Date create_time;//创建时间
 	private Date update_time;//修改时间
 	
+	private String start_time;//发生时间
+	private String a_type;//原文章类型
+	private Long visits;//访问基数
+	
 	public Long getId() {
 		return id;
 	}
@@ -102,4 +106,23 @@ public class MIndexConfig {
 	public String getTypeValue(){
 		return type == null?null:type.getValue();
 	}
+	public String getStart_time() {
+		return start_time;
+	}
+	public void setStart_time(String start_time) {
+		this.start_time = start_time;
+	}
+	public String getA_type() {
+		return a_type;
+	}
+	public void setA_type(String a_type) {
+		this.a_type = a_type;
+	}
+	public Long getVisits() {
+		return visits;
+	}
+	public void setVisits(Long visits) {
+		this.visits = visits;
+	}
+	
 }
