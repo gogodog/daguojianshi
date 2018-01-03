@@ -5,6 +5,11 @@
 <link rel="stylesheet" type="text/css" href="/admin/css/xcConfirm.css"/>
 <script src="/admin/js/jquery-1.11.1.min.js"></script>
 <script src="/admin/js/confirm/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+<link href="/admin/plugins/cropper/css/cropper.min.css" rel="stylesheet">
+<link href="/admin/plugins/cropper/css/bootstrap.min.css" rel="stylesheet">
+<script src="/admin/plugins/cropper/js/bootstrap.min.js"></script>
+<script src="/admin/plugins/cropper/js/cropper.min.js"></script>
+<script src="/admin/plugins/cropper/js/main.js"></script>
 </head>
 <body marginwidth="0" marginheight="0">
 	<div class="container">
@@ -81,7 +86,6 @@
 			                <label>文章id:</label><input type="text" id="aid" />&nbsp;&nbsp;
 			                <label>文章标题:</label><input type="text" id="atitle" />&nbsp;&nbsp;
 			                <input type="button" value="查询" id="conditionButton" class="select-btn"/>
-			                <input type="hidden" id="pictures">
 			             </p>
 					     <table class="public-cont-table">
 					        <tr>
@@ -135,12 +139,8 @@
 			        </div>
 				    <div class="form-group">
 				        <label for="">展示图片</label>
-					    <span id="articleBtn"><input style="margin-top:9px" type="radio" value="2" name="picm" checked>从文章图片选择</span>
-					    <span id="localBtn"><input style="margin-top:9px" type="radio" value="1" name="picm">本地上传</span>
 					    <div id="showImage">
 				        </div>
-				        <div class="file" style="display:none"><input type="file" class="form-input-file" id="uploadImage" name="uploadImage" multiple/>选择文件</div>
-				        <div class="file" style="display:none"><input type="button" class="form-input-file" id="buttonUpload" onClick="return ajaxFileUpload();">上传</div>
 			        </div>
 			        <div class="form-group" style="display:none">
 			            <label for=""></label>
@@ -152,6 +152,48 @@
 					</fieldset>
 					</form>
 				</div>
+				
+				<!-- 上传图片 begin -->
+		          <div class="container" id="crop-avatar" style="display:none">
+		          <h5>新增展示图片</h5>
+		          <div class="avatar-view" title="Change the avatar">
+		            <img id="avatar" src="/admin/images/selimg.png" alt="点击选择图片文件">
+		          </div>
+		          <div class="file"><button class="form-input-file" onClick="return uploadBase64();">上传裁剪图片</button></div>
+		          <div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
+		            <div class="modal-dialog modal-lg">
+		              <div class="modal-content">
+		                <form class="avatar-form" action="${contextPath}/admin/static/ajaxUpload?" enctype="multipart/form-data" method="post">
+		                  <div class="modal-header">
+		                    <button class="close" data-dismiss="modal" type="button">&times;</button>
+		                    <h4 class="modal-title" id="avatar-modal-label">裁剪图片</h4>
+		                  </div>
+		                  <div class="modal-body">
+		                    <div class="avatar-body">
+		                      <div class="avatar-upload">
+		                        <input class="avatar-src" name="avatar_src" type="hidden">
+		                        <input class="avatar-data" name="avatar_data" type="hidden">
+		                        <input class="avatar-input" id="avatarInput" name="avatar_file" type="file">
+		                      </div>
+		                      <div class="row">
+		                        <div class="col-md-9">
+		                          <div class="avatar-wrapper"></div>
+		                        </div>
+		                      </div>
+		                      <div class="row avatar-btns">
+		                        <div class="col-md-3">
+		                          <button class="btn btn-primary btn-block avatar-save" type="submit">确定裁剪</button>
+		                        </div>
+		                      </div>
+		                    </div>
+		                  </div>
+		                </form>
+		              </div>
+		            </div>
+		          </div>
+		          <div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
+		        </div>
+		          <!-- 上图图片 end -->
 				
 			</div>
 		</div>
@@ -216,7 +258,7 @@
 	}
 	
 	function getArticles(type,position,page,title,aid){
-		chooseArticleBtn();
+		$("#crop-avatar").hide();
 		$("#indexConfigDiv").hide();
 		$("#articlesDiv").show();
 		$("input[name='maid']").parent().show();
@@ -361,29 +403,12 @@
 		currentPage=1;
 		removeTr($("#hiddenArticleTr"));
 		$("#indexConfigDiv").show();
+		$("#crop-avatar").show();
 		$("#articlesDiv").hide();
 		$("input[name='maid']").parent().hide();
 		$("input[name='mlink']").parent().show();
 		$("input[name='mlink']").val('');
 		$("#articleBtn").hide();
-		chooseLocalBtn();
-	}
-	
-	function chooseLocalBtn(){
-		$("input[name='picm'][value='1']").attr('checked',true);
-		$("input[name='picm'][value='2']").attr('checked',false);
-		$("#uploadImage").parent().show();
-		$("#buttonUpload").parent().show();
-		$("#showImage").hide();
-	}
-	
-	function chooseArticleBtn(){
-		$("#articleBtn").show();
-		$("input[name='picm'][value='2']").attr('checked',true);
-		$("input[name='picm'][value='1']").attr('checked',false);
-		$("#uploadImage").parent().hide();
-		$("#buttonUpload").parent().hide();
-		$("#showImage").show();
 	}
 	
 	function changePosition(item){
@@ -411,11 +436,13 @@
 	}
 	
 	function cleanChooseArticle(){
+		$("#crop-avatar").hide();
 		$("#indexConfigDiv").hide();
 		$("#indexConfigForm")[0].reset();
 	}
 	
 	function articleVal(item){
+		$("#crop-avatar").show();
 		$("#indexConfigDiv").show();
 		chooseArticle(item)
 	}
@@ -440,43 +467,23 @@
 		}
 		
 		var images = "<img src=\""+imagePath+showPic+"\" style=\"width:200px;height:200px;\">&nbsp;";
-		images += "<input type=\""+chooseType+"\" name=\"choosePic\" value=\""+showPic+"\" onchange=\"choosePictures();\" checked>";
+		images += "<input type=\""+chooseType+"\" name=\"choosePic\" value=\""+showPic+"\" >";
 
 		var picArray = pictures.split(",");
 		for(var i=0;i<picArray.length;i++){
 			images+="<img src=\""+imagePath+picArray[i]+"\" style=\"width:200px;height:200px;\">&nbsp;";
-			images += "<input type=\""+chooseType+"\" name=\"choosePic\" value=\""+picArray[i]+"\" onchange=\"choosePictures();\" >";
+			images += "<input type=\""+chooseType+"\" name=\"choosePic\" value=\""+picArray[i]+"\" >";
 		}
 		$("#showImage").html(images); 
+		$("#crop-avatar").show();
 	}
 	
-	function choosePictures(){
-		var pics = "";
-		var index = 0;
-		var length = $("input[name='choosePic']:checked").length;
-		$("input[name='choosePic']:checked").each(function(){
-			pics += $(this).val()
-			if(index++!=length-1){
-				pics += ",";
-			}
-		});
-		$("#pictures").val(pics);
-	}
-	
-	$("input[name='picm']").change(function(){
-		if($(this).val()==1){
-			chooseLocalBtn();
-		}else{
-			chooseArticleBtn();
-		}
-	});
 	
 	function doSubmit(){
 		var maid = $("input[name='maid']").val();
 		var mtitle = $("input[name='mtitle']").val();
 		var mlink = $("input[name='mlink']").val();
 		var m_sub_content = $("#m_sub_content").val();
-		var pictures = $("#pictures").val();
 		var position = $("#addPosition").val();
 		var sort = $("#addSort").val();
 		if($.trim(mtitle)==''||$.trim(mtitle)==null){
@@ -487,6 +494,24 @@
 	    	alert('链接不能为空');
 			return;
 	    }
+	    
+	    var pictures='';
+	    var pics = $("input[name='choosePic']:checked");
+	    var needPics = 1;
+	    if(position=='first' && (type=='HISTORY'||type=='GEOGRAPHY')){
+	    	needPics = 3;
+	    }
+	    if(pics==null||pics.length!=needPics){
+	    	alert('请选择正确数量的图片');
+	    	return;
+	    }
+	    for(var i=0;i<pics.length;i++){
+	    	pictures+=$(pics[i]).val();
+	    	if(i!=pics.length-1){
+	    		pictures+=","
+	    	}
+	    }
+	    
 		var param = {};
 		param['type'] = type;
 		param['position'] = position;
@@ -554,6 +579,44 @@
 	            console.log("服务器繁忙...");
 	        }
 		});
+	}
+	
+	function uploadBase64(){
+		var base64 = $('#avatar')[0].src;
+		if(!base64 || base64.indexOf("base64") <= 0){
+			alert('请选择图片');
+			return;
+		}
+		var contextPath="${contextPath}";
+	    var imageContextPath="${imageContextPath}";
+	    var uploadFileName="mindex";
+		var data = {};
+		data['base64'] = base64;
+		$.ajax(contextPath+'/admin/static/ajaxUploadBase64?imagePath='+uploadFileName+"&dapt=true", {
+	    data: data,
+	    type: 'post',
+	    dataType: 'json',
+	    processData: true,
+	    contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+	    success: function (result) {
+	    	if(typeof(result.error) != 'undefined'){
+				if(result.error != ''){
+					alert(result.errorMessage);//如有错误则弹出错误
+				}else{
+					var results=result.list;
+					var imageUrls = $("#showImage").html();
+					for(var i=0;i<results.length;i++){
+						var accessPath=imagePath+results[i].minImageUrl;
+						imageUrls+="<img src=\""+accessPath+"\" style=\"width:200px;height:200px;\">&nbsp;"
+						imageUrls+= "<input type=\""+chooseType+"\" name=\"choosePic\" value=\""+results[i].minImageUrl+"\">";
+					}
+					$("#showImage").html(imageUrls); 
+				}
+			}
+	    },
+	    complete:function(){$("#avatar").attr('src',contextPath+'/admin/images/selimg.png');},
+	    error: function (result, status, e){alert(e);}
+	  });
 	}
 	</script>
 </body>

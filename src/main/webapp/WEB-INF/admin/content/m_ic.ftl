@@ -183,11 +183,12 @@
 <script>
 var contextPath='${contextPath}';
 var currentPage=1;
+var imagePath="${imageContextPath}";
 var type='${mIndexConfig.type}';
 var position='${mIndexConfig.position}';
 var sort='${mIndexConfig.sort}';
 var chooseType="${mIndexConfig.position}"=="first" && ("${mIndexConfig.type}"=="HISTORY"||"${mIndexConfig.type}"=="GEOGRAPHY")?"checkbox":"radio";
-var imagePath="${imageContextPath}"
+
 
 function doSubmit(){
 	var maid = $("input[name='aid']").val();
@@ -210,7 +211,7 @@ function doSubmit(){
     var pics = $("input[name='choosePic']:checked");
     var needPics = chooseType=='radio'?1:3;
     if(pics==null||pics.length!=needPics){
-    	alert('请选择正确数量的图片'+chooseType);
+    	alert('请选择正确数量的图片');
     	return;
     }
     for(var i=0;i<pics.length;i++){
