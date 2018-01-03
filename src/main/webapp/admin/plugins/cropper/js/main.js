@@ -133,7 +133,6 @@
     change: function () {
       var files,
           file;
-
       if (this.support.datauri) {
         files = this.$avatarInput.prop('files');
 
