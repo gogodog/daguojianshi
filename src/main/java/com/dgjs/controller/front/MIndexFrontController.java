@@ -3,11 +3,13 @@ package com.dgjs.controller.front;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -60,6 +62,8 @@ public class MIndexFrontController {
 	ConfigService configService;
 	@Autowired
 	MIndexConfigService mIndexConfigService;
+	
+	private final int randomNum = 40;
 	
 	@RequestMapping("/idxAfis")
 	@ResponseBody
@@ -401,15 +405,53 @@ public class MIndexFrontController {
 		return result;
 	}
 	
-	private PageInfoDto<Articlescrap> list(ArticlescrapCondtion condition,Set<String> aids){
-		condition.setWithoutIds(getArrayIds(aids));
-		PageInfoDto<Articlescrap> dto = articlescrapService.listArticlescrap(condition);
-		return dto;
-	}
-	
 	private List<Articlescrap> originList(ArticlescrapCondtion condition,Set<String> aids){
-		PageInfoDto<Articlescrap> pageinfo = list(condition,aids);
-		return pageinfo == null ? null : pageinfo.getObjects();
+		condition.setWithoutIds(getArrayIds(aids));
+		int onePageSize = condition.getOnePageSize();
+		String[] includes = new String[]{"id"};
+		condition.setIncludes(includes);
+		//随机查出randomNum条数据的id
+		condition.setOnePageSize(randomNum);
+		Calendar showTimeFrom = Calendar.getInstance();
+		//查询时间在3个月内的
+		showTimeFrom.add(Calendar.DAY_OF_MONTH, -3);
+		condition.setShowTimeFromD(showTimeFrom.getTime());
+		PageInfoDto<Articlescrap> dto = articlescrapService.listArticlescrap(condition);
+		List<Articlescrap> list = null;
+		if(dto!=null && (list=dto.getObjects())!=null && list.size()>0){
+			Set<String> ids = new HashSet<String>();
+			//如果需要随机查
+			if(list.size()>onePageSize){
+				Random random = new Random();
+				//如果没到查询数量，就继续循环随机查
+				while(ids.size()!=onePageSize){
+					int index = random.nextInt(list.size());
+					String aid = list.get(index).getId();
+					ids.add(aid);
+				}
+			}else{
+				for(Articlescrap articlescrap:list){
+					ids.add(articlescrap.getId());
+				}
+			}
+			String[] idArray = new String[ids.size()];
+			list = articlescrapService.getArticlescrapByIds(ids.toArray(idArray));
+		}
+		return list;
 	}
 	
+//	private List<Articlescrap> originList(ArticlescrapCondtion condition,Set<String> aids){
+//		PageInfoDto<Articlescrap> pageinfo = list(condition,aids);
+//		return pageinfo == null ? null : pageinfo.getObjects();
+//	}
+	
+	public static void main(String[] args) {
+		Set<String> ids = new HashSet<String>();
+		ids.add("1");
+		String[] x = new String[ids.size()];
+		ids.toArray(x);
+		for(String z:x){
+			System.out.println(z);
+		}
+	}
 }

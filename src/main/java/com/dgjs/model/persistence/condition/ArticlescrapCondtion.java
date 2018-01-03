@@ -90,6 +90,9 @@ public class ArticlescrapCondtion {
 			this.showTimeFrom = DateUtils.parseDateFromString(showTimeFrom, DateUtils.DAY);
 		}
 	}
+	public void setShowTimeFromD(Date showTimeFrom){
+		this.showTimeFrom = showTimeFrom;
+	}
 	public Date getShowTimeTo() {
 		return showTimeTo;
 	}
