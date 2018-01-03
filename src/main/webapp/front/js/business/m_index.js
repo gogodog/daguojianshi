@@ -51,11 +51,19 @@ function zhengshi(){
         async: true,
         dataType: "json",
         success:function(data) {
+        	var ad = data.ad;
         	var first = data.first;
             var second = data.second;
             var moreLink = data.moreLink;
             var content="";
             
+            for(var i=0;i<ad.length;i++){
+            	var item = ad[i];
+            	content+=advertisement.replace(rplc("adUrl"),item.link)
+                            .replace(rplc("picUrl1"),item.pictures[0])
+                            .replace(rplc("picUrl2"),item.pictures[1])
+                            .replace(rplc("picUrl3"),item.pictures[2]);
+            }
             for(var i=0;i<first.length;i++){
             	var item = first[i];
             	content+=zhengshi1.replace(rplc("aId"),item.aid)
@@ -91,10 +99,18 @@ function dili(){
         success:function(data) {
         	var first = data.first;
             var second = data.second;
+            var ad = data.ad;
             var moreLink = data.moreLink;
             var visits = data.visits;
             var content="";
             
+            for(var i=0;i<ad.length;i++){
+            	var item = ad[i];
+            	content+=advertisement.replace(rplc("adUrl"),item.link)
+                            .replace(rplc("picUrl1"),item.pictures[0])
+                            .replace(rplc("picUrl2"),item.pictures[1])
+                            .replace(rplc("picUrl3"),item.pictures[2]);
+            }
             for(var i=0;i<first.length;i++){
             	var item = first[i];
             	content+=dili1.replace(rplc("aId"),item.aid)
@@ -335,3 +351,8 @@ var total2="<article class=\"excerpt listtxt\" onclick=\"location.href='contextP
 	   +"<header><a class=\"cat\" href=\"javascript:void(0)\">atype<i></i></a><h2>"
 	   +"<a class=\"dilitxt\" href=\"javascript:void(0)\" >atitle</a>"
 	   +"</h2></header></article>";
+
+var advertisement="<article class=\"excerpt threeimg\" onclick=\"location.href='adUrl'\">"
+    +"<div class='diliimg'><img class=\"itemimg\" src=\"picUrl1\"></div>"
+    +"<div class='diliimg'><img class=\"itemimg\" src=\"picUrl2\"></div>"
+    +"<div class='diliimg'><img class=\"itemimg\" src=\"picUrl3\"></div></article>";

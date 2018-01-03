@@ -71,9 +71,6 @@ public class MIndexFrontController {
 		Set<String> aids = new HashSet<String>();
 		List<MIndexView> resultList = new LinkedList<MIndexView>();
 		for(M_Index_Position position:M_Index_Position.values()){
-			if(position == M_Index_Position.ad){
-				continue;
-			}
 			List<MIndexView> list = getPositionList(indexType,position,map.get(position),false,aids);
 			resultList.addAll(list);
 			json.put(position.toString(),list);
@@ -324,6 +321,7 @@ public class MIndexFrontController {
 	    mIndex.setStart_time(mIndexConfig.getStart_time());
 	    mIndex.setaType(mIndexConfig.getA_type());
 	    mIndex.setVisits(mIndexConfig.getVisits());
+	    mIndex.setLink(mIndexConfig.getLink());
 	    return mIndex;
 	}
 	

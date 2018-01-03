@@ -53,8 +53,11 @@
 					     <td>${config.sub_content}</td>
 					     <td>
 					     	<div class="table-fun">
-					     		<a href="javascript:void(0)" onclick="updateConfig(this,'${config.aid}','${config.id}','${config.status}','${config.pictures}');">修改</a>
+					     		<a href="/admin/midxcfg/selectById?id=${config.id}">修改</a>
 					     		<a href="javascript:void(0)" onclick="deleteIndexConfig('${config.id}','${config.type}');">删除</a>
+					     		<a href="javascript:void(0)" onclick="updateStatus('${config.status}','${config.id}');">
+					     		  <#if config.status=='UP'>下架<#elseif config.status=='DOWN'>上架</#if>
+					     	    </a>
 					     	</div>
 					     </td>
 				     </tr>
@@ -73,7 +76,7 @@
 				        
 				    <br><br>
 					
-					<div class="public-content-cont">
+					<div class="public-content-cont" id="articlesDiv">
 					     <p style="margin-bottom:10px">
 			                <label>文章id:</label><input type="text" id="aid" />&nbsp;&nbsp;
 			                <label>文章标题:</label><input type="text" id="atitle" />&nbsp;&nbsp;
@@ -113,7 +116,6 @@
 				
 				<div class="public-content-cont" id="indexConfigDiv" style="display:none;">
 				<form action="${contextPath}/admin/idxcfg/saveOrUpdate" method="post" enctype="multipart/form-data" id="indexConfigForm">
-				    <input type="hidden" id="configId"> 
 				    <fieldset>    
 					<div class="form-group">
 						<label for="">文章id</label>
@@ -123,7 +125,7 @@
 						<label for="">标题</label>
 						<input class="form-input-txt" type="text" name="mtitle"  maxlength="50"/>
 					</div>
-					<div class="form-group">
+					<div class="form-group" style="display:none">
 					    <label for="">链接</label>
 					    <input class="form-input-txt" type="text" name="mlink"  maxlength="255"/>
 				    </div>
@@ -133,10 +135,8 @@
 			        </div>
 				    <div class="form-group">
 				        <label for="">展示图片</label>
-				        <div id="showImage2">
-				        </div>
-					    <input style="margin-top:9px" type="radio" value="2" name="picm" checked>从文章图片选择
-					    <input style="margin-top:9px" type="radio" value="1" name="picm">本地上传
+					    <span id="articleBtn"><input style="margin-top:9px" type="radio" value="2" name="picm" checked>从文章图片选择</span>
+					    <span id="localBtn"><input style="margin-top:9px" type="radio" value="1" name="picm">本地上传</span>
 					    <div id="showImage">
 				        </div>
 				        <div class="file" style="display:none"><input type="file" class="form-input-file" id="uploadImage" name="uploadImage" multiple/>选择文件</div>
@@ -146,10 +146,6 @@
 			            <label for=""></label>
 			            <textarea style="margin: 0px; width: 690px; height: 125px;" maxlength="500" id="piclinkVal"></textarea>
 		            </div>
-					<div class="form-group">
-					    <label for="">是否上架：</label>
-					    <input style="margin-top:9px" type="checkbox" id="upDownStatus" value="DOWN"/>
-				    </div>
 					<div class="form-group" style="margin-left:150px;">
 						<input type="button" class="sub-btn" value="提  交" onclick="doSubmit();"/>
 					</div>
@@ -220,6 +216,12 @@
 	}
 	
 	function getArticles(type,position,page,title,aid){
+		chooseArticleBtn();
+		$("#indexConfigDiv").hide();
+		$("#articlesDiv").show();
+		$("input[name='maid']").parent().show();
+		$("input[name='mlink']").val('');
+		$("input[name='mlink']").parent().hide();
 		cleanChooseArticle();
 		$.ajax({
 			async:false,
@@ -355,12 +357,41 @@
 		$("#addSort").append(content);
 	}
 	
+	function chooseAd(){
+		currentPage=1;
+		removeTr($("#hiddenArticleTr"));
+		$("#indexConfigDiv").show();
+		$("#articlesDiv").hide();
+		$("input[name='maid']").parent().hide();
+		$("input[name='mlink']").parent().show();
+		$("input[name='mlink']").val('');
+		$("#articleBtn").hide();
+		chooseLocalBtn();
+	}
+	
+	function chooseLocalBtn(){
+		$("input[name='picm'][value='1']").attr('checked',true);
+		$("input[name='picm'][value='2']").attr('checked',false);
+		$("#uploadImage").parent().show();
+		$("#buttonUpload").parent().show();
+		$("#showImage").hide();
+	}
+	
+	function chooseArticleBtn(){
+		$("#articleBtn").show();
+		$("input[name='picm'][value='2']").attr('checked',true);
+		$("input[name='picm'][value='1']").attr('checked',false);
+		$("#uploadImage").parent().hide();
+		$("#buttonUpload").parent().hide();
+		$("#showImage").show();
+	}
+	
 	function changePosition(item){
 		var position = $(item).val();
+		cleanChooseArticle();
 		if(position=='ad'){
 			getAddSortHtml(adNum);
-			currentPage=1;
-			removeTr($("#hiddenArticleTr"));
+			chooseAd();
 		}else if(position=='first'){
 			getAddSortHtml(firstNum);
 			getArticles(type,'second',1);
@@ -370,7 +401,6 @@
 		}
 		var sort = $("#addSort").val();
 		getConfigList(type,position,sort);
-		cleanChooseArticle();
 	}
 	
 	function changeSort(item){
@@ -386,7 +416,6 @@
 	}
 	
 	function articleVal(item){
-		var value = $(item).val();
 		$("#indexConfigDiv").show();
 		chooseArticle(item)
 	}
@@ -402,7 +431,6 @@
 		$("input[name='maid']").val(articleId);
 		$("input[name='mtitle']").val(title);
 		$("#m_sub_content").val(sub_content);
-		$("input[name='mlink']").val("//www.cwillow.com/show/"+articleId);
 		
 		var position = $("#addPosition").val();
 		if((type=='HISTORY'||type=='GEOGRAPHY')&&position=='first'){
@@ -435,21 +463,13 @@
 		$("#pictures").val(pics);
 	}
 	
-	$("#upDownStatus").click(function(){
-		if($('#upDownStatus').is(':checked')) {
-			   $("#upDownStatus").val("UP");
-		}else{
-			$("#upDownStatus").val("DOWN");
-		}
-	});
-	
-	<!-- 
 	$("input[name='picm']").change(function(){
 		if($(this).val()==1){
-			$("#showImage").hide();
+			chooseLocalBtn();
+		}else{
+			chooseArticleBtn();
 		}
 	});
-	-->
 	
 	function doSubmit(){
 		var maid = $("input[name='maid']").val();
@@ -457,19 +477,16 @@
 		var mlink = $("input[name='mlink']").val();
 		var m_sub_content = $("#m_sub_content").val();
 		var pictures = $("#pictures").val();
-		var status = $("#upDownStatus").val();
 		var position = $("#addPosition").val();
 		var sort = $("#addSort").val();
-		var id = $("#configId").val();
-		
 		if($.trim(mtitle)==''||$.trim(mtitle)==null){
 			alert('标题不能为空');
 			return;
 		}
-		if($.trim(mlink)==''||$.trim(mlink)==null){
-			alert('链接不能为空');
+	    if(position=='ad' && mlink==''){
+	    	alert('链接不能为空');
 			return;
-		}
+	    }
 		var param = {};
 		param['type'] = type;
 		param['position'] = position;
@@ -480,7 +497,6 @@
 		param['title'] =$.trim(mtitle);
 		param['sub_content'] = $.trim(m_sub_content);
 		param['link'] = $.trim(mlink);
-		param['id'] = $.trim(id);
 		$.ajax({
 			async:false,
 			data:JSON.stringify(param),
@@ -503,43 +519,41 @@
 		});
 	}
 	
-	function updateConfig(item,aid,id,status,pictures){
-		cleanChooseArticle();
-		$("#indexTable").children("tbody").children("tr").each(function(){
-			$(this).attr("bgcolor","white");
-		})
-		
-		$("#hiddenArea").hide();
-		$("#indexConfigDiv").show();
-		$("#addMIndexConfig").click(function(){
-			addMIndexConfigClick();
+	function updateStatus(status,id){
+		var txt = "";
+		var toStatus = "";
+		if(status == 'DOWN'){
+			txt = "您确定要上架吗？";
+			toStatus = 'UP';
+		}else if(status == 'UP'){
+			txt = "您确定要下架吗？";
+			toStatus = 'DOWN';
+		}
+		window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.confirm,{onOk:function(){
+			changeStatus(toStatus,id);
+		}})
+	}
+	
+	function changeStatus(status,id){
+		$.ajax({
+			async:false,
+			data:{status:status,id:id},
+			dataType: "json",
+			url:contextPath+"/admin/midxcfg/updateStatus",
+			type:"POST",
+			success:function(data) {
+	            if(data.error){
+	            	if(data.errorCode!='SUCCESS'){
+	            		alert(data.errorMessage);
+	            	}
+	            }else{
+	            	window.location.reload();
+	            }
+	        }, 
+	        error:function(){
+	            console.log("服务器繁忙...");
+	        }
 		});
-		
-		var title = $("#c_tr_"+id).children("td:eq(2)").html();
-		var link = $("#c_tr_"+id).children("td:eq(5)").html();
-		var sub_content = $("#c_tr_"+id).children("td:eq(6)").html();
-		var position = $("#c_tr_"+id).children("td:eq(1)").html();
-		var sort = $("#c_tr_"+id).children("td:eq(3)").html();
-		
-		$("input[name='maid']").val(aid);
-		$("input[name='mtitle']").val(title);
-		$("input[name='mlink']").val(link);
-		$("#m_sub_content").val(sub_content);
-		$("#upDownStatus").val(status);
-		if(status=='UP'){
-			$("#upDownStatus").attr("checked","checked");
-		}
-		$("#pictures").val(pictures);
-		var picArray = pictures.split(",");
-		var picturesHtml = '';
-		for(var i=0;i<picArray.length;i++){
-			picturesHtml+="<img src=\""+imagePath+picArray[i]+"\" style=\"width:200px;height:200px;\">&nbsp;"
-		}
-		$("#showImage2").html(picturesHtml);
-		
-		$("#addPosition").val(position);
-		$("#addSort").val(sort);
-	    $("#configId").val(id);
 	}
 	</script>
 </body>

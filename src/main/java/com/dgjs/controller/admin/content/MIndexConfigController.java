@@ -159,19 +159,21 @@ public class MIndexConfigController {
 			MIndexConfig mIndexConfig = JSON.parseObject(param, MIndexConfig.class);
 		    if(mIndexConfig==null){
 		    	bv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
-		    }else if(StringUtils.isEmpty(mIndexConfig.getLink())){
-		    	bv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
 		    }else if(StringUtils.isEmpty(mIndexConfig.getPictures())){
 		    	bv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
 		    }else if(StringUtils.isEmpty(mIndexConfig.getPosition())){
 		    	bv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
 		    }else if(mIndexConfig.getSort()==0){
 		    	bv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
-		    }else if(mIndexConfig.getStatus()==null){
-		    	bv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
 		    }else if(mIndexConfig.getType()==null){
 		    	bv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
 		    }else{
+		    	if(mIndexConfig.getPosition()==M_Index_Position.ad){
+		    		if(StringUtils.isEmpty(mIndexConfig.getLink())){
+		    			bv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
+		    			return bv;
+		    		}
+		    	}
 		    	if(!StringUtils.isEmpty(mIndexConfig.getAid())){
 		    		Articlescrap articlescrap = articlescrapService.selectById(mIndexConfig.getAid());
 		    		if(articlescrap == null){
@@ -185,9 +187,16 @@ public class MIndexConfigController {
 	    	    mIndexConfig.setStatus(UpDown_Status.DOWN);
 	    		int flag = 0;
 	    		if(mIndexConfig.getId()!=null){
-	    			flag = mIndexConfigService.update(mIndexConfig);
+	    			MIndexConfig origin = mIndexConfigService.selectById(mIndexConfig.getId());
+	    			if(origin==null){
+	    				bv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
+	    				return bv;
+	    			}else{
+	    				mIndexConfig.setStatus(origin.getStatus());
+	    				flag = mIndexConfigService.update(mIndexConfig);
+	    			}
 	    		}else{
-	    	    flag = mIndexConfigService.save(mIndexConfig);
+	    	        flag = mIndexConfigService.save(mIndexConfig);
 	    		}
 	    		if(flag<1){
 	    			bv.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
@@ -203,6 +212,57 @@ public class MIndexConfigController {
 	public ModelAndView delete(Index_Type type,Long id){
 		ModelAndView mv = new ModelAndView("redirect:/admin/midxcfg/list?type="+type);  
 		mIndexConfigService.deleteById(id);
+		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/updateStatus")
+	public BaseView updateStatus(Long id,UpDown_Status status){
+		BaseView bv = new BaseView();
+		if(id==null||status==null){
+			bv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
+			return bv;
+		}
+		MIndexConfig mIndexConfig=mIndexConfigService.selectById(id);
+		if(mIndexConfig==null){
+			bv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
+			return bv;
+		}
+		if(status==UpDown_Status.UP){
+			MIndexConfigCondition condition = new MIndexConfigCondition();
+			condition.setType(mIndexConfig.getType());
+			condition.setPositions(Arrays.asList(mIndexConfig.getPosition()));
+			condition.setSorts(Arrays.asList(mIndexConfig.getSort()));
+			condition.setStatus(UpDown_Status.UP);
+			List<MIndexConfig> list = mIndexConfigService.list(condition);
+			if(list.size()>1){
+				bv.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
+				return bv;
+			}else if(list.size()==1){
+				MIndexConfig m = list.get(0);
+				if(m.getId().longValue()!=mIndexConfig.getId().longValue()){
+					bv.setBaseViewValue(RETURN_STATUS.SERVICE_ERROR.getValue(),"同一个位置下只能有一个是上架状态");
+					return bv;
+				}
+			}
+		}
+		mIndexConfig.setStatus(status);
+		int flag = mIndexConfigService.update(mIndexConfig);
+		if(flag<1){
+			bv.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
+		}
+		return bv;
+	}
+	
+	@RequestMapping("/selectById")
+	public ModelAndView selectById(Long id){
+		ModelAndView mv = new ModelAndView("admin/content/m_ic");  
+		MIndexConfig mIndexConfig = mIndexConfigService.selectById(id);
+		mv.addObject("mIndexConfig", mIndexConfig);
+		mv.addObject("positions", M_Index_Position.values());
+		mv.addObject("imageContextPath", pictureService.getFastFDSContextPath());
+		MIndexConfigDto dto = configService.getMIndexConfigByKey(Index_Type.getConfigKey(mIndexConfig.getType()));
+		mv.addObject("dto", dto);
 		return mv;
 	}
 }

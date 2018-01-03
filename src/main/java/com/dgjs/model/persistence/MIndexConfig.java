@@ -2,6 +2,8 @@ package com.dgjs.model.persistence;
 
 import java.util.Date;
 
+import org.springframework.util.StringUtils;
+
 import com.dgjs.model.enums.Index_Type;
 import com.dgjs.model.enums.M_Index_Position;
 import com.dgjs.model.enums.UpDown_Status;
@@ -124,5 +126,10 @@ public class MIndexConfig {
 	public void setVisits(Long visits) {
 		this.visits = visits;
 	}
-	
+	public String[] getPics(){
+		if(!StringUtils.isEmpty(pictures)){
+			return pictures.split(",");
+		}
+		return null;
+	}
 }

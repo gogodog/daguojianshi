@@ -13,6 +13,7 @@ public class MIndexView {
 	private String start_time;//开始时间
 	private String aType;//文章类型
 	private Long visits;//访问量基值
+	private String link;//跳转链接
 	
 	public Index_Type getType() {
 		return type;
@@ -67,6 +68,12 @@ public class MIndexView {
 	}
 	public void setVisits(Long visits) {
 		this.visits = visits;
+	}
+	public String getLink() {
+		return link;
+	}
+	public void setLink(String link) {
+		this.link = link;
 	}
 	
 }
