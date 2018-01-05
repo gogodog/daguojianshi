@@ -16,11 +16,8 @@
 		<div class="public-nav">您当前的位置：<a href="">管理首页</a>><a href="">内容管理</a><a href="">首页配置管理</a></div>
 		<div class="public-content">
 			<div class="public-content-header">
-			<h3 style="display: inline-block;">首页配置管理列表</h3>
+			<h3 style="display: inline-block;font-size:100%;margin-top: 0px;">首页配置管理列表</h3>
 				<div class="public-content-right fr">
-				<!-- 
-				<a href="/admin/idxcfg/indexConfig" 
-				   style="height: 24px; width: 70px;border: 1px solid #ccc;font-size: 12px;text-align:center">添加配置</a>-->
 				<a href="javascript:void(0)" id = "addMIndexConfig"
 				   style="height: 24px; width: 70px;border: 1px solid #ccc;font-size: 12px;text-align:center">添加配置</a>  
 			</div>
