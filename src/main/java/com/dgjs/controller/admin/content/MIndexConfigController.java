@@ -65,7 +65,7 @@ public class MIndexConfigController {
 		mv.addObject("types", Index_Type.values());
 		mv.addObject("upDownStatus",UpDown_Status.values());
 		mv.addObject("positions", M_Index_Position.values());
-		mv.addObject("imagePath", pictureService.getFastFDSContextPath());
+		mv.addObject("imagePath", pictureService.getImageContextPath());
 		return mv;
 	}
 	
@@ -260,7 +260,7 @@ public class MIndexConfigController {
 		MIndexConfig mIndexConfig = mIndexConfigService.selectById(id);
 		mv.addObject("mIndexConfig", mIndexConfig);
 		mv.addObject("positions", M_Index_Position.values());
-		mv.addObject("imageContextPath", pictureService.getFastFDSContextPath());
+		mv.addObject("imageContextPath", pictureService.getImageContextPath());
 		MIndexConfigDto dto = configService.getMIndexConfigByKey(Index_Type.getConfigKey(mIndexConfig.getType()));
 		mv.addObject("dto", dto);
 		return mv;

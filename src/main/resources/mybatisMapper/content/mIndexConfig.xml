@@ -14,6 +14,9 @@
                title,
                sub_content,
                link,
+               a_type,
+               start_time,
+               visits,
                create_time,
                update_time
 	       )
@@ -28,13 +31,16 @@
                #{title},
                #{sub_content},
                #{link},
+               #{a_type},
+               #{start_time},
+               #{visits},
                now(),
                now()
 	       )
 	</insert>
 	
 	<select id="list" resultType="mIndexConfig">
-	     select id,type,position,aid,pictures,sort,status,title,sub_content,link,create_time,update_time from m_index_config 
+	     select id,type,position,aid,pictures,sort,status,title,sub_content,link,a_type,start_time,visits,create_time,update_time from m_index_config 
 	     <where>
 	         <if test="status!=null">and status=#{status}</if>
 	         <if test="type!=null">and type=#{type}</if>
@@ -74,7 +80,7 @@
 	</delete>
 	
 	<select id="selectById" resultType="mIndexConfig">
-	       select id,type,position,aid,pictures,sort,status,title,sub_content,link,create_time,update_time from m_index_config 
+	       select id,type,position,aid,pictures,sort,status,title,sub_content,link,a_type,start_time,visits,create_time,update_time from m_index_config 
 	       where id=#{id}
 	</select>
 	

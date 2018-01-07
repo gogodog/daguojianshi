@@ -140,7 +140,7 @@ public class PictureServiceImpl implements PictureService {
 			outputStream.close();
 			String imageUrl = PictureUtils.getImageAccessPath(webBasePath, imagePath, imageName);
 			dto.setImageUrl(imageUrl);
-			thumbnailator(thumbnailator,dto,saveImagePath,imagePath,imageName,true);
+			thumbnailator(thumbnailator,dto,saveImagePath,imagePath,imageName,false);
 		} catch (Exception e) {
 			log.error("uploadFileBase64 exception",e);
 			dto.setErrorInfo(RETURN_STATUS.SYSTEM_ERROR.getValue(), e.getMessage());

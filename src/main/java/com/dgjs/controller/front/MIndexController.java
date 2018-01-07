@@ -39,7 +39,7 @@ import com.dgjs.service.content.IndexConfigService;
 import com.dgjs.utils.CookieUtils;
 import com.mysql.jdbc.StringUtils;
 
-@Controller
+
 public class MIndexController {
 
 	@Autowired

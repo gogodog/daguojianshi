@@ -602,6 +602,7 @@
 				}else{
 					var results=result.list;
 					var imageUrls = $("#showImage").html();
+					debugger;
 					for(var i=0;i<results.length;i++){
 						var accessPath=imagePath+results[i].minImageUrl;
 						imageUrls+="<img src=\""+accessPath+"\" style=\"width:200px;height:200px;\">&nbsp;"

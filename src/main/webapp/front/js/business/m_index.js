@@ -1,10 +1,10 @@
 window.onload=function(){
 	total();
-	shishi();
-	zhengshi();
-	dili();
-	renwu();
-	yeshi();
+//	shishi();
+//	zhengshi();
+//	dili();
+//	renwu();
+//	yeshi();
 };
 
 function shishi(){

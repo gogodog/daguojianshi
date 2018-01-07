@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -47,6 +48,7 @@ import com.dgjs.service.content.IndexConfigService;
 import com.dgjs.service.content.MIndexConfigService;
 import com.mysql.jdbc.StringUtils;
 
+@Controller
 public class MIndexFrontController {
 	@Autowired
 	ArticlescrapService articlescrapService;
@@ -122,11 +124,12 @@ public class MIndexFrontController {
 				if(mIndexConfigList.size()+articlescrapList.size()==num){
 					int aIndex = 0;
 					//匹配位置
+					outer:
 					for(int i=0;i<num;i++){
 						for(MIndexConfig mIndexConfig:mIndexConfigList){
 							if(i == mIndexConfig.getSort()-1){
 								resultList.add(getMIndexView(mIndexConfig));
-								break;
+								continue outer;
 							}
 						}
 						resultList.add(getMIndexView(articlescrapList.get(aIndex++),position));
@@ -280,7 +283,7 @@ public class MIndexFrontController {
 			if(position == M_Index_Position.ad){
 				continue;
 			}
-			List<MIndexView> list = getPositionList(indexType,position,map.get(position),false,aids);
+			List<MIndexView> list = getPositionList(indexType,position,map.get(position.toString()),false,aids);
 			resultList.addAll(list);
 			json.put(position.toString(), list);
 		}
@@ -319,8 +322,8 @@ public class MIndexFrontController {
 	    if(!StringUtils.isNullOrEmpty(mIndexConfig.getPictures())){
 	    	mIndex.setPictures(mIndexConfig.getPictures().split(","));
 	    }
-	    mIndex.setTitle(mIndex.getTitle());
-	    mIndex.setSub_content(mIndex.getSub_content());
+	    mIndex.setTitle(mIndexConfig.getTitle());
+	    mIndex.setSub_content(mIndexConfig.getSub_content());
 	    
 	    mIndex.setStart_time(mIndexConfig.getStart_time());
 	    mIndex.setaType(mIndexConfig.getA_type());
@@ -414,7 +417,7 @@ public class MIndexFrontController {
 		condition.setOnePageSize(randomNum);
 		Calendar showTimeFrom = Calendar.getInstance();
 		//查询时间在3个月内的
-		showTimeFrom.add(Calendar.DAY_OF_MONTH, -3);
+		showTimeFrom.add(Calendar.MONTH, -3);
 		condition.setShowTimeFromD(showTimeFrom.getTime());
 		PageInfoDto<Articlescrap> dto = articlescrapService.listArticlescrap(condition);
 		List<Articlescrap> list = null;
