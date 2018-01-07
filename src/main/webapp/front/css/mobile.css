@@ -11,6 +11,7 @@
 	border-radius: 0;
 	display:inline;
 	overflow: hidden;
+	height: 100%;
 }
 .inline2div a{
 	float: left;
