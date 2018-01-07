@@ -1,10 +1,10 @@
 window.onload=function(){
 	total();
-//	shishi();
-//	zhengshi();
-//	dili();
-//	renwu();
-//	yeshi();
+	shishi();
+	zhengshi();
+	dili();
+	renwu();
+	yeshi();
 };
 
 function shishi(){
@@ -19,21 +19,25 @@ function shishi(){
             var moreLink = data.moreLink;
             var visits = data.visits;
             var content="";
-            for(var i=0;i<first.length;i++){
-            	var item = first[i];
-            	content+=shishi1.replace(rplc("aId"),item.aid)
-  		                  .replace(rplc("picUrl"),item.pictures[0])
-  		                  .replace(rplc("atitle"),item.title)
-  		                  .replace(rplc("start_time"),item.start_time==null||item.start_time.length==0?'无':item.start_time)
-  		                  .replace(rplc("visits"),visits[item.aid])
-  		                  .replace(rplc("contextPath"),contextPath);
+            if(first!=null && first.length>0){
+            	for(var i=0;i<first.length;i++){
+                	var item = first[i];
+                	content+=shishi1.replace(rplc("aId"),item.aid)
+      		                  .replace(rplc("picUrl"),item.pictures[0])
+      		                  .replace(rplc("atitle"),item.title)
+      		                  .replace(rplc("start_time"),item.start_time==null||item.start_time.length==0?'无':item.start_time)
+      		                  .replace(rplc("visits"),visits[item.aid])
+      		                  .replace(rplc("contextPath"),contextPath);
+                }
             }
-            for(var i=0;i<second.length;i++){
-            	var item = second[i];
-            	content+=shishi2.replace(rplc("aId"),item.aid)
-  		                  .replace(rplc("atitle"),item.title) 
-  		                  .replace(rplc("sub_content"),item.sub_content)
-  		                  .replace(rplc("contextPath"),contextPath);
+            if(second!=null && second.length>0){
+            	for(var i=0;i<second.length;i++){
+                	var item = second[i];
+                	content+=shishi2.replace(rplc("aId"),item.aid)
+      		                  .replace(rplc("atitle"),item.title) 
+      		                  .replace(rplc("sub_content"),item.sub_content)
+      		                  .replace(rplc("contextPath"),contextPath);
+                }
             }
             $("#shishi").html(content);
             $("#shishimore").attr("href",moreLink);
@@ -57,30 +61,35 @@ function zhengshi(){
             var moreLink = data.moreLink;
             var content="";
             
-            for(var i=0;i<ad.length;i++){
-            	var item = ad[i];
-            	content+=advertisement.replace(rplc("adUrl"),item.link)
-                            .replace(rplc("picUrl1"),item.pictures[0])
-                            .replace(rplc("picUrl2"),item.pictures[1])
-                            .replace(rplc("picUrl3"),item.pictures[2]);
+            if(ad!=null && ad.length>0){
+            	 for(var i=0;i<ad.length;i++){
+                 	var item = ad[i];
+                 	content+=advertisement.replace(rplc("adUrl"),item.link)
+                                 .replace(rplc("picUrl1"),item.pictures[0])
+                                 .replace(rplc("picUrl2"),item.pictures[1])
+                                 .replace(rplc("picUrl3"),item.pictures[2]);
+                 }
             }
-            for(var i=0;i<first.length;i++){
-            	var item = first[i];
-            	content+=zhengshi1.replace(rplc("aId"),item.aid)
-  		                   .replace(rplc("contextPath"),contextPath)
-  		                   .replace(rplc("sub_content"),item.sub_content)
-  		                   .replace(rplc("picUrl1"),item.pictures[0])
-  		                   .replace(rplc("picUrl2"),item.pictures[1])
-  		                   .replace(rplc("picUrl3"),item.pictures[2]);
+            if(first!=null && first.length>0){
+            	for(var i=0;i<first.length;i++){
+                	var item = first[i];
+                	content+=zhengshi1.replace(rplc("aId"),item.aid)
+      		                   .replace(rplc("contextPath"),contextPath)
+      		                   .replace(rplc("sub_content"),item.sub_content)
+      		                   .replace(rplc("picUrl1"),item.pictures[0])
+      		                   .replace(rplc("picUrl2"),item.pictures[1])
+      		                   .replace(rplc("picUrl3"),item.pictures[2]);
+                }
             }
-            for(var i=0;i<second.length;i++){
-            	var item = second[i];
-            	content+=zhengshi2.replace(rplc("aId"),item.aid)
-   	       	               .replace(rplc("sub_content"),item.sub_content)
-   	       	               .replace(rplc("atitle"),item.title)
-   	       	               .replace(rplc("contextPath"),contextPath);
+            if(second!=null && second.length>0){
+            	for(var i=0;i<second.length;i++){
+                	var item = second[i];
+                	content+=zhengshi2.replace(rplc("aId"),item.aid)
+       	       	               .replace(rplc("sub_content"),item.sub_content)
+       	       	               .replace(rplc("atitle"),item.title)
+       	       	               .replace(rplc("contextPath"),contextPath);
+                }
             }
-            
             $("#zhengshi").html(content);
             $("#zhengshimore").attr("href",moreLink);
         }, 
@@ -103,32 +112,36 @@ function dili(){
             var moreLink = data.moreLink;
             var visits = data.visits;
             var content="";
-            
-            for(var i=0;i<ad.length;i++){
-            	var item = ad[i];
-            	content+=advertisement.replace(rplc("adUrl"),item.link)
-                            .replace(rplc("picUrl1"),item.pictures[0])
-                            .replace(rplc("picUrl2"),item.pictures[1])
-                            .replace(rplc("picUrl3"),item.pictures[2]);
+            if(ad!=null && ad.length>0){
+            	for(var i=0;i<ad.length;i++){
+                	var item = ad[i];
+                	content+=advertisement.replace(rplc("adUrl"),item.link)
+                                .replace(rplc("picUrl1"),item.pictures[0])
+                                .replace(rplc("picUrl2"),item.pictures[1])
+                                .replace(rplc("picUrl3"),item.pictures[2]);
+                }
             }
-            for(var i=0;i<first.length;i++){
-            	var item = first[i];
-            	content+=dili1.replace(rplc("aId"),item.aid)
-  		                    .replace(rplc("contextPath"),contextPath)
-  		                    .replace(rplc("picUrl1"),item.pictures[0])
-  		                    .replace(rplc("picUrl2"),item.pictures[1])
-  		                    .replace(rplc("picUrl3"),item.pictures[2]);
+            if(first!=null && first.length>0){
+            	for(var i=0;i<first.length;i++){
+                	var item = first[i];
+                	content+=dili1.replace(rplc("aId"),item.aid)
+      		                    .replace(rplc("contextPath"),contextPath)
+      		                    .replace(rplc("picUrl1"),item.pictures[0])
+      		                    .replace(rplc("picUrl2"),item.pictures[1])
+      		                    .replace(rplc("picUrl3"),item.pictures[2]);
+                }
             }
-            for(var i=0;i<second.length;i++){
-            	var item = second[i];
-            	content+=dili2.replace(rplc("aId"),item.aid)
-   	       	                .replace(rplc("atitle"),item.title)
-   	       	                .replace(rplc("picUrl"),item.pictures[0])
-   	       	                .replace(rplc("start_time"),item.start_time==null||item.start_time.length==0?'无':item.start_time)
-   	       	                .replace(rplc("visits"),visits[item.aid])
-   	                        .replace(rplc("contextPath"),contextPath);
+            if(second!=null && second.length>0){
+            	for(var i=0;i<second.length;i++){
+                	var item = second[i];
+                	content+=dili2.replace(rplc("aId"),item.aid)
+       	       	                .replace(rplc("atitle"),item.title)
+       	       	                .replace(rplc("picUrl"),item.pictures[0])
+       	       	                .replace(rplc("start_time"),item.start_time==null||item.start_time.length==0?'无':item.start_time)
+       	       	                .replace(rplc("visits"),visits[item.aid])
+       	                        .replace(rplc("contextPath"),contextPath);
+                }
             }
-            
             $("#dili").html(content);
             $("#dilimore").attr("href",moreLink);
         }, 
@@ -152,30 +165,33 @@ function renwu(){
             var content="";
             var temp="";
             
-            for(var i=0;i<first.length;i++){
-            	var item = first[i];
-            	content+=renwu1.replace(rplc("aId"),item.aid)
-  		                  .replace(rplc("contextPath"),contextPath)
-  		                  .replace(rplc("picUrl"),item.pictures[0])
-  		                  .replace(rplc("start_time"),item.start_time==null||item.start_time.length==0?'无':item.start_time)
-  		                  .replace(rplc("visits"),visits[item.aid])
-  		                  .replace(rplc("atitle"),item.title);
+            if(first!=null && first.length>0){
+            	for(var i=0;i<first.length;i++){
+                	var item = first[i];
+                	content+=renwu1.replace(rplc("aId"),item.aid)
+      		                  .replace(rplc("contextPath"),contextPath)
+      		                  .replace(rplc("picUrl"),item.pictures[0])
+      		                  .replace(rplc("start_time"),item.start_time==null||item.start_time.length==0?'无':item.start_time)
+      		                  .replace(rplc("visits"),visits[item.aid])
+      		                  .replace(rplc("atitle"),item.title);
+                }
             }
-            for(var i=0;i<second.length;i++){
-            	var item = second[i];
-            	if(i%2==0){
-        			temp="";
-        			temp+=renwu2.replace(rplc("aId1"),item.aid)
-        			      .replace(rplc("atitle1"),item.title)
-		                  .replace(rplc("contextPath"),contextPath);
-        		}else{
-        			temp=temp.replace(rplc("aId2"),item.aid)
-      			          .replace(rplc("atitle2"),item.title)
-	                      .replace(rplc("contextPath"),contextPath);
-        			content+=temp;
-        		}
+            if(second!=null && second.length>0){
+            	for(var i=0;i<second.length;i++){
+                	var item = second[i];
+                	if(i%2==0){
+            			temp="";
+            			temp+=renwu2.replace(rplc("aId1"),item.aid)
+            			      .replace(rplc("atitle1"),item.title)
+    		                  .replace(rplc("contextPath"),contextPath);
+            		}else{
+            			temp=temp.replace(rplc("aId2"),item.aid)
+          			          .replace(rplc("atitle2"),item.title)
+    	                      .replace(rplc("contextPath"),contextPath);
+            			content+=temp;
+            		}
+                }
             }
-            
             $("#renwu").html(content);
             $("#renwumore").attr("href",moreLink);
         }, 
@@ -200,41 +216,46 @@ function yeshi(){
             var content="";
             var temp="";
             
-            for(var i=0;i<first.length;i++){
-            	var item = first[i];
-            	content+=yeshi1.replace(rplc("aId"),item.aid)
-  		                  .replace(rplc("contextPath"),contextPath)
-  		                  .replace(rplc("atitle"),item.title);
+            if(first!=null && first.length>0){
+            	for(var i=0;i<first.length;i++){
+                	var item = first[i];
+                	content+=yeshi1.replace(rplc("aId"),item.aid)
+      		                  .replace(rplc("contextPath"),contextPath)
+      		                  .replace(rplc("atitle"),item.title);
+                }
             }
-            for(var i=0;i<second.length;i++){
-            	var item = second[i];
-            	if(i%2==1){
-        			temp="";
-        			temp+=yeshi2.replace(rplc("aId1"),item.aid)
-        			  .replace(rplc("atitle1"),item.title)
-		              .replace(rplc("contextPath"),contextPath);
-        		}else{
-        			temp=temp.replace(rplc("aId2"),item.aid)
-      			      .replace(rplc("atitle2"),item.title)
-	                  .replace(rplc("contextPath"),contextPath);
-        			content+=temp;
-        		}
+            if(second!=null && second.length>0){
+            	for(var i=0;i<second.length;i++){
+                	var item = second[i];
+                	if(i%2==1){
+            			temp="";
+            			temp+=yeshi2.replace(rplc("aId1"),item.aid)
+            			  .replace(rplc("atitle1"),item.title)
+    		              .replace(rplc("contextPath"),contextPath);
+            		}else{
+            			temp=temp.replace(rplc("aId2"),item.aid)
+          			      .replace(rplc("atitle2"),item.title)
+    	                  .replace(rplc("contextPath"),contextPath);
+            			content+=temp;
+            		}
+                }
             }
-            
             $("#yeshi").html(content);
             $("#yeshimore").attr("href",moreLink);
             var crsl = "";
-            for(var i=0;i<carouselList.length;i++){
-            	var carousel = carouselList[i];
-            	var activeHtml = "";
-            	if(i==0){
-            		activeHtml = " active";
-            	}
-            	crsl+=yeshicrsl.replace(rplc("linkUrl"),carousel.link_url)
-            	         .replace(rplc("contextPath"),contextPath)
-            	         .replace(rplc("image_url"),carousel.image_url)
-            	         .replace(rplc("active"),activeHtml)
-            	         .replace(rplc("image_desc"),carousel.image_desc);
+            if(carouselList!=null && carouselList.length>0){
+            	for(var i=0;i<carouselList.length;i++){
+                	var carousel = carouselList[i];
+                	var activeHtml = "";
+                	if(i==0){
+                		activeHtml = " active";
+                	}
+                	crsl+=yeshicrsl.replace(rplc("linkUrl"),carousel.link_url)
+                	         .replace(rplc("contextPath"),contextPath)
+                	         .replace(rplc("image_url"),carousel.image_url)
+                	         .replace(rplc("active"),activeHtml)
+                	         .replace(rplc("image_desc"),carousel.image_desc);
+                }
             }
             $("#yeshicrsl").html(crsl);
         }, 
@@ -256,25 +277,27 @@ function total(){
             var moreLink = data.moreLink;
             var visits = data.visits;
             var content="";
-            
-            for(var i=0;i<first.length;i++){
-            	var item = first[i];
-            	content+=total1.replace(rplc("aId"),item.aid)
-  		                  .replace(rplc("picUrl"),item.pictures[0])
-  		                  .replace(rplc("atitle"),item.title)
-  		                  .replace(rplc("start_time"),item.start_time==null||item.start_time.length==0?'无':item.start_time)
-  		                  .replace(rplc("visits"),visits[item.aid])
-  		                  .replace(rplc("atype"),item.aType)
-  		                  .replace(rplc("contextPath"),contextPath);
+            if(first!=null && first.length>0){
+            	for(var i=0;i<first.length;i++){
+                	var item = first[i];
+                	content+=total1.replace(rplc("aId"),item.aid)
+      		                  .replace(rplc("picUrl"),item.pictures[0])
+      		                  .replace(rplc("atitle"),item.title)
+      		                  .replace(rplc("start_time"),item.start_time==null||item.start_time.length==0?'无':item.start_time)
+      		                  .replace(rplc("visits"),visits[item.aid])
+      		                  .replace(rplc("atype"),item.aType)
+      		                  .replace(rplc("contextPath"),contextPath);
+                }
             }
-            for(var i=0;i<second.length;i++){
-            	var item = second[i];
-            	content+=total2.replace(rplc("aId"),item.aid)
-  		                  .replace(rplc("atitle"),item.title) 
-  		                  .replace(rplc("atype"),item.aType)
-  		                  .replace(rplc("contextPath"),contextPath);
+            if(second!=null && second.length>0){
+            	for(var i=0;i<second.length;i++){
+                	var item = second[i];
+                	content+=total2.replace(rplc("aId"),item.aid)
+      		                  .replace(rplc("atitle"),item.title) 
+      		                  .replace(rplc("atype"),item.aType)
+      		                  .replace(rplc("contextPath"),contextPath);
+                }
             }
-            
             $("#total").html(content);
             $("#totalmore").attr("href",moreLink);
         }, 

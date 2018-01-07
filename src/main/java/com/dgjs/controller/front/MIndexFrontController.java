@@ -77,7 +77,7 @@ public class MIndexFrontController {
 		Set<String> aids = new HashSet<String>();
 		List<MIndexView> resultList = new LinkedList<MIndexView>();
 		for(M_Index_Position position:M_Index_Position.values()){
-			List<MIndexView> list = getPositionList(indexType,position,map.get(position),false,aids);
+			List<MIndexView> list = getPositionList(indexType,position,map.get(position.toString()),false,aids);
 			resultList.addAll(list);
 			json.put(position.toString(),list);
 		}
@@ -173,15 +173,12 @@ public class MIndexFrontController {
 		List<MIndexView> resultList = new LinkedList<MIndexView>();
 		boolean isMustIndexConfig = false;
 		for(M_Index_Position position:M_Index_Position.values()){
-			if(position == M_Index_Position.ad){
-				continue;
-			}
-			if(position == M_Index_Position.first){
+			if(position == M_Index_Position.first||position == M_Index_Position.ad){
 				isMustIndexConfig = true;
 			}else{
 				isMustIndexConfig = false;
 			}
-			List<MIndexView> list = getPositionList(indexType,position,map.get(position),isMustIndexConfig,aids);
+			List<MIndexView> list = getPositionList(indexType,position,map.get(position.toString()),isMustIndexConfig,aids);
 			resultList.addAll(list);
 			json.put(position.toString(), list);
 		}
@@ -205,7 +202,7 @@ public class MIndexFrontController {
 			if(position == M_Index_Position.ad){
 				continue;
 			}
-			List<MIndexView> list = getPositionList(indexType,position,map.get(position),false,aids);
+			List<MIndexView> list = getPositionList(indexType,position,map.get(position.toString()),false,aids);
 			resultList.addAll(list);
 			json.put(position.toString(), list);
 		}
@@ -229,7 +226,7 @@ public class MIndexFrontController {
 			if(position == M_Index_Position.ad){
 				continue;
 			}
-			List<MIndexView> list = getPositionList(indexType,position,map.get(position),false,aids);
+			List<MIndexView> list = getPositionList(indexType,position,map.get(position.toString()),false,aids);
 			resultList.addAll(list);
 			json.put(position.toString(), list);
 		}
@@ -259,7 +256,7 @@ public class MIndexFrontController {
 			}else{
 				isMustIndexConfig = false;
 			}
-			List<MIndexView> list = getPositionList(indexType,position,map.get(position),isMustIndexConfig,aids);
+			List<MIndexView> list = getPositionList(indexType,position,map.get(position.toString()),isMustIndexConfig,aids);
 			resultList.addAll(list);
 			json.put(position.toString(), list);
 		}
