@@ -43,9 +43,9 @@ import com.dgjs.service.content.ArticlescrapService;
 @ContextConfiguration(locations = "classpath:spring-*.xml") 
 public class EsInit {
 
-    final static String index = "dgjs_v4";
+    final static String index = "dgjs_v2";
 	
-	final static String type = "articlescrap_v4";
+	final static String type = "articlescrap_v2";
 	
 	 @Autowired
 	 ArticlescrapMapper articlescrapMapper;
@@ -227,5 +227,22 @@ public class EsInit {
 		Articlescrap articlescrap=articlescrapMapper.getArticlescrap("AV2L5pR9iB8TaXhbkscg");
 		articlescrap.setPic_num(1);
 		articlescrapMapper.updateArticlescrap(articlescrap);
+	}
+	
+	@Test
+	public void testSaveShowPic() throws Exception{
+		ArticlescrapCondtion condition = new ArticlescrapCondtion();
+		condition.setOnePageSize(200);
+		String[] includes = new String[] {"id"};
+		condition.setIncludes(includes);
+		PageInfoDto<Articlescrap> pageinfo = articlescrapMapper.listArticlescrap(condition);
+		for(Articlescrap articlescrap:pageinfo.getObjects()){
+			Articlescrap article=articlescrapMapper.getArticlescrapAll(articlescrap.getId());
+			String[] pictures = article.getPictures();
+			String defaultImage = "/group1/M00/00/00/rBHGsFpB5jmAKYLGAABJHOTsR0Y729.jpg";
+			article.setShowPic(pictures==null||pictures.length==0?defaultImage:pictures[0]);
+			articlescrapMapper.updateArticlescrap(article);
+		}
+		System.out.println("update success");
 	}
 }

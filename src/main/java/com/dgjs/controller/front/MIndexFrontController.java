@@ -44,7 +44,6 @@ import com.dgjs.service.common.DataService;
 import com.dgjs.service.config.ConfigService;
 import com.dgjs.service.content.ArticlescrapService;
 import com.dgjs.service.content.CarouselService;
-import com.dgjs.service.content.IndexConfigService;
 import com.dgjs.service.content.MIndexConfigService;
 import com.mysql.jdbc.StringUtils;
 
@@ -52,8 +51,6 @@ import com.mysql.jdbc.StringUtils;
 public class MIndexFrontController {
 	@Autowired
 	ArticlescrapService articlescrapService;
-	@Autowired
-    IndexConfigService indexConfigService;
 	@Autowired
 	CarouselService carouselService;
 	@Autowired

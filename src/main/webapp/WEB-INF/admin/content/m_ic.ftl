@@ -246,7 +246,7 @@ function doSubmit(){
             	}
             }else{
             	alert('修改成功');
-            	window.location.href="/admin/midxcfg/list";
+            	window.location.href="/admin/midxcfg/list?type="+type;
             }
         }, 
         error:function(){
