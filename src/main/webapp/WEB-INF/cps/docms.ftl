@@ -85,11 +85,11 @@
     </div>
     
     <#include "/cps/common/f-static.ftl">
-    <script src="/admin/js/confirm/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
-    <script language="javascript" src="/admin/js/My97DatePicker/wdatePicker.js"></script>
-    <script src="/cps/js/business/condition.js" type="text/javascript" charset="utf-8"></script>
-    <link rel="stylesheet" type="text/css" href="/cps/css/alertify.css">
-    <script src="/cps/js/alertify.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/admin/js/confirm/xcConfirm.js?v=${staticVersion}" type="text/javascript" charset="utf-8"></script>
+    <script language="javascript" src="/admin/js/My97DatePicker/wdatePicker.js?v=${staticVersion}"></script>
+    <script src="/cps/js/business/condition.js?v=${staticVersion}" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="/cps/css/alertify.css?v=${staticVersion}">
+    <script src="/cps/js/alertify.js?v=${staticVersion}" type="text/javascript" charset="utf-8"></script>
     <script>
     	function changeSelect(that,hidName,showName){
     		hidName.val($(that).attr('tosl'));

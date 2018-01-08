@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 <#include "/admin/common/head_title.ftl">
-<script src="/admin/js/jquery-1.11.1.min.js"></script>
-<script src="/admin/js/validation/jquery.validate.js"></script>
-<link href="/admin/plugins/cropper/css/cropper.min.css" rel="stylesheet">
-<link href="/admin/plugins/cropper/css/bootstrap.min.css" rel="stylesheet">
-<script src="/admin/plugins/cropper/js/bootstrap.min.js"></script>
-<script src="/admin/plugins/cropper/js/cropper.min.js"></script>
-<script src="/admin/plugins/cropper/js/main.js"></script>
+<script src="/admin/js/jquery-1.11.1.min.js?v=${staticVersion}"></script>
+<script src="/admin/js/validation/jquery.validate.js?v=${staticVersion}"></script>
+<link href="/admin/plugins/cropper/css/cropper.min.css?v=${staticVersion}" rel="stylesheet">
+<link href="/admin/plugins/cropper/css/bootstrap.min.css?v=${staticVersion}" rel="stylesheet">
+<script src="/admin/plugins/cropper/js/bootstrap.min.js?v=${staticVersion}"></script>
+<script src="/admin/plugins/cropper/js/cropper.min.js?v=${staticVersion}"></script>
+<script src="/admin/plugins/cropper/js/main.js?v=${staticVersion}"></script>
 </head>
 <body marginwidth="0" marginheight="0">
 	<div class="container">

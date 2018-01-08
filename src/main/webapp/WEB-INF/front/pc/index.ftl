@@ -44,7 +44,7 @@
 </section>
     <#include "/front/common/pieces/footer_title.ftl">
     <#include "/front/common/pieces/footer_static.ftl">
-    <script src="/front/js/business/page.js"></script>
-    <script src="/front/js/business/keyword.js"></script>
+    <script src="/front/js/business/page.js?v=${staticVersion}"></script>
+    <script src="/front/js/business/keyword.js?v=${staticVersion}"></script>
 </body>
 </html>

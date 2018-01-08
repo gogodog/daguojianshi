@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
 <#include "/admin/common/head_title.ftl">
-<link rel="stylesheet" type="text/css" href="/admin/css/xcConfirm.css"/>
-<script src="/admin/js/jquery-1.11.1.min.js"></script>
-<script src="/admin/js/confirm/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
-<link href="/admin/plugins/cropper/css/cropper.min.css" rel="stylesheet">
-<link href="/admin/plugins/cropper/css/bootstrap.min.css" rel="stylesheet">
-<script src="/admin/plugins/cropper/js/bootstrap.min.js"></script>
-<script src="/admin/plugins/cropper/js/cropper.min.js"></script>
-<script src="/admin/plugins/cropper/js/main.js"></script>
+<link rel="stylesheet" type="text/css" href="/admin/css/xcConfirm.css?v=${staticVersion}"/>
+<script src="/admin/js/jquery-1.11.1.min.js?v=${staticVersion}"></script>
+<script src="/admin/js/confirm/xcConfirm.js?v=${staticVersion}" type="text/javascript" charset="utf-8"></script>
+<link href="/admin/plugins/cropper/css/cropper.min.css?v=${staticVersion}" rel="stylesheet">
+<link href="/admin/plugins/cropper/css/bootstrap.min.css?v=${staticVersion}" rel="stylesheet">
+<script src="/admin/plugins/cropper/js/bootstrap.min.js?v=${staticVersion}"></script>
+<script src="/admin/plugins/cropper/js/cropper.min.js?v=${staticVersion}"></script>
+<script src="/admin/plugins/cropper/js/main.js?v=${staticVersion}"></script>
 </head>
 <body marginwidth="0" marginheight="0">
 	<div class="container">

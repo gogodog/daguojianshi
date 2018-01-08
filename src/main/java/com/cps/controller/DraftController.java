@@ -97,11 +97,11 @@ public class DraftController {
 			return mv;
 		}
 		if(draft.getTitle().length()<2||draft.getTitle().length()>50){
-			mv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR.name(),"标题长度需在10-50之间");
+			mv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR.name(),"标题长度需在20-50之间");
 			return mv;
 		}
-		if(draft.getAuthor().length()<2||draft.getAuthor().length()>20){
-			mv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR.name(),"作者长度需在2-20之间");
+		if(draft.getAuthor().length()<2||draft.getAuthor().length()>10){
+			mv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR.name(),"作者长度需在2-10之间");
 			return mv;
 		}
 		for(String keyword:draft.getKeywords()){

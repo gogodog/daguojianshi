@@ -10,11 +10,11 @@
 	<link rel="apple-touch-icon-precomposed" href="/front/images/favico.ico">
 	<link rel="shortcut icon" href="/front/images/favico.ico">
 	<link rel='stylesheet' href='//fonts.googleapis.com/css?family=PT+Sans:400,700'>
-	<link rel="stylesheet" href="/cps/login/assets/css/reset.css">
-	<link rel="stylesheet" href="/cps/login/assets/css/supersized.css">
-	<link rel="stylesheet" href="/cps/login/assets/css/style.css">
+	<link rel="stylesheet" href="/cps/login/assets/css/reset.css?v=${staticVersion}">
+	<link rel="stylesheet" href="/cps/login/assets/css/supersized.css?v=${staticVersion}">
+	<link rel="stylesheet" href="/cps/login/assets/css/style.css?v=${staticVersion}">
 	<!--[if lt IE 9]>
-	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<script src="//html5shim.googlecode.com/svn/trunk/html5.js?v=${staticVersion}"></script>
 	<![endif]-->
 </head>
 <body>
@@ -27,10 +27,10 @@
     <div class="form" id="login_container"></div>
 </div>
 <!-- Javascript -->
-<script src="/cps/login/assets/js/jquery-1.8.2.min.js"></script>
-<script src="/cps/login/assets/js/supersized.3.2.7.min.js"></script>
-<script src="/cps/login/assets/js/supersized-init.js"></script>
-<script src="//res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
+<script src="/cps/login/assets/js/jquery-1.8.2.min.js?v=${staticVersion}"></script>
+<script src="/cps/login/assets/js/supersized.3.2.7.min.js?v=${staticVersion}"></script>
+<script src="/cps/login/assets/js/supersized-init.js?v=${staticVersion}"></script>
+<script src="//res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js?v=${staticVersion}"></script>
 <script>
 var obj = new WxLogin({
 	  id:"login_container", 

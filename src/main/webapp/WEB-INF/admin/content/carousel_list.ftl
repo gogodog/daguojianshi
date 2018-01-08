@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <#include "/admin/common/head_title.ftl">
-<link rel="stylesheet" type="text/css" href="/admin/css/xcConfirm.css"/>
-<script src="/admin/js/jquery-1.11.1.min.js"></script>
-<script src="/admin/js/confirm/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css" href="/admin/css/xcConfirm.css?v=${staticVersion}"/>
+<script src="/admin/js/jquery-1.11.1.min.js?v=${staticVersion}"></script>
+<script src="/admin/js/confirm/xcConfirm.js?v=${staticVersion}" type="text/javascript" charset="utf-8"></script>
 </head>
 <body marginwidth="0" marginheight="0">
 	<div class="container">

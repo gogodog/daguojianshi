@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="stylesheet" type="text/css" href="/admin/css/xcConfirm.css"/>
+<link rel="stylesheet" type="text/css" href="/admin/css/xcConfirm.css?v=${staticVersion}"/>
 <#include "/admin/common/head_title.ftl">
-<script src="/admin/js/jquery-1.11.1.min.js"></script>
+<script src="/admin/js/jquery-1.11.1.min.js?v=${staticVersion}"></script>
 </head>
 <body marginwidth="0" marginheight="0">
 <div class="container">
@@ -51,7 +51,7 @@
 </div>
 </div>
 </body>
-<script src="/admin/js/confirm/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+<script src="/admin/js/confirm/xcConfirm.js?v=${staticVersion}" type="text/javascript" charset="utf-8"></script>
 <script>
 var contextPath="${contextPath}";
 function update(id,articlescrap_id){

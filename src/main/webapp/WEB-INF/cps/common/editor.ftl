@@ -7,8 +7,8 @@
 <#if draft.id??>
    <button class="btn btn-danger" onclick="preview();"><i class="fa fa-bug "></i></i>预览</button>
 </#if>
-<script src="/admin/js/support-fileupload.js"></script>
-<script src="/admin/js/ajaxfileupload.js"></script>
+<script src="/admin/js/support-fileupload.js?v=${staticVersion}"></script>
+<script src="/admin/js/ajaxfileupload.js?v=${staticVersion}"></script>
 <script>
 var contextPath="${contextPath}";
 var imageContextPath="${imageContextPath}";
@@ -66,8 +66,8 @@ function showalert()
 
 function check(jso){
 	 //length
-	if(jso.title.length <10 || jso.title.length >50){
-		alert("标题长度不得小于10个字符，大于50个字符");
+	if(jso.title.length <20 || jso.title.length >50){
+		alert("标题长度不得小于20个字符，大于50个字符");
 		return 1;
 	}
 	if(jso.sub_content.length <30 || jso.sub_content.length >300){
@@ -78,8 +78,8 @@ function check(jso){
 		alert("内容文本长度不得小于300个字符，大于10000个字符");
 		return 1;
 	}
-	if(jso.author.length <2 || jso.author.length >20){
-		alert("作者长度不得小于2个字符，大于20个字符");
+	if(jso.author.length <2 || jso.author.length >10){
+		alert("作者长度不得小于2个字符，大于10个字符");
 		return 1;
 	}
 	if(jso.keywordsValue==null||jso.keywordsValue==''){
@@ -113,7 +113,7 @@ function choosePic(item){
 	}
 }
 </script>
-<script src="/admin/js/kingediter/kindeditor-all2.js"></script>
+<script src="/admin/js/kingediter/kindeditor-all2.js?v=${staticVersion}"></script>
 <script>
 KindEditor.ready(function(K) {
     window.editor = K.create('#editor_id', {

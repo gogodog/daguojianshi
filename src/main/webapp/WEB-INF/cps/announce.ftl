@@ -1,6 +1,6 @@
 <#include "/cps/common/header.ftl">
-<link href="/cps/css/prettyPhoto.css" rel="stylesheet" />
-<link href="/cps/css/bootstrap-fileupload.min.css" rel="stylesheet" />
+<link href="/cps/css/prettyPhoto.css?v=${staticVersion}" rel="stylesheet" />
+<link href="/cps/css/bootstrap-fileupload.min.css?v=${staticVersion}" rel="stylesheet" />
 <body>
     <div id="wrapper">
         <#include "/cps/common/top.ftl">

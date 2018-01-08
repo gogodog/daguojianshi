@@ -61,12 +61,12 @@
 			</div>
 		</div>
 	</div>
-<script src="/admin/js/jquery-1.11.1.min.js"></script>
-<script src="/admin/js/page.js" charset="utf-8"></script>
-<script language="javascript" src="/admin/js/My97DatePicker/wdatePicker.js"></script>
-<script src="/admin/js/page.js" charset="utf-8"></script>
-<link rel="stylesheet" type="text/css" href="/admin/css/alertify.css">
-<script src="/admin/js/alertify.js" type="text/javascript" charset="utf-8"></script>
+<script src="/admin/js/jquery-1.11.1.min.js?v=${staticVersion}"></script>
+<script src="/admin/js/page.js?v=${staticVersion}" charset="utf-8"></script>
+<script language="javascript" src="/admin/js/My97DatePicker/wdatePicker.js?v=${staticVersion}"></script>
+<script src="/admin/js/page.js?v=${staticVersion}" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css" href="/admin/css/alertify.css?v=${staticVersion}">
+<script src="/admin/js/alertify.js?v=${staticVersion}" type="text/javascript" charset="utf-8"></script>
 <script>
 var contextPath="${contextPath}";
 function showAuditFailDesc(audit_desc){

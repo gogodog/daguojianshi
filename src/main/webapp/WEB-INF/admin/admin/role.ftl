@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
 <#include "/admin/common/head_title.ftl">
-<script src="/admin/js/jquery-1.11.1.min.js"></script>
-<script src="/admin/js/support-fileupload.js"></script>
-<script src="/admin/js/ajaxfileupload.js"></script>
-<script src="/admin/js/validation/jquery.validate.js"></script>
+<script src="/admin/js/jquery-1.11.1.min.js?v=${staticVersion}"></script>
+<script src="/admin/js/support-fileupload.js?v=${staticVersion}"></script>
+<script src="/admin/js/ajaxfileupload.js?v=${staticVersion}"></script>
+<script src="/admin/js/validation/jquery.validate.js?v=${staticVersion}"></script>
 </head>
 <body marginwidth="0" marginheight="0">
 	<div class="container">

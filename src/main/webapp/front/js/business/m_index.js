@@ -328,7 +328,7 @@ var zhengshi1="<article class=\"excerpt threeimg\" onclick=\"location.href='cont
 	   +"<div class='diliimg'><img class=\"itemimg\" src=\"picUrl1\"></div>"
 	   +"<div class='diliimg'><img class=\"itemimg\" src=\"picUrl2\"></div>"
 	   +"<div class='diliimg'><img class=\"itemimg\" src=\"picUrl3\"></div>"
-	   +"<p style=\"text-align: right;padding-right: 10px;color: cadetblue;font-size: .5em;\">sub_content</p></article>";
+	   +"<p style=\"text-align: left;padding-right: 10px;color: cadetblue;font-size: .5em;\">sub_content</p></article>";
 var zhengshi2="<article class=\"excerpt listtext\" onclick=\"location.href='contextPath/show/aId'\">"
 	   +"<header><h2><a href=\"javascript:void(0)\" >&bull;&nbsp atitle</a></h2></header>"
 	   +"<p class=\"note\" style=\"display:block\">sub_content</p></article>";

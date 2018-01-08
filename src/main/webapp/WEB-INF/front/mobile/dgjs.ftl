@@ -44,8 +44,8 @@
     <#include "/front/common/pieces/footer_title.ftl">
     <#include "/front/common/pieces/footer_static.ftl">
    
-    <script src="/front/js/jquery-1.11.1.min.js"></script>
-    <script src="/front/js/business/m_index.js"></script>
-    <script src="/front/js/business/keyword.js"></script>
+    <script src="/front/js/jquery-1.11.1.min.js?v=${staticVersion}"></script>
+    <script src="/front/js/business/m_index.js?v=${staticVersion}"></script>
+    <script src="/front/js/business/keyword.js?v=${staticVersion}"></script>
 </body>
 </html>

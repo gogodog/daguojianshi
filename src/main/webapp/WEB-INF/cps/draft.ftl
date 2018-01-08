@@ -56,7 +56,7 @@
         </div>
     </div>
     <#include "/cps/common/f-static.ftl">
-    <script src="/admin/js/confirm/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/admin/js/confirm/xcConfirm.js?v=${staticVersion}" type="text/javascript" charset="utf-8"></script>
     <script>
     var contextPath="${contextPath}";
     function deleteA(aid){

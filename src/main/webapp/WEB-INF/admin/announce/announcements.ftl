@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <#include "/admin/common/head_title.ftl">
-<link rel="stylesheet" type="text/css" href="/admin/css/xcConfirm.css"/>
+<link rel="stylesheet" type="text/css" href="/admin/css/xcConfirm.css?v=${staticVersion}"/>
 </head>
 <body marginwidth="0" marginheight="0">
 	<div class="container">
@@ -57,12 +57,12 @@
 			</div>
 		</div>
 	</div>
-<script src="/admin/js/jquery-1.11.1.min.js"></script>
-<script src="/admin/js/page.js" charset="utf-8"></script>
-<script language="javascript" src="/admin/js/My97DatePicker/wdatePicker.js"></script>
-<script src="/admin/js/confirm/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
-<link rel="stylesheet" type="text/css" href="/cps/css/alertify.css">
-<script src="/cps/js/alertify.js" type="text/javascript" charset="utf-8"></script>
+<script src="/admin/js/jquery-1.11.1.min.js?v=${staticVersion}"></script>
+<script src="/admin/js/page.js?v=${staticVersion}" charset="utf-8"></script>
+<script language="javascript" src="/admin/js/My97DatePicker/wdatePicker.js?v=${staticVersion}"></script>
+<script src="/admin/js/confirm/xcConfirm.js?v=${staticVersion}" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css" href="/cps/css/alertify.css?v=${staticVersion}">
+<script src="/cps/js/alertify.js?v=${staticVersion}" type="text/javascript" charset="utf-8"></script>
 <script>
 var contextPath="${contextPath}";
 function changeStatus(id,status){

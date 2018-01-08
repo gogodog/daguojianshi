@@ -4,8 +4,8 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title></title>
-	<link rel="stylesheet" href="/admin/css/reset.css">
-	<link rel="stylesheet" href="/admin/css/public.css">
+	<link rel="stylesheet" href="/admin/css/reset.css?v=${staticVersion}">
+	<link rel="stylesheet" href="/admin/css/public.css?v=${staticVersion}">
 </head>
 <body>
 <#include "/admin/common/login_title.ftl">
@@ -21,7 +21,7 @@
 		</div>
 	</div>
 </div>
-<script src="/admin/js/jquery.min.js"></script>
+<script src="/admin/js/jquery.min.js?v=${staticVersion}"></script>
 <script>
 $().ready(function(){
 	var item = $(".public-ifame-item");

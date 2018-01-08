@@ -20,21 +20,21 @@
 	<meta name="baidu-site-verification" content="rTnMzcp5WP">
     
     <title>简史</title>
-    <link rel="stylesheet" type="text/css" href="/front/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/front/css/nprogress.css">
-    <link rel="stylesheet" type="text/css" href="/front/css/style.css">
-    <link rel="stylesheet" type="text/css" href="/front/css/mobile.css">
-    <link rel="stylesheet" type="text/css" href="/front/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/front/css/bootstrap.min.css?v=${staticVersion}">
+    <link rel="stylesheet" type="text/css" href="/front/css/nprogress.css?v=${staticVersion}">
+    <link rel="stylesheet" type="text/css" href="/front/css/style.css?v=${staticVersion}">
+    <link rel="stylesheet" type="text/css" href="/front/css/mobile.css?v=${staticVersion}">
+    <link rel="stylesheet" type="text/css" href="/front/css/font-awesome.min.css?v=${staticVersion}">
     <link rel="apple-touch-icon-precomposed" href="/front/images/favico.ico">
     <link rel="shortcut icon" href="/front/images/favico.ico">
-    <script src="/front/js/jquery-2.1.4.min.js"></script>
-    <script src="/front/js/hammer.min.js"></script>
-    <script src="/front/js/jquery.lazyload.min.js"></script>
+    <script src="/front/js/jquery-2.1.4.min.js?v=${staticVersion}"></script>
+    <script src="/front/js/hammer.min.js?v=${staticVersion}"></script>
+    <script src="/front/js/jquery.lazyload.min.js?v=${staticVersion}"></script>
     <!--[if gte IE 9]>
-      <script src="/front/js/jquery-1.11.1.min.js" type="text/javascript"></script>
-      <script src="/front/js/html5shiv.min.js" type="text/javascript"></script>
-      <script src="/front/js/respond.min.js" type="text/javascript"></script>
-      <script src="/front/js/selectivizr-min.js" type="text/javascript"></script>
+      <script src="/front/js/jquery-1.11.1.min.js?v=${staticVersion}" type="text/javascript"></script>
+      <script src="/front/js/html5shiv.min.js?v=${staticVersion}" type="text/javascript"></script>
+      <script src="/front/js/respond.min.js?v=${staticVersion}" type="text/javascript"></script>
+      <script src="/front/js/selectivizr-min.js?v=${staticVersion}" type="text/javascript"></script>
     <![endif]-->
     
     

@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-<link href="/front/css/feedback.css" rel="stylesheet" type="text/css" media="all" />
+<link href="/front/css/feedback.css?v=${staticVersion}" rel="stylesheet" type="text/css" media="all" />
 <script>
     //页面统计
     var pageinfo_ = {};
@@ -72,8 +72,8 @@
 	</div>
 	<input type="hidden" id="doctype" value="${docid}">
 </div>
-<script src="/front/js/jquery-2.1.4.min.js"></script>
-<script src="/front/js/business/feedback.js"></script>
-<script src="/front/js/business/dadian.js"></script>
+<script src="/front/js/jquery-2.1.4.min.js?v=${staticVersion}"></script>
+<script src="/front/js/business/feedback.js?v=${staticVersion}"></script>
+<script src="/front/js/business/dadian.js?v=${staticVersion}"></script>
 </body>
 </html>
