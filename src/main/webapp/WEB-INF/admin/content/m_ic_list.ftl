@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<#include "/admin/common/head_title.ftl">
 <link rel="stylesheet" type="text/css" href="/admin/css/xcConfirm.css?v=${staticVersion}"/>
 <script src="/admin/js/jquery-1.11.1.min.js?v=${staticVersion}"></script>
 <script src="/admin/js/confirm/xcConfirm.js?v=${staticVersion}" type="text/javascript" charset="utf-8"></script>
@@ -10,9 +9,10 @@
 <script src="/admin/plugins/cropper/js/bootstrap.min.js?v=${staticVersion}"></script>
 <script src="/admin/plugins/cropper/js/cropper.min.js?v=${staticVersion}"></script>
 <script src="/admin/plugins/cropper/js/main.js?v=${staticVersion}"></script>
+<#include "/admin/common/head_title.ftl">
 </head>
 <body marginwidth="0" marginheight="0">
-	<div class="container">
+	<div class="container" style="padding-right: 0px;padding-left: 0px;">
 		<div class="public-nav">您当前的位置：<a href="">管理首页</a>><a href="">内容管理</a><a href="">首页配置管理</a></div>
 		<div class="public-content">
 			<div class="public-content-header">
