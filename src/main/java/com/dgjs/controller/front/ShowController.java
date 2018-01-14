@@ -20,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.dgjs.constants.Constants;
 import com.dgjs.constants.RETURN_STATUS;
-import com.dgjs.controller.admin.content.RecommedArticlescrapController;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.enums.Articlescrap_Type;
@@ -37,7 +36,7 @@ import com.dgjs.utils.IPUtils;
 @Controller
 public class ShowController {
 	
-	private Log log = LogFactory.getLog(RecommedArticlescrapController.class);
+	private Log log = LogFactory.getLog(ShowController.class);
 	
 	@Autowired
 	ArticlescrapService articlescrapService;

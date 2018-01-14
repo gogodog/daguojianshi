@@ -1,4 +1,4 @@
-package com.dgjs.controller.admin.content;
+package com.dgjs.controller.admin;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.dgjs.annotation.LogRecord;
 import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.model.dto.MIndexConfigDto;
 import com.dgjs.model.dto.PageInfoDto;
@@ -27,6 +28,7 @@ import com.dgjs.model.enums.Articlescrap_Status;
 import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.Index_Type;
 import com.dgjs.model.enums.M_Index_Position;
+import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.persistence.MIndexConfig;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
@@ -153,6 +155,7 @@ public class MIndexConfigController {
 	
 	@RequestMapping(value="/save",method=RequestMethod.POST)
 	@ResponseBody
+	@LogRecord(operate=OperateEnum.Update,remark="保存手机端首页配置")
     public BaseView save(HttpServletRequest request, @RequestBody String param){
 		BaseView bv = new BaseView();
 		try{
@@ -209,6 +212,7 @@ public class MIndexConfigController {
     }
 	
 	@RequestMapping("/delete")
+	@LogRecord(operate=OperateEnum.Delete,remark="删除手机端首页配置")
 	public ModelAndView delete(Index_Type type,Long id){
 		ModelAndView mv = new ModelAndView("redirect:/admin/midxcfg/list?type="+type);  
 		mIndexConfigService.deleteById(id);
@@ -217,6 +221,7 @@ public class MIndexConfigController {
 	
 	@ResponseBody
 	@RequestMapping("/updateStatus")
+	@LogRecord(operate=OperateEnum.Update,remark="修改手机端首页配置状态")
 	public BaseView updateStatus(Long id,UpDown_Status status){
 		BaseView bv = new BaseView();
 		if(id==null||status==null){

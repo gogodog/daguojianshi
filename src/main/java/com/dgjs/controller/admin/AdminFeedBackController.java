@@ -1,4 +1,4 @@
-package com.dgjs.controller.admin.content;
+package com.dgjs.controller.admin;
 
 import java.text.MessageFormat;
 import java.util.List;

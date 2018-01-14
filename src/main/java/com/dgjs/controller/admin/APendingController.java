@@ -1,4 +1,4 @@
-package com.dgjs.controller.admin.content;
+package com.dgjs.controller.admin;
 
 import java.util.Arrays;
 import java.util.Date;

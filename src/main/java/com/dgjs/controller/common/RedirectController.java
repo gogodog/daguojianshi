@@ -1,4 +1,4 @@
-package com.dgjs.controller.common.checkMc;
+package com.dgjs.controller.common;
 
 import javax.servlet.http.HttpServletRequest;
 

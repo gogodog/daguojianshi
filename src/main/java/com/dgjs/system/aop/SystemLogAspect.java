@@ -37,7 +37,7 @@ public class SystemLogAspect {
 	
 	private Logger log = Logger.getLogger(this.getClass().getName());
 	
-	public final static String ADMIN_AOP_URL="execution(public * com.dgjs.controller.admin.*.*.*(..))";
+	public final static String ADMIN_AOP_URL="execution(public * com.dgjs.controller.admin.*.*(..))";
 	
 	public final static String CPS_AOP_URL="execution(public * com.cps.controller.*.*(..))";
 	

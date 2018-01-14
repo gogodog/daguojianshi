@@ -1,4 +1,4 @@
-package com.dgjs.controller.admin.config;
+package com.dgjs.controller.admin;
 
 import java.util.List;
 

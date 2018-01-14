@@ -1,4 +1,4 @@
-package com.dgjs.controller.admin.ad;
+package com.dgjs.controller.admin;
 
 import java.util.Arrays;
 

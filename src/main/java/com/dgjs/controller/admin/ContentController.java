@@ -1,4 +1,4 @@
-package com.dgjs.controller.admin.content;
+package com.dgjs.controller.admin;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
