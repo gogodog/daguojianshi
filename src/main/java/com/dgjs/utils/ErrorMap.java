@@ -1,9 +1,9 @@
-package com.dgjs.map;
+package com.dgjs.utils;
 
 import java.util.List;
 
 import com.alibaba.fastjson.JSON;
-import com.dgjs.model.map.ErrorMapModel;
+import com.dgjs.model.common.ErrorMapModel;
 import com.dgjs.utils.XmlUtils;
 
 /**

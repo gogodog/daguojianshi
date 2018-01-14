@@ -1,4 +1,4 @@
-package com.dgjs.model.map;
+package com.dgjs.model.common;
 
 public class ErrorMapModel {
 	String name;

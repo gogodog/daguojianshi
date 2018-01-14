@@ -1,4 +1,4 @@
-package com.dgjs.controller.common;
+package com.dgjs.controller.front;
 
 
 import javax.servlet.http.HttpServletRequest;
