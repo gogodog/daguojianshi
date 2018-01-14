@@ -340,7 +340,19 @@ public class MIndexFrontController {
 	private MIndexView getMIndexView(Articlescrap articlescrap,M_Index_Position position){
 	    MIndexView mIndexView  = new MIndexView();
 	    mIndexView.setAid(articlescrap.getId());
-	    mIndexView.setPictures(articlescrap.getPictures());
+	    //将封面图片设置到图片数组里
+	    String[] pictures = articlescrap.getPictures();
+	    String[] pics = null;
+	    if(pictures!=null && pictures.length>0){
+	    	pics = new String[pictures.length+1];
+	    	for(int i=1;i<pics.length;i++){
+	    		pics[i]=pictures[i-1];
+	    	}
+	    }else{
+	    	pics = new String[1];
+	    }
+	    pics[0]=articlescrap.getShowPic();
+	    mIndexView.setPictures(pics);
 	    mIndexView.setPosition(position.getKey());
 	    mIndexView.setStart_time(articlescrap.getStart_time());
 	    mIndexView.setSub_content(articlescrap.getSub_content());
