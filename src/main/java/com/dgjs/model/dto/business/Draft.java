@@ -205,6 +205,7 @@ public class Draft extends StartTime{
 		articlescrap.setDraftId(draft.getId());
 		articlescrap.setProgress(0);
 		articlescrap.setPic_sync_status(Pic_Sync_Status.UNSYNC);
+		articlescrap.setShowPic(draft.getShowPic());
 		return articlescrap;
 	}
 }

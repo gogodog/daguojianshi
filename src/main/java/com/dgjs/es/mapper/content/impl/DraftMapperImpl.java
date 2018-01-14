@@ -38,9 +38,9 @@ public class DraftMapperImpl implements DraftMapper{
 	@Autowired
 	ESTransportClient transportClient;
 	
-	final static String index = "dp_v2";
+	final static String index = "dp_v1";
 	
-	final static String type = "draft_v2";
+	final static String type = "draft_v1";
 	
 	@Override
 	public int saveDraft(Draft draft) {

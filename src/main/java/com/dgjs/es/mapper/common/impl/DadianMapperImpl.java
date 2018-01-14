@@ -34,7 +34,7 @@ public class DadianMapperImpl implements DadianMapper{
 	@Autowired
 	ESTransportClient transportClient;
 	
-	final static String index = "dgjs_log_v2";
+	final static String index = "dgjs_log_v1";
 	
 	final static String type = "dadian";
 	

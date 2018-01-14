@@ -59,9 +59,9 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 	@Autowired
 	FastFDSClient fastFDSClient;
 	
-	final static String index = "dgjs_v2";
+	final static String index = "dgjs_v1";
 	
-	final static String type = "articlescrap_v2";
+	final static String type = "articlescrap_v1";
 	
 	@Override
 	public Articlescrap getArticlescrapAll(String id) {

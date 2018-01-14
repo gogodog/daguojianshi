@@ -28,10 +28,10 @@ public class NewEsStructureInit {
 	
 	@Test
 	public void testInitTable() throws Exception{
-		initArticlescrap(transportClient.getObject());
 //		initDraft(transportClient.getObject());
 //		initPending(transportClient.getObject());
-//		initLogIndex(transportClient.getObject());
+		initArticlescrap(transportClient.getObject());
+		initLogIndex(transportClient.getObject());
 		initPDraft(transportClient.getObject());
 	}
 	
@@ -42,8 +42,8 @@ public class NewEsStructureInit {
 	}
 
 	private void initArticlescrap(TransportClient client) throws IOException {
-		String index = "dgjs_v2";
-		String type = "articlescrap_v2";
+		String index = "dgjs_v1";
+		String type = "articlescrap_v1";
 		createIndex(client,index);
 		XContentBuilder builder=XContentFactory.jsonBuilder()
 				.startObject()
@@ -74,6 +74,7 @@ public class NewEsStructureInit {
 				.startObject("draft_id").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
 				.startObject("pic_sync_status").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
 				.startObject("progress").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
+				.startObject("show_pic").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
 				.endObject()
 				.endObject()
 				.endObject();
@@ -82,8 +83,8 @@ public class NewEsStructureInit {
 	}
 	
 	private void initPDraft(TransportClient client) throws IOException {
-		String index = "dp_v2";
-		String type =  "draft_v2";
+		String index = "dp_v1";
+		String type =  "draft_v1";
 		createIndex(client,index);
 		List<String> list = Arrays.asList("content");
 		XContentBuilder builder=XContentFactory.jsonBuilder()
@@ -111,6 +112,7 @@ public class NewEsStructureInit {
 				.startObject("publish_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "false").field("index", "not_analyzed").endObject()
 				.startObject("isHaveAudit").field("type", "boolean").field("store", "false").field("index", "not_analyzed").endObject()
 				.startObject("isHavePublish").field("type", "boolean").field("store", "false").field("index", "not_analyzed").endObject()
+				.startObject("show_pic").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
 				.endObject()
 				.endObject()
 				.endObject();
@@ -118,90 +120,100 @@ public class NewEsStructureInit {
 	   client.admin().indices().putMapping(mapping).actionGet();
 	}
 	
-	private void initDraft(TransportClient client) throws IOException {
-		String index = "dp_v1";
-		String type =  "draft_v1";
-		createIndex(client,index);
-		List<String> list = Arrays.asList("content");
-		XContentBuilder builder=XContentFactory.jsonBuilder()
-				.startObject()
-				.startObject(type)
-				.startObject("_source").field("excludes", list).endObject()
-				.startObject("properties")
-				.startObject("title").field("type", "text").field("store", "false").field("index", "analyzed").field("analyzer", "ik_smart").endObject()
-				.startObject("content").field("type", "text").field("store", "yes").field("index", "analyzed").field("analyzer", "ik_smart").endObject()
-				.startObject("type").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
-				.startObject("author").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
-				.startObject("create_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "false").field("index", "not_analyzed").endObject()
-		        .startObject("update_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "false").field("index", "not_analyzed").endObject()
-				.startObject("sub_content").field("type", "text").field("store", "false").field("index", "analyzed").field("analyzer", "ik_smart").endObject()
-				.startObject("keywords").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
-				.startObject("start_time").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
-				.startObject("time_degree").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
-				.startObject("pictures").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
-				.startObject("pic_num").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
-				.startObject("user_id").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
-				.startObject("draft_status").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
-				.endObject()
-				.endObject()
-				.endObject();
-	   PutMappingRequest mapping = Requests.putMappingRequest(index).type(type).source(builder); 
-	   client.admin().indices().putMapping(mapping).actionGet();
-	}
-	
-	private void initPending(TransportClient client) throws IOException {
-		String index = "dp_v1";
-		String type =  "pending_v1";
+//	private void initDraft(TransportClient client) throws IOException {
+//		String index = "dp_v1";
+//		String type =  "draft_v1";
 //		createIndex(client,index);
-		List<String> list = Arrays.asList("content");
-		XContentBuilder builder=XContentFactory.jsonBuilder()
-				.startObject()
-				.startObject(type)
-				.startObject("_source").field("excludes", list).endObject()
-				.startObject("properties")
-				.startObject("title").field("type", "text").field("store", "false").field("index", "analyzed").field("analyzer", "ik_smart").endObject()
-				.startObject("type").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
-				.startObject("author").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
-				.startObject("create_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "false").field("index", "not_analyzed").endObject()
-		        .startObject("update_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "false").field("index", "not_analyzed").endObject()
-				.startObject("sub_content").field("type", "text").field("store", "false").field("index", "analyzed").field("analyzer", "ik_smart").endObject()
-				.startObject("content").field("type", "text").field("store", "yes").field("index", "analyzed").field("analyzer", "ik_smart").endObject()
-				.startObject("keywords").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
-				.startObject("start_time").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
-				.startObject("time_degree").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
-				.startObject("pictures").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
-				.startObject("pic_num").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
-				.startObject("user_id").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
-				.startObject("status").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
-				.startObject("audit_user_id").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
-				.startObject("audit_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "false").field("index", "not_analyzed").endObject()
-				.startObject("audit_desc").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
-				.startObject("publish_user_id").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
-				.startObject("publish_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "false").field("index", "not_analyzed").endObject()
-				.startObject("visits").field("type", "long").field("store", "false").field("index", "not_analyzed").endObject()
-				.startObject("show_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "false").field("index", "not_analyzed").endObject()
-				.startObject("draft_id").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
-				.startObject("pic_sync_Status").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
-				.startObject("progress").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
-				.endObject()
-				.endObject()
-				.endObject();
-	   PutMappingRequest mapping = Requests.putMappingRequest(index).type(type).source(builder); 
-	   client.admin().indices().putMapping(mapping).actionGet();
-	}
+//		List<String> list = Arrays.asList("content");
+//		XContentBuilder builder=XContentFactory.jsonBuilder()
+//				.startObject()
+//				.startObject(type)
+//				.startObject("_source").field("excludes", list).endObject()
+//				.startObject("properties")
+//				.startObject("title").field("type", "text").field("store", "false").field("index", "analyzed").field("analyzer", "ik_smart").endObject()
+//				.startObject("content").field("type", "text").field("store", "yes").field("index", "analyzed").field("analyzer", "ik_smart").endObject()
+//				.startObject("type").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
+//				.startObject("author").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
+//				.startObject("create_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "false").field("index", "not_analyzed").endObject()
+//		        .startObject("update_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "false").field("index", "not_analyzed").endObject()
+//				.startObject("sub_content").field("type", "text").field("store", "false").field("index", "analyzed").field("analyzer", "ik_smart").endObject()
+//				.startObject("keywords").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
+//				.startObject("start_time").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
+//				.startObject("time_degree").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
+//				.startObject("pictures").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
+//				.startObject("pic_num").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
+//				.startObject("user_id").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
+//				.startObject("draft_status").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
+//				.endObject()
+//				.endObject()
+//				.endObject();
+//	   PutMappingRequest mapping = Requests.putMappingRequest(index).type(type).source(builder); 
+//	   client.admin().indices().putMapping(mapping).actionGet();
+//	}
+	
+//	private void initPending(TransportClient client) throws IOException {
+//		String index = "dp_v1";
+//		String type =  "pending_v1";
+////		createIndex(client,index);
+//		List<String> list = Arrays.asList("content");
+//		XContentBuilder builder=XContentFactory.jsonBuilder()
+//				.startObject()
+//				.startObject(type)
+//				.startObject("_source").field("excludes", list).endObject()
+//				.startObject("properties")
+//				.startObject("title").field("type", "text").field("store", "false").field("index", "analyzed").field("analyzer", "ik_smart").endObject()
+//				.startObject("type").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
+//				.startObject("author").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
+//				.startObject("create_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "false").field("index", "not_analyzed").endObject()
+//		        .startObject("update_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "false").field("index", "not_analyzed").endObject()
+//				.startObject("sub_content").field("type", "text").field("store", "false").field("index", "analyzed").field("analyzer", "ik_smart").endObject()
+//				.startObject("content").field("type", "text").field("store", "yes").field("index", "analyzed").field("analyzer", "ik_smart").endObject()
+//				.startObject("keywords").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
+//				.startObject("start_time").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
+//				.startObject("time_degree").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
+//				.startObject("pictures").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
+//				.startObject("pic_num").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
+//				.startObject("user_id").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
+//				.startObject("status").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
+//				.startObject("audit_user_id").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
+//				.startObject("audit_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "false").field("index", "not_analyzed").endObject()
+//				.startObject("audit_desc").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
+//				.startObject("publish_user_id").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
+//				.startObject("publish_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "false").field("index", "not_analyzed").endObject()
+//				.startObject("visits").field("type", "long").field("store", "false").field("index", "not_analyzed").endObject()
+//				.startObject("show_time").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "false").field("index", "not_analyzed").endObject()
+//				.startObject("draft_id").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
+//				.startObject("pic_sync_Status").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
+//				.startObject("progress").field("type", "integer").field("store", "false").field("index", "not_analyzed").endObject()
+//				.endObject()
+//				.endObject()
+//				.endObject();
+//	   PutMappingRequest mapping = Requests.putMappingRequest(index).type(type).source(builder); 
+//	   client.admin().indices().putMapping(mapping).actionGet();
+//	}
 	
 	private void initLogIndex(TransportClient client) throws IOException {
-		String log_index = "dgjs_log_v2";
+		String log_index = "dgjs_log_v1";
 		String type =  "dadian";
-		List<String> list = Arrays.asList("pagedocids");
 		createIndex(client,log_index);
 		XContentBuilder builder=XContentFactory.jsonBuilder()
 				.startObject()
 				.startObject(type)
 				.startObject("_source").endObject()
 				.startObject("properties")
+				.startObject("ctime").field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss").field("store", "false").field("index", "not_analyzed").endObject()
 				.startObject("pagedocids").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
 				.startObject("pageid").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
+				.startObject("pageadids").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
+				.startObject("page").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
+				.startObject("pagetype").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
+				.startObject("channel").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
+				.startObject("os").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
+				.startObject("padpcmobile").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
+				.startObject("browseversion").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
+				.startObject("ipcountry").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
+				.startObject("ipprovince").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
+				.startObject("ipcity").field("type", "keyword").field("store", "false").field("index", "not_analyzed").endObject()
 				.endObject()
 				.endObject()
 				.endObject();
