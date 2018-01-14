@@ -1,4 +1,4 @@
-package com.cps.controller;
+package com.dgjs.controller.cps;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

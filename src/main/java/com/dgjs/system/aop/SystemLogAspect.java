@@ -39,7 +39,7 @@ public class SystemLogAspect {
 	
 	public final static String ADMIN_AOP_URL="execution(public * com.dgjs.controller.admin.*.*(..))";
 	
-	public final static String CPS_AOP_URL="execution(public * com.cps.controller.*.*(..))";
+	public final static String CPS_AOP_URL="execution(public * com.dgjs.controller.cps.*.*(..))";
 	
 	public final static String ANNOTATION="@annotation(com.dgjs.annotation.LogRecord)";
 
