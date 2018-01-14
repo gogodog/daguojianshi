@@ -433,6 +433,7 @@ public class MIndexFrontController {
 			}
 			String[] idArray = new String[ids.size()];
 			list = articlescrapService.getArticlescrapByIds(ids.toArray(idArray));
+			aids.addAll(ids);
 		}
 		return list;
 	}

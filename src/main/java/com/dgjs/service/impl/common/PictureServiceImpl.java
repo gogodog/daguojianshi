@@ -81,7 +81,7 @@ public class PictureServiceImpl implements PictureService {
 		PictureDto dto = new PictureDto();
 		try {
 			InputStream inputStream = file.getInputStream();
-			if (file.isEmpty() || file.getSize() == 0 || inputStream == null || StringUtils.isEmpty(imagePath) || !file.getContentType().equals("image/jpeg")) {
+			if (file.isEmpty() || file.getSize() == 0 || inputStream == null || StringUtils.isEmpty(imagePath) || !file.getContentType().contains("image")) {
 				dto.setErrorInfo(RETURN_STATUS.PARAM_ERROR.getValue(), "请传入图片");
 				return dto;
 			}
