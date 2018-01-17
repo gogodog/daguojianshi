@@ -15,6 +15,7 @@ import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.Pending_Status;
 import com.dgjs.model.persistence.condition.DraftCondition;
 import com.dgjs.service.common.PictureService;
+import com.dgjs.service.content.DraftAPRecordService;
 import com.dgjs.service.content.DraftService;
 import com.dgjs.utils.WebContextHelper;
 
@@ -28,6 +29,9 @@ public class PendingController {
 	@Autowired
 	PictureService pictureService;
 	
+	@Autowired
+	DraftAPRecordService draftAPRecordService;
+	
 	@RequestMapping("/docms")
 	public ModelAndView docms(DraftCondition condition){
 		ModelAndView mv = new ModelAndView("/cps/docms");
@@ -36,10 +40,12 @@ public class PendingController {
 		sort.put("update_time", SortOrder.DESC);
 		condition.setSort(sort);
 		PageInfoDto<Draft> pageinfo = draftService.listDrafts(condition);
+		Map<String,String> rejectMap= draftAPRecordService.getLastRejectMsg(pageinfo);
 		mv.addObject("pageinfo", pageinfo);
 		mv.addObject("condition",condition);
 		mv.addObject("statusList", Pending_Status.values());
 		mv.addObject("typeList", Articlescrap_Type.values());
+		mv.addObject("rejectMap", rejectMap);
 		return mv;
 	}
 	

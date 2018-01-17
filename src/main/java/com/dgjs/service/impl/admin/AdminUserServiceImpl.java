@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSON;
 import com.dgjs.mapper.admin.AdminUserInfoMapper;
 import com.dgjs.mapper.admin.AdminUserMapper;
 import com.dgjs.mapper.admin.RoleMapper;
@@ -100,6 +101,7 @@ public class AdminUserServiceImpl implements AdminUserService{
 		//TODO 微信入口通过unionid判断是否新老用户，若新用户，登记造册
 		//TODO 新老用户返回本地code
 		//TODO 建议cookie缓存：CookieUtils.addCookie(response, Constants.CK_USERINFO_KEY, JSONObject.toJSONString(code), Constants.CK_USERINFO_MAXAGE);
+		System.out.println(JSON.toJSONString(userInfo));
 		return true;
 	}
 }

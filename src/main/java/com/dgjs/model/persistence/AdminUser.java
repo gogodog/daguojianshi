@@ -16,6 +16,9 @@ public class AdminUser {
 	private Date update_time;//修改时间
 	private String headimgurl;//头像
 	
+	private String unionid;//unionid
+	private String openid;//openid
+	
 	public String getUsername() {
 		return username;
 	}
@@ -69,6 +72,18 @@ public class AdminUser {
 	}
 	public void setHeadimgurl(String headimgurl) {
 		this.headimgurl = headimgurl;
+	}
+	public String getUnionid() {
+		return unionid;
+	}
+	public void setUnionid(String unionid) {
+		this.unionid = unionid;
+	}
+	public String getOpenid() {
+		return openid;
+	}
+	public void setOpenid(String openid) {
+		this.openid = openid;
 	}
     
 }

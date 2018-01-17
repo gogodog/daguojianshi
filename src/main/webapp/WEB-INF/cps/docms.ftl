@@ -67,7 +67,7 @@
 		                            <td>
 		                               <button type="button" class="btn btn-xs btn-primary" onclick="location.href='${contextPath}/cps/pding/previewPending?aid=${object.id}'">查看</button>
 		                               <#if object.status == 'Audit_FAIL'>
-		                                 <button type="button" class="btn btn-xs btn-primary" onclick="showAuditFailDesc('${object.audit_desc}');">拒绝原因</button>
+		                                 <button type="button" class="btn btn-xs btn-primary" onclick="showAuditFailDesc('${rejectMap[object.id]}');">拒绝原因</button>
 		                                <!-- </i><a href="javascript:void(0)" onclick="showAuditFailDesc('${object.audit_desc}');">拒绝原因</a>  -->
 		                               </#if>
 		                            </td>
