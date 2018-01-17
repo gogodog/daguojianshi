@@ -148,21 +148,15 @@
        
        function recursionSubStr(str){
     	   var subStr='';
-    	   var subLength=10;
+    	   var subLength=20;
     	   var index = 0;//
     	   if(str == '' || str == null){
     		   return '';
     	   }
-    	   while(str.length > subLength){
-    		   index++;//
-    		   if(index==3){//
-    			   subStr = subStr + '...';//
-    			   return subStr;//
-    		   }//
-    		   subStr+=str.substr(0,subLength)+"<br>";
-    		   str = str.substring(subLength,str.length-1)
+    	   if(str.length > subLength+3){
+    	   	   return str.substring(0,subLength)+"...";
     	   }
-    	   return subStr+str;
+    	   return str;
        }
        
    </script>
