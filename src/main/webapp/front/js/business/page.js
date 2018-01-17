@@ -41,7 +41,7 @@ function appendCtntTmp(ctntary,visits,isTypeShow){
 		list += ctntTmp.replace(cre("articlescrap_id"),val.id)
 			.replace(cre("contextPath"),contextPath)
 			.replace(cre("articlescrap_title"),val.title)
-			.replace(cre("articlescrap_show_picture"),val.show_picture)
+			.replace(cre("articlescrap_show_picture"),val.showPic)
 			.replace(cre("articlescrap_type_value"),val.typeValue)
 			.replace(cre("articlescrap_start_time"),val.start_time == null||val.start_time.length==0?"无":val.start_time)
 			.replace(cre("articlescrap_sub_content"),val.sub_content)
