@@ -19,7 +19,7 @@
           </div>
         </form>
         <ul class="nav navbar-nav navbar-right">
-          <li><a data-cont="简史网" title="简史网" href="/dgjs">首页</a></li>
+          <li><a data-cont="简史网" title="简史网" href="/">首页</a></li>
           <#list types as type>
             <li><a data-cont="简史网" title="简史网" href="/index?type=${type}">${type.value}</a></li>
           </#list>
@@ -27,7 +27,7 @@
         <table class="mobile-menu" style="border-spacing:10px 100px;">
 	    <tbody>
 	    	<tr>
-	    		<td><a data-cont="简史网" title="简史网" href="/dgjs">首页</a></a></td>
+	    		<td><a data-cont="简史网" title="简史网" href="/">首页</a></a></td>
 				<td><a data-cont="简史网" title="简史网" href="/index?type=${types[0]}">${types[0].value}</a></td>
 				<td><a data-cont="简史网" title="简史网" href="/index?type=${types[1]}">${types[1].value}</a></td>
 				<td><a data-cont="简史网" title="简史网" href="/index?type=${types[2]}">${types[2].value}</a></td>
