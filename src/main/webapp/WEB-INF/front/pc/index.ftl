@@ -12,7 +12,6 @@
 		pageinfo_['pageid'] = '${pageid}';
 		pageinfo_['channel'] = '${doctype.key}';
 		window['pageinfo'] = pageinfo_;
-		//
 		var contextPath='${contextPath}';
 		var keyword="${(keyword)!''}";
 	</script>

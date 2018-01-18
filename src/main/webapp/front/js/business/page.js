@@ -71,7 +71,6 @@ function channel(){
 	jQuery.ajax({
         type:"get",
         url: contextPath+"/channelList",
-//        async: false,
         dataType: "json",
         success:function(data) {
            var channelList = data.channelList;
@@ -80,10 +79,10 @@ function channel(){
            var div="";
            for(var i=0;i<channelList.length;i++){
         	   if(i==0){
-        		   li+="<li role=\"presentation\" onclick=\"getContent(this,"+i+");\" class=\"active\"><a href=\"#notice\" aria-controls=\"notice\" role=\"tab\" data-toggle=\"tab\" draggable=\"false\">"+channelList[i].c_name+"</a></li>";
+        		   li+="<li style=\"display:table-cell;text-align:center;float:none;\" role=\"presentation\" onclick=\"getContent(this,"+i+");\" class=\"active\"><a href=\"#notice\" aria-controls=\"notice\" role=\"tab\" data-toggle=\"tab\" draggable=\"false\">"+channelList[i].c_name+"</a></li>";
         		   div+="<div role=\"tabpanel\" class=\"tab-pane contact active\" id=\"notice\">";
         	   }else{
-        		   li+="<li role=\"presentation\" onclick=\"getContent(this,"+i+");\"><a href=\"#contact\" aria-controls=\"contact\" role=\"tab\" data-toggle=\"tab\" draggable=\"false\">"+channelList[i].c_name+"</a></li>";
+        		   li+="<li style=\"display:table-cell;text-align:center;float:none;\" role=\"presentation\" onclick=\"getContent(this,"+i+");\"><a href=\"#contact\" aria-controls=\"contact\" role=\"tab\" data-toggle=\"tab\" draggable=\"false\">"+channelList[i].c_name+"</a></li>";
         		   div+= "<div role=\"tabpanel\" class=\"tab-pane contact\" id=\"contact\" style=\"display:none\">";
         	   }
         	   var ca=caList[channelList[i].id];

@@ -8,12 +8,12 @@
 <div class="carousel slide" data-ride="carousel" style="touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
     <div class="carousel-inner" role="listbox">
           <#list adList as ad>
-             <div class="item<#if ad_index==0> active</#if>">
+             <div class="item<#if ad_index==0>active</#if>">
                <a href="${ad.ad_link_url}" title="${ad.ad_desc}" >
-               <img src="${imageContextPath}${ad.ad_pic_url}" alt="cwillow" class="img-responsive" style="width:100%;height:100%"></a>
-              <a class="banner-title" href="${ad.ad_link_url}">${ad.ad_desc}</a>
+               <img src="${imageContextPath}${ad.ad_pic_url}" class="img-responsive" style="width:100%;height:100%"></a>
              </div>
           </#list>
+          <div style="opacity:0.4;width:10%;color:white;background-color:#000;text-align:center;position:absolute;right:1px;bottom:1px;z-index:99;">广告</div>
     	</div>
 	</div>
 </div>
