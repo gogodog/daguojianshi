@@ -93,6 +93,13 @@ public class MIndexFrontController {
 		mIndexConfigCondition.setType(indexType);
 		mIndexConfigCondition.setPositions(Arrays.asList(position));
 		List<MIndexConfig> mIndexConfigList = mIndexConfigService.list(mIndexConfigCondition);
+		if(mIndexConfigList!=null){
+			for(MIndexConfig mIndexConfig:mIndexConfigList){
+				if(!StringUtils.isNullOrEmpty(mIndexConfig.getAid())){
+					aids.add(mIndexConfig.getAid());
+				}
+			}
+		}
 		//如果不是必须从配置里读取，则取文章信息补位
 		if(!isMustIndexConfig){
 			int indexFirstSize = mIndexConfigList.size();
@@ -105,15 +112,9 @@ public class MIndexFrontController {
 				Map<String, SortOrder> sort = new HashMap<String, SortOrder>();
 				sort.put("show_time", SortOrder.DESC);
 				condition.setSort(sort);
-				for(MIndexConfig mIndexConfig:mIndexConfigList){
-					if(!StringUtils.isNullOrEmpty(mIndexConfig.getAid())){
-						aids.add(mIndexConfig.getAid());
-					}
-				}
 				articlescrapList = originList(condition,aids);
 			}
 		}
-		
 		if(mIndexConfigList!=null && mIndexConfigList.size()>0){
 			//如果是配置和文章混合
 			if(articlescrapList!=null && articlescrapList.size()>0){
