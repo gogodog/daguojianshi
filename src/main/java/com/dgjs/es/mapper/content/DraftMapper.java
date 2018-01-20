@@ -47,7 +47,7 @@ public interface DraftMapper {
 	/*
 	 * 提审
 	 */
-	public int submitAudit(String id) throws Exception;
+	public int submitAudit(String id,String showPic) throws Exception;
 	
 	/*
 	 * 审核

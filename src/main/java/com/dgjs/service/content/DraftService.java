@@ -24,7 +24,7 @@ public interface DraftService {
     
     public int deleteDraft(String id);
     
-    public int submitAudit(String id) throws Exception;
+    public int submitAudit(String id,String showPic) throws Exception;
     
 	public int audit(String id,Pending_Status status,Integer audit_user_id,String audit_desc) throws Exception;
 	

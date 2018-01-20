@@ -245,4 +245,12 @@ public class EsInit {
 		}
 		System.out.println("update success");
 	}
+	
+	@Test
+	public void testSaveShowPic1() throws Exception{
+		Articlescrap articlescrap = articlescrapMapper.getArticlescrapAll("AWEIwt7v98pKozSoRKTZ");
+		articlescrap.setShowPic("/images/userPics/1/p_100/20180118115535194777.jpg");
+		int flag = articlescrapMapper.updateArticlescrap(articlescrap);
+		System.out.println(flag);
+	}
 }

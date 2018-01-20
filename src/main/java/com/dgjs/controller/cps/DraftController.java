@@ -166,12 +166,21 @@ public class DraftController {
 		return mv;
 	}
 	
+	
+	@RequestMapping("/audit")
+	public ModelAndView audit(String aid){
+		ModelAndView mv = new ModelAndView("/cps/audit");
+		mv.addObject("aid", aid);
+		return mv;
+	}
+	
+	
 	@ResponseBody
 	@RequestMapping("/submitAudit")
 	@LogRecord(operate=OperateEnum.Update,remark="提审")
-	public BaseView submitAudit(String aid) throws Exception{
+	public BaseView submitAudit(String showPic,String aid) throws Exception{
 		BaseView mv = new BaseView();
-		if(StringUtils.isNullOrEmpty(aid)){
+		if(StringUtils.isNullOrEmpty(aid)||StringUtils.isNullOrEmpty(showPic)){
 			mv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
 			return mv;
 		}
@@ -180,10 +189,15 @@ public class DraftController {
 			mv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
 			return mv;
 		}
-		int flag = draftService.submitAudit(aid);
-		if(flag < 1){
-			mv.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
+		if(draft.getStatus()!=Pending_Status.INIT){
+			mv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
+			return mv;
 		}
+		if(draft.getUser_id()!=WebContextHelper.getUserId()){
+			mv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
+			return mv;
+		}
+		draftService.submitAudit(aid, showPic);
 		return mv;
 	}
 }

@@ -27,16 +27,6 @@
 					  <input class="form-control" style="display: inline;width: 7%;" placeholder="月" type="text" name="start_time_m" value="${(draft.start_time_m)!''}" maxlength="2" onkeyup="this.value=this.value.replace(/\D/g,'');if(this.value<=0||this.value>12){this.value=''}">
 					  <input class="form-control" style="display: inline;width: 7%;" placeholder="日" type="text"name="start_time_d" value="${(draft.start_time_d)!''}" maxlength="2" onkeyup="this.value=this.value.replace(/\D/g,'');if(this.value<=0||this.value>31){this.value=''}">
 		            </div>
-		            <div class="col-md-12" style="float:none;">
-		              <label>请选择一张封面图:</label>
-		              <select id="showPic" class="form-control" style="display: inline;width: 10%;" name="showPic" onchange="choosePic(this);">
-		                <option value="">--请选择--</option>
-		                <#list userPics as pic>
-		                   <option value="${pic.url}" <#if draft.showPic?? && draft.showPic==pic.url>selected</#if>>${pic.name}</option>
-				        </#list>
-		              </select>
-		              <span><img id="showPicImg" style="width:200px;height:150px;<#if draft.showPic??>display:block;<#else>display:none;</#if>" src="${(draft.showPic)!''}" /><br><br></span>
-                    </div>
 				 	<div class="col-md-12" style="float:none;margin:2px">
 						<textarea name="sub_content" id="sub_content" class="form-control" style="margin-bottom:10px;text-indent:25px;" placeholder="内容摘要" rows="4">${(draft.sub_content)!''}</textarea>
 					</div>

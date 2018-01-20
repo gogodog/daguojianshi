@@ -170,11 +170,12 @@ public class DraftMapperImpl implements DraftMapper{
 	}
 
 	@Override
-	public int submitAudit(String id) throws Exception {
+	public int submitAudit(String id,String showPic) throws Exception {
 		DraftEs draftEs = selectByIdAll2(id);
 		draftEs.setStatus(Pending_Status.AUDIT_PENDING.getKey());
 		String datenow = DateUtils.parseStringFromDate(new Date());
 		draftEs.setUpdate_time(datenow);
+		draftEs.setShow_pic(showPic);
 		return updateDraft2(draftEs);
 	}
 	

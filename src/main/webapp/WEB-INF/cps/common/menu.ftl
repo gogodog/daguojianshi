@@ -24,7 +24,7 @@
                 <a <#if page_name='user/psoninf'>class="active-menu"</#if> href="/cps/user/psoninf"><i class="fa fa-anchor "></i>个人信息</a>
             </li>
             <li>
-                <a <#if page_name='dft/draft'>class="active-menu"</#if> href="/cps/dft/draft"><i class="fa fa-yelp "></i>草稿箱</a>
+                <a <#if page_name='dft/draft' || page_name='dft/audit'>class="active-menu"</#if> href="/cps/dft/draft"><i class="fa fa-yelp "></i>草稿箱</a>
             </li>
             <li>
                 <a <#if page_name='fb/feedback'>class="active-menu"</#if> href="/cps/fb/feedback"><i class="fa fa-square-o "></i>反馈</a>

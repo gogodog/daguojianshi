@@ -24,7 +24,6 @@ function saveEditor(isBack){
 	var start_time_y=$("input[name='start_time_y']").val();
 	var start_time_m=$("input[name='start_time_m']").val();
 	var start_time_d=$("input[name='start_time_d']").val();
-	var showPic=$("#showPic").val();
 	editor.sync();
     var content=$("#editor_id").val();
     var jso = {};
@@ -38,7 +37,6 @@ function saveEditor(isBack){
 	jso["start_time_y"]=$.trim(start_time_y);
 	jso["start_time_m"]=$.trim(start_time_m);
 	jso["start_time_d"]=$.trim(start_time_d);
-	jso["showPic"]=$.trim(showPic);
 	if(check(jso) == 0){
 		if($.trim(id).length>0){
 			jso["id"]=$.trim(id);
@@ -90,10 +88,6 @@ function check(jso){
 		alert("类型不能为空");
 		return 1;
 	}
-	if(jso.showPic==null||jso.showPic==''){
-		alert("封面图片不能为空");
-		return 1;
-	}
 	return 0;
 }
 
@@ -102,16 +96,6 @@ function preview(){
 	window.location.href = contextPath+"/cps/dft/previewDraft?aid="+aid;
 }
 
-function choosePic(item){
-	var url = $(item).val();
-	if(url!=null && url!=''){
-		var accessUrl = imageContextPath+url;
-		$("#showPicImg").attr("src",accessUrl);
-		$("#showPicImg").show();
-	}else{
-		$("#showPicImg").hide();
-	}
-}
 </script>
 <script src="/admin/js/kingediter/kindeditor-all2.js?v=${staticVersion}"></script>
 <script>

@@ -120,8 +120,8 @@ public class DraftServiceImpl implements DraftService{
 	}
 
 	@Override
-	public int submitAudit(String id)  throws Exception{
-		return draftMapper.submitAudit(id);
+	public int submitAudit(String id,String showPic)  throws Exception{
+		return draftMapper.submitAudit(id,showPic);
 	}
 
 	@Override
