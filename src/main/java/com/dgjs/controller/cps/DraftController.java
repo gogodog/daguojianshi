@@ -1,5 +1,6 @@
 package com.dgjs.controller.cps;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,6 +51,7 @@ public class DraftController {
 	public ModelAndView list(HttpServletRequest request,DraftCondition condtion){
 		ModelAndView mv = new ModelAndView("/cps/draft");
 		condtion.setUserId(WebContextHelper.getUserId());
+		condtion.setStatusList(Arrays.asList(Pending_Status.INIT,Pending_Status.Audit_FAIL));
 		Map<String, SortOrder> map = new HashMap<String, SortOrder>();
 		map.put("update_time", SortOrder.DESC);
 		condtion.setSort(map);

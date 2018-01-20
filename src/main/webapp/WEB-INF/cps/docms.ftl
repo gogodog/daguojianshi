@@ -28,7 +28,9 @@
 		                        <ul class="dropdown-menu">
 		                        	<li><a href="#" tosl="" onmouseup="changeSelect(this,$('#status'),$('#status_show'))">全部</a></li>
 		                            <#list statusList as status>
+		                                <#if status != 'INIT'>
 		                            	<li><a href="#" tosl="${status}" onmouseup="changeSelect(this,$('#status'),$('#status_show'))">${status.value}</a></li>
+		                                </#if>
 		                            </#list>
 		                        </ul>
 		                    </div>

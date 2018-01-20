@@ -1,6 +1,8 @@
 package com.dgjs.controller.cps;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.elasticsearch.search.sort.SortOrder;
@@ -39,6 +41,10 @@ public class PendingController {
 		Map<String, SortOrder> sort = new HashMap<String, SortOrder>();
 		sort.put("update_time", SortOrder.DESC);
 		condition.setSort(sort);
+		if(condition.getStatus()==null){
+			List<Pending_Status> statusList = Arrays.asList(Pending_Status.Audit_FAIL,Pending_Status.AUDIT_PENDING,Pending_Status.PUBLISH_PENDING,Pending_Status.PUBLISHED);
+			condition.setStatusList(statusList);
+		}
 		PageInfoDto<Draft> pageinfo = draftService.listDrafts(condition);
 		Map<String,String> rejectMap= draftAPRecordService.getLastRejectMsg(pageinfo);
 		mv.addObject("pageinfo", pageinfo);

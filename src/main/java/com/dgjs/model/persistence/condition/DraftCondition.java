@@ -1,6 +1,7 @@
 package com.dgjs.model.persistence.condition;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.elasticsearch.search.sort.SortOrder;
@@ -27,6 +28,7 @@ public class DraftCondition {
 	
 	//审核发布参数
 	private Pending_Status status;
+	private List<Pending_Status> statusList;
 	
 	//返回字段
 	private String[] includes;//返回值需要的字段
@@ -122,4 +124,11 @@ public class DraftCondition {
 	public void setStatus(Pending_Status status) {
 		this.status = status;
 	}
+	public List<Pending_Status> getStatusList() {
+		return statusList;
+	}
+	public void setStatusList(List<Pending_Status> statusList) {
+		this.statusList = statusList;
+	}
+
 }

@@ -185,6 +185,14 @@ public class DraftMapperImpl implements DraftMapper{
 			if(condition.getUserId()!=null){
 				boolBuilder.must(QueryBuilders.termQuery("user_id", condition.getUserId()));
 			}
+			if(condition.getStatusList()!=null && condition.getStatusList().size()>0){
+				List<Pending_Status> statusList = condition.getStatusList();
+				List<Integer> statusArray = new ArrayList<Integer>();
+				for(Pending_Status status:statusList){
+					statusArray.add(status.getKey());
+				}
+				boolBuilder.must(QueryBuilders.termsQuery("status", statusArray));
+			}
 			if(condition.getStatus()!=null){
 				boolBuilder.must(QueryBuilders.termQuery("status", condition.getStatus().getKey()));
 			}
