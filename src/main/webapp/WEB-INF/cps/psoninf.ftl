@@ -112,7 +112,11 @@
                   if(data.error){
                	    alert(data.errorMessage);
                   }else{
-                  	window.location.reload();
+                	  if(data.objects!=null && data.objects!='' && data.objects.isNeedRedirect!=null && data.objects.isNeedRedirect){
+                  		window.location.href = '/cps/login'
+                  	  }else{
+                  	  	window.location.reload();
+                  	  }
                   }
               }, 
               error:function(){
@@ -144,6 +148,18 @@
     	 var email=$("input[name='电子邮件']").val();
     	 var mobile=$("input[name='电话']").val();
     	 var address=$("input[name='常住地址']").val();
+    	 if(email==null||email.length<5){
+    		 alert("请写正确的邮箱");
+    		 return;
+    	 }
+    	 if(mobile==null||mobile.length<5){
+    		 alert("请写正确的电话");
+    		 return;
+    	 }
+    	 if(address==null||address.length<3){
+    		 alert("请写正确的常住地址");
+    		 return;
+    	 }
     	 $.ajax({
      		   async:false,
      		   data:{email:email,mobile:mobile,address:address,source:2},
@@ -154,7 +170,11 @@
                     if(data.error){
                  	    alert(data.errorMessage);
                     }else{
-                    	window.location.reload();
+                    	if(data.objects!=null && data.objects!='' && data.objects.isNeedRedirect!=null && data.objects.isNeedRedirect){
+                    		window.location.href = '/cps/login'
+                    	}else{
+                    		window.location.reload();
+                    	}
                     }
                 }, 
                 error:function(){

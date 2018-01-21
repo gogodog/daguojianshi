@@ -1,20 +1,18 @@
 package com.dgjs.utils;
 
 
-import java.util.Random;
+import java.io.UnsupportedEncodingException;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
 
-import com.alibaba.fastjson.JSON;
 
 public class AESUtils {
 
-	 public String Encrypt(String str) {  
+	 public static String Encrypt(String str,String key) {  
 	        try{  
-	            String key = "1468133156538546"; //密钥  
 	            byte[] kb = key.getBytes("utf-8");  
 	            SecretKeySpec sks = new SecretKeySpec(kb, "AES");  
 	            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");//算法/模式/补码方式  
@@ -28,9 +26,8 @@ public class AESUtils {
 	    }  
 	 
 	   //解密  
-	    public String Decrypt(String str) {  
+	    public static String Decrypt(String str,String key) {  
 	        try{  
-	            String key = "1468133156538546"; //密钥  
 	            byte[] kb = key.getBytes("utf-8");  
 	            SecretKeySpec sks = new SecretKeySpec(kb, "AES");  
 	            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");  
@@ -77,17 +74,7 @@ public class AESUtils {
 	    }  
 	    
 	    
-	    public static int getX(){
-          String x = "abc";	    
-          try{
-        	  int y=Integer.parseInt(x);
-          }catch(Exception e){
-        	  e.printStackTrace();
-          }
-          return 0;
-	    }
-	    
-	 public static void main(String[] args) {
+	 public static void main(String[] args) throws UnsupportedEncodingException {
 //		Random random = new Random();
 //		StringBuilder str = new StringBuilder();
 //		for(int i=0;i<16;i++){
@@ -95,12 +82,10 @@ public class AESUtils {
 //		}
 //		System.out.println(str);
 		
-		AESUtils aes=new AESUtils();  
-	    String en = aes.Encrypt("123");  
-	    System.out.println("加密:"+en);  
-	    String de = aes.Decrypt("/5jrW9RUWddvEI7I1ghV/A==");  
-	    System.out.println("解密:"+de);  
-	    
-	    AESUtils.getX();
+//		AESUtils aes=new AESUtils();  
+//	    String en = aes.Encrypt("123456789012345678901234567890");  
+//	    System.out.println("加密:"+en);  
+//	    String x = aes.parseByte2HexStr(en.getBytes("utf-8"));
+//	    System.out.println(x);
 	}
 }

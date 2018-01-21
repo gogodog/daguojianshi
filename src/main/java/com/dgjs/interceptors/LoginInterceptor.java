@@ -180,7 +180,8 @@ public class LoginInterceptor implements HandlerInterceptor{
 	public static void main(String[] args) {
 		LoginInterceptor l = new LoginInterceptor();
 		//全部 .*+
-		boolean flag = l.isPattern(Arrays.asList("/cps/.*/.*"), "/cps/dft/draft");
+//		boolean flag = l.isPattern(Arrays.asList("/cps/.*/.*"), "/cps/dft/draft");
+		boolean flag = l.isPattern(Arrays.asList("/cps/ck|/cps/log.*"), "/cps/ligout");
 		System.out.println(flag);
 	}
 }

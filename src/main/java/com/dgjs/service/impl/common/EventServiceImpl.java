@@ -12,6 +12,7 @@ import com.dgjs.model.enums.Pending_Status;
 import com.dgjs.model.enums.Read_Status;
 import com.dgjs.model.param.view.ArticleAudit;
 import com.dgjs.model.persistence.NoticeMessage;
+import com.dgjs.service.admin.AdminUserService;
 import com.dgjs.service.admin.NoticeMessageService;
 import com.dgjs.service.common.EventService;
 import com.dgjs.service.content.DraftService;
@@ -31,9 +32,12 @@ public class EventServiceImpl implements EventService{
 	
 	@Autowired
 	private ExecutorService eventExecutor;
+	
+	@Autowired
+	AdminUserService adminUserService;
 
 	@Override
-	public void eventHandler(int event, Object[] args) {
+	public void eventHandler(int event, Object[] args,Integer userId) {
 		//不需要处理
 		if(event == -1){
 			return; 
@@ -44,7 +48,7 @@ public class EventServiceImpl implements EventService{
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
-					processEvent(event,args);
+					processEvent(event,args,userId);
 				}
 				
 			});
@@ -53,7 +57,7 @@ public class EventServiceImpl implements EventService{
 		}
 	}
 	
-	private void processEvent(int event, Object[] args){
+	private void processEvent(int event, Object[] args,Integer userId){
 		//事件处理
 		if(event == EventCode.AUDIT_NOTICE){
 			NoticeMessage noticeMessage = new NoticeMessage();

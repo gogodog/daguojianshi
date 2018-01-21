@@ -13,7 +13,9 @@
            user_code,
            headimgurl,
            create_time,
-           update_time
+           update_time,
+           unionid,
+           openid
           )  
     values 
     <foreach collection="list" item="item" index="index" separator=",">
@@ -25,7 +27,9 @@
            #{item.user_code},
            #{item.headimgurl},
            #{item.create_time},
-           #{item.update_time}
+           #{item.update_time},
+           #{unionid},
+           #{openid}
           ) 
     </foreach> 
   </insert>
@@ -40,7 +44,9 @@
                user_code,
                headimgurl,
                create_time,
-               update_time
+               update_time,
+               unionid,
+               openid
 	       )
 	       values
 	       (
@@ -51,12 +57,14 @@
                #{user_code},
                #{headimgurl},
                now(),
-               now()
+               now(),
+               #{unionid},
+               #{openid}
 	       )
 	</insert>
 	
 	<select id="selectById" resultType="adminUser">
-	      select id,username,user_code,status,source,role_id,headimgurl,create_time,update_time from admin_user where id=#{id}
+	      select id,username,user_code,status,source,role_id,headimgurl,create_time,update_time,unionid,openid from admin_user where id=#{id}
 	</select>
 	
 	<update id="update">
@@ -73,8 +81,9 @@
 	</update>
 	
 	<select id="list" resultType="adminUserResult">
-	   select au.id,au.username,au.user_code,au.status,au.source,au.role_id,au.headimgurl, 
-	   aui.real_name,aui.sex,aui.age,aui.organization,aui.email,aui.mobile,aui.address,au.create_time,aui.update_time
+	   select au.id,au.username,au.user_code,au.status,au.source,au.role_id,au.headimgurl,au.unionid,au.openid
+	   aui.real_name,aui.sex,aui.age,aui.organization,aui.email,aui.mobile,aui.address,au.create_time
+	   ,aui.update_time,aui.province,aui.city,aui.country
 	   from admin_user au
 	   left join admin_user_info aui on au.id=aui.id where 1=1
 	         <include refid="listsql"></include>
@@ -126,4 +135,8 @@
 	<select id="getByUserCode" resultType="adminUser">
 	  select id,username,user_code,status,source,role_id,headimgurl,create_time,update_time from admin_user where user_code=#{userCode}
 	</select>
+	
+    <select id="getByUnionId">
+      select id,username,user_code,status,source,role_id,headimgurl,create_time,update_time from admin_user where unionid=#{unionid}
+    </select>
 </mapper>

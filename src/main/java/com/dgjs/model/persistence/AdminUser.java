@@ -2,6 +2,7 @@ package com.dgjs.model.persistence;
 
 import java.util.Date;
 
+import com.dgjs.model.enums.Admin_Source;
 import com.dgjs.model.enums.UpDown_Status;
 
 public class AdminUser {
@@ -10,7 +11,7 @@ public class AdminUser {
 	private String username;//用户名（目前是微信号）
 	private String user_code;//用户code
 	private UpDown_Status status;//状态
-    private Integer source;//来源
+    private Admin_Source source;//来源
     private Integer role_id;//角色id
 	private Date create_time;//创建时间
 	private Date update_time;//修改时间
@@ -43,10 +44,10 @@ public class AdminUser {
 	public void setStatus(UpDown_Status status) {
 		this.status = status;
 	}
-	public Integer getSource() {
+	public Admin_Source getSource() {
 		return source;
 	}
-	public void setSource(Integer source) {
+	public void setSource(Admin_Source source) {
 		this.source = source;
 	}
 	public Integer getRole_id() {

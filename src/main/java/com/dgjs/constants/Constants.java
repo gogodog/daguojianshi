@@ -25,4 +25,7 @@ public interface Constants {
 	
 	/*手机端首页前缀*/
 	public static final String M_INDEX_CONFIX_PREFIX = "M_INDEX_";
+	
+	public static final String WX_CODE_PREFIX="wx_";
+	public static final String WX_CODE_ENCRYPT_KEY="1468133156538546";
 }

@@ -23,4 +23,6 @@ public interface AdminUserMapper {
 	public List<Integer> getListIds(AdminUserCondition condition);
 	
 	public AdminUser getByUserCode(String userCode);
+	
+	public AdminUser getByUnionId(String unionId);
 }

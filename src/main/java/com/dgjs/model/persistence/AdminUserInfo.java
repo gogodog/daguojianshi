@@ -2,6 +2,8 @@ package com.dgjs.model.persistence;
 
 import java.util.Date;
 
+import org.springframework.util.StringUtils;
+
 public class AdminUserInfo {
 
 	private Integer id;//id同AdminUser
@@ -14,6 +16,12 @@ public class AdminUserInfo {
 	private String address;//地址
 	private Date create_time;//创建时间
 	private Date update_time;//修改时间
+	private String user_code;//code
+	
+	private String province;//省份
+	private String city;//城市
+	private String country;//国家
+	private String headimgurl;//头像
 	
 	
 	public String getReal_name() {
@@ -76,5 +84,58 @@ public class AdminUserInfo {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+	public String getProvince() {
+		return province;
+	}
+	public void setProvince(String province) {
+		this.province = province;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getCountry() {
+		return country;
+	}
+	public void setCountry(String country) {
+		this.country = country;
+	}
+	public String getHeadimgurl() {
+		return headimgurl;
+	}
+	public void setHeadimgurl(String headimgurl) {
+		this.headimgurl = headimgurl;
+	}
+	public String getUser_code() {
+		return user_code;
+	}
+	public void setUser_code(String user_code) {
+		this.user_code = user_code;
+	}
+	/*
+	 * 是否有编辑文章权限
+	 */
+	public boolean isCanEditArticle(){
+		if(StringUtils.isEmpty(real_name)){
+			return false;
+		}
+		if(sex==0){
+			return false;
+		}
+		if(age<1){
+			return false;
+		}
+		if(StringUtils.isEmpty(email)){
+			return false;
+		}
+		if(StringUtils.isEmpty(mobile)){
+			return false;
+		}
+		if(StringUtils.isEmpty(address)){
+			return false;
+		}
+		return true;
+	}
 }

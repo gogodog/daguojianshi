@@ -70,7 +70,7 @@ public class SystemLogAspect {
 		    //保存操作日志
 		    saveOperateLog(args,ip,logRecord,userId);
 		    //处理事件
-		    eventService.eventHandler(event,args);
+		    eventService.eventHandler(event,args,userId);
 		}catch(Exception e){
 			saveOperateLog(args,ip,logRecord,0,e.getMessage(),userId);
 			throw e;

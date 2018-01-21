@@ -14,7 +14,12 @@
                mobile,
                address,
                create_time,
-               update_time
+               update_time,
+               province,
+               city,
+               country,
+               headimgurl,
+               user_code
 	       )
 	       values
 	       (
@@ -27,12 +32,19 @@
                #{mobile},
                #{address},
                now(),
-               now()
+               now(),
+               #{province},
+               #{city},
+               #{country},
+               #{headimgurl},
+               #{user_code}
 	       )
 	</insert>
 	
 	<select id="selectById" resultType="adminUserInfo">
-	      select id,real_name,sex,age,organization,email,mobile,address,create_time,update_time from admin_user_info where id=#{id}
+	      select id,real_name,sex,age,organization,email,mobile,address,create_time,update_time,
+	      province,city,country,headimgurl,user_code 
+	      from admin_user_info where id=#{id}
 	</select>
 	
 	<update id="update">

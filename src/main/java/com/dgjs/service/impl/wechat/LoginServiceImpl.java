@@ -2,24 +2,35 @@ package com.dgjs.service.impl.wechat;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dgjs.constants.Session_Keys;
 import com.dgjs.constants.WeChatConstans;
+import com.dgjs.model.persistence.AdminUser;
 import com.dgjs.model.wechat.helper.LoginHelper;
 import com.dgjs.model.wechat.req.GetUserAccessToken;
 import com.dgjs.model.wechat.req.GetUserInfo;
 import com.dgjs.model.wechat.res.UserAccessToken;
 import com.dgjs.model.wechat.res.UserInfo;
 import com.dgjs.service.admin.AdminUserService;
+import com.dgjs.service.transaction.AdminUserTransactionService;
 import com.dgjs.service.wechat.LoginService;
 import com.dgjs.utils.StringUtils;
+import com.dgjs.utils.WebContextHelper;
 
 @Service
 public class LoginServiceImpl implements LoginService {
 	
+	private Log log = LogFactory.getLog(LoginServiceImpl.class);
+	
 	@Autowired
 	AdminUserService adminUserService;
+	
+	@Autowired
+	AdminUserTransactionService adminUserTransactionService;
 
 	private UserAccessToken getUserAccessToken(String code) throws Exception {
 		if (StringUtils.isEmptyOrWhitespaceOnly(code)) {
@@ -52,9 +63,14 @@ public class LoginServiceImpl implements LoginService {
 			if (userInfo == null || userInfo.getErrcode() == -1) {
 				return false;
 			}
-			return adminUserService.wxLogin(userInfo,response);
+			AdminUser adminUser = adminUserTransactionService.wxLogin(userInfo,response);
+			if(adminUser!=null){
+				WebContextHelper.setSessionValue(Session_Keys.USER_INFO, adminUser);
+				return true;
+			}
 		} catch (Exception e) {
-			return true;
+			log.error("login exception", e);
 		}
+		return false;
 	}
 }

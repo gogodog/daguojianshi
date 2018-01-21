@@ -22,6 +22,10 @@ public class AdminUserResult extends AdminUser{
 	
 	private String role_name;//角色名称
 	
+	private String province;//省份
+	private String city;//城市
+	private String country;//国家
+	
 	public String getReal_name() {
 		return real_name;
 	}
@@ -82,7 +86,24 @@ public class AdminUserResult extends AdminUser{
 	public void setRole_name(String role_name) {
 		this.role_name = role_name;
 	}
-	
+	public String getProvince() {
+		return province;
+	}
+	public void setProvince(String province) {
+		this.province = province;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getCountry() {
+		return country;
+	}
+	public void setCountry(String country) {
+		this.country = country;
+	}
 	@SuppressWarnings("unchecked")
 	public static Map<Integer,AdminUserResult> fromListToMap(List<AdminUserResult> list){
 		if(list == null || list.size() == 0){
