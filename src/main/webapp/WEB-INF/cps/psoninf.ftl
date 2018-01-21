@@ -171,7 +171,7 @@
                  	    alert(data.errorMessage);
                     }else{
                     	if(data.objects!=null && data.objects!='' && data.objects.isNeedRedirect!=null && data.objects.isNeedRedirect){
-                    		window.location.href = '/cps/login'
+                    		window.location.href = '/cpslogin'
                     	}else{
                     		window.location.reload();
                     	}

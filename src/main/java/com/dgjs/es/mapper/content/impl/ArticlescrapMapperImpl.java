@@ -345,23 +345,29 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 	}
 	
 	private void movePic(ArticlescrapEs articlescrapEs){
-		String[] pics = articlescrapEs.getPictures();
-		//如果没有图片，设置为同步完成
-		if(pics==null||pics.length==0){
-			articlescrapEs.setPic_sync_status(Pic_Sync_Status.SYNCHRONIZED.getKey());
-			return;
+		String[] pics = articlescrapEs.getPictures();//文章图片
+		String showPic = articlescrapEs.getShow_pic();//封面图片
+		List<String> picList = new ArrayList<String>();
+		picList.add(showPic);
+		if(pics!=null&&pics.length>0){
+			for(String pic:pics){
+				picList.add(pic);
+			}
 		}
-		String[] fastfdsPics = new String[pics.length];
+		String[] fastfdsPics = new String[picList.size()];
 		int progress=articlescrapEs.getProgress();
 		try {
-			for(int i=0;i<pics.length;i++){
-				String pic=pics[i];
+			for(int i=0;i<picList.size();i++){
+				String pic=picList.get(i);
 				if(progress == i){
 					String[] uploadFile = fastFDSClient.uploadFile(pic);//fastfds上传
 					if(uploadFile==null||uploadFile.length!=2){
 						break;
 					}else{
 						fastfdsPics[progress]=StringUtils.jointString("/",uploadFile[0],"/",uploadFile[1]);
+						if(progress==0){
+							articlescrapEs.setShow_pic(fastfdsPics[progress]);
+						}
 						progress++;
 					}
 				}
@@ -370,25 +376,27 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 		 catch (Exception e) {
 			 logger.error("uploadFile to fastfds exception,param="+JSON.toJSONString(articlescrapEs), e);
 		 } 
-		 if(progress > 0 && progress < pics.length){
+		 if(progress > 0 && progress < picList.size()){
 			 articlescrapEs.setProgress(progress);
 			 articlescrapEs.setPic_sync_status(Pic_Sync_Status.SYNCHING.getKey());
-	     }else if(progress == pics.length){
+	     }else if(progress == picList.size()){
 	    	 articlescrapEs.setProgress(progress);
 	    	 articlescrapEs.setPic_sync_status(Pic_Sync_Status.SYNCHRONIZED.getKey());
 	     }
 		 //如果图片没同步成功
-		 if(progress!=pics.length){
+		 if(progress!=picList.size()){
 			 //如果设置了立刻上架，则将状态改为初始化，待图片同步完成后再自动上架
 			 if(articlescrapEs.getStatus() == Articlescrap_Status.UP.getKey()){
 				 articlescrapEs.setStatus(Articlescrap_Status.INIT.getKey());
 			 }
 		 }
-		 for(int i=0;i<progress;i++){
-			 pics[i]=fastfdsPics[i];
+		 if(progress>1){
+			 for(int i=0;i<progress-1;i++){
+				 pics[i]=fastfdsPics[i+1];
+			 }
+			 articlescrapEs.setPictures(pics);
 		 }
 		 articlescrapEs.setUpdate_time(DateUtils.parseStringFromDate(new Date()));
-		 articlescrapEs.setPictures(pics);
 	}
 
 	@Override
@@ -402,4 +410,5 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 		updateRequest.doc(articlescrapEs.toString());
 		client.update(updateRequest).get();
 	}
+	
 }

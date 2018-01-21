@@ -12,6 +12,7 @@ import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.DispatcherServlet;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.condition.PatternsRequestCondition;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
+
 import com.dgjs.service.wechat.LoginService;
 import com.dgjs.utils.WebContextHelper;
 
@@ -28,9 +30,11 @@ public class LoginController {
 	
 	@Autowired
 	LoginService loginService;
+	
 
 	@RequestMapping("/test")
-	public void init(HttpServletRequest request,HttpServletResponse response) {  
+	@ResponseBody
+	public void init(HttpServletRequest request,HttpServletResponse response) throws Exception{  
 	    List<String> uList = new ArrayList<String>();//存储所有url集合    
 	    WebApplicationContext wac = (WebApplicationContext) request.getAttribute(DispatcherServlet.WEB_APPLICATION_CONTEXT_ATTRIBUTE);//获取上下文对象  
 	    Map<String, HandlerMapping> requestMappings = BeanFactoryUtils.beansOfTypeIncludingAncestors(wac, HandlerMapping.class, true, false);  

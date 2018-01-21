@@ -32,12 +32,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.alibaba.fastjson.JSON;
 import com.dgjs.es.client.ESTransportClient;
+import com.dgjs.es.client.FastFDSClient;
 import com.dgjs.es.mapper.content.ArticlescrapMapper;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Articlescrap;
 import com.dgjs.model.es.ArticlescrapEs;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 import com.dgjs.service.content.ArticlescrapService;
+import com.dgjs.utils.StringUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)  
 @ContextConfiguration(locations = "classpath:spring-*.xml") 
@@ -53,6 +55,8 @@ public class EsInit {
 	 @Autowired
 	 ESTransportClient transportClient;
 	
+	 @Autowired
+	 FastFDSClient fastFDSClient;
 	
 	@Test
 	public void testInitTable() throws Exception{
@@ -232,16 +236,23 @@ public class EsInit {
 	@Test
 	public void testSaveShowPic() throws Exception{
 		ArticlescrapCondtion condition = new ArticlescrapCondtion();
-		condition.setOnePageSize(200);
+		condition.setOnePageSize(1);
 		String[] includes = new String[] {"id"};
 		condition.setIncludes(includes);
 		PageInfoDto<Articlescrap> pageinfo = articlescrapMapper.listArticlescrap(condition);
 		for(Articlescrap articlescrap:pageinfo.getObjects()){
 			Articlescrap article=articlescrapMapper.getArticlescrapAll(articlescrap.getId());
-			String[] pictures = article.getPictures();
-			String defaultImage = "/group1/M00/00/00/rBHGsFpB5jmAKYLGAABJHOTsR0Y729.jpg";
-			article.setShowPic(pictures==null||pictures.length==0?defaultImage:pictures[0]);
+			System.out.println(articlescrap.getId()+"======="+article.getShowPic());
+			String picture = article.getShowPic();
+			String[] uploadFile = fastFDSClient.uploadFile(picture);//fastfds上传
+			if(uploadFile==null||uploadFile.length!=2){
+				break;
+			}
+			String fastPath = StringUtils.jointString("/",uploadFile[0],"/",uploadFile[1]);
+			article.setShowPic(fastPath);
+			article.setProgress(article.getProgress()+1);
 			articlescrapMapper.updateArticlescrap(article);
+			System.out.println(fastPath+"++++++++");
 		}
 		System.out.println("update success");
 	}

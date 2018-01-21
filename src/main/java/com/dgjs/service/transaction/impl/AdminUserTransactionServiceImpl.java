@@ -65,6 +65,7 @@ public class AdminUserTransactionServiceImpl implements AdminUserTransactionServ
 			adminUserInfo.setHeadimgurl(userInfo.getHeadimgurl());
 			adminUserInfo.setReal_name(userInfo.getNickname());
 			adminUserInfo.setUser_code(adminUser.getUser_code());
+			adminUserInfo.setId(adminUser.getId());
 			flag = adminUserInfoMapper.save(adminUserInfo);
 			if(flag<1){
 				throw new TransactionException(RETURN_STATUS.SYSTEM_ERROR.getValue(),"save adminUserInfo exception");

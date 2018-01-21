@@ -7,6 +7,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSON;
 import com.dgjs.constants.Session_Keys;
 import com.dgjs.constants.WeChatConstans;
 import com.dgjs.model.persistence.AdminUser;
@@ -56,11 +57,12 @@ public class LoginServiceImpl implements LoginService {
 	public boolean login(String code, HttpServletResponse response){
 		try {
 			UserAccessToken userAccessToken = this.getUserAccessToken(code);
-			if (userAccessToken == null || userAccessToken.getErrcode() == -1) {
+			if (userAccessToken == null || userAccessToken.getErrcode() != -1) {
 				return false;
 			}
 			UserInfo userInfo = this.getUserInfo(userAccessToken);
-			if (userInfo == null || userInfo.getErrcode() == -1) {
+			log.info("userInfo====="+JSON.toJSONString(userInfo));
+			if (userInfo == null || userInfo.getErrcode() != -1) {
 				return false;
 			}
 			AdminUser adminUser = adminUserTransactionService.wxLogin(userInfo,response);

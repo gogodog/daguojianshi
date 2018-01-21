@@ -133,10 +133,10 @@
 	</sql>
 	
 	<select id="getByUserCode" resultType="adminUser">
-	  select id,username,user_code,status,source,role_id,headimgurl,create_time,update_time from admin_user where user_code=#{userCode}
+	  select id,username,user_code,status,source,role_id,headimgurl,create_time,update_time,unionid,openid from admin_user where user_code=#{userCode}
 	</select>
 	
-    <select id="getByUnionId">
-      select id,username,user_code,status,source,role_id,headimgurl,create_time,update_time from admin_user where unionid=#{unionid}
+    <select id="getByUnionId" resultType="adminUser">
+      select id,username,user_code,status,source,role_id,headimgurl,create_time,update_time,unionid,openid from admin_user where unionid=#{unionid}
     </select>
 </mapper>
