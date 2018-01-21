@@ -82,7 +82,7 @@
 	
 	<select id="list" resultType="adminUserResult">
 	   select au.id,au.username,au.user_code,au.status,au.source,au.role_id,au.headimgurl,au.unionid,au.openid
-	   aui.real_name,aui.sex,aui.age,aui.organization,aui.email,aui.mobile,aui.address,au.create_time
+	   ,aui.real_name,aui.sex,aui.age,aui.organization,aui.email,aui.mobile,aui.address,au.create_time
 	   ,aui.update_time,aui.province,aui.city,aui.country
 	   from admin_user au
 	   left join admin_user_info aui on au.id=aui.id where 1=1

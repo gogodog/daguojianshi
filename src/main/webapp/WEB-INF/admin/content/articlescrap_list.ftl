@@ -30,34 +30,29 @@
 			  </form>
 			    <table class="public-cont-table">
 					<tr>
-					    <th style="width:5%">文章id</th>
-						<th style="width:12%">文章标题</th>
-						<th style="width:20%">文章内容</th>
+					    <th style="width:10%">文章id</th>
+						<th style="width:17%">文章标题</th>
 						<th style="width:10%">文章展示时间</th>
-						<th style="width:8%">分类</th>
-						<th style="width:5%">状态</th>
-						<th style="width:7%">作者</th>
-						<th style="width:8%">创建时间</th>
-						<th style="width:8%">修改时间</th>
-						<th style="width:18%">操作</th>
+						<th style="width:7%">分类</th>
+						<th style="width:7%">状态</th>
+						<th style="width:10%">作者</th>
+						<th style="width:15%">时间</th>
+						<th style="width:20%">操作</th>
 					</tr>
 					<#list pageInfo.objects as articlescrap>
 					  <tr>
 					     <td>${articlescrap.id}</td>			
-					     <td>${articlescrap.title}</td>						
-					     <td>${articlescrap.sub_content}</td>
+					     <td><a href = "/admin/atcp/previewArticlescrap?articlescrapId=${articlescrap.id}">${articlescrap.title}</a></td>						
 					     <td>${articlescrap.show_time?datetime}</td>
 					     <td>${articlescrap.type.value}</td>	
 					     <td>${articlescrap.status.value}</td>
 					     <td>${articlescrap.author}</td>
-					     <td>${articlescrap.create_time?datetime}</td>
-					     <td>${articlescrap.update_time?datetime}</td>
+					     <td>创建时间：<br>${articlescrap.create_time?datetime}<br>修改时间：<br>${articlescrap.update_time?datetime}</td>
 					     <td>
 					     	<div class="table-fun-1">
 					     	<!--	<a href="/admin/atcp/articlescrap?articlescrapId=${articlescrap.id}">修改</a> -->
 					       	    <a href="/admin/atcp/info?articlescrapId=${articlescrap.id}">修改信息</a>
 					       	    <a href="/admin/atcp/content?articlescrapId=${articlescrap.id}">修改内容</a>
-					       	    <a href="/admin/atcp/previewArticlescrap?articlescrapId=${articlescrap.id}">预览</a>
 					     		<#if articlescrap.status == 'INIT' || articlescrap.status == 'DOWN'>
 					     		   <a href="javascript:void(0)" onclick="updateStatus('${articlescrap.id}','UP');">上架</a>
 					     		<#elseif articlescrap.status == 'UP'>   

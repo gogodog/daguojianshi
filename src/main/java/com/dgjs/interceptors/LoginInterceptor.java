@@ -153,45 +153,49 @@ public class LoginInterceptor implements HandlerInterceptor{
 				String name = project.attribute("id").getText();
 				if("admin".equals(name)){
 					if(adminMenuList==null){
-						adminMenuList = new ArrayList<AdminMenu>();
-						Iterator<Element> firstlevelIt = project.elementIterator("firstlevel");
-						while(firstlevelIt.hasNext()){
-							Element firstlevel = firstlevelIt.next();
-							String desc = firstlevel.attribute("desc").getText();
-							List<Children> childrenList = new ArrayList<Children>();
-							AdminMenu adminMenu = new AdminMenu();
-							adminMenu.setName(desc);
-							adminMenu.setChildren(childrenList);
-							adminMenuList.add(adminMenu);
-							Iterator<Element> secondlevelIt=firstlevel.elementIterator("secondlevel");
-							while(secondlevelIt.hasNext()){
-								Element secondlevel = secondlevelIt.next();
-								AdminMenu.Children children =  adminMenu.new Children();
-								children.setUrl(secondlevel.attribute("url").getText());
-								children.setDesc(secondlevel.attribute("desc").getText());
-								childrenList.add(children);
+						synchronized (this) {
+							adminMenuList = new ArrayList<AdminMenu>();
+							Iterator<Element> firstlevelIt = project.elementIterator("firstlevel");
+							while(firstlevelIt.hasNext()){
+								Element firstlevel = firstlevelIt.next();
+								String desc = firstlevel.attribute("desc").getText();
+								List<Children> childrenList = new ArrayList<Children>();
+								AdminMenu adminMenu = new AdminMenu();
+								adminMenu.setName(desc);
+								adminMenu.setChildren(childrenList);
+								adminMenuList.add(adminMenu);
+								Iterator<Element> secondlevelIt=firstlevel.elementIterator("secondlevel");
+								while(secondlevelIt.hasNext()){
+									Element secondlevel = secondlevelIt.next();
+									AdminMenu.Children children =  adminMenu.new Children();
+									children.setUrl(secondlevel.attribute("url").getText());
+									children.setDesc(secondlevel.attribute("desc").getText());
+									childrenList.add(children);
+								}
 							}
 						}
 					}
 				}else if("cps".equals(name)){
 					if(cpsMenuList == null){
-						cpsMenuList = new ArrayList<CpsMenu>();
-						Iterator<Element> firstlevelIt = project.elementIterator("firstlevel");
-						while(firstlevelIt.hasNext()){
-							Element firstlevel = firstlevelIt.next();
-							String desc = firstlevel.attribute("desc").getText();
-							String url = firstlevel.attribute("url").getText();
-							String css = firstlevel.attribute("css").getText();
-							String pageName = firstlevel.attribute("page_name").getText();
-							CpsMenu cpsMenu = new CpsMenu();
-							cpsMenu.setCss(css);
-							cpsMenu.setName(desc);
-							cpsMenu.setUrl(url);
-                            if(pageName!=null){
-                            	String[] pageNames = pageName.split(",");
-                            	cpsMenu.setPageName(pageNames);
+						synchronized (this) {
+							cpsMenuList = new ArrayList<CpsMenu>();
+							Iterator<Element> firstlevelIt = project.elementIterator("firstlevel");
+							while(firstlevelIt.hasNext()){
+								Element firstlevel = firstlevelIt.next();
+								String desc = firstlevel.attribute("desc").getText();
+								String url = firstlevel.attribute("url").getText();
+								String css = firstlevel.attribute("css").getText();
+								String pageName = firstlevel.attribute("page_name").getText();
+								CpsMenu cpsMenu = new CpsMenu();
+								cpsMenu.setCss(css);
+								cpsMenu.setName(desc);
+								cpsMenu.setUrl(url);
+	                            if(pageName!=null){
+	                            	String[] pageNames = pageName.split(",");
+	                            	cpsMenu.setPageName(pageNames);
+								}
+	                            cpsMenuList.add(cpsMenu);
 							}
-                            cpsMenuList.add(cpsMenu);
 						}
 					}
 				}
