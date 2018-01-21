@@ -91,6 +91,7 @@
            <mvc:mapping path="/admin/**" />
            <mvc:mapping path="/cps/**" />
            <mvc:exclude-mapping path="/**/images/**" />  
+           <mvc:exclude-mapping path="/**/img/**" />  
            <mvc:exclude-mapping path="/**/css/**" />  
            <mvc:exclude-mapping path="/**/js/**" />  
            <mvc:exclude-mapping path="/**/fonts/**" />  
@@ -101,7 +102,8 @@
       </mvc:interceptor>
       <mvc:interceptor> 
            <mvc:mapping path="/cps/**" />
-           <mvc:exclude-mapping path="/**/images/**" />  
+           <mvc:exclude-mapping path="/**/images/**" /> 
+           <mvc:exclude-mapping path="/**/img/**" />   
            <mvc:exclude-mapping path="/**/css/**" />  
            <mvc:exclude-mapping path="/**/js/**" />  
            <mvc:exclude-mapping path="/**/fonts/**" />  

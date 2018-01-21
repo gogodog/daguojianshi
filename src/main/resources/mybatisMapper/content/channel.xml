@@ -49,7 +49,7 @@
 	           status,
 	           create_time,
 	           update_time
-	        from channel order by update_time desc
+	        from channel order by sort asc
 	</select>
 	
 	<delete id="deleteById">

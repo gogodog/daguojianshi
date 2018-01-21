@@ -10,7 +10,7 @@
               <ul class="nav" id="main-menu">
                   <li>
                       <div class="user-img-div">
-                          <a href="/cps/dft/wdoc"><img src="${user.headimgurl}" class="img-thumbnail" /></a>
+                          <a href="/cps/user/psoninf"><img src="${user.headimgurl}" class="img-thumbnail" /></a>
                           <div class="inner-text">${user.username}<br/>自知之明，兢兢业业，顺其自然。</div>
                       </div>
                   </li>
