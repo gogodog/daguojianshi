@@ -22,14 +22,17 @@ import com.dgjs.annotation.LogRecord;
 import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Articlescrap;
+import com.dgjs.model.dto.business.Draft;
 import com.dgjs.model.enums.Articlescrap_Status;
 import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.OperateEnum;
+import com.dgjs.model.enums.Pending_Status;
 import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 import com.dgjs.model.result.view.BaseView;
 import com.dgjs.service.common.PictureService;
 import com.dgjs.service.content.ArticlescrapService;
+import com.dgjs.service.content.DraftService;
 import com.dgjs.utils.DateUtils;
 import com.dgjs.utils.PictureUtils;
 
@@ -40,7 +43,10 @@ public class ArticlescrapController {
 	private Log log = LogFactory.getLog(ArticlescrapController.class);
 	
 	@Autowired
-	ArticlescrapService articlescrapSerivce;
+	ArticlescrapService articlescrapService;
+	
+	@Autowired
+	DraftService draftService;
 	
 	@Autowired
 	PictureService pictureService;
@@ -53,7 +59,7 @@ public class ArticlescrapController {
 		Map<String, SortOrder> sort = new HashMap<String, SortOrder>();
 		sort.put("update_time", SortOrder.DESC);
 		condtion.setSort(sort);
-		PageInfoDto<Articlescrap> pageInfo=articlescrapSerivce.listArticlescrap(condtion);
+		PageInfoDto<Articlescrap> pageInfo=articlescrapService.listArticlescrap(condtion);
 		mv.addObject("pageInfo", pageInfo);
 		mv.addObject("condition",condtion);
 		mv.addObject("articlescrapTypes", Articlescrap_Type.values());
@@ -65,7 +71,7 @@ public class ArticlescrapController {
 	public ModelAndView articlescrap(String articlescrapId) throws Exception{
 		ModelAndView mv = new ModelAndView("admin/content/articlescrap");  
 		if(articlescrapId!=null){
-			Articlescrap articlescrap=articlescrapSerivce.selectByIdAll(articlescrapId);
+			Articlescrap articlescrap=articlescrapService.selectByIdAll(articlescrapId);
 			mv.addObject("articlescrap", articlescrap);
 		}
 		mv.addObject("types", Articlescrap_Type.values());
@@ -80,9 +86,9 @@ public class ArticlescrapController {
 		articlescrap.setShow_time(DateUtils.parseDateFromString(showTime));
 		articlescrap.setPic_num(articlescrap.getPictures()==null?0:articlescrap.getPictures().length);
 		if(StringUtils.isEmpty(articlescrap.getId()))
-			articlescrapSerivce.saveArticlescrap(articlescrap);
+			articlescrapService.saveArticlescrap(articlescrap);
 		else
-			articlescrapSerivce.updateArticlescrap(articlescrap);
+			articlescrapService.updateArticlescrap(articlescrap);
 		return mv;
 	}
 	
@@ -90,7 +96,12 @@ public class ArticlescrapController {
 	@LogRecord(operate=OperateEnum.Update,remark="删除文章")
 	public ModelAndView deleteArticlescrap(String articlescrapId)  throws Exception{
 		ModelAndView mv = new ModelAndView("redirect:/admin/atcp/articlescrapList");  
-		articlescrapSerivce.deleteArticlescrap(articlescrapId);
+		//删除文章时将草稿箱的状态置为待审核
+		Articlescrap articlescrap = articlescrapService.selectById(articlescrapId);
+		Draft draft = draftService.selectByIdAll(articlescrap.getDraftId());
+		draft.setStatus(Pending_Status.AUDIT_PENDING);
+		draftService.updateDraft(draft);
+		articlescrapService.deleteArticlescrap(articlescrapId);
 		return mv;
 	}
 	
@@ -110,14 +121,14 @@ public class ArticlescrapController {
 			bv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
 			return bv;
 		}
-		Articlescrap articlescrap=articlescrapSerivce.selectByIdAll(articlescrapId);
+		Articlescrap articlescrap=articlescrapService.selectByIdAll(articlescrapId);
 		if(articlescrap == null){
 			bv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
 			return bv;
 		}
 		articlescrap.setStatus(status);
 		try {
-			articlescrapSerivce.updateArticlescrap(articlescrap);
+			articlescrapService.updateArticlescrap(articlescrap);
 		} catch (Exception e) {
 			log.error("articlescrap updateStatus exception", e);
 			bv.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
@@ -132,9 +143,9 @@ public class ArticlescrapController {
 		articlescrap.setBeginTime();
 		articlescrap.setShow_time(DateUtils.parseDateFromString(showTime));
 		articlescrap.setPic_num(articlescrap.getPictures()==null?0:articlescrap.getPictures().length);
-		String content = articlescrapSerivce.getContent(articlescrap.getId());
+		String content = articlescrapService.getContent(articlescrap.getId());
 		articlescrap.setContent(content);
-		articlescrapSerivce.updateArticlescrap(articlescrap);
+		articlescrapService.updateArticlescrap(articlescrap);
 		return mv;
 	}
 	
@@ -142,19 +153,19 @@ public class ArticlescrapController {
 	@LogRecord(operate=OperateEnum.Update,remark="修改文章内容")
 	public ModelAndView updateContent(String articlescrapId,String content) throws Exception{
 		ModelAndView mv = new ModelAndView("redirect:/admin/atcp/articlescrapList"); 
-		Articlescrap articlescrap = articlescrapSerivce.selectByIdAll(articlescrapId);
+		Articlescrap articlescrap = articlescrapService.selectByIdAll(articlescrapId);
 		List<String> list = PictureUtils.getImgStr(articlescrap.getContent());
 		articlescrap.setContent(PictureUtils.replaceHtml(list,content,pictureService.getFastFDSContextPath()));//将图片设置为占位符
 		String[] pics = (String[])list.toArray(new String[list.size()]);
 		articlescrap.setPictures(pics);
-		articlescrapSerivce.updateArticlescrap(articlescrap);
+		articlescrapService.updateArticlescrap(articlescrap);
 		return mv;
 	}
 	
 	@RequestMapping("/info")
 	public ModelAndView info(String articlescrapId){
 		ModelAndView mv = new ModelAndView("admin/content/a_info");  
-		Articlescrap articlescrap = articlescrapSerivce.selectById(articlescrapId);
+		Articlescrap articlescrap = articlescrapService.selectById(articlescrapId);
 		mv.addObject("articlescrap", articlescrap);
 		mv.addObject("types", Articlescrap_Type.values());
 		return mv;
@@ -163,7 +174,7 @@ public class ArticlescrapController {
 	@RequestMapping("/content")
 	public ModelAndView content(String articlescrapId){
 		ModelAndView mv = new ModelAndView("admin/content/a_content");  
-		Articlescrap articlescrap = articlescrapSerivce.selectByIdAll(articlescrapId);
+		Articlescrap articlescrap = articlescrapService.selectByIdAll(articlescrapId);
 		mv.addObject("content", articlescrap.getContent());
 		mv.addObject("articlescrapId", articlescrapId);
 		return mv;

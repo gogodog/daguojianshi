@@ -24,7 +24,6 @@ import com.dgjs.service.wechat.LoginService;
 import com.dgjs.utils.WebContextHelper;
 
 @Controller
-@RequestMapping("/cps")
 public class LoginController {
 	
 	@Autowired
@@ -52,28 +51,30 @@ public class LoginController {
 	    } 
 	}
 	
-	@RequestMapping("/login")
+	@RequestMapping("/cpslogin")
 	public ModelAndView login(){
 		ModelAndView mv = new ModelAndView("/cps/login");
 		return mv;
 	}
 	
-	@RequestMapping("/logout")
+	@RequestMapping("/cps/logout")
 	public ModelAndView logout(){
 		ModelAndView mv = new ModelAndView("/cps/login");
 		WebContextHelper.cleanSession();
 		return mv;
 	}
 	
-	@RequestMapping("/ck")
-	public String loginCallBack(String code, String state,HttpServletRequest request,HttpServletResponse response) {
+	@RequestMapping("/cps/ck")
+	public ModelAndView loginCallBack(String code, String state,HttpServletRequest request,HttpServletResponse response) {
 		boolean isLogin = loginService.login(code,response);
+		ModelAndView mv = null;
 		if(!isLogin){//获取用户信息失败
-			ModelAndView mv = new ModelAndView();
+			mv = new ModelAndView("/cps/login");
 			mv.addObject("errcode", "901");
-			return "/cps/login";
+		}else{
+			//登录成功应该重定向cps的首页
+		    mv = new ModelAndView("redirect:/cps"); 
 		}
-		//登录成功应该重定向cps的首页
-		return "/cps/announce/list";
+		return mv;
 	}
 }

@@ -15,13 +15,12 @@ import com.dgjs.model.persistence.condition.AnnouncementCondition;
 import com.dgjs.service.announcement.AnnouncementService;
 
 @Controller
-@RequestMapping("/cps/announce")
 public class AnnouncementController {
 
 	@Autowired
 	AnnouncementService announcementService;
 	
-	@RequestMapping("/list")
+	@RequestMapping("/cps")
 	public ModelAndView list(){
 		ModelAndView mv = new ModelAndView("/cps/announce");
 		AnnouncementCondition condition = new AnnouncementCondition();
