@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.condition.PatternsRequestCondition;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import com.dgjs.service.wechat.LoginService;
+import com.dgjs.utils.WebContextHelper;
 
 @Controller
 @RequestMapping("/cps")
@@ -60,7 +61,7 @@ public class LoginController {
 	@RequestMapping("/logout")
 	public ModelAndView logout(){
 		ModelAndView mv = new ModelAndView("/cps/login");
-		//TODO 清除登录信息，返回登录页
+		WebContextHelper.cleanSession();
 		return mv;
 	}
 	
@@ -73,6 +74,6 @@ public class LoginController {
 			return "/cps/login";
 		}
 		//登录成功应该重定向cps的首页
-		return "/cps/ck";
+		return "/cps/announce/list";
 	}
 }

@@ -26,6 +26,7 @@ import com.dgjs.model.persistence.AdminUser;
 import com.dgjs.model.persistence.Authority;
 import com.dgjs.model.result.view.AdminMenu;
 import com.dgjs.model.result.view.AdminMenu.Children;
+import com.dgjs.model.result.view.CpsMenu;
 import com.dgjs.service.admin.AdminUserService;
 import com.dgjs.service.admin.RoleService;
 import com.dgjs.utils.StringUtils;
@@ -34,9 +35,14 @@ import com.dgjs.utils.WebContextHelper;
 public class LoginInterceptor implements HandlerInterceptor{
 	
 	/*
-	 * 所有菜单信息
+	 * 所有admin菜单信息
 	 */
 	private static List<AdminMenu> adminMenuList;
+	
+	/*
+	 * 所有cps菜单信息
+	 */
+	private static List<CpsMenu> cpsMenuList;
 	
 	@Autowired
 	RoleService roleService;
@@ -48,7 +54,7 @@ public class LoginInterceptor implements HandlerInterceptor{
 	@Override
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
-		//初始化后台菜单（目前只有admin，没有cps）
+		//初始化后台菜单（目前admin，cps）
 		initMenu();
 		//设置登录用户信息
 		AdminUser adminUser = null;
@@ -76,7 +82,7 @@ public class LoginInterceptor implements HandlerInterceptor{
 		for(Authority authority:authorityList){
 			authorityUrlList.add(authority.getAuthority_url());
 		}
-		//根据权限配置判断菜单展示
+		//根据权限配置判断admin菜单展示
 		List<AdminMenu> showMenus = new ArrayList<AdminMenu>();
 		for(AdminMenu adminMenu:adminMenuList){
 			List<Children> childrenList = adminMenu.getChildren();
@@ -100,13 +106,20 @@ public class LoginInterceptor implements HandlerInterceptor{
 				showMenus.add(userMenu);
 			}
 		}
+		//根据权限配置判断cps菜单展示
+		List<CpsMenu> cpsShowMenus = new ArrayList<CpsMenu>();
+		for(CpsMenu cpsMenu:cpsMenuList){
+			if(isPattern(authorityUrlList,cpsMenu.getUrl())){
+				cpsShowMenus.add(cpsMenu);
+			}
+		}
 		request.setAttribute("user", adminUser);
 		request.setAttribute("menus", showMenus);
+		request.setAttribute("cpsmenus", cpsShowMenus);
 		//权限判断
 		String servletPath = request.getServletPath();
 		if(servletPath.startsWith("/admin")||servletPath.startsWith("/cps")){
 			if(!isPattern(authorityUrlList,servletPath)){
-				System.out.println(servletPath);
 				throw new AuthorityException();
 			}
 		}
@@ -129,7 +142,7 @@ public class LoginInterceptor implements HandlerInterceptor{
 	
 	@SuppressWarnings("unchecked")
 	private void initMenu() throws DocumentException{
-		if(adminMenuList == null){
+		if(adminMenuList == null|| cpsMenuList == null){
 			SAXReader reader = new SAXReader(); // 解析的xml文档
 			InputStream is = LoginInterceptor.class.getClassLoader().getResourceAsStream("menu.xml");
 			Document doc = reader.read(is);
@@ -139,23 +152,46 @@ public class LoginInterceptor implements HandlerInterceptor{
 				Element project = it.next();
 				String name = project.attribute("id").getText();
 				if("admin".equals(name)){
-					adminMenuList = new ArrayList<AdminMenu>();
-					Iterator<Element> firstlevelIt = project.elementIterator("firstlevel");
-					while(firstlevelIt.hasNext()){
-						Element firstlevel = firstlevelIt.next();
-						String desc = firstlevel.attribute("desc").getText();
-						List<Children> childrenList = new ArrayList<Children>();
-						AdminMenu adminMenu = new AdminMenu();
-						adminMenu.setName(desc);
-						adminMenu.setChildren(childrenList);
-						adminMenuList.add(adminMenu);
-						Iterator<Element> secondlevelIt=firstlevel.elementIterator("secondlevel");
-						while(secondlevelIt.hasNext()){
-							Element secondlevel = secondlevelIt.next();
-							AdminMenu.Children children =  adminMenu.new Children();
-							children.setUrl(secondlevel.attribute("url").getText());
-							children.setDesc(secondlevel.attribute("desc").getText());
-							childrenList.add(children);
+					if(adminMenuList==null){
+						adminMenuList = new ArrayList<AdminMenu>();
+						Iterator<Element> firstlevelIt = project.elementIterator("firstlevel");
+						while(firstlevelIt.hasNext()){
+							Element firstlevel = firstlevelIt.next();
+							String desc = firstlevel.attribute("desc").getText();
+							List<Children> childrenList = new ArrayList<Children>();
+							AdminMenu adminMenu = new AdminMenu();
+							adminMenu.setName(desc);
+							adminMenu.setChildren(childrenList);
+							adminMenuList.add(adminMenu);
+							Iterator<Element> secondlevelIt=firstlevel.elementIterator("secondlevel");
+							while(secondlevelIt.hasNext()){
+								Element secondlevel = secondlevelIt.next();
+								AdminMenu.Children children =  adminMenu.new Children();
+								children.setUrl(secondlevel.attribute("url").getText());
+								children.setDesc(secondlevel.attribute("desc").getText());
+								childrenList.add(children);
+							}
+						}
+					}
+				}else if("cps".equals(name)){
+					if(cpsMenuList == null){
+						cpsMenuList = new ArrayList<CpsMenu>();
+						Iterator<Element> firstlevelIt = project.elementIterator("firstlevel");
+						while(firstlevelIt.hasNext()){
+							Element firstlevel = firstlevelIt.next();
+							String desc = firstlevel.attribute("desc").getText();
+							String url = firstlevel.attribute("url").getText();
+							String css = firstlevel.attribute("css").getText();
+							String pageName = firstlevel.attribute("page_name").getText();
+							CpsMenu cpsMenu = new CpsMenu();
+							cpsMenu.setCss(css);
+							cpsMenu.setName(desc);
+							cpsMenu.setUrl(url);
+                            if(pageName!=null){
+                            	String[] pageNames = pageName.split(",");
+                            	cpsMenu.setPageName(pageNames);
+							}
+                            cpsMenuList.add(cpsMenu);
 						}
 					}
 				}

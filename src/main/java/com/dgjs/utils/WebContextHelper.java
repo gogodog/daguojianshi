@@ -1,6 +1,7 @@
 package com.dgjs.utils;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -33,4 +34,8 @@ public class WebContextHelper {
 		return getAdminUser()==null?null:getAdminUser().getUser_code();
 	}
 	
+	public static void cleanSession(){
+		HttpSession session = getRequest().getSession();  
+		session.invalidate();  
+	}
 }

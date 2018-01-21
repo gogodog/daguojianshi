@@ -95,6 +95,8 @@
            <mvc:exclude-mapping path="/**/js/**" />  
            <mvc:exclude-mapping path="/**/fonts/**" />  
            <mvc:exclude-mapping path="/**/plugins/**" />  
+           <mvc:exclude-mapping path="/cps/login" />
+           <mvc:exclude-mapping path="/cps/ck" /> 
            <bean class="com.dgjs.interceptors.LoginInterceptor"/>  
       </mvc:interceptor>
       <mvc:interceptor> 

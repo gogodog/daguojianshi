@@ -11,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.alibaba.fastjson.JSON;
+import com.dgjs.model.enums.Admin_Source;
 import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.persistence.AdminUser;
 import com.dgjs.model.persistence.condition.AdminUserCondition;
@@ -27,7 +28,7 @@ public class AdminUserMapperTest {
 	 public void testSave(){
 		 AdminUser adminUser = new AdminUser();
 		 adminUser.setRole_id(1);
-		 adminUser.setSource(1);
+		 adminUser.setSource(Admin_Source.WEIXIN);
 		 adminUser.setStatus(UpDown_Status.UP);
 		 adminUser.setUsername("dgjs");
 		 int flag = mapper.save(adminUser);
@@ -64,7 +65,7 @@ public class AdminUserMapperTest {
 		 Date now = new Date();
 		 AdminUser adminUser1 = new AdminUser();
 		 adminUser1.setRole_id(1);
-		 adminUser1.setSource(1);
+		 adminUser1.setSource(Admin_Source.WEIXIN);
 		 adminUser1.setStatus(UpDown_Status.UP);
 		 adminUser1.setUsername("gy1");
 		 adminUser1.setCreate_time(now);
@@ -72,7 +73,7 @@ public class AdminUserMapperTest {
 		 
 		 AdminUser adminUser2 = new AdminUser();
 		 adminUser2.setRole_id(1);
-		 adminUser2.setSource(1);
+		 adminUser2.setSource(Admin_Source.WEIXIN);
 		 adminUser2.setStatus(UpDown_Status.UP);
 		 adminUser2.setUsername("wjd1");
 		 adminUser2.setCreate_time(now);

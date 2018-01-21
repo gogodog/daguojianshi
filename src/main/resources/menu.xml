@@ -28,4 +28,13 @@
            <secondlevel desc="参数配置管理" url="/admin/config/list"></secondlevel> 
        </firstlevel>
    </project>
+   <project id="cps">
+       <firstlevel desc="写文章" url="/cps/dft/wdoc" css="fa fa-desktop" page_name="dft/wdoc"></firstlevel> 
+       <firstlevel desc="文章管理" url="/cps/pding/docms" css="fa fa-dashboard" page_name="pding/docms"></firstlevel>
+       <firstlevel desc="流量统计" url="/cps/flwststcs/list" css="fa fa-yelp" page_name="flwststcs/list"></firstlevel>
+       <firstlevel desc="素材管理" url="/cps/userPics/list" css="fa fa-flash" page_name="userPics/source"></firstlevel>
+       <firstlevel desc="个人信息" url="/cps/user/psoninf" css="fa fa-anchor" page_name="user/psoninf"></firstlevel>
+       <firstlevel desc="草稿箱" url="/cps/dft/draft" css="fa fa-yelp" page_name="dft/draft,dft/audit"></firstlevel>   
+       <firstlevel desc="反馈" url="/cps/fb/feedback" css="fa fa-square-o" page_name="fb/feedback"></firstlevel>
+   </project>
 </Configuration>

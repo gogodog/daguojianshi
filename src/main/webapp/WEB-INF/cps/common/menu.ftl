@@ -8,13 +8,21 @@
                     <div class="inner-text">${user.username}<br/><small>最后一次登录 : 2 Weeks Ago </small><br/>自知之明，兢兢业业，顺其自然。</div>
                 </div>
             </li>
+            <#list cpsmenus as menu>
+               <li>
+                    <a ${menu.pageName?seq_contains(page_name)?string("class=\"active-menu\"", "")} href="${menu.url}">
+                        <i class="${menu.css}"></i>${menu.name}
+                    </a>
+               </li>
+            </#list>
+            <!--
             <li>
                 <a <#if page_name='dft/wdoc'>class="active-menu"</#if> href="/cps/dft/wdoc"><i class="fa fa-desktop"></i>写文章</a>
             </li>
             <li>
                 <a <#if page_name='pding/docms'>class="active-menu"</#if> href="/cps/pding/docms"><i class="fa fa-dashboard "></i>文章管理</a>
             </li>
-             <li>
+            <li>
                 <a <#if page_name='flwststcs/list'>class="active-menu"</#if> href="/cps/flwststcs/list"><i class="fa fa-yelp "></i>流量统计</a>
             </li>
             <li>
@@ -28,7 +36,7 @@
             </li>
             <li>
                 <a <#if page_name='fb/feedback'>class="active-menu"</#if> href="/cps/fb/feedback"><i class="fa fa-square-o "></i>反馈</a>
-            </li>
+            </li> -->
         </ul>
     </div>
 </nav>
