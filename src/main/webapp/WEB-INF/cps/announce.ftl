@@ -1,22 +1,9 @@
 <#include "/cps/common/header.ftl">
-<link href="/cps/css/prettyPhoto.css?v=${staticVersion}" rel="stylesheet" />
-<link href="/cps/css/bootstrap-fileupload.min.css?v=${staticVersion}" rel="stylesheet" />
 <body>
     <div id="wrapper">
         <#include "/cps/common/top.ftl">
-        <#assign page_name='userPics/source'>
-        <nav class="navbar-default navbar-side" role="navigation">
-          <div class="sidebar-collapse">
-              <ul class="nav" id="main-menu">
-                  <li>
-                      <div class="user-img-div">
-                          <a href="/cps/user/psoninf"><img src="${user.headimgurl}" class="img-thumbnail" /></a>
-                          <div class="inner-text">${user.username}<br/>自知之明，兢兢业业，顺其自然。</div>
-                      </div>
-                  </li>
-              </ul>
-          </div>
-       </nav>
+        <#assign page_name=''>
+        <#include "/cps/common/menu.ftl">
         <div id="page-wrapper">
             <div id="page-inner">
                 <div class="row">

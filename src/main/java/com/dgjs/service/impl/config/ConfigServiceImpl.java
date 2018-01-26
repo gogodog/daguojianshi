@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,7 @@ public class ConfigServiceImpl implements ConfigService{
 	}
 
 	@Override
+	@CacheEvict(value="cache5m",key="'getMIndexConfigs'",beforeInvocation=true)
 	public int update(Config config) {
 		return configMapper.update(config);
 	}
@@ -48,7 +50,7 @@ public class ConfigServiceImpl implements ConfigService{
 	}
 	
 	@Override
-	@Cacheable(value = "cache5m")
+	@Cacheable(value = "cache5m",key="'getMIndexConfigs'")
 	public Map<String,MIndexConfigDto> getMIndexConfigs(){
 		Map<String,MIndexConfigDto> map = null;
 		List<String> keys = Index_Type.getAllConfigKeys();

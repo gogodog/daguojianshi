@@ -7,6 +7,8 @@ import java.util.Map;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -81,13 +83,15 @@ public class AdminUserServiceImpl implements AdminUserService{
 		return PageInfoDto.getPageInfo(condition.getCurrentPage(), condition.getOnePageSize(), totalResults, list);
 	}
 
-	@Override
-	public int updateAdminUser(AdminUser adminUser) {
+	@Override	
+	@CacheEvict(value="cache5m",key="'getByUserCode('+#adminUser.getUser_code()+')'")
+	public int updateAdminUser(AdminUser adminUser){
 		return adminUserMapper.update(adminUser);
 	}
 
 	@Override
-	@Cacheable(value = "cache5m", key = "#root.method.name+'('+#p0+')'")
+//	@Cacheable(value = "cache5m", key = "#root.method.name+'('+#p0+')'")
+	@Cacheable(value = "cache5m", key = "'getByUserCode('+#p0+')'")
 	public AdminUser getByUserCode(String userCode) {
 		return adminUserMapper.getByUserCode(userCode);
 	}

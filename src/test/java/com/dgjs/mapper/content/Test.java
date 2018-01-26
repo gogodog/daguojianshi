@@ -1,61 +1,77 @@
 package com.dgjs.mapper.content;
 
-import java.io.InputStream;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
-
-import com.dgjs.interceptors.LoginInterceptor;
+import com.alibaba.fastjson.JSON;
 
 public class Test {
-
-	private List<String> initMenu() throws DocumentException{
-		    List<String> list = new ArrayList<String>();
-			SAXReader reader = new SAXReader(); // 解析的xml文档
-			InputStream is = LoginInterceptor.class.getClassLoader().getResourceAsStream("soa-config.xml");
-			Document doc = reader.read(is);
-			Element root = doc.getRootElement(); // 获取根节点
-			Iterator<Element> it = root.elementIterator("ServiceConfigItem");
-			while (it.hasNext()) {
-				 Element serviceConfigItem = it.next();
-				 Iterator<Element> online = serviceConfigItem.elementIterator("online");
-				 Element onlineElement=online.next();
-				 Iterator<Element> method = onlineElement.elementIterator("method");
-				 Element e =  method.next();
-				 list.add(e.getStringValue());
-			}
-			return list;
+	
+	public static void main(String[] args) {
+		Test t = new Test();
+		Map<String,Object> map = new HashMap<String,Object>();
+		t.getTcwxorTravelasist(map);
+		t.getTcwxflFlight(map);
+		t.getTcwxtrTrain(map);
+		System.out.println(JSON.toJSONString(map,true));
 	}
 	
-	private List<String> getClassField() throws IllegalArgumentException, IllegalAccessException {
-//		MapiConstant m = new MapiConstant();
-//		Field[] fields = MapiConstant.class.getDeclaredFields();
-		List<String> list = new ArrayList<String>();
-//		for(Field field:fields){
-//			String value = (String) field.get(m);
-//			list.add(value);
-//		}
-		return list;
+	public static class Struct{
+		public boolean isNeedEntrance;
+		public String req_type;
+		public Map<String,String> ch;
 	}
 	
-	private void compare() throws Exception{
-		List<String> xml =initMenu();
-		List<String> constants = getClassField();
-		for(String method:xml){
-			if(!constants.contains(method)){
-				System.out.println(method);
-			}
-		}
+	private void getTcwxorTravelasist(Map<String,Object> map){
+		Struct struct = new Struct();
+		struct.isNeedEntrance = true;
+		struct.req_type = "itineraries";
+		Map<String,String> ch = new HashMap<String,String>();
+		struct.ch = ch;
+		ch.put("1_flight_listlink", "tcwxor_elfl_travelasistsearch");
+		ch.put("1_flight_morelink", "tcwxor_elfl_travelasistmore");
+		ch.put("1_flight_link", "tcwxor_elfl_travelasisthotels");
+		
+		ch.put("1_train_listlink", "tcwxor_eltr_travelasistsearch");
+		ch.put("1_train_morelink", "tcwxor_eltr_travelasistmore");
+		ch.put("1_train_link", "tcwxor_eltr_travelasisthotels");
+		
+		ch.put("2_flight_listlink", "tcwxor_tcfl_travelasistsearch");
+		ch.put("2_flight_morelink", "tcwxor_tcfl_travelasistmore");
+		ch.put("2_flight_link", "tcwxor_tcfl_travelasisthotels");
+		
+		ch.put("2_train_listlink", "tcwxor_tctr_travelasistsearch");
+		ch.put("2_train_morelink", "tcwxor_tctr_travelasistmore");
+		ch.put("2_train_link", "tcwxor_tctr_travelasisthotels");
+		
+		map.put("tcwxor_travelasist", struct);	
 	}
 	
-	public static void main(String[] args) throws Exception {
-		Test t= new Test();
-		t.compare();
+	private void getTcwxflFlight(Map<String,Object> map){
+		Struct struct = new Struct();
+		struct.isNeedEntrance = false;
+		struct.req_type = "flight_ticket";
+		Map<String,String> ch = new HashMap<String,String>();
+		struct.ch = ch;
+		
+		ch.put("flight_listlink", "tcwxfl_search");
+		ch.put("flight_morelink", "tcwxfl_hotelsmore");
+		ch.put("flight_link", "tcwxfl_hotels");
+		
+		map.put("tcwxfl_flight", struct);	
+	}
+	
+	private void getTcwxtrTrain(Map<String,Object> map){
+		Struct struct = new Struct();
+		struct.isNeedEntrance = false;
+		struct.req_type = "train_ticket";
+		Map<String,String> ch = new HashMap<String,String>();
+		struct.ch = ch;
+		
+		ch.put("train_listlink", "");
+		ch.put("train_morelink", "tcwxtr_hotelsmore");
+		ch.put("train_link", "tcwxtr_hotels");
+		
+		map.put("tcwxtr_train", struct);	
 	}
 }

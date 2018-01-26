@@ -1,12 +1,13 @@
 package com.dgjs.controller.cps;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.alibaba.fastjson.JSONObject;
 import com.dgjs.annotation.LogRecord;
 import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.constants.RegexPattern;
@@ -36,7 +37,7 @@ public class AdminUserController {
 	@ResponseBody
 	@RequestMapping("/editUserInfo")
 	@LogRecord(operate=OperateEnum.Update,remark="修改个人信息")
-	public BaseView editUserInfo(AdminUserInfo adminUserInfo,Integer source){
+	public BaseView editUserInfo(HttpServletRequest request,AdminUserInfo adminUserInfo,Integer source){
 		BaseView bv = new BaseView();
 		Integer userId = WebContextHelper.getUserId();
 		adminUserInfo.setId(userId);
@@ -76,10 +77,8 @@ public class AdminUserController {
 		   	if(adminUserInfo.isCanEditArticle()){
 		   		adminUser.setRole_id(2);
 		   	    flag = adminUserService.updateAdminUser(adminUser);
-		   	    if(flag > 0){
-		   	    	JSONObject jsonObject = new JSONObject();
-		   	    	jsonObject.put("isNeedRedirect", true);
-		   	    	bv.setObjects(jsonObject);
+		   	    if(flag < 1){
+		   	    	bv.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
 		   	    }
 		   	}
 		}

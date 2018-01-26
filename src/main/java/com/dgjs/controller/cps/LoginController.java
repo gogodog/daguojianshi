@@ -32,7 +32,7 @@ public class LoginController {
 	LoginService loginService;
 	
 
-	@RequestMapping("/test")
+//	@RequestMapping("/test")
 	@ResponseBody
 	public void init(HttpServletRequest request,HttpServletResponse response) throws Exception{  
 	    List<String> uList = new ArrayList<String>();//存储所有url集合    

@@ -22,6 +22,7 @@ import com.dgjs.model.persistence.result.AdminUserResult;
 import com.dgjs.model.result.view.BaseView;
 import com.dgjs.service.admin.AdminUserService;
 import com.dgjs.service.admin.RoleService;
+import com.dgjs.service.config.ConfigService;
 
 @Controller
 @RequestMapping("/admin/adnur")
@@ -32,6 +33,9 @@ public class AdminController {
 	
 	@Autowired
 	RoleService roleService;
+	
+	@Autowired
+	ConfigService configService;
 	
 	@RequestMapping("/adminList")
 	public ModelAndView adminList(AdminUserCondition condition){
@@ -95,4 +99,5 @@ public class AdminController {
 		}
 		return bv;
 	}
+	
 }
