@@ -37,14 +37,5 @@ LazyJoy.init({
 　　 delayed: 1000 //图片延时多少毫秒加载
 }); 
 </script>
-    <!--[if gte IE 9]>
-      <script src="/front/js/jquery-1.11.1.min.js?v=${staticVersion}" type="text/javascript"></script>
-      <script src="/front/js/html5shiv.min.js?v=${staticVersion}" type="text/javascript"></script>
-      <script src="/front/js/respond.min.js?v=${staticVersion}" type="text/javascript"></script>
-      <script src="/front/js/selectivizr-min.js?v=${staticVersion}" type="text/javascript"></script>
-    <![endif]-->
     
     
-    
-    <!--[if lt IE 9]>
-    <![endif]-->

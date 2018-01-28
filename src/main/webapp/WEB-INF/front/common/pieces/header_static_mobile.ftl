@@ -28,11 +28,4 @@
     <link rel="shortcut icon" href="/front/images/favico.ico">
     <script src="/front/js/jquery-2.1.4.min.js?v=${staticVersion}"></script>
     <script src="/front/js/hammer.min.js?v=${staticVersion}"></script>
-    <!--[if gte IE 9]>
-      <script src="/front/js/jquery-1.11.1.min.js?v=${staticVersion}" type="text/javascript"></script>
-      <script src="/front/js/html5shiv.min.js?v=${staticVersion}" type="text/javascript"></script>
-      <script src="/front/js/respond.min.js?v=${staticVersion}" type="text/javascript"></script>
-      <script src="/front/js/selectivizr-min.js?v=${staticVersion}" type="text/javascript"></script>
-    <![endif]-->
-    <!--[if lt IE 9]>
     <![endif]-->

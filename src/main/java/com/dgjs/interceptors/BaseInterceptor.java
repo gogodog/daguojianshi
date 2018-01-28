@@ -9,14 +9,17 @@ import org.springframework.web.servlet.ModelAndView;
 
 public class BaseInterceptor implements HandlerInterceptor{
 	
-	//@Value("#{propertyConfigurer['staticVersion']}")
-	@Value("${staticVersion:'0.0.9'}")
-    private String staticVersion;
+    @Value("${staticVersion}")
+	private String staticVersion;
+    
+    @Value("${defaultImage}")
+    private String defaultImage;
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		request.setAttribute("contextPath", request.getContextPath());
 		request.setAttribute("staticVersion", staticVersion);
+		request.setAttribute("defaultImage", defaultImage);
 		return true;
 	}
 

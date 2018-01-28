@@ -28,7 +28,8 @@
 						   <#list userPics.pics as pic>
 						   <div class="col-md-2">
 		                     <div class="portfolio-item ys mix_all" data-cat="ys" >
-		                        <img src="${imageContextPath}${pic.url}" alt="简史-${pic.name}" class="img-responsive" style="width:100%;height:145px;" />
+		                        <img src="${defaultImage}" alt="简史-${pic.name}" class="img-responsive" 
+		                        		lazy-joy="${imageContextPath}${pic.url}" style="width:100%;height:145px;" />
 		                        <div class="overlay">
 	                              <p>
 	                                  <span dataVal="${pic.url}" dataId="editName">${pic.name}</span>
@@ -59,6 +60,7 @@
     <script src="/cps/js/galleryCustom.js?v=${staticVersion}"></script>
     <script src="/cps/js/bootstrap-fileupload.js?v=${staticVersion}"></script>
     <script src="/cps/js/ajaxfileupload.js?v=${staticVersion}"></script>
+    <script src="/cps/js/lazyjoy.js?v=${staticVersion}"></script>
     <script>
       var contextPath="${contextPath}";
       var userId="${userId}";

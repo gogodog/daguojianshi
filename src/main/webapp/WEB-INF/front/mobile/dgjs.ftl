@@ -2,8 +2,8 @@
 <html lang="zh-CN">
 <head>
     <#include "/front/common/pieces/header_static_mobile.ftl">
-    <link rel="shortcut icon" href="http://photoswipe.com/dist/default-skin/default-skin.css?v=4.1.1-1.0.4">
-    <link rel="shortcut icon" href="http://photoswipe.com/dist/photoswipe.css?v=4.1.1-1.0.4">
+    <link rel="shortcut icon" href="http://photoswipe.com/dist/default-skin/default-skin.css?v=${staticVersion}">
+    <link rel="shortcut icon" href="http://photoswipe.com/dist/photoswipe.css?v=${staticVersion}">
     <script>
 		//页面统计
 		var pageinfo_ = {};
@@ -15,6 +15,7 @@
 		window['pageinfo'] = pageinfo_;
 		//
 		var contextPath='${contextPath}';
+		var defaultImage='${defaultImage}'
 		var keyword="${(keyword)!''}";
 	</script>
 </head>
@@ -43,7 +44,6 @@
 	</section>
     <#include "/front/common/pieces/footer_title.ftl">
     <#include "/front/common/pieces/footer_static.ftl">
-    <script src="/front/js/jquery-1.11.1.min.js?v=${staticVersion}"></script>
     <script src="/front/js/business/m_index.js?v=${staticVersion}"></script>
     <script src="/front/js/business/keyword.js?v=${staticVersion}"></script>
 </body>

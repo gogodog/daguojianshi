@@ -43,7 +43,7 @@ public class FastFDSTest {
         // 上传文件
 //        uploadFile(storageClient,"/Users/user/Downloads/hdImg_e92e084f17d1386890e173076306fdc815115068408.jpg");
         // 上传文件
-        uploadGroupFile(storageClient,"/Users/user/Downloads/hdImg_a574f8b4611a2ff64d203dffe1924d3515115068177.jpg");
+        uploadGroupFile(storageClient,"/Users/user/Documents/pic/默认图片.jpg");
         // 删除文件
 //        deleteFile(storageClient,"group1","M00/00/00/rBHGsFn73Z-Aa5JoAAAbCGPhKqk109.jpg");
         
