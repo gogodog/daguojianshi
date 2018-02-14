@@ -2,7 +2,6 @@ package com.dgjs.utils;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 public class StringUtils extends com.mysql.jdbc.StringUtils{
 
