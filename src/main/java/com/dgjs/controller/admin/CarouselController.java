@@ -15,7 +15,6 @@ import com.dgjs.model.enums.Carousel_Position;
 import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.persistence.Carousel;
-import com.dgjs.service.common.PictureService;
 import com.dgjs.service.content.CarouselService;
 
 @Controller
@@ -24,9 +23,6 @@ public class CarouselController {
 	
 	@Autowired
 	CarouselService carouselService;
-	
-	@Autowired
-	PictureService pictureService;
 	
 	
 	@RequestMapping("/carouselList")
@@ -46,7 +42,6 @@ public class CarouselController {
 	@RequestMapping("/carousel")
 	public ModelAndView carousel(HttpServletRequest request, HttpServletResponse response,Long carouselId){
 		ModelAndView mv = new ModelAndView("admin/content/carousel"); 
-		mv.addObject("imageContextPath", pictureService.getImageContextPath());
 		mv.addObject("positions", Carousel_Position.values());
 		if(carouselId!=null){
 			Carousel carousel=carouselService.selectById(carouselId);

@@ -33,7 +33,6 @@ import com.dgjs.model.persistence.condition.AdvertisementCondtion;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 import com.dgjs.service.ad.AdvertisementService;
 import com.dgjs.service.common.DataService;
-import com.dgjs.service.common.PictureService;
 import com.dgjs.service.content.ArticlescrapService;
 import com.dgjs.service.content.CarouselService;
 import com.dgjs.service.content.ChannelService;
@@ -54,8 +53,6 @@ public class IndexController {
 	@Autowired
 	CommentsService commentsService;
 	@Autowired
-	PictureService pictureService;
-	@Autowired
 	DataService dataSerivce;
 	@Autowired
 	ChannelService channelService;
@@ -72,7 +69,6 @@ public class IndexController {
 		//加载推荐文章
 		List<Articlescrap> rAEList=recommedArticlescrapService.list(UpDown_Status.UP);
 		mv.addObject("rAEList", rAEList);
-		mv.addObject("imageContextPath", pictureService.getImageContextPath());
 		//加载广告位
 		AdvertisementCondtion advertisementCondtion = new AdvertisementCondtion();
 		advertisementCondtion.setAdPositions(Arrays.asList(Ad_Position.INDEX_FIRST,Ad_Position.INDEX_SECOND));

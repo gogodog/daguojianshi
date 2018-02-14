@@ -22,7 +22,6 @@ import com.dgjs.model.persistence.Advertisement;
 import com.dgjs.model.persistence.Carousel;
 import com.dgjs.model.persistence.condition.AdvertisementCondtion;
 import com.dgjs.service.ad.AdvertisementService;
-import com.dgjs.service.common.PictureService;
 import com.dgjs.service.content.CarouselService;
 import com.dgjs.service.content.RecommedArticlescrapService;
 
@@ -34,8 +33,6 @@ public class DgjsController {
 	CarouselService carouselService;
 	@Autowired
 	RecommedArticlescrapService recommedArticlescrapService;
-	@Autowired
-	PictureService pictureService;
 	@Autowired
 	AdvertisementService advertisementService;
 	
@@ -61,7 +58,6 @@ public class DgjsController {
 		//加载推荐文章
 		List<Articlescrap> rAEList=recommedArticlescrapService.list(UpDown_Status.UP);
 		mv.addObject("rAEList", rAEList);
-		mv.addObject("imageContextPath", pictureService.getImageContextPath());
 		//加载分类
 		mv.addObject("types", Articlescrap_Type.values());
 		//加载页面类型

@@ -27,7 +27,6 @@ import com.dgjs.model.enums.Judge_Level;
 import com.dgjs.model.persistence.Comments;
 import com.dgjs.model.result.view.BaseView;
 import com.dgjs.service.common.DataService;
-import com.dgjs.service.common.PictureService;
 import com.dgjs.service.content.ArticlescrapService;
 import com.dgjs.service.content.CommentsService;
 import com.dgjs.utils.DateUtils;
@@ -43,8 +42,6 @@ public class ShowController {
 	@Autowired
 	CommentsService commentsService;
 	@Autowired
-	PictureService pictureService;
-	@Autowired
 	DataService dataSerivce;
 
 	
@@ -53,7 +50,6 @@ public class ShowController {
 		ModelAndView mv = new ModelAndView("front/common/show");
 		Articlescrap articlescrap=articlescrapService.selectByIdAll(id);
 		mv.addObject("articlescrap", articlescrap);
-		mv.addObject("imageContextPath", pictureService.getImageContextPath());
 		//文章阅读量
 		Map<String,Long> map=dataSerivce.getDocShowCounts(String.valueOf(id));
 		Long visits = map.get(String.valueOf(id));

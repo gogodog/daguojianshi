@@ -16,7 +16,6 @@ import com.dgjs.model.dto.business.Draft;
 import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.Pending_Status;
 import com.dgjs.model.persistence.condition.DraftCondition;
-import com.dgjs.service.common.PictureService;
 import com.dgjs.service.content.DraftAPRecordService;
 import com.dgjs.service.content.DraftService;
 import com.dgjs.utils.WebContextHelper;
@@ -27,9 +26,6 @@ public class PendingController {
 
 	@Autowired
 	DraftService draftService;
-	
-	@Autowired
-	PictureService pictureService;
 	
 	@Autowired
 	DraftAPRecordService draftAPRecordService;

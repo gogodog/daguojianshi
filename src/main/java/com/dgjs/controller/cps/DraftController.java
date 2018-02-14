@@ -78,7 +78,6 @@ public class DraftController {
 				jsa.add(jso1);
 			}
 			mv.addObject("userPics", jsa);
-			mv.addObject("imageContextPath", pictureService.getImageContextPath());
 		}
 		return mv;
     }
