@@ -30,17 +30,19 @@
 			  </form>
 			    <table class="public-cont-table">
 					<tr>
-					    <th style="width:10%">文章id</th>
-						<th style="width:17%">文章标题</th>
-						<th style="width:10%">文章展示时间</th>
+					    <th style="width:10%">封面</th>
+					    <th style="width:8%">文章id</th>
+						<th style="width:15%">文章标题</th>
+						<th style="width:12%">文章展示时间</th>
 						<th style="width:7%">分类</th>
-						<th style="width:7%">状态</th>
-						<th style="width:10%">作者</th>
-						<th style="width:15%">时间</th>
+						<th style="width:5%">状态</th>
+						<th style="width:9%">作者</th>
+						<th style="width:13%">时间</th>
 						<th style="width:20%">操作</th>
 					</tr>
 					<#list pageInfo.objects as articlescrap>
 					  <tr>
+					     <td><img src="${fastFDSContextPath}${articlescrap.showPic}" style="width:200px;height:150px"></td>
 					     <td>${articlescrap.id}</td>			
 					     <td><a href = "/admin/atcp/previewArticlescrap?articlescrapId=${articlescrap.id}">${articlescrap.title}</a></td>						
 					     <td>${articlescrap.show_time?datetime}</td>

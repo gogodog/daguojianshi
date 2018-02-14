@@ -46,5 +46,7 @@
     <#include "/front/common/pieces/footer_static.ftl">
     <script src="/front/js/business/m_index.js?v=${staticVersion}"></script>
     <script src="/front/js/business/keyword.js?v=${staticVersion}"></script>
+    <script src="/front/js/lazyjoy.js?v=${staticVersion}"></script>
+    <script src="/front/js/init.js?v=${staticVersion}"></script>
 </body>
 </html>
