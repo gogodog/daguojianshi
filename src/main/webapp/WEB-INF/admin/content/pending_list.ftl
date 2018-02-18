@@ -22,17 +22,17 @@
 			  </form>
 			    <table class="public-cont-table">
 					<tr>
-					    <th style="width:20%">封面</th>
+					    <th style="width:13%">封面</th>
 					    <th style="width:20%">标题</th>
-						<th style="width:8%">状态</th>
-						<th style="width:6%">类型</th>
-						<th style="width:6%">作者</th>
+						<th style="width:9%">状态</th>
+						<th style="width:9%">类型</th>
+						<th style="width:9%">作者</th>
 						<th style="width:20%">时间</th>
 						<th style="width:20%">操作</th>
 					</tr>
 					<#list pageInfo.objects as object>
 					  <tr>
-					     <td><img src="${imageContextPath}${object.showPic}" style="width:200px;height:150px"></td>
+					     <td><img src="${imageContextPath}${object.showPic}" style="width:150px;height:100px"></td>
 					     <td>${object.title}</td>
                          <td>${object.status.value}</td>
                          <td>${object.type.value}</td>
