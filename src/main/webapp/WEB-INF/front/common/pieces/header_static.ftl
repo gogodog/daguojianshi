@@ -32,10 +32,10 @@
     <script src="/front/js/hammer.min.js?v=${staticVersion}"></script>
     <script src="/front/js/jquery.lazyload.min.js?v=${staticVersion}"></script>
     <script>
-LazyJoy.init({
-    offset: 0,//离可视区域多少像素的图片可以被加载
-　　 delayed: 1000 //图片延时多少毫秒加载
-}); 
+//LazyJoy.init({
+//    offset: 0,//离可视区域多少像素的图片可以被加载
+//　　 delayed: 1000 //图片延时多少毫秒加载
+//}); 
 </script>
     
     

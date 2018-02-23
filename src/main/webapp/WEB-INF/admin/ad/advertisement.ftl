@@ -126,7 +126,7 @@
 	    var uploadFileName="advertisement";
 		var data = {};
 		data['base64'] = base64;
-		$.ajax(contextPath+'/admin/static/ajaxUploadBase64?imagePath='+uploadFileName+"&positions=BOTTOM_RIGHT&dapt=true", {
+		$.ajax(contextPath+'/admin/static/ajaxUploadBase64?imagePath='+uploadFileName+"&dapt=true", {
         data: data,
         type: 'post',
         dataType: 'json',
@@ -139,10 +139,9 @@
 				}else{
 					var results=result.list;
 					for(var i=0;i<results.length;i++){
-						debugger;
-						var accessPath=imageContextPath+results[i].watermarkImageUrl;
+						var accessPath=imageContextPath+results[i].minImageUrl;
 						$("#showImage").attr("src",accessPath);
-						$("input[name='ad_pic_url']").val(results[i].watermarkImageUrl);
+						$("input[name='ad_pic_url']").val(results[i].minImageUrl);
 						$("#showImage").show();
 					}
 				}

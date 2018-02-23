@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.dgjs.model.dto.PageInfoDto;
@@ -25,7 +26,7 @@ public class ArticlePublishSyncJob {
 	
 	private Logger log = Logger.getLogger(this.getClass().getName());
 	
-//	@Scheduled(cron = "0 */5 * * * ?")
+	@Scheduled(cron = "0 */5 * * * ?")
 	public void publishArticle(){
 		ArticlescrapCondtion articlescrapCondtion = new ArticlescrapCondtion();
 		articlescrapCondtion.setStatus(Articlescrap_Status.INIT);
@@ -44,7 +45,7 @@ public class ArticlePublishSyncJob {
 		}
 	}
 	
-//	@Scheduled(cron = "0 */5 * * * ?")
+	@Scheduled(cron = "0 */5 * * * ?")
     public void picSyncJob() {
     	ArticlescrapCondtion condition = new ArticlescrapCondtion();
 		condition.setPicSyncStatus(Arrays.asList(Pic_Sync_Status.SYNCHING,Pic_Sync_Status.UNSYNC));
