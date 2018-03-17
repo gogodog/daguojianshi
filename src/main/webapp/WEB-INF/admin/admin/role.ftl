@@ -22,7 +22,18 @@
 					<input class="form-input-txt" type="text" name="roleName" value="${(dto.role.role_name)!''}" maxlength="50"/>
 				</div>
 				<div class="form-group">
-				    <label for="">权限</label>
+				    <label for="">父角色</label>
+				    <select id="parentRole" <#if dto.role.id??>disabled</#if>>
+				         <option value="">无</option>
+				         <#if (dto.role.parentRoleCode?? && dto.role.id??) || !dto.role.id??>
+				            <#list roleList as role>
+				              <option value="${role.id}" <#if dto.role.parentRoleCode == role.role_code>selected</#if>>${role.role_name}</option>
+				            </#list>
+				         </#if> 
+				    </select>
+			    </div>
+				<div class="form-group">
+				    权限:<br><br>
 				    <#list authorityList as ra>
 				       <input style="margin-top:9px" type="checkbox" name="authorityIds" value="${ra.id}" 
 				    		   <#list dto.authoritys as dto_ra>
@@ -53,9 +64,10 @@ function validateAndSubmit(){
 	$("input[name='authorityIds']:checked").each(function(){
 		authorityIds += $(this).val()+","; 
 	});
+	var parentRole=$("#parentRole").val();
 	$.ajax({
 		async:false,
-		data:{roleName:roleName,roleId:roleId,authorityIds:authorityIds},
+		data:{roleName:roleName,roleId:roleId,authorityIds:authorityIds,parentRole:parentRole},
 		dataType: "json",
 		url:contextPath+"/admin/admin/saveOrUpdateRole",
 		type:"POST",

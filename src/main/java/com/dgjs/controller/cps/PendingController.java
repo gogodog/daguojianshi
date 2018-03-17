@@ -15,7 +15,10 @@ import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.dto.business.Draft;
 import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.Pending_Status;
+import com.dgjs.model.persistence.AdminUser;
 import com.dgjs.model.persistence.condition.DraftCondition;
+import com.dgjs.model.persistence.condition.RoleAdminCondition;
+import com.dgjs.service.admin.AdminUserService;
 import com.dgjs.service.content.DraftAPRecordService;
 import com.dgjs.service.content.DraftService;
 import com.dgjs.utils.WebContextHelper;
@@ -30,6 +33,9 @@ public class PendingController {
 	@Autowired
 	DraftAPRecordService draftAPRecordService;
 	
+	@Autowired
+	AdminUserService adminUserService;
+	
 	@RequestMapping("/docms")
 	public ModelAndView docms(DraftCondition condition){
 		ModelAndView mv = new ModelAndView("/cps/docms");
@@ -41,6 +47,7 @@ public class PendingController {
 			List<Pending_Status> statusList = Arrays.asList(Pending_Status.Audit_FAIL,Pending_Status.AUDIT_PENDING,Pending_Status.PUBLISH_PENDING,Pending_Status.PUBLISHED);
 			condition.setStatusList(statusList);
 		}
+		setMemberCondition(WebContextHelper.getAdminUser(),condition);
 		PageInfoDto<Draft> pageinfo = draftService.listDrafts(condition);
 		Map<String,String> rejectMap= draftAPRecordService.getLastRejectMsg(pageinfo);
 		mv.addObject("pageinfo", pageinfo);
@@ -59,4 +66,15 @@ public class PendingController {
 		return mv;
 	}
 	
+	private void setMemberCondition(AdminUser adminUser,DraftCondition condition){
+		RoleAdminCondition roleCondition =  new RoleAdminCondition();
+		if(adminUser.getOrganization()!=null && condition.getMember()!=0){
+			List<Integer> ids = adminUserService.getAdminIdsByRole(adminUser, roleCondition);
+			if(condition.getMember() == 1){
+				ids.remove(WebContextHelper.getUserId());
+			}
+			condition.setUserIdList(ids);
+			condition.setStatusList(Arrays.asList(Pending_Status.PUBLISHED));
+		}
+	}
 }

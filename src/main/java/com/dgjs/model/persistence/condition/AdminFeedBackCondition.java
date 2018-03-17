@@ -4,18 +4,13 @@ import java.util.Date;
 
 import org.springframework.util.StringUtils;
 
-import com.dgjs.constants.Constants;
 import com.dgjs.utils.DateUtils;
 
-public class AdminFeedBackCondition {
+public class AdminFeedBackCondition extends BasePageCondition{
 
 	private Boolean isHaveReply;
 	private Date timeFrom;
 	private Date timeTo;
-	private int beginNum;
-	private int onePageSize=Constants.DEFAULT_ONEPAGESIZE;
-	private int currentPage=1;
-	private boolean needTotalResults;
 	
 	public void setTime_from(String time_from) {
 		if(!StringUtils.isEmpty(time_from)){
@@ -38,30 +33,6 @@ public class AdminFeedBackCondition {
 	}
 	public void setTimeTo(Date timeTo) {
 		this.timeTo = timeTo;
-	}
-	public int getBeginNum() {
-		return beginNum;
-	}
-	public void setBeginNum(int beginNum) {
-		this.beginNum = beginNum;
-	}
-	public int getOnePageSize() {
-		return onePageSize;
-	}
-	public void setOnePageSize(int onePageSize) {
-		this.onePageSize = onePageSize;
-	}
-	public int getCurrentPage() {
-		return currentPage;
-	}
-	public void setCurrentPage(int currentPage) {
-		this.currentPage = currentPage;
-	}
-	public boolean isNeedTotalResults() {
-		return needTotalResults;
-	}
-	public void setNeedTotalResults(boolean needTotalResults) {
-		this.needTotalResults = needTotalResults;
 	}
 	public Boolean getIsHaveReply() {
 		return isHaveReply;

@@ -182,8 +182,12 @@ public class DraftMapperImpl implements DraftMapper{
 	private BoolQueryBuilder getListQueryBuilder(DraftCondition condition){
 		BoolQueryBuilder boolBuilder = new BoolQueryBuilder();
 		if(condition!=null){
-			if(condition.getUserId()!=null){
-				boolBuilder.must(QueryBuilders.termQuery("user_id", condition.getUserId()));
+			if(condition.getUserIdList()!=null && condition.getUserIdList().size()>0){
+				boolBuilder.must(QueryBuilders.termsQuery("user_id", condition.getUserIdList()));
+			}else{
+				if(condition.getUserId()!=null){
+					boolBuilder.must(QueryBuilders.termQuery("user_id", condition.getUserId()));
+				}
 			}
 			if(condition.getStatusList()!=null && condition.getStatusList().size()>0){
 				List<Pending_Status> statusList = condition.getStatusList();

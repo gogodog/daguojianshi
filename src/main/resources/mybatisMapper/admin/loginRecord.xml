@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgjs.mapper.admin.LoginRecordMapper">
+  
+  
+  	<insert id="save" parameterType="loginRecord" keyProperty="id" useGeneratedKeys="true">
+	       insert into login_record
+	       (
+               admin_id,
+               login_time,
+               create_time
+	       )
+	       values
+	       (
+               #{admin_id},
+               #{login_time},
+               #{create_time}
+	       )
+	</insert>
+	
+	<select id="getLastLoginRecord" resultType="loginRecord">
+	       select id,admin_id,login_time,create_time from login_record where admin_id=#{adminId} 
+	       order by login_time desc limit 0,1
+	</select>
+	
+</mapper>

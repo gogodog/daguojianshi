@@ -3,7 +3,8 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title></title>
+	<title>简史-后台管理系统</title>
+	<link rel="shortcut icon" href="/front/images/favico.ico">
 	<link rel="stylesheet" href="/admin/css/reset.css?v=${staticVersion}">
 	<link rel="stylesheet" href="/admin/css/public.css?v=${staticVersion}">
 </head>

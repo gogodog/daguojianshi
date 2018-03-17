@@ -20,6 +20,7 @@
            <secondlevel desc="角色管理" url="/admin/admin/roleList"></secondlevel>
            <secondlevel desc="用户管理" url="/admin/adnur/adminList"></secondlevel>
            <secondlevel desc="操作日志" url="/admin/oprtlg/list"></secondlevel>
+           <secondlevel desc="组织管理" url="/admin/ognztn/list"></secondlevel>
        </firstlevel>
        <firstlevel desc="公告管理" >
            <secondlevel desc="公告内容管理" url="/admin/announce/list"></secondlevel> 
@@ -36,5 +37,7 @@
        <firstlevel desc="个人信息" url="/cps/user/psoninf" css="fa fa-anchor" page_name="user/psoninf"></firstlevel>
        <firstlevel desc="草稿箱" url="/cps/dft/draft" css="fa fa-yelp" page_name="dft/draft,dft/audit"></firstlevel>   
        <firstlevel desc="反馈" url="/cps/fb/feedback" css="fa fa-square-o" page_name="fb/feedback"></firstlevel>
+       <firstlevel desc="成员管理" url="/cps/childUser/list" css="fa fa-sitemap" page_name="childUser/list"></firstlevel>
+       <firstlevel desc="推荐码管理" url="/cps/ivtatncd/list" css="fa fa-coffee" page_name="ivtatncd/list"></firstlevel>
    </project>
 </Configuration>

@@ -9,7 +9,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.alibaba.fastjson.JSON;
-import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.persistence.Organization;
 import com.dgjs.model.persistence.condition.OrganizationCondition;
 
@@ -24,8 +23,7 @@ public class OrganizationMapperTest {
 	public void testSave(){
 		Organization o = new Organization();
 		o.setOname("大国简史");
-		o.setNumber(2);
-		o.setStatus(UpDown_Status.UP);
+		o.setProxy(1);
 		o.setSummary("紫金云讯公司");
 		int flag=mapper.save(o);
 		System.out.println(flag);
@@ -41,8 +39,8 @@ public class OrganizationMapperTest {
 	public void testUpdate(){
 		Organization o = new Organization();
 		o.setOname("大国简史");
-		o.setNumber(2);
-		o.setStatus(UpDown_Status.UP);
+		o.setProxy(1);
+		o.setSummary("紫金云讯公司");
 		o.setSummary("紫金云讯");
 		o.setId(1);
 		int flag=mapper.update(o);
@@ -52,7 +50,6 @@ public class OrganizationMapperTest {
 	@Test
 	public void testList(){
 		OrganizationCondition condition = new OrganizationCondition();
-		condition.setStatus(UpDown_Status.UP);
 		List<Organization>list=mapper.list(condition);
 		System.out.println(JSON.toJSONString(list, true));
 	}

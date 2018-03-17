@@ -31,8 +31,8 @@ public class ALoginController {
 	}
 	
 	@RequestMapping("/admin/ck")
-	public ModelAndView loginCallBack(String code, String state,HttpServletRequest request,HttpServletResponse response) {
-		boolean isLogin = loginService.login(code,response);
+	public ModelAndView loginCallBack(String code, String state,String source,HttpServletRequest request,HttpServletResponse response) {
+		boolean isLogin = loginService.login(code,source,response);
 		ModelAndView mv = null;
 		if(!isLogin){//获取用户信息失败
 			mv = new ModelAndView("/admin/login/login");

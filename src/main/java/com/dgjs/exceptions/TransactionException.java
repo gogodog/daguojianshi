@@ -1,5 +1,6 @@
 package com.dgjs.exceptions;
 
+import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.model.result.view.BaseView;
 
 public class TransactionException extends RuntimeException{
@@ -21,12 +22,22 @@ public class TransactionException extends RuntimeException{
 		this.returnData = new BaseView();
 		this.returnData.setErrorCode(errorCode);
 		this.returnData.setErrorMessage(msg);
+		this.returnData.setError(true);
+	}
+	
+	public TransactionException(RETURN_STATUS status, String msg) {
+		super(msg);
+		this.returnData = new BaseView();
+		this.returnData.setErrorCode(status.toString());
+		this.returnData.setErrorMessage(msg);
+		this.returnData.setError(true);
 	}
 
 	public TransactionException(String errorCode) {
 		super();
 		this.returnData = new BaseView();
 		this.returnData.setErrorCode(errorCode);
+		this.returnData.setError(true);
 	}
 	
 	public TransactionException(Throwable arg0,String errorCode,String msg) {
@@ -34,6 +45,7 @@ public class TransactionException extends RuntimeException{
 		this.returnData = new BaseView();
 		this.returnData.setErrorCode(errorCode);
 		this.returnData.setErrorMessage(msg);
+		this.returnData.setError(true);
 	}
 
 }

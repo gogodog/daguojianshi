@@ -20,6 +20,7 @@ public interface Constants {
 	public static final int ONECE_MAX_CONTAINER = 5;//用户一次最多可上传几张图片
 	public static final int MAX_FILE_SIZE = 2;//上传图片最大不能超过多少兆
 	
+	/*微信相关*/
 	public static final int CK_USERINFO_MAXAGE = 7200;
 	public static final String CK_USERINFO_KEY = "usercode";
 	
@@ -28,4 +29,16 @@ public interface Constants {
 	
 	public static final String WX_CODE_PREFIX="wx_";
 	public static final String WX_CODE_ENCRYPT_KEY="1468133156538546";
+	
+	/*用户组织相关*/
+	public static final String CPS_LOGIN_URL="https://www.cwillow.com/cpslogin?organization=";
+	public static final Integer PROXY_ROLE_ID=4;
+	public static final Integer INIT_ROLE_ID=3;
+	public static final Integer LOW_ROLE_ID=5;
+	public static final Integer SECOND_ROLE_ID=2;
+	public static final Integer ROLECODE_PRIMARY_ID=1;
+	
+	/*推荐码相关*/
+	public static final int MAX_INVITATION=5;//每个用户最多有可用的二维码多少个
+	public static final int MAX_INVITATION_VALID_TIME=10;//天为单位
 }

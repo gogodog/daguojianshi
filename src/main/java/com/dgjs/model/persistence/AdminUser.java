@@ -19,6 +19,7 @@ public class AdminUser {
 	
 	private String unionid;//unionid
 	private String openid;//openid
+	private Integer organization;//组织id
 	
 	public String getUsername() {
 		return username;
@@ -85,6 +86,12 @@ public class AdminUser {
 	}
 	public void setOpenid(String openid) {
 		this.openid = openid;
+	}
+	public Integer getOrganization() {
+		return organization;
+	}
+	public void setOrganization(Integer organization) {
+		this.organization = organization;
 	}
     
 }

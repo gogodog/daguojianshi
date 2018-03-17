@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgjs.mapper.admin.InvitationCodeMapper">
+  
+  
+  	<insert id="save" parameterType="invitationCode" keyProperty="id" useGeneratedKeys="true">
+	       insert into invitation_code
+	       (
+               invitation_code,
+               valid_time,
+               status,
+               from_user_id,
+               to_user_id,
+               create_time,
+               update_time
+	       )
+	       values
+	       (
+               #{invitation_code},
+               #{valid_time},
+               #{status},
+               #{from_user_id},
+               #{to_user_id},
+               now(),
+               now()
+	       )
+	</insert>
+	
+	<select id="getValidCode" resultType="invitationCode">
+	      select id,invitation_code,valid_time,status,from_user_id,to_user_id,create_time,update_time from invitation_code 
+          where invitation_code = #{invitationCode} and status = 1
+	</select>
+	
+	<update id="update">
+	      update invitation_code set
+	      <if test="status!=null">
+	         status = #{status},
+	      </if>
+	      <if test="to_user_id!=null">
+	         to_user_id = #{to_user_id},
+	      </if>
+		     update_time = now()
+		     where id=#{id}
+	</update>
+	
+	<select id="list" resultType="invitationCode">
+	   select id,invitation_code,valid_time,status,from_user_id,to_user_id,create_time,update_time from invitation_code
+	   <include refid="listsql"></include>
+	   order by status asc, create_time desc
+	   limit #{beginNum},#{onePageSize}
+	</select>
+	
+	<select id="count" resultType="int">
+	    select count(0) from invitation_code 
+	    <include refid="listsql"></include>
+	</select> 
+	
+	<select id="getValidCount" resultType="int">
+	    select count(0) from invitation_code where status = 1 and from_user_id = #{fromUserId}
+	</select>
+	
+	<sql id="listsql">
+	   <where>
+	      <if test="fromUserId!=null">
+	            from_user_id = #{fromUserId}
+	      </if>
+	      <if test="toUserId!=null">
+	            and to_user_id = #{toUserId}
+	      </if>
+	      <if test="statusList!=null">
+	            and status in
+		     <foreach collection="statusList" index="index" item="item" open="(" separator="," close=")">  
+              #{item}  
+             </foreach>
+	      </if>
+	      <if test="fromDate!=null"> <![CDATA[and update_time > #{fromDate}]]></if>
+	      <if test="toDate!=null"><![CDATA[and update_time < #{toDate}]]></if>
+	   </where>
+	</sql>
+	
+</mapper>

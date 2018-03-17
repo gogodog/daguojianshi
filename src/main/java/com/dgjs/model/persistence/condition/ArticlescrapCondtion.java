@@ -7,13 +7,12 @@ import java.util.Map;
 import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.util.StringUtils;
 
-import com.dgjs.constants.Constants;
 import com.dgjs.model.enums.Articlescrap_Status;
 import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.Pic_Sync_Status;
 import com.dgjs.utils.DateUtils;
 
-public class ArticlescrapCondtion {
+public class ArticlescrapCondtion extends BasePageCondition{
 
 	private Articlescrap_Status status;//状态
 	private Articlescrap_Type type;//类型
@@ -26,10 +25,6 @@ public class ArticlescrapCondtion {
 	private Date updateTimeFrom;
 	private Date updateTimeTo;
 	private Map<String,SortOrder> sort;//排序
-	private int beginNum=0;//从哪条开始查
-	private int onePageSize=Constants.DEFAULT_ONEPAGESIZE;
-	private int currentPage=1;//当前页
-	private boolean needTotalResults;//是否需要查询总数
 	private String keyword;//关键词搜索
 	private Integer picNum;//图片数量
 	private String[] withoutIds;//不查询的id
@@ -119,30 +114,6 @@ public class ArticlescrapCondtion {
 	}
 	public void setSort(Map<String, SortOrder> sort) {
 		this.sort = sort;
-	}
-	public int getBeginNum() {
-		return beginNum;
-	}
-	public void setBeginNum(int beginNum) {
-		this.beginNum = beginNum;
-	}
-	public int getOnePageSize() {
-		return onePageSize;
-	}
-	public void setOnePageSize(int onePageSize) {
-		this.onePageSize = onePageSize;
-	}
-	public int getCurrentPage() {
-		return currentPage;
-	}
-	public void setCurrentPage(int currentPage) {
-		this.currentPage = currentPage;
-	}
-	public boolean isNeedTotalResults() {
-		return needTotalResults;
-	}
-	public void setNeedTotalResults(boolean needTotalResults) {
-		this.needTotalResults = needTotalResults;
 	}
 	public Integer getStartTimeFrom() {
 		return startTimeFrom;

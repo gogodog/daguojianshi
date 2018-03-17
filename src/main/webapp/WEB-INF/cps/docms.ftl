@@ -12,6 +12,16 @@
                         <h1 class="page-head-line">文章管理</h1>
                         <h1 class="page-subhead-line">[温馨提示]提审时间一般为1-3个工作日请耐心等候. </h1>
                         <form action="${contextPath}/cps/pding/docms" method="post" id="form1">
+                        
+                           <label>成员:</label>
+                           <div class="btn-group">
+		                        <button style="width:100px;" data-toggle="dropdown" class="btn btn-warning dropdown-toggle"><span id="member_show" ><#if condition.member==0>自己<#else>成员</#if></span><span class="caret"></span></button>
+		                        <ul class="dropdown-menu">
+		                            <li><a href="#" tosl="0" onmouseup="changeSelect(this,$('#member'),$('#member_show'))">自己</a></li>
+		                            <li><a href="#" tosl="1" onmouseup="changeSelect(this,$('#member'),$('#member_show'))">成员</a></li>
+		                        </ul>
+		                    </div>
+                        
                            <label>分类:</label>
                            <div class="btn-group">
 		                        <button style="width:100px;" data-toggle="dropdown" class="btn btn-warning dropdown-toggle"><span id="type_show" >${condition.type.value!'全部'}</span><span class="caret"></span></button>
@@ -22,20 +32,9 @@
 		                            </#list>
 		                        </ul>
 		                    </div>
-    			           <label>状态:</label>
-                           <div class="btn-group">
-		                        <button style="width:100px;" data-toggle="dropdown" class="btn btn-warning dropdown-toggle"><span id="status_show" >${condition.status.value!'全部'}</span><span class="caret"></span></button>
-		                        <ul class="dropdown-menu">
-		                        	<li><a href="#" tosl="" onmouseup="changeSelect(this,$('#status'),$('#status_show'))">全部</a></li>
-		                            <#list statusList as status>
-		                                <#if status != 'INIT'>
-		                            	<li><a href="#" tosl="${status}" onmouseup="changeSelect(this,$('#status'),$('#status_show'))">${status.value}</a></li>
-		                                </#if>
-		                            </#list>
-		                        </ul>
-		                    </div>
 		                    <input type="hidden" value="${condition.status}" id="status" name="status"/>
 		                    <input type="hidden" value="${condition.type}" id="type" name="type"/>
+		                    <input type="hidden" value="${condition.member}" id="member" name="member"/>
                             <label>标题:<input class="form-control" style="display: inline;width: auto;" placeholder="输入标题" type="text" name="title" value="${condition.title}"></label>
                             <label><button class="btn btn-primary" name="conditionButton"><i class="glyphicon glyphicon-search"></i>查询</button></label>
                         </form>

@@ -2,17 +2,16 @@ package com.dgjs.model.persistence;
 
 import java.util.Date;
 
-import com.dgjs.model.enums.UpDown_Status;
-
 public class Organization {
 
 	private Integer id;
 	private String oname;//组织名
-	private int number;//人数
     private String summary;//简介
     private Date create_time;//创建时间
     private Date update_time;//修改时间
-    private UpDown_Status status;//状态
+    
+    private String link;//链接
+    private Integer proxy;//代理人
     
 	public Integer getId() {
 		return id;
@@ -20,11 +19,11 @@ public class Organization {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public int getNumber() {
-		return number;
+	public String getOname() {
+		return oname;
 	}
-	public void setNumber(int number) {
-		this.number = number;
+	public void setOname(String oname) {
+		this.oname = oname;
 	}
 	public String getSummary() {
 		return summary;
@@ -44,17 +43,18 @@ public class Organization {
 	public void setUpdate_time(Date update_time) {
 		this.update_time = update_time;
 	}
-	public UpDown_Status getStatus() {
-		return status;
+	public String getLink() {
+		return link;
 	}
-	public void setStatus(UpDown_Status status) {
-		this.status = status;
+	public void setLink(String link) {
+		this.link = link;
 	}
-	public String getOname() {
-		return oname;
+	public Integer getProxy() {
+		return proxy;
 	}
-	public void setOname(String oname) {
-		this.oname = oname;
+	public void setProxy(Integer proxy) {
+		this.proxy = proxy;
 	}
+    
     
 }

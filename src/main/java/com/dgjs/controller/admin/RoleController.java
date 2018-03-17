@@ -66,7 +66,7 @@ public class RoleController {
 	@ResponseBody
 	@RequestMapping(value="/saveOrUpdateRole",method=RequestMethod.POST)
 	@LogRecord(operate=OperateEnum.Update,remark="保存角色")
-	public BaseView saveOrUpdate(Integer roleId,String roleName,String authorityIds){
+	public BaseView saveOrUpdate(Integer roleId,String roleName,String authorityIds,Integer parentRole){
 		BaseView mv = new BaseView();
 		if(StringUtils.isEmpty(roleName)){
 			mv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR);
@@ -82,7 +82,7 @@ public class RoleController {
 					idArray[index++] = Integer.parseInt(id);
 				}
 			}
-			roleTransactionService.saveRole(roleId, roleName, idArray);
+			roleTransactionService.saveRole(roleId, roleName,parentRole, idArray);
 		}catch(TransactionException e){
 			mv.setBaseViewValue(e.getReturnData().getErrorCode(), e.getReturnData().getErrorMessage());
 		}
@@ -98,6 +98,8 @@ public class RoleController {
 		}
 		List<Authority>  authorityList = authorityService.list();
 		mv.addObject("authorityList", authorityList);
+		List<Role> roleList = roleService.list();
+		mv.addObject("roleList", roleList);
 		return mv;
 	}
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.dgjs.model.persistence.AdminUser;
 import com.dgjs.model.persistence.condition.AdminUserCondition;
+import com.dgjs.model.persistence.condition.RoleAdminCondition;
 import com.dgjs.model.persistence.result.AdminUserResult;
 
 public interface AdminUserMapper {
@@ -25,4 +26,11 @@ public interface AdminUserMapper {
 	public AdminUser getByUserCode(String userCode);
 	
 	public AdminUser getByUnionId(String unionId);
+	
+	public List<AdminUserResult> listByRoleOrg(RoleAdminCondition condition);
+	
+	public List<Integer> listIdsByRoleOrg(RoleAdminCondition condition);
+	
+	public int listByRoleOrgCount(RoleAdminCondition condition);
+	
 }

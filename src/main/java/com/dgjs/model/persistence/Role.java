@@ -6,6 +6,8 @@ public class Role {
 
 	private Integer id;//角色id
 	private String role_name;//角色名称
+	private String role_code;//角色编号（角色层级关系）
+	private int deep;//角色深度
 	private Date create_time;//创建时间
 	private Date update_time;//修改时间
 	
@@ -33,6 +35,33 @@ public class Role {
 	public void setUpdate_time(Date update_time) {
 		this.update_time = update_time;
 	}
-	
+	public String getRole_code() {
+		return role_code;
+	}
+	public void setRole_code(String role_code) {
+		this.role_code = role_code;
+	}
+	public int getDeep() {
+		return deep;
+	}
+	public void setDeep(int deep) {
+		this.deep = deep;
+	}
+	public String getParentRoleCode(){
+		if(role_code==null){
+			return null;
+		}
+		String[] values=role_code.split("_");
+		if(values.length==1){
+			return null;
+		}
+		StringBuilder parentRoleCode = new StringBuilder();
+		for(int i=0;i<values.length-1;i++){
+			String value = values[i];
+			parentRoleCode.append(value);
+			parentRoleCode.append("_");
+		}
+		return parentRoleCode.toString();
+	}
 	
 }

@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 
-import com.dgjs.model.enums.Carousel_Position;
 import com.dgjs.model.enums.Index_Type;
 
 public class IndexTypeTypeHandler  extends BaseTypeHandler<Index_Type> {

@@ -6,24 +6,28 @@
   	<insert id="save" parameterType="role" keyProperty="id" useGeneratedKeys="true">
 	       insert into role
 	       (
+               role_code,
                role_name,
+               deep,
                create_time,
                update_time
 	       )
 	       values
 	       (
+	           #{role_code},
                #{role_name},
+               #{deep},
                now(),
                now()
 	       )
 	</insert>
 	
 	<select id="selectById" resultType="role">
-	      select id,role_name,create_time,update_time from role where id=#{id}
+	      select id,role_code,role_name,deep,create_time,update_time from role where id=#{id}
 	</select>
 	
 	<select id="selectByIds" resultType="role">
-	      select id,role_name,create_time,update_time from role where id in
+	      select id,role_code,role_name,deep,create_time,update_time from role where id in
 	      <foreach collection="list" index="index" item="item" open="(" separator="," close=")">  
           (
            #{item}
@@ -39,7 +43,7 @@
 	</update>
 	
 	<select id="list" resultType="role">
-	   select id,role_name,create_time,update_time from role order by update_time desc
+	   select id,role_code,role_name,deep,create_time,update_time from role order by update_time desc
 	</select>
 	
 	<insert id="saveRoleAuthority" useGeneratedKeys="true" parameterType="java.util.List">
@@ -76,4 +80,13 @@
 	    in
 	    (select authority_id from role_authority where role_id = #{role_id})
 	</select>
+	
+	<select id="getChildrenRoleIds" resultType="int">
+	    select id from role where role_code LIKE concat(#{roleCode},'%')
+	</select>
+	
+	<select id="getChildrenRoles" resultType="role">
+	    select id,role_code,role_name,deep,create_time,update_time from role where role_code LIKE concat(#{roleCode},'%')
+	</select>
+	
 </mapper>

@@ -21,7 +21,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.dgjs.constants.Session_Keys;
 import com.dgjs.exceptions.AuthorityException;
+import com.dgjs.exceptions.UserStatusException;
 import com.dgjs.model.dto.RoleAuthorityDto;
+import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.persistence.AdminUser;
 import com.dgjs.model.persistence.Authority;
 import com.dgjs.model.result.view.AdminMenu;
@@ -73,6 +75,9 @@ public class LoginInterceptor implements HandlerInterceptor{
 			if(adminUser == null){
 				throw new AuthorityException();
 			}
+		}
+		if(adminUser.getStatus() == UpDown_Status.DOWN){
+			throw new UserStatusException();
 		}
 		request.getSession().setAttribute(Session_Keys.USER_INFO, adminUser);
 		//获取权限
