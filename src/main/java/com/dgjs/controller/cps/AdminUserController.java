@@ -94,6 +94,7 @@ public class AdminUserController {
 	
 	@ResponseBody
 	@RequestMapping("/joinGroup")
+	@LogRecord(operate=OperateEnum.Add,remark="加入组织")
 	public BaseView joinGroup(String code){
 		BaseView bv = new BaseView();
 		if(StringUtils.isNullOrEmpty(code)){

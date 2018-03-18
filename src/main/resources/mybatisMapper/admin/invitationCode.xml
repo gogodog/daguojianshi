@@ -67,7 +67,7 @@
 	      <if test="toUserId!=null">
 	            and to_user_id = #{toUserId}
 	      </if>
-	      <if test="statusList!=null && statusList.size()>0">
+	      <if test="statusList!=null and statusList.size()>0">
 	            and status in
 		     <foreach collection="statusList" index="index" item="item" open="(" separator="," close=")">  
               #{item}  
@@ -80,7 +80,7 @@
 	
 	<update id="updateStatus">
 	    update invitation_code set status = #{status},update_time = now() where id in 
-	    <if test="ids!=null && ids.size()>0">
+	    <if test="ids!=null and ids.size()>0">
 		     <foreach collection="ids" index="index" item="item" open="(" separator="," close=")">  
                  #{item}  
              </foreach>

@@ -7,9 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dgjs.annotation.LogRecord;
 import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.model.dto.PageInfoDto;
 import com.dgjs.model.enums.Announcement_Type;
+import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.persistence.Announcement;
 import com.dgjs.model.persistence.condition.AnnouncementCondition;
@@ -34,6 +36,7 @@ public class AAnnouncementController {
 		return mv;
 	}
 	
+	@LogRecord(operate=OperateEnum.Add,remark="修改通告状态")
 	@RequestMapping("/updateStatus")
 	@ResponseBody
 	public BaseView updateStatus(Integer id,UpDown_Status status){
@@ -49,6 +52,7 @@ public class AAnnouncementController {
 		return bv;
 	}
 	
+	@LogRecord(operate=OperateEnum.Add,remark="新增通告")
 	@RequestMapping("/save")
 	@ResponseBody
 	public BaseView save(String message,Announcement_Type type){

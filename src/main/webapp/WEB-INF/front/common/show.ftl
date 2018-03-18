@@ -60,9 +60,9 @@
       </article>
       <div class="article-tags">
       	标签：
-   	    <a href="javascript:void(0)" rel="tag" >${(articlescrap.typeValue)!''}</a>
+   	    <a href="//www.cwillow.com/timeline?type=${articlescrap.type}" rel="tag" >${(articlescrap.typeValue)!''}</a>
       	<#list articlescrap.keywords as keywords>
-      	   <a href="javascript:void(0)" rel="tag" >${(keywords)!''}</a>
+      	   <a href="//www.cwillow.com/timeline?keyword=${(keywords)!''}" rel="tag" >${(keywords)!''}</a>
       	</#list>
         </div>
       <#include "/front/common/pieces/recommend.ftl">

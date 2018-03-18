@@ -31,6 +31,7 @@ import com.dgjs.model.result.view.AdminMenu.Children;
 import com.dgjs.model.result.view.CpsMenu;
 import com.dgjs.service.admin.AdminUserService;
 import com.dgjs.service.admin.RoleService;
+import com.dgjs.service.wechat.LoginService;
 import com.dgjs.utils.StringUtils;
 import com.dgjs.utils.WebContextHelper;
 
@@ -52,6 +53,8 @@ public class LoginInterceptor implements HandlerInterceptor{
 	@Autowired
 	AdminUserService adminUserService;
 
+	@Autowired
+	LoginService loginService;
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request,

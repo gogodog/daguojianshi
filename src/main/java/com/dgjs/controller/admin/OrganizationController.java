@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dgjs.annotation.LogRecord;
 import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.model.dto.OrganizationDto;
 import com.dgjs.model.dto.PageInfoDto;
+import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.persistence.AdminUser;
 import com.dgjs.model.persistence.Organization;
 import com.dgjs.model.persistence.condition.OrganizationCondition;
@@ -54,6 +56,7 @@ public class OrganizationController {
 	
 	@ResponseBody
 	@RequestMapping("/update")
+	@LogRecord(operate=OperateEnum.Add,remark="修改组织")
 	public BaseView update(Organization organization,String proxyUserCode){
 		BaseView bv = new BaseView();
 		if(organization==null||StringUtils.isEmpty(organization.getOname())
@@ -78,6 +81,7 @@ public class OrganizationController {
 	
 	@ResponseBody
 	@RequestMapping("/save")
+	@LogRecord(operate=OperateEnum.Add,remark="新增组织")
 	public BaseView save(Organization organization,String proxyUserCode){
 		BaseView bv = new BaseView();
 		if(organization==null||StringUtils.isEmpty(organization.getOname())

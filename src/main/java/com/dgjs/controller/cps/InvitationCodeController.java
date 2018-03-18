@@ -6,10 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dgjs.annotation.LogRecord;
 import com.dgjs.constants.Constants;
 import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.model.dto.InvitationCodeDto;
 import com.dgjs.model.dto.PageInfoDto;
+import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.persistence.InvitationCode;
 import com.dgjs.model.persistence.condition.InvitationCondition;
 import com.dgjs.model.result.view.BaseView;
@@ -35,6 +37,7 @@ public class InvitationCodeController {
 
 	@ResponseBody
 	@RequestMapping("/produce")
+	@LogRecord(operate=OperateEnum.Add,remark="生成推荐码")
 	public BaseView produce(){
 		BaseView bv = new BaseView();
 		int count = invitationCodeService.getValidCount(WebContextHelper.getUserId());

@@ -8,6 +8,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dgjs.annotation.LogRecord;
+import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.persistence.Config;
 import com.dgjs.model.persistence.condition.ConfigCondition;
 import com.dgjs.service.config.ConfigService;
@@ -29,6 +31,7 @@ public class ConfigController {
 	}
 	
 	@RequestMapping("/delete")
+	@LogRecord(operate=OperateEnum.Add,remark="删除配置")
 	public ModelAndView delete(Integer id){
 		ModelAndView mv = new ModelAndView("redirect:/admin/config/list"); 
 		configService.deleteById(id);
@@ -45,6 +48,7 @@ public class ConfigController {
 	
 	
 	@RequestMapping("/save")
+	@LogRecord(operate=OperateEnum.Add,remark="新增配置")
 	public ModelAndView save(Config config){
 		ModelAndView mv = new ModelAndView("redirect:/admin/config/list"); 
 		if(StringUtils.isEmpty(config.getC_key())||StringUtils.isEmpty(config.getC_desc())||StringUtils.isEmpty(config.getC_value())){
@@ -55,6 +59,7 @@ public class ConfigController {
 	}
 	
 	@RequestMapping("/update")
+	@LogRecord(operate=OperateEnum.Add,remark="修改配置")
 	public ModelAndView update(Config config){
 		ModelAndView mv = new ModelAndView("redirect:/admin/config/list"); 
 		if(StringUtils.isEmpty(config.getC_desc())||StringUtils.isEmpty(config.getC_value())){

@@ -89,7 +89,7 @@ public class LoginServiceImpl implements LoginService {
 		return false;
 	}
 	
-	private void setLastLoginTime(Integer adminId){
+	public void setLastLoginTime(Integer adminId){
 		LoginRecord loginRecord = loginRecordService.getLastLoginRecord(adminId);
 		if(loginRecord!=null){
 			WebContextHelper.setSessionValue(Session_Keys.LAST_LOGIN_TIME, DateUtils.parseStringFromDate(loginRecord.getLogin_time(), "yyyy-MM-dd HH:mm"));
@@ -100,7 +100,7 @@ public class LoginServiceImpl implements LoginService {
 				LoginRecord lr = new LoginRecord(); 
 				lr.setLogin_time(new Date());
 				lr.setAdmin_id(adminId);
-				loginRecordService.save(loginRecord);
+				loginRecordService.save(lr);
 			}
 		});
 	}

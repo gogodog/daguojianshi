@@ -14,7 +14,7 @@
 	       (
                #{admin_id},
                #{login_time},
-               #{create_time}
+               now()
 	       )
 	</insert>
 	
