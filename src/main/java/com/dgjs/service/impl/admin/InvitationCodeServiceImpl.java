@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dgjs.constants.Constants;
-import com.dgjs.constants.RETURN_STATUS;
 import com.dgjs.mapper.admin.InvitationCodeMapper;
 import com.dgjs.model.dto.InvitationCodeDto;
 import com.dgjs.model.dto.PageInfoDto;
@@ -20,7 +19,6 @@ import com.dgjs.model.persistence.InvitationCode;
 import com.dgjs.model.persistence.condition.AdminUserCondition;
 import com.dgjs.model.persistence.condition.InvitationCondition;
 import com.dgjs.model.persistence.result.AdminUserResult;
-import com.dgjs.model.result.view.BaseView;
 import com.dgjs.service.admin.AdminUserService;
 import com.dgjs.service.admin.InvitationCodeService;
 import com.dgjs.utils.RandomUtils;
@@ -109,6 +107,11 @@ public class InvitationCodeServiceImpl implements InvitationCodeService{
 	@Override
 	public int getValidCount(Integer fromUserId) {
 		return invitationCodeMapper.getValidCount(fromUserId);
+	}
+
+	@Override
+	public int updateStatus(List<Long> ids, Invitation_Status status) {
+		return invitationCodeMapper.updateStatus(ids, status);
 	}
 	
 }

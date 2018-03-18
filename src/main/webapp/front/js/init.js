@@ -1,4 +1,3 @@
-LazyJoy.getUp({
-	   offset : 100,//离可视区域多少像素的时候可以被加载
-	　　 delayed: 0 //图片延时多少毫秒加载(上线时修改为0)
-	});
+$(function() {
+    $("img.lazy").lazyload({effect: "fadeIn",threshold: 200});
+});

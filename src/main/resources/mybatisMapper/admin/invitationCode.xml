@@ -67,15 +67,23 @@
 	      <if test="toUserId!=null">
 	            and to_user_id = #{toUserId}
 	      </if>
-	      <if test="statusList!=null">
+	      <if test="statusList!=null && statusList.size()>0">
 	            and status in
 		     <foreach collection="statusList" index="index" item="item" open="(" separator="," close=")">  
               #{item}  
              </foreach>
 	      </if>
-	      <if test="fromDate!=null"> <![CDATA[and update_time > #{fromDate}]]></if>
-	      <if test="toDate!=null"><![CDATA[and update_time < #{toDate}]]></if>
+	      <if test="fromDate!=null"> <![CDATA[and valid_time > #{fromDate}]]></if>
+	      <if test="toDate!=null"><![CDATA[and valid_time < #{toDate}]]></if>
 	   </where>
 	</sql>
 	
+	<update id="updateStatus">
+	    update invitation_code set status = #{status},update_time = now() where id in 
+	    <if test="ids!=null && ids.size()>0">
+		     <foreach collection="ids" index="index" item="item" open="(" separator="," close=")">  
+                 #{item}  
+             </foreach>
+	      </if>
+	</update>
 </mapper>

@@ -4,7 +4,6 @@
             <li>
                 <div class="user-img-div">
                     <a href ="/cps"><img src="${user.headimgurl}" class="img-thumbnail" /></a>
-
                     <div class="inner-text">${user.username}<br/><small>最后一次登录 : ${last_login_time!''} </small><br/>自知之明，兢兢业业，顺其自然。</div>
                 </div>
             </li>
