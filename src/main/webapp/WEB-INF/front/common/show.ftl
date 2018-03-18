@@ -90,7 +90,7 @@
     	   result.title = '${articlescrap.title}';
     	   result.desc = '${articlescrap.sub_content}';
     	   result.link = '//www.cwillow.com/show/${articlescrap.id}';
-    	   result.imgUrl = '${imageContextPath}${articlescrap.showPic}';
+    	   result.imgUrl = 'https:${imageContextPath}${articlescrap.showPic}';
     	   wechat_init(result);
 	   }
     </script>
