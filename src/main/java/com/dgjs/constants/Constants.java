@@ -41,4 +41,8 @@ public interface Constants {
 	/*推荐码相关*/
 	public static final int MAX_INVITATION=5;//每个用户最多有可用的二维码多少个
 	public static final int MAX_INVITATION_VALID_TIME=10;//天为单位
+	
+	/*微信相关url*/
+	public static final String getAccessTokenUrl = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={0}&secret={1}";
+    public static final String getTicketUrl = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token={0}&type=jsapi";
 }

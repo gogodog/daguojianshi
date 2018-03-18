@@ -2,6 +2,7 @@ package com.dgjs.utils;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 public class StringUtils extends com.mysql.jdbc.StringUtils{
 
@@ -65,5 +66,22 @@ public class StringUtils extends com.mysql.jdbc.StringUtils{
 			array[index++]=object.toString();
 		}
 		return array;
+	}
+	
+	public static String getMapString(Map<String,Object> map){
+		if(map == null || map.isEmpty()){
+			return null;
+		}
+		StringBuilder stb = new StringBuilder();
+		int index = 0;
+		for(String key:map.keySet()){
+			stb.append(key);
+			stb.append("=");
+			stb.append(map.get(key));
+			if(++index != map.keySet().size()){
+				stb.append("&");
+			}
+		}
+		return stb.toString();
 	}
 }
