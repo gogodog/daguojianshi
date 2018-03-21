@@ -24,9 +24,6 @@ public class AdvertisementController {
 	@Autowired
 	AdvertisementService advertisementService;
 	
-	@Autowired
-	PictureService pictureService;
-	
 	@RequestMapping("/adList")
 	public ModelAndView adList(AdvertisementCondtion condition){
 		ModelAndView mv = new ModelAndView("admin/ad/advertisement_list");
@@ -37,7 +34,6 @@ public class AdvertisementController {
 		mv.addObject("condition",condition);
 		mv.addObject("upDownStatus", UpDown_Status.values());
 		mv.addObject("adPositions", Ad_Position.values());
-		mv.addObject("imageContextPath", pictureService.getImageContextPath());
 		return mv;
 	}
 	
@@ -45,7 +41,6 @@ public class AdvertisementController {
 	public ModelAndView ad(Long adId){
 		ModelAndView mv = new ModelAndView("admin/ad/advertisement");
 		Advertisement advertisement=advertisementService.selectById(adId);
-		mv.addObject("imageContextPath", pictureService.getImageContextPath());
 		mv.addObject("advertisement", advertisement);
 		mv.addObject("adPositions", Ad_Position.values());
 		return mv;

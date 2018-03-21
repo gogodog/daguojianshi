@@ -7,6 +7,7 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dgjs.exceptions.AuthorityException;
+import com.dgjs.exceptions.UserStatusException;
 import com.dgjs.model.result.view.ErrorView;
 
 import freemarker.log.Logger;
@@ -33,6 +34,11 @@ public class ExceptionOperation implements HandlerExceptionResolver{
         	ev.setErrorMessage(ex.getMessage());
         	ev.setProblem("权限不够");
         	ev.setTips("无权限操作");
+        }else if(ex instanceof UserStatusException){
+        	ev.setErrorCode("800024");
+        	ev.setErrorMessage(ex.getMessage());
+        	ev.setProblem("用户处于禁用状态");
+        	ev.setTips("用户处于禁用状态");
         }else {
         	ev.setErrorCode("800022");
         	ev.setErrorMessage(ex.getMessage());

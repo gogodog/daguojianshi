@@ -1,5 +1,8 @@
 package com.dgjs.service.impl.wechat;
 
+import java.util.Date;
+import java.util.concurrent.ExecutorService;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
@@ -11,14 +14,17 @@ import com.alibaba.fastjson.JSON;
 import com.dgjs.constants.Session_Keys;
 import com.dgjs.constants.WeChatConstans;
 import com.dgjs.model.persistence.AdminUser;
+import com.dgjs.model.persistence.LoginRecord;
 import com.dgjs.model.wechat.helper.LoginHelper;
 import com.dgjs.model.wechat.req.GetUserAccessToken;
 import com.dgjs.model.wechat.req.GetUserInfo;
 import com.dgjs.model.wechat.res.UserAccessToken;
 import com.dgjs.model.wechat.res.UserInfo;
 import com.dgjs.service.admin.AdminUserService;
+import com.dgjs.service.admin.LoginRecordService;
 import com.dgjs.service.transaction.AdminUserTransactionService;
 import com.dgjs.service.wechat.LoginService;
+import com.dgjs.utils.DateUtils;
 import com.dgjs.utils.StringUtils;
 import com.dgjs.utils.WebContextHelper;
 
@@ -32,6 +38,12 @@ public class LoginServiceImpl implements LoginService {
 	
 	@Autowired
 	AdminUserTransactionService adminUserTransactionService;
+	
+	@Autowired
+	LoginRecordService loginRecordService;
+	
+	@Autowired
+	private ExecutorService loginLogExecutor;
 
 	private UserAccessToken getUserAccessToken(String code) throws Exception {
 		if (StringUtils.isEmptyOrWhitespaceOnly(code)) {
@@ -54,7 +66,7 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public boolean login(String code, HttpServletResponse response){
+	public boolean login(String code,String organization, HttpServletResponse response){
 		try {
 			UserAccessToken userAccessToken = this.getUserAccessToken(code);
 			if (userAccessToken == null || userAccessToken.getErrcode() != -1) {
@@ -65,8 +77,9 @@ public class LoginServiceImpl implements LoginService {
 			if (userInfo == null || userInfo.getErrcode() != -1) {
 				return false;
 			}
-			AdminUser adminUser = adminUserTransactionService.wxLogin(userInfo,response);
+			AdminUser adminUser = adminUserTransactionService.wxLogin(userInfo,organization,response);
 			if(adminUser!=null){
+				setLastLoginTime(adminUser.getId());//设置最后一次登录时间
 				WebContextHelper.setSessionValue(Session_Keys.USER_INFO, adminUser);
 				return true;
 			}
@@ -74,5 +87,21 @@ public class LoginServiceImpl implements LoginService {
 			log.error("login exception", e);
 		}
 		return false;
+	}
+	
+	public void setLastLoginTime(Integer adminId){
+		LoginRecord loginRecord = loginRecordService.getLastLoginRecord(adminId);
+		if(loginRecord!=null){
+			WebContextHelper.setSessionValue(Session_Keys.LAST_LOGIN_TIME, DateUtils.parseStringFromDate(loginRecord.getLogin_time(), "yyyy-MM-dd HH:mm"));
+		}
+		loginLogExecutor.execute(new Runnable(){
+			@Override
+			public void run() {
+				LoginRecord lr = new LoginRecord(); 
+				lr.setLogin_time(new Date());
+				lr.setAdmin_id(adminId);
+				loginRecordService.save(lr);
+			}
+		});
 	}
 }

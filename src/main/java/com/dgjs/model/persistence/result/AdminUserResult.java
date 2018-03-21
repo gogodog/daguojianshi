@@ -13,7 +13,6 @@ public class AdminUserResult extends AdminUser{
 	private String real_name;//姓名
 	private int sex;//性别  1:男 2:女
 	private int age;//年龄
-	private String organization;//组织
 	private String email;//邮件
 	private String mobile;//电话
 	private String address;//地址
@@ -43,12 +42,6 @@ public class AdminUserResult extends AdminUser{
 	}
 	public void setAge(int age) {
 		this.age = age;
-	}
-	public String getOrganization() {
-		return organization;
-	}
-	public void setOrganization(String organization) {
-		this.organization = organization;
 	}
 	public String getEmail() {
 		return email;

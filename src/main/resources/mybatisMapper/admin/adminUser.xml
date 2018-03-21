@@ -15,7 +15,8 @@
            create_time,
            update_time,
            unionid,
-           openid
+           openid,
+           organization
           )  
     values 
     <foreach collection="list" item="item" index="index" separator=",">
@@ -29,7 +30,8 @@
            #{item.create_time},
            #{item.update_time},
            #{unionid},
-           #{openid}
+           #{openid},
+           #{organization}
           ) 
     </foreach> 
   </insert>
@@ -46,7 +48,8 @@
                create_time,
                update_time,
                unionid,
-               openid
+               openid,
+               organization
 	       )
 	       values
 	       (
@@ -59,12 +62,13 @@
                now(),
                now(),
                #{unionid},
-               #{openid}
+               #{openid},
+               #{organization}
 	       )
 	</insert>
 	
 	<select id="selectById" resultType="adminUser">
-	      select id,username,user_code,status,source,role_id,headimgurl,create_time,update_time,unionid,openid from admin_user where id=#{id}
+	      select id,username,user_code,status,source,role_id,headimgurl,create_time,update_time,unionid,openid,organization from admin_user where id=#{id}
 	</select>
 	
 	<update id="update">
@@ -76,12 +80,15 @@
 		     <if test="role_id!=null and role_id!=''">
 				role_id=#{role_id},
 		     </if>
+		     <if test="organization!=null">
+				organization=#{organization},
+		     </if>
 		     update_time = now()
 		     where id=#{id}
 	</update>
 	
 	<select id="list" resultType="adminUserResult">
-	   select au.id,au.username,au.user_code,au.status,au.source,au.role_id,au.headimgurl,au.unionid,au.openid
+	   select au.id,au.username,au.user_code,au.status,au.source,au.role_id,au.headimgurl,au.unionid,au.openid,au.organization
 	   ,aui.real_name,aui.sex,aui.age,aui.organization,aui.email,aui.mobile,aui.address,au.create_time
 	   ,aui.update_time,aui.province,aui.city,aui.country
 	   from admin_user au
@@ -133,10 +140,45 @@
 	</sql>
 	
 	<select id="getByUserCode" resultType="adminUser">
-	  select id,username,user_code,status,source,role_id,headimgurl,create_time,update_time,unionid,openid from admin_user where user_code=#{userCode}
+	  select id,username,user_code,status,source,role_id,headimgurl,create_time,update_time,unionid,openid,organization from admin_user where user_code=#{userCode}
 	</select>
 	
     <select id="getByUnionId" resultType="adminUser">
-      select id,username,user_code,status,source,role_id,headimgurl,create_time,update_time,unionid,openid from admin_user where unionid=#{unionid}
+      select id,username,user_code,status,source,role_id,headimgurl,create_time,update_time,unionid,openid,organization from admin_user where unionid=#{unionid}
     </select>
+    
+    <select id="listByRoleOrg" resultType="adminUserResult">
+      select au.id,au.username,au.user_code,au.status,au.source,au.role_id,au.headimgurl,au.unionid,au.openid,au.organization
+	   ,aui.real_name,aui.sex,aui.age,aui.organization,aui.email,aui.mobile,aui.address,au.create_time
+	   ,aui.update_time,aui.province,aui.city,aui.country
+	   from admin_user au
+	   left join admin_user_info aui on au.id=aui.id
+	   <include refid="listByRoleOrgSql"></include>
+        order by au.create_time desc
+        limit #{beginNum},#{onePageSize}
+    </select>
+    
+    <select id="listByRoleOrgCount" resultType="int">
+       select count(1) from admin_user au
+	   <include refid="listByRoleOrgSql"></include>
+    </select>
+    
+    <select id="listIdsByRoleOrg" resultType="int">
+       select au.id from admin_user au
+	   <include refid="listByRoleOrgSql"></include>
+    </select>
+    
+    <sql id="listByRoleOrgSql">
+      <where>
+	       <if test="organization!=null">
+	          au.organization = #{organization}
+	       </if>
+	       <if test="roleIds!=null and roleIds.size()>0">
+	           and  au.role_id in
+	           <foreach collection="roleIds" index="index" item="item" open="(" separator="," close=")">  
+                   #{item}  
+               </foreach>
+           </if>
+	   </where>
+    </sql>
 </mapper>

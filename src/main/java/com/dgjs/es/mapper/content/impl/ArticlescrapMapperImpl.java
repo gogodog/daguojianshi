@@ -356,6 +356,7 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 		}
 		String[] fastfdsPics = new String[picList.size()];
 		int progress=articlescrapEs.getProgress();
+		int originProgress = articlescrapEs.getProgress();
 		try {
 			for(int i=0;i<picList.size();i++){
 				String pic=picList.get(i);
@@ -390,9 +391,13 @@ public class ArticlescrapMapperImpl implements ArticlescrapMapper{
 				 articlescrapEs.setStatus(Articlescrap_Status.INIT.getKey());
 			 }
 		 }
-		 if(progress>1){
-			 for(int i=0;i<progress-1;i++){
-				 pics[i]=fastfdsPics[i+1];
+		 if(progress>originProgress){
+			 for(int i=originProgress;i<progress;i++){
+				 if(i==0){
+					 continue;
+				 }else{
+					 pics[i-1]=fastfdsPics[i];
+				 }
 			 }
 			 articlescrapEs.setPictures(pics);
 		 }

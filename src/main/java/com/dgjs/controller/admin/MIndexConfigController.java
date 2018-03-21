@@ -34,7 +34,6 @@ import com.dgjs.model.persistence.MIndexConfig;
 import com.dgjs.model.persistence.condition.ArticlescrapCondtion;
 import com.dgjs.model.persistence.condition.MIndexConfigCondition;
 import com.dgjs.model.result.view.BaseView;
-import com.dgjs.service.common.PictureService;
 import com.dgjs.service.config.ConfigService;
 import com.dgjs.service.content.ArticlescrapService;
 import com.dgjs.service.content.MIndexConfigService;
@@ -52,8 +51,6 @@ public class MIndexConfigController {
 	@Autowired
 	ArticlescrapService articlescrapService;
 	
-	@Autowired
-	PictureService pictureService;
 	
 	@RequestMapping("/list")
 	public ModelAndView list(MIndexConfigCondition condition){
@@ -67,7 +64,6 @@ public class MIndexConfigController {
 		mv.addObject("types", Index_Type.values());
 		mv.addObject("upDownStatus",UpDown_Status.values());
 		mv.addObject("positions", M_Index_Position.values());
-		mv.addObject("imagePath", pictureService.getImageContextPath());
 		return mv;
 	}
 	
@@ -265,7 +261,6 @@ public class MIndexConfigController {
 		MIndexConfig mIndexConfig = mIndexConfigService.selectById(id);
 		mv.addObject("mIndexConfig", mIndexConfig);
 		mv.addObject("positions", M_Index_Position.values());
-		mv.addObject("imageContextPath", pictureService.getImageContextPath());
 		MIndexConfigDto dto = configService.getMIndexConfigByKey(Index_Type.getConfigKey(mIndexConfig.getType()));
 		mv.addObject("dto", dto);
 		return mv;

@@ -1,6 +1,9 @@
 package com.dgjs.controller.admin;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,11 +19,13 @@ import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.enums.UpDown_Status;
 import com.dgjs.model.persistence.AdminUser;
 import com.dgjs.model.persistence.AdminUserInfo;
+import com.dgjs.model.persistence.Organization;
 import com.dgjs.model.persistence.Role;
 import com.dgjs.model.persistence.condition.AdminUserCondition;
 import com.dgjs.model.persistence.result.AdminUserResult;
 import com.dgjs.model.result.view.BaseView;
 import com.dgjs.service.admin.AdminUserService;
+import com.dgjs.service.admin.OrganizationService;
 import com.dgjs.service.admin.RoleService;
 import com.dgjs.service.config.ConfigService;
 
@@ -37,6 +42,9 @@ public class AdminController {
 	@Autowired
 	ConfigService configService;
 	
+	@Autowired
+	OrganizationService organizationService;
+	
 	@RequestMapping("/adminList")
 	public ModelAndView adminList(AdminUserCondition condition){
 		ModelAndView mv = new ModelAndView("admin/admin/admin_list");
@@ -45,7 +53,28 @@ public class AdminController {
 		mv.addObject("condition", condition);
 		List<Role> roleList = roleService.list();
 		mv.addObject("roleList", roleList);
+		mv.addObject("organizations", getOrganizationName(pageinfo));
 		return mv;
+	}
+	
+	private Map<String,String> getOrganizationName(PageInfoDto<AdminUserResult> pageinfo){
+		if(pageinfo==null)
+			return null;
+		List<AdminUserResult> resultList = pageinfo.getObjects();
+		if(resultList==null || resultList.isEmpty())
+			return null;
+		List<Integer> ids = new ArrayList<Integer>();
+		for(AdminUserResult adminUser:resultList){
+			ids.add(adminUser.getOrganization());
+		}
+		Map<String,String> map = new HashMap<String,String>();
+		if(ids.size() > 0){
+			List<Organization> orgList= organizationService.selectByIds(ids);
+			for(Organization organization:orgList){
+				map.put(String.valueOf(organization.getId()), organization.getOname());
+			}
+		}
+		return map;
 	}
 	
 	@ResponseBody
@@ -60,7 +89,7 @@ public class AdminController {
 		AdminUser adminUser = new AdminUser();
 		adminUser.setId(uid);
 		adminUser.setStatus(UpDown_Status.valueOf(status));
-		int flag = adminUserService.updateAdminUser(adminUser);
+		int flag = adminUserService.update(adminUser);
 		if(flag < 1){
 			bv.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
 		}
@@ -93,7 +122,7 @@ public class AdminController {
 		AdminUser adminUser = new AdminUser();
 		adminUser.setRole_id(role);
 		adminUser.setId(uid);
-		int flag=adminUserService.updateAdminUser(adminUser);
+		int flag=adminUserService.update(adminUser);
 		if(flag < 1){
 			bv.setBaseViewValue(RETURN_STATUS.SYSTEM_ERROR);
 		}

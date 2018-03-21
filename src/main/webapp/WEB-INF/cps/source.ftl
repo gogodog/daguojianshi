@@ -61,6 +61,7 @@
     <script src="/cps/js/bootstrap-fileupload.js?v=${staticVersion}"></script>
     <script src="/cps/js/ajaxfileupload.js?v=${staticVersion}"></script>
     <script src="/cps/js/lazyjoy.js?v=${staticVersion}"></script>
+    <script src="/cps/js/init.js?v=${staticVersion}"></script>
     <script>
       var contextPath="${contextPath}";
       var userId="${userId}";

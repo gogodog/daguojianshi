@@ -1,3 +1,4 @@
+var defaultUrl=contextPath+"/front/images/default.jpg";
 window.onload=function(){
 	total();
 	shishi();
@@ -6,7 +7,6 @@ window.onload=function(){
 	renwu();
 	yeshi();
 };
-
 function shishi(){
 	jQuery.ajax({
         type:"POST",
@@ -300,6 +300,7 @@ function total(){
             }
             $("#total").html(content);
             $("#totalmore").attr("href",moreLink);
+            $("img.lazy").lazyload({effect: "fadeIn",threshold: 200});
         }, 
         error:function(){
             console.log("加载失败");
@@ -313,7 +314,7 @@ function rplc(str){
 
 var shishi1="<article class=\"excerpt listright\" onclick=\"location.href='contextPath/show/aId'\">"
 	   +"<a class=\"focus\" href=\"javascript:void(0)\">"
-	   +"<img class=\"thumb\" src=\""+defaultImage+"\" lazy-joy='picUrl' style=\"display:inline;\">"
+	   +"<img class=\"thumb\" src=\"picUrl\" style=\"display:inline;\">"
 	   +"</a><header>"
 	   +"<a class=\"cat\" href=\"javascript:void(0)\">时事<i></i></a></h2>"
 	   +"<h2><a href=\"javascript:void(0)\">atitle</a></header>"
@@ -325,20 +326,20 @@ var shishi2="<article class=\"excerpt listtext\" onclick=\"location.href='contex
 	   +"<header><h2><a href=\"javascript:void(0)\" >&bull;&nbsp atitle</a></h2></header>"
 	   +"<p class=\"note\" style=\"display:block\">sub_content</p></article>";
 var zhengshi1="<article class=\"excerpt threeimg\" onclick=\"location.href='contextPath/show/aId'\">"
-	   +"<div class='diliimg'><img class=\"itemimg\" src=\""+defaultImage+"\" lazy-joy='picUrl1'></div>"
-	   +"<div class='diliimg'><img class=\"itemimg\" src=\""+defaultImage+"\" lazy-joy='picUrl2'></div>"
-	   +"<div class='diliimg'><img class=\"itemimg\" src=\""+defaultImage+"\" lazy-joy='picUrl3'></div>"
+	   +"<div class='diliimg'><img class=\"itemimg\" src=\"picUrl1\"></div>"
+	   +"<div class='diliimg'><img class=\"itemimg\" src=\"picUrl2\"></div>"
+	   +"<div class='diliimg'><img class=\"itemimg\" src=\"picUrl3\"></div>"
 	   +"<p style=\"text-align: left;padding-right: 10px;color: cadetblue;font-size: .5em;\">sub_content</p></article>";
 var zhengshi2="<article class=\"excerpt listtext\" onclick=\"location.href='contextPath/show/aId'\">"
 	   +"<header><h2><a href=\"javascript:void(0)\" >&bull;&nbsp atitle</a></h2></header>"
 	   +"<p class=\"note\" style=\"display:block\">sub_content</p></article>";
 var dili1="<article class=\"excerpt threeimg\" onclick=\"location.href='contextPath/show/aId'\">"
-       +"<div class='diliimg'><img class=\"itemimg\" src=\""+defaultImage+"\" lazy-joy='picUrl1'></div>"
-       +"<div class='diliimg'><img class=\"itemimg\" src=\""+defaultImage+"\" lazy-joy='picUrl2'></div>"
-       +"<div class='diliimg'><img class=\"itemimg\" src=\""+defaultImage+"\" lazy-joy='picUrl3'></div></article>";
+       +"<div class='diliimg'><img class=\"itemimg\" src=\"picUrl1\"></div>"
+       +"<div class='diliimg'><img class=\"itemimg\" src=\"picUrl2\"></div>"
+       +"<div class='diliimg'><img class=\"itemimg\" src=\"picUrl3\"></div></article>";
 var dili2="<article class=\"excerpt listright\" onclick=\"location.href='contextPath/show/aId'\">"
        +"<a class=\"focus\" href=\"javascript:void(0)\">"
-       +"<img class=\"thumb\" src=\""+defaultImage+"\" lazy-joy='picUrl' style=\"display:inline;\"></a>"
+       +"<img class=\"thumb\" src=\"picUrl\" style=\"display:inline;\"></a>"
        +"<header><a class=\"cat\" href=\"javascript:void(0)\">地理<i></i></a>"
        +"<h2><a class=\"dilitxt\" href=\"javascript:void(0)\">atitle</a></h2></header>"
        +"<p class=\"meta\"><time class=\"time\"><i class=\"glyphicon glyphicon-time\"></i> start_time</time>"
@@ -346,7 +347,7 @@ var dili2="<article class=\"excerpt listright\" onclick=\"location.href='context
 	   +"</p></article>";
 var renwu1="<article class=\"excerpt listright\" onclick=\"location.href='contextPath/show/aId'\">"
        +"<a class=\"focus\" href=\"javascript:void(0)\">"
-       +"<img class=\"thumb\" src=\""+defaultImage+"\" lazy-joy='picUrl' style=\"display:inline;\">"
+       +"<img class=\"thumb\" src=\"picUrl\" style=\"display:inline;\">"
 	   +"</a><header><a class=\"cat\" href=\"javascript:void(0)\">人物<i></i></a>"
 	   +"<h2><a class=\"dilitxt\" href=\"javascript:void(0)\">atitle</a></h2>"
 	   +"</header><p class=\"meta\"><time class=\"time\"><i class=\"glyphicon glyphicon-time\"></i>start_time</time>"
@@ -364,7 +365,7 @@ var yeshicrsl="<div class=\"itemactive\"><a href=\"linkUrl\">"
        +"<img src=\"image_url\" alt=\"cwillow\" class=\"img-responsive\" style=\"width:100%;height:100%\"></a>"         
        +"<a class=\"banner-title\" href=\"linkUrl\">image_desc</a></div>";
 var total1="<article class=\"excerpt listright\" onclick=\"location.href='contextPath/show/aId'\">"
-       +"<a class=\"focus\" href=\"javascript:void(0)\"><img class=\"thumb\" src=\""+defaultImage+"\" lazy-joy='picUrl' style=\"display:inline;\"></a>"
+       +"<a class=\"focus\" href=\"javascript:void(0)\"><img class=\"thumb\" src=\"picUrl\" data-original=\""+defaultUrl+"\" style=\"display:inline;\"></a>"
        +"<header><a class=\"cat\" href=\"javascript:void(0)\">atype<i></i></a>"
        +"<h2><a class=\"dilitxt\" href=\"javacript:void(0)\">atitle</a></h2></header>"
        +"<p class=\"meta\"><time class=\"time\"><i class=\"glyphicon glyphicon-time\"></i>start_time</time>"

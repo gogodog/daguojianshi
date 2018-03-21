@@ -6,11 +6,10 @@ import java.util.Map;
 
 import org.elasticsearch.search.sort.SortOrder;
 
-import com.dgjs.constants.Constants;
 import com.dgjs.model.enums.Articlescrap_Type;
 import com.dgjs.model.enums.Pending_Status;
 
-public class DraftCondition {
+public class DraftCondition extends BasePageCondition{
 
 	//基本信息
 	private String author;
@@ -20,11 +19,9 @@ public class DraftCondition {
 	private Date createTimeTo;
 	private String keyword;//关键词搜索
 	private Map<String, SortOrder> sort;
-	private int beginNum=0;//从哪条开始查
-	private int onePageSize=Constants.DEFAULT_ONEPAGESIZE;
-	private int currentPage=1;//当前页
-	private boolean needTotalResults;//是否需要查询总数
 	private Integer userId;//用户id
+	private List<Integer> userIdList;//多用户id
+	private int member;//0：自己 1：成员 2：全部
 	
 	//审核发布参数
 	private Pending_Status status;
@@ -57,30 +54,6 @@ public class DraftCondition {
 	}
 	public void setCreateTimeTo(Date createTimeTo) {
 		this.createTimeTo = createTimeTo;
-	}
-	public int getBeginNum() {
-		return beginNum;
-	}
-	public void setBeginNum(int beginNum) {
-		this.beginNum = beginNum;
-	}
-	public int getOnePageSize() {
-		return onePageSize;
-	}
-	public void setOnePageSize(int onePageSize) {
-		this.onePageSize = onePageSize;
-	}
-	public int getCurrentPage() {
-		return currentPage;
-	}
-	public void setCurrentPage(int currentPage) {
-		this.currentPage = currentPage;
-	}
-	public boolean isNeedTotalResults() {
-		return needTotalResults;
-	}
-	public void setNeedTotalResults(boolean needTotalResults) {
-		this.needTotalResults = needTotalResults;
 	}
 	public Map<String, SortOrder> getSort() {
 		return sort;
@@ -129,6 +102,18 @@ public class DraftCondition {
 	}
 	public void setStatusList(List<Pending_Status> statusList) {
 		this.statusList = statusList;
+	}
+	public List<Integer> getUserIdList() {
+		return userIdList;
+	}
+	public void setUserIdList(List<Integer> userIdList) {
+		this.userIdList = userIdList;
+	}
+	public int getMember() {
+		return member;
+	}
+	public void setMember(int member) {
+		this.member = member;
 	}
 
 }

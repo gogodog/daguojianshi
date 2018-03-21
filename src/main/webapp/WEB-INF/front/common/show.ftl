@@ -60,9 +60,9 @@
       </article>
       <div class="article-tags">
       	标签：
-   	    <a href="javascript:void(0)" rel="tag" >${(articlescrap.typeValue)!''}</a>
+   	    <a href="//www.cwillow.com/timeline?type=${articlescrap.type}" rel="tag" >${(articlescrap.typeValue)!''}</a>
       	<#list articlescrap.keywords as keywords>
-      	   <a href="javascript:void(0)" rel="tag" >${(keywords)!''}</a>
+      	   <a href="//www.cwillow.com/timeline?keyword=${(keywords)!''}" rel="tag" >${(keywords)!''}</a>
       	</#list>
         </div>
       <#include "/front/common/pieces/recommend.ftl">
@@ -82,5 +82,17 @@
     <#include "/front/common/pieces/footer_static.ftl">
     <script src="/front/js/business/keyword.js?v=${staticVersion}"></script>
     <script src="/front/js/business/show.js?v=${staticVersion}"></script>
+    <script src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script src="/front/js/business/wechat.js?v=${staticVersion}"></script>
+    <script>
+       window.onload=function(){
+    	   var result = new Object();
+    	   result.title = '${articlescrap.title}';
+    	   result.desc = '${articlescrap.sub_content}';
+    	   result.link = '//www.cwillow.com/show/${articlescrap.id}';
+    	   result.imgUrl = 'https:${imageContextPath}${articlescrap.showPic}';
+    	   wechat_init(result);
+	   }
+    </script>
 </body>
 </html>

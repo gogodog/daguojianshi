@@ -46,7 +46,6 @@ public class UserPicsController {
 		ModelAndView mv = new ModelAndView("/cps/source");
 		UserPicsDto userPics=userPicsService.selectById(WebContextHelper.getUserId());
 		mv.addObject("userPics", userPics);
-		mv.addObject("imageContextPath", pictureService.getImageContextPath());
 		mv.addObject("container", Constants.MAX_CONTAINER);
 		mv.addObject("fileSize", Constants.MAX_FILE_SIZE);
 		mv.addObject("onceContainer", Constants.ONECE_MAX_CONTAINER);

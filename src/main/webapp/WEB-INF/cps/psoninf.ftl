@@ -10,7 +10,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h1 class="page-head-line">个人信息</h1>
-                        <h1 class="page-subhead-line">完善的个人资料既可以更完美的展示您的魅力！</h1>
+                        <h1 class="page-subhead-line">完善的个人资料既可以更完美的展示您的魅力！&nbsp;&nbsp;&nbsp;<button type="button" id="joinGroup" class="btn btn-info">加入群组</button></h1>
                     </div>
 	            <div class="col-md-6">
                         <div class="panel panel-info">
@@ -21,7 +21,7 @@
 									<a href="javascript:void(0)" class="list-group-item">性别<span class="pull-right text-muted small"><em><#if adminUserInfo.sex == 1>男<#elseif adminUserInfo.sex == 2>女<#else></#if></em></span></a>
 									<a href="javascript:void(0)" class="list-group-item">年龄<span class="pull-right text-muted small"><em>${adminUserInfo.age}</em></span></a>
 									<a href="javascript:void(0)" class="list-group-item">组织<span class="pull-right text-muted small"><em>${adminUserInfo.organization}</em></span></a>
-                                </div>
+								</div>
                                 <a href="javascript:void(0)" class="btn btn-info btn-block" id="editBaseInfo">编辑</a>
                             </div>
                         </div>
@@ -49,6 +49,8 @@
         <!-- /. PAGE WRAPPER  -->
     </div>
    <#include "/cps/common/f-static.ftl">
+   <link rel="stylesheet" type="text/css" href="/cps/css/alertify.css?v=${staticVersion}">
+   <script src="/cps/js/alertify.js?v=${staticVersion}" type="text/javascript" charset="utf-8"></script>
    <script>
    var contextPath="${contextPath}";
      $("#editBaseInfo").click(function(){
@@ -178,6 +180,34 @@
                 }
             })
      }
+     
+     $("#joinGroup").click(function(){
+    	 var message = "推荐码：<input type=\"text\" id=\"invitation_code\">";  
+    	 alertify.confirm(message, function () {
+    		   var code = $("#invitation_code").val();
+   		   $.ajax({
+   	 		   async:false,
+   	 		   data:{code:code},
+   	 		   dataType: "json",
+   	 		   url:contextPath+"/cps/user/joinGroup",
+   	 		   type:"POST",
+   	 		   success:function(data) {
+   	                if(data.error){
+   	                	alertify.error(data.errorMessage);
+   	                }else{
+   	                	alert('加入成功');
+   	                    window.location.reload();
+   	                }
+   	            }, 
+   	            error:function(){
+   	            	alertify.error("服务器繁忙...");
+   	            }
+   	        })
+   	   }, function() {
+//   		   alertify.error("cancel");
+   	       // user clicked "cancel"
+   	   }); 
+     })
    </script>
 </body>
 </html>

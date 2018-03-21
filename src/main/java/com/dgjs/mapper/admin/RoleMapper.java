@@ -28,4 +28,9 @@ public interface RoleMapper {
 	
 	public List<Authority> getAuthoritysByRoleId(Integer role_id);
 	
+	
+	//查询子角色id（包括自己）
+	public List<Integer> getChildrenRoleIds(String roleCode);
+	public List<Role> getChildrenRoles(String roleCode);
+	
 }

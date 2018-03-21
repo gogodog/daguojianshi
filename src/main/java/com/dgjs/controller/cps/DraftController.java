@@ -27,6 +27,7 @@ import com.dgjs.model.enums.OperateEnum;
 import com.dgjs.model.enums.Pending_Status;
 import com.dgjs.model.persistence.condition.DraftCondition;
 import com.dgjs.model.result.view.BaseView;
+import com.dgjs.service.admin.AdminUserService;
 import com.dgjs.service.common.PictureService;
 import com.dgjs.service.content.DraftService;
 import com.dgjs.service.content.UserPicsService;
@@ -47,16 +48,22 @@ public class DraftController {
 	@Autowired
 	UserPicsService userPicsService;
 	
+	@Autowired
+	AdminUserService adminUserService;
+	
 	@RequestMapping("/draft")
-	public ModelAndView list(HttpServletRequest request,DraftCondition condtion){
+	public ModelAndView list(HttpServletRequest request,DraftCondition condition){
 		ModelAndView mv = new ModelAndView("/cps/draft");
-		condtion.setUserId(WebContextHelper.getUserId());
-		condtion.setStatusList(Arrays.asList(Pending_Status.INIT,Pending_Status.Audit_FAIL));
+		condition.setUserId(WebContextHelper.getUserId());
+		condition.setStatusList(Arrays.asList(Pending_Status.INIT,Pending_Status.Audit_FAIL));
 		Map<String, SortOrder> map = new HashMap<String, SortOrder>();
 		map.put("update_time", SortOrder.DESC);
-		condtion.setSort(map);
-		PageInfoDto<Draft> pageinfo=draftService.listDrafts(condtion);
+		condition.setSort(map);
+		PageInfoDto<Draft> pageinfo=draftService.listDrafts(condition);
+		mv.addObject("statusList", Pending_Status.values());
+		mv.addObject("typeList", Articlescrap_Type.values());
 		mv.addObject("pageinfo", pageinfo);
+		mv.addObject("condition", condition);
 		return mv;
 	}
 	
@@ -78,7 +85,6 @@ public class DraftController {
 				jsa.add(jso1);
 			}
 			mv.addObject("userPics", jsa);
-			mv.addObject("imageContextPath", pictureService.getImageContextPath());
 		}
 		return mv;
     }
@@ -141,6 +147,11 @@ public class DraftController {
 			 isSuccess=draftService.saveDraft(draft);
 		}else{
 			 try {
+				 //如果不是本人修改
+				if(draft.getUser_id().intValue()!=WebContextHelper.getUserId().intValue()){
+					mv.setBaseViewValue(RETURN_STATUS.PARAM_ERROR.name(),"不是本人");
+					return mv;
+				}
 				isSuccess=draftService.updateDraft(draft);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -202,4 +213,5 @@ public class DraftController {
 		draftService.submitAudit(aid, showPic);
 		return mv;
 	}
+	
 }

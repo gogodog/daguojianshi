@@ -69,8 +69,8 @@ public class LoginController {
 	}
 	
 	@RequestMapping("/cps/ck")
-	public ModelAndView loginCallBack(String code, String state,HttpServletRequest request,HttpServletResponse response) {
-		boolean isLogin = loginService.login(code,response);
+	public ModelAndView loginCallBack(String code, String state,String organization,HttpServletRequest request,HttpServletResponse response) {
+		boolean isLogin = loginService.login(code,organization,response);
 		ModelAndView mv = null;
 		if(!isLogin){//获取用户信息失败
 			mv = new ModelAndView("/cps/login");

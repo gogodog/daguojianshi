@@ -9,6 +9,7 @@ public class OrganizationCondition extends Organization{
 	private int currentPage=1;//当前页
 	private boolean needTotalResults;//是否需要查询总数
 	private int beginNum;
+	
 	public int getOnePageSize() {
 		return onePageSize;
 	}
@@ -33,5 +34,4 @@ public class OrganizationCondition extends Organization{
 	public void setBeginNum(int beginNum) {
 		this.beginNum = beginNum;
 	}
-	
 }

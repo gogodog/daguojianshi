@@ -24,9 +24,9 @@
 		        </form>
 			    <table class="public-cont-table">
 					<tr>
-					    <th style="width:15%">用户code</th>
+					    <th style="width:10%">用户code</th>
 						<th style="width:10%">用户名</th>
-						<th style="width:10%">来源</th>
+						<th style="width:15%">来源</th>
 						<th style="width:10%">角色</th>
 						<th style="width:10%">电话</th>
 						<th style="width:12%">姓名</th>
@@ -37,7 +37,7 @@
 					  <tr title="角色:${result.role_name},性别:<#if result.sex == 1>男<#elseif result.sex == 2>女</#if>,年龄:${result.age},地址:${result.address}">
 					     <td>${result.user_code}</td>			
 					     <td>${result.username}</td>
-					     <td>${result.organization}</td>	
+					     <td> <#assign key="${result.organization!''?string}">${organizations[key]}</td>	
 					     <td>${result.role_name}</td>	
 					     <td>${result.mobile}</td>	
 					     <td>${result.real_name}</td>	

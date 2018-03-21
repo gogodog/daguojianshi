@@ -11,6 +11,23 @@
                     <div class="col-md-12">
                         <h1 class="page-head-line">草稿箱</h1>
                         <h1 class="page-subhead-line">[温馨提示]提审之后请到文章管理查看已提审的文章，审核时间一般为1-3个工作日请耐心等候. </h1>
+                        <form action="${contextPath}/cps/dft/draft" method="post" id="form1">
+                             <label>分类:</label>
+                             <div class="btn-group">
+		                             <button style="width:100px;" data-toggle="dropdown" class="btn btn-warning dropdown-toggle"><span id="type_show" >${condition.type.value!'全部'}</span><span class="caret"></span></button>
+		                             <ul class="dropdown-menu">
+		                             	<li><a href="#" tosl="" onmouseup="changeSelect(this,$('#type'),$('#type_show'))">全部</a></li>
+		                                 <#list typeList as type>
+		                                 	<li><a href="#" tosl="${type}" onmouseup="changeSelect(this,$('#type'),$('#type_show'))">${type.value}</a></li>
+		                                 </#list>
+		                             </ul>
+		                         </div>
+		                         <input type="hidden" value="${condition.type}" id="type" name="type"/>
+		                         <input type="hidden" value="${condition.member}" id="member" name="member"/>
+                              <label>标题:<input class="form-control" style="display: inline;width: auto;" placeholder="输入标题" type="text" name="title" value="${condition.title}"></label>
+                              <label><button class="btn btn-primary" name="conditionButton"><i class="glyphicon glyphicon-search"></i>查询</button></label>
+		                 </form>
+		                 <h1 class="page-head-line"></h1>
                     </div>
                 </div>
                 <!-- page begin-->
@@ -59,6 +76,10 @@
     <script src="/admin/js/confirm/xcConfirm.js?v=${staticVersion}" type="text/javascript" charset="utf-8"></script>
     <script>
     var contextPath="${contextPath}";
+    function changeSelect(that,hidName,showName){
+		hidName.val($(that).attr('tosl'));
+		showName.text($(that).text());
+	}
     function deleteA(aid){
     	var txt = "您确定要删除这条数据吗？";
     	window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.confirm,{onOk:function(){

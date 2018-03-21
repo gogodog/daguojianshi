@@ -4,26 +4,14 @@ import java.util.Date;
 
 import org.springframework.util.StringUtils;
 
-import com.dgjs.constants.Constants;
 import com.dgjs.utils.DateUtils;
 
-public class FrontFeedBackCondition {
+public class FrontFeedBackCondition extends BasePageCondition{
 	
 	private String articlescrap_id;
 	private Date timeFrom;
 	private Date timeTo;
-	private int beginNum;
-	private int onePageSize=Constants.DEFAULT_ONEPAGESIZE;
-	private int currentPage=1;
-	private boolean needTotalResults;
 	
-	
-	public boolean isNeedTotalResults() {
-		return needTotalResults;
-	}
-	public void setNeedTotalResults(boolean needTotalResults) {
-		this.needTotalResults = needTotalResults;
-	}
 	public String getArticlescrap_id() {
 		return articlescrap_id;
 	}
@@ -41,24 +29,6 @@ public class FrontFeedBackCondition {
 	}
 	public void setTimeTo(Date timeTo) {
 		this.timeTo = timeTo;
-	}
-	public int getBeginNum() {
-		return beginNum;
-	}
-	public void setBeginNum(int beginNum) {
-		this.beginNum = beginNum;
-	}
-	public int getOnePageSize() {
-		return onePageSize;
-	}
-	public void setOnePageSize(int onePageSize) {
-		this.onePageSize = onePageSize;
-	}
-	public int getCurrentPage() {
-		return currentPage;
-	}
-	public void setCurrentPage(int currentPage) {
-		this.currentPage = currentPage;
 	}
 	public void setTime_from(String time_from) {
 		if(!StringUtils.isEmpty(time_from)){

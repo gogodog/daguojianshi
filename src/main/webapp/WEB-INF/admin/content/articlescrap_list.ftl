@@ -30,10 +30,10 @@
 			  </form>
 			    <table class="public-cont-table">
 					<tr>
+					    <th style="width:10%">封面</th>
 					    <th style="width:10%">文章id</th>
-						<th style="width:17%">文章标题</th>
-						<th style="width:10%">文章展示时间</th>
-						<th style="width:7%">分类</th>
+						<th style="width:20%">文章标题</th>
+						<th style="width:8%">分类</th>
 						<th style="width:7%">状态</th>
 						<th style="width:10%">作者</th>
 						<th style="width:15%">时间</th>
@@ -41,13 +41,16 @@
 					</tr>
 					<#list pageInfo.objects as articlescrap>
 					  <tr>
+					     <td><img src="${fastFDSContextPath}${articlescrap.showPic}" style="width:150px;height:100px"></td>
 					     <td>${articlescrap.id}</td>			
 					     <td><a href = "/admin/atcp/previewArticlescrap?articlescrapId=${articlescrap.id}">${articlescrap.title}</a></td>						
-					     <td>${articlescrap.show_time?datetime}</td>
 					     <td>${articlescrap.type.value}</td>	
 					     <td>${articlescrap.status.value}</td>
 					     <td>${articlescrap.author}</td>
-					     <td>创建时间：<br>${articlescrap.create_time?datetime}<br>修改时间：<br>${articlescrap.update_time?datetime}</td>
+					     <td>创建时间：<br>${articlescrap.create_time?datetime}<br>
+					         修改时间：<br>${articlescrap.update_time?datetime}<br>
+					         文章展示时间:<br>${articlescrap.show_time?datetime}
+					     </td>
 					     <td>
 					     	<div class="table-fun-1">
 					     	<!--	<a href="/admin/atcp/articlescrap?articlescrapId=${articlescrap.id}">修改</a> -->
