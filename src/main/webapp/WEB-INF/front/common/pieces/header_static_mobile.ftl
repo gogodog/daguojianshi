@@ -18,7 +18,7 @@
 	<meta name="googlebot" content="index, follow">
 	<meta name="author" content="cwillow_mobile">
 	<meta name="baidu-site-verification" content="rTnMzcp5WP">
-    <title>简史</title>
+    <title>简史网</title>
     <link rel="stylesheet" type="text/css" href="/front/css/bootstrap.min.css?v=${staticVersion}">
     <link rel="stylesheet" type="text/css" href="/front/css/nprogress.css?v=${staticVersion}">
     <link rel="stylesheet" type="text/css" href="/front/css/style.css?v=${staticVersion}">
