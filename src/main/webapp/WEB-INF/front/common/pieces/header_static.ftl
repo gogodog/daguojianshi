@@ -4,9 +4,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="x5-fullscreen" content="true">
 	<meta name="full-screen" content="yes">
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    
     <meta name="keywords" content="手机简史网,手机大国简史,历史资料,大国简史无线">
 	<meta name="description" content="cwillow.com">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
@@ -21,7 +18,7 @@
 	<meta name="author" content="cwillow_mobile">
 	<meta name="baidu-site-verification" content="rTnMzcp5WP">
     
-    <title>简史</title>
+    <title>简史网</title>
     <link rel="stylesheet" type="text/css" href="/front/css/bootstrap.min.css?v=${staticVersion}">
     <link rel="stylesheet" type="text/css" href="/front/css/nprogress.css?v=${staticVersion}">
     <link rel="stylesheet" type="text/css" href="/front/css/style.css?v=${staticVersion}">
