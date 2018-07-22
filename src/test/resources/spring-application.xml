@@ -34,4 +34,8 @@
 		factory-method="newFixedThreadPool" destroy-method="shutdown">
 		<constructor-arg value="1" />
 	</bean>
+	<!-- 登录日志处理 -->
+	<bean id="loginLogExecutor" class="java.util.concurrent.Executors" factory-method="newFixedThreadPool" destroy-method="shutdown">
+		<constructor-arg value="1" />
+	</bean>
 </beans>

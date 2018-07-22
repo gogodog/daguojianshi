@@ -210,7 +210,7 @@ public class TimeLineController {
 			dt.setStartDate(a.getYear()+"");
 			if(a.getSub_content().length()>100){
 				dt.setText("");
-				one.setMedia(imageContextPath+a.getShow_picture());
+				one.setMedia(imageContextPath+a.getShowPic());
 			}else{
 				dt.setText(a.getSub_content()+"<br><a href='"+contextPath+"/show/"+a.getId()+"'>阅读原文 >></a>");
 			}

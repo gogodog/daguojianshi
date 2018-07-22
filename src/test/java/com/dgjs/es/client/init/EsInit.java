@@ -2,8 +2,10 @@ package com.dgjs.es.client.init;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -263,5 +265,25 @@ public class EsInit {
 		articlescrap.setShowPic("/images/userPics/1/p_100/20180118115535194777.jpg");
 		int flag = articlescrapMapper.updateArticlescrap(articlescrap);
 		System.out.println(flag);
+	}
+	
+	@Test
+	public void testX() throws Exception{
+		ArticlescrapCondtion condition = new ArticlescrapCondtion();
+		condition.setOnePageSize(100);
+		PageInfoDto<Articlescrap> pageinfo = articlescrapMapper.listArticlescrap(condition);
+		List<Articlescrap> list = pageinfo.getObjects();
+		Set<String> ids = new HashSet<String>();
+		for(Articlescrap articlescrap:list){
+			if(articlescrap.getPictures()==null || articlescrap.getPictures().length==0){
+				ids.add(articlescrap.getId());
+			}
+		}
+//		for(String id:ids){
+//			Articlescrap articlescrap = articlescrapMapper.getArticlescrapAll(id);
+//			String[] pics = new String[]{articlescrap.getShowPic()};
+//			articlescrap.setPictures(pics);
+//			articlescrapMapper.updateArticlescrap(articlescrap);
+//		}
 	}
 }
