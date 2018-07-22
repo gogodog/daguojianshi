@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-    <#include "/common/pieces/header_static.ftl"/>
+    <#include "/front/common/pieces/header_static.ftl"/>
 </head>
 <body class="user-select">
     <#include "/common/pieces/header.ftl"/>

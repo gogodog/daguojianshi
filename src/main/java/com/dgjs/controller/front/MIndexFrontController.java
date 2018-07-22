@@ -424,7 +424,7 @@ public class MIndexFrontController {
 		condition.setOnePageSize(randomNum);
 		Calendar showTimeFrom = Calendar.getInstance();
 		//查询时间在3个月内的
-		showTimeFrom.add(Calendar.MONTH, -3);
+		showTimeFrom.add(Calendar.YEAR, -3);
 		condition.setShowTimeFromD(showTimeFrom.getTime());
 		PageInfoDto<Articlescrap> dto = articlescrapService.listArticlescrap(condition);
 		List<Articlescrap> list = null;
